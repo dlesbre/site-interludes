@@ -1,7 +1,33 @@
-body {
-	background-color: #FFF;
+html, body {
 	color: #333;
-	font-size: 1em;
+	font-size: 18px;
+	font-weight: 300;
 	line-height: 1.5;
 	font-family: Arial, Roboto, Helvetica, sans-serif;
+}
+
+body {
+	background-color: #FFF;
+}
+
+a:link {
+	text-decoration: underline;
+	color: rgb(62, 62, 255);
+}
+
+section {
+	text-align: justify;
+}
+
+section > * {
+	max-width: 960px;
+
+	margin-left: calc(50% - 480px);
+	padding-left: 60px;
+	padding-right: 60px;
+}
+
+section p {
+	padding-bottom: 20px;
+	font-size: 1rem;
 }
