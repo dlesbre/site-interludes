@@ -15,6 +15,19 @@ a:link {
 	color: rgb(62, 62, 255);
 }
 
+.header {
+	background-color: #006809;
+	margin-top: 0;
+	padding: 5px 5px 20px 20px;
+}
+
+.header h1, .header h1 a, .header h1 a:visited, .header h1 a:active {
+	color: #ddd;
+	font-size: 60px;
+	text-decoration: none;
+	text-align: center;
+}
+
 section {
 	text-align: justify;
 }
@@ -23,11 +36,11 @@ section > * {
 	max-width: 960px;
 
 	margin-left: calc(50% - 480px);
+	margin-right: calc(50% - 480px);
 	padding-left: 60px;
 	padding-right: 60px;
 }
 
 section p {
-	padding-bottom: 20px;
 	font-size: 1rem;
 }
