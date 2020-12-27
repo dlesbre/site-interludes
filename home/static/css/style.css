@@ -21,15 +21,25 @@ header {
 	margin: 0px;
 	border-top: 0px;
 	align-items: center;
-	padding: 0px 0px 20px 20px;
+	padding: 0px 40px 0px 40px;
+}
+
+header > * {
+	color: #ddd;
+	width: 100%;
 }
 
 header h1, header h1 a, header h1 a:visited, header h1 a:active {
-	color: #ddd;
-	font-size: 60px;
+	color: inherit;
+	font-size: 70px;
 	text-decoration: none;
-	text-align: center;
-	width: 100%;
+}
+
+header #head_main_infos {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	font-size: 20pt;
 }
 
 nav {

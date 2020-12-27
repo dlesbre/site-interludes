@@ -2,23 +2,35 @@
 <!doctype html>
 <html lang=fr>
 	<head>
-		<title>Site title</title>
-		<meta name="description" content="Site description">
-		<meta name="keywords" content="Keywords for search">
-    <meta charset="utf-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<title>Interludes 2021</title>
+		<meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2021">
+		<meta name="keywords" content="Interludes ENS événement COF 2021 InterENS">
+		<!-- <link rel="icon" type="image/png" href="/static/img/favicon.png"/> -->
+
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	</head>
 	<body>
+
 		<header>
-				<h1><a href="/">The site's title</a></h1>
+			<div id="header_logo">
+				<h1><a href="/">Interludes 2021</a></h1>
+			</div>
+			<div id="head_main_infos">
+				<div id="location">ENS Ulm</div>
+				<div id="date">9-11 avril 2021</div>
+			</div>
 		</header>
+
 		<nav>
 			<a href="/" class="internal">Inscriptions</a>
 			<a href="/" class="internal">Activités</a>
 			<a href="/" class="internal">FAQ</a>
 			<a href="/" class="internal">Bouton autre</a>
 		</nav>
+
 		<main>
 			<h2>A Title</h2>
 			<p>a paragraph</p>
@@ -29,5 +41,6 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 		</main>
+
 	</body>
 </html>
