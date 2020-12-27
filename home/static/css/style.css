@@ -4,20 +4,14 @@
 }
 
 html, body {
+	background-color: #eeeeee;
 	color: #333;
 	font-size: 18px;
 	font-weight: 300;
 	line-height: 1.5;
 	font-family: Arial, Roboto, Helvetica, sans-serif;
-}
-
-body {
+	align-items: center;
 	margin: 0;
-}
-
-section a:link {
-	text-decoration: underline;
-	color: rgb(62, 62, 255);
 }
 
 header {
@@ -67,18 +61,17 @@ nav a:hover {
 }
 
 main {
+	background-color: white;
+  justify-content: center;
 	text-align: justify;
-}
-
-main > * {
-	max-width: 960px;
-	margin-left: 15%;
-	margin-right: 15%;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding: 10px 30px 10px 30px;
+	max-width: 920px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 main h2 {
+	padding-top: 30px;
 	font-size: 1.5rem;
 	font-weight: 300;
 	text-align: left;
@@ -89,4 +82,9 @@ main h2 {
 
 main p {
 	font-size: 1rem;
+}
+
+main a:link {
+	text-decoration: underline;
+	color: rgb(62, 62, 255);
 }
