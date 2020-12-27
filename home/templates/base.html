@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html lang=fr>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Interludes 2021</title>
+		<meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2021">
+		<meta name="keywords" content="Interludes ENS événement COF 2021 InterENS">
+		<!-- <link rel="icon" type="image/png" href="/static/img/favicon.png"/> -->
+
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	</head>
+	<body>
+
+		<header>
+			<div id="header_logo">
+				<h1><a href="/">Interludes 2021</a></h1>
+			</div>
+			<div id="head_main_infos">
+				<div id="location">ENS Ulm</div>
+				<div id="date">9-11 avril 2021</div>
+			</div>
+		</header>
+
+		<nav>
+			<a href="/" class="internal">Inscriptions</a>
+			<a href="/" class="internal">Activités</a>
+			<a href="/" class="internal">FAQ</a>
+			<a href="/" class="internal">Bouton autre</a>
+		</nav>
+
+		<main>
+			{% block "content" %}
+			{% endblock %}
+		</main>
+
+		<footer>
+			logos, liens...
+		</footer>
+
+	</body>
+</html>
