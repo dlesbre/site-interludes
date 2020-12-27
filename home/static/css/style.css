@@ -64,14 +64,13 @@ main {
 	background-color: white;
   justify-content: center;
 	text-align: justify;
-	padding: 10px 30px 10px 30px;
+	padding: 1px 30px 1px 30px;
 	max-width: 920px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 auto 0 auto;
 }
 
 main h2 {
-	padding-top: 30px;
+	padding-top: 20px;
 	font-size: 1.5rem;
 	font-weight: 300;
 	text-align: left;
