@@ -66,11 +66,11 @@ nav a:hover {
 	transition-duration: 0.5s;
 }
 
-section {
+main {
 	text-align: justify;
 }
 
-section > * {
+main > * {
 	max-width: 960px;
 	margin-left: 15%;
 	margin-right: 15%;
@@ -78,7 +78,7 @@ section > * {
 	padding-right: 10px;
 }
 
-section h2 {
+main h2 {
 	font-size: 1.5rem;
 	font-weight: 300;
 	text-align: left;
@@ -87,6 +87,6 @@ section h2 {
 	border-image-slice: 1;
 }
 
-section p {
+main p {
 	font-size: 1rem;
 }
