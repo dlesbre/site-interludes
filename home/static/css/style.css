@@ -12,7 +12,7 @@ html, body {
 }
 
 body {
-	background-color: #FFF;
+	margin: 0;
 }
 
 section a:link {
@@ -39,6 +39,7 @@ section a:link {
 }
 
 nav {
+	text-align: center;
 	display: flex;
 	justify-content: center space-around;
 	background-color: var(--color_bg_2);
@@ -46,15 +47,6 @@ nav {
 	margin: 0;
 	padding: 0 30px;
 	border-bottom: 5px solid var(--color_bg_2);
-}
-
-nav div {
-	text-align: center;
-
-	text-decoration: bold;
-	width: 100%;
-	/* background-color: #00b80f; */
-	border-radius: 0%;
 }
 
 nav a {
