@@ -75,11 +75,19 @@ section {
 
 section > * {
 	max-width: 960px;
+	margin-left: 15%;
+	margin-right: 15%;
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
-	margin-left: calc(50% - 480px);
-	margin-right: calc(50% - 480px);
-	padding-left: 60px;
-	padding-right: 60px;
+section h2 {
+	font-size: 1.5rem;
+	font-weight: 300;
+	text-align: left;
+	border-bottom: 2px solid #006809;
+	border-image-source: linear-gradient(to right, #006809 0%, transparent 75%);
+	border-image-slice: 1;
 }
 
 section p {
