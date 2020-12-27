@@ -1,3 +1,8 @@
+:root {
+	--color_bg_1: #00b80f;
+	--color_bg_2: #006809;
+}
+
 html, body {
 	color: #333;
 	font-size: 18px;
@@ -16,12 +21,12 @@ section a:link {
 }
 
 .header {
-  display: flex;
-	background-color: #00b80f;
-  border-bottom: 5px solid #006809;
+	display: flex;
+	background-color: var(--color_bg_1);
+	border-bottom: 5px solid var(--color_bg_2);
 	margin: 0px;
 	border-top: 0px;
-  align-items: center;
+	align-items: center;
 	padding: 0px 0px 20px 20px;
 }
 
@@ -34,13 +39,13 @@ section a:link {
 }
 
 nav {
-  display: flex;
-  justify-content: center space-around;
-  background-color: #006809;
-  color: white;
-  margin: 0;
-  padding: 0 30px;
-  border-bottom: 5px solid #006809;
+	display: flex;
+	justify-content: center space-around;
+	background-color: var(--color_bg_2);
+	color: white;
+	margin: 0;
+	padding: 0 30px;
+	border-bottom: 5px solid var(--color_bg_2);
 }
 
 nav div {
@@ -65,7 +70,7 @@ nav a {
 
 nav a:hover {
 	transition-property: background-color;
-	background-color: #00b80f;
+	background-color: var(--color_bg_1);
 	transition-duration: 0.5s;
 }
 
@@ -85,8 +90,8 @@ section h2 {
 	font-size: 1.5rem;
 	font-weight: 300;
 	text-align: left;
-	border-bottom: 2px solid #006809;
-	border-image-source: linear-gradient(to right, #006809 0%, transparent 75%);
+	border-bottom: 2px solid var(--color_bg_2);
+	border-image-source: linear-gradient(to right, var(--color_bg_2) 0%, transparent 75%);
 	border-image-slice: 1;
 }
 
