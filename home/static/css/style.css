@@ -10,15 +10,19 @@ body {
 	background-color: #FFF;
 }
 
-a:link {
+section a:link {
 	text-decoration: underline;
 	color: rgb(62, 62, 255);
 }
 
 .header {
-	background-color: #006809;
-	margin-top: 0;
-	padding: 5px 5px 20px 20px;
+  display: flex;
+	background-color: #00b80f;
+  border-bottom: 5px solid #006809;
+	margin: 0px;
+	border-top: 0px;
+  align-items: center;
+	padding: 0px 0px 20px 20px;
 }
 
 .header h1, .header h1 a, .header h1 a:visited, .header h1 a:active {
@@ -26,6 +30,43 @@ a:link {
 	font-size: 60px;
 	text-decoration: none;
 	text-align: center;
+	width: 100%;
+}
+
+nav {
+  display: flex;
+  justify-content: center space-around;
+  background-color: #006809;
+  color: white;
+  margin: 0;
+  padding: 0 30px;
+  border-bottom: 5px solid #006809;
+}
+
+nav div {
+	text-align: center;
+
+	text-decoration: bold;
+	width: 100%;
+	/* background-color: #00b80f; */
+	border-radius: 0%;
+}
+
+nav a {
+	margin-left: 5px;
+	margin-right: 5px;
+	padding: 5px 5px 5px 5px;
+	font-size: 20px;
+	color: white;
+	text-decoration: none;
+	text-emphasis: bold;
+	width: 100%;
+}
+
+nav a:hover {
+	transition-property: background-color;
+	background-color: #00b80f;
+	transition-duration: 0.5s;
 }
 
 section {
