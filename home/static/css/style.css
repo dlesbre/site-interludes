@@ -20,7 +20,7 @@ section a:link {
 	color: rgb(62, 62, 255);
 }
 
-.header {
+header {
 	display: flex;
 	background-color: var(--color_bg_1);
 	border-bottom: 5px solid var(--color_bg_2);
@@ -30,7 +30,7 @@ section a:link {
 	padding: 0px 0px 20px 20px;
 }
 
-.header h1, .header h1 a, .header h1 a:visited, .header h1 a:active {
+header h1, header h1 a, header h1 a:visited, header h1 a:active {
 	color: #ddd;
 	font-size: 60px;
 	text-decoration: none;
