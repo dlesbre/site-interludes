@@ -5,7 +5,7 @@
 }
 
 html, body {
-	background-color: #eeeeee;
+	background-color: #dddddd;
 	color: #333;
 	font-size: 18px;
 	font-weight: 300;
@@ -20,7 +20,7 @@ header {
 	background-color: var(--color_bg_1);
 	border-bottom: 2px solid var(--color_sep);
 	align-items: center;
-	padding: 0px 40px 0px 40px;
+	padding: 0px 40px;
 }
 
 header > * {
@@ -52,7 +52,7 @@ nav {
 }
 
 nav a {
-	padding: 5px 5px 5px 5px;
+	padding: 5px;
 	font-size: 20px;
 	color: white;
 	text-decoration: none;
@@ -70,7 +70,7 @@ main {
 	background-color: white;
   justify-content: center;
 	text-align: justify;
-	padding: 1px 30px 1px 30px;
+	padding: 1px 30px;
 	max-width: 920px;
 	margin: 0 auto 0 auto;
 }
@@ -100,5 +100,5 @@ footer {
 	background-color: var(--color_bg_1);
 	border-top: 5px solid var(--color_bg_2);
 	align-items: center;
-	padding: 0px 40px 0px 40px;
+	padding: 0px 40px;
 }
