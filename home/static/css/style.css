@@ -1,6 +1,8 @@
 :root {
+	--color-bg: #fefefe;
 	--color_bg_1: #4c4c7c;
 	--color_bg_2: #26263c;
+	--color_bg_3: #39395c;
 	--color_sep: #eb811b;
 }
 
@@ -49,6 +51,7 @@ nav {
 	color: white;
 	margin: 0;
 	padding: 0 20px;
+	border-bottom: 6px solid var(--color_bg_1);
 }
 
 nav a {
@@ -62,12 +65,16 @@ nav a {
 
 nav a:hover {
 	transition-property: background-color;
-	background-color: var(--color_bg_1);
+	background-color: var(--color_bg_3);
 	transition-duration: 0.5s;
 }
 
+nav a.current {
+	background-color: var(--color_bg_1);
+}
+
 main {
-	background-color: white;
+	background-color: var(--color-bg);
   justify-content: center;
 	text-align: justify;
 	padding: 1px 30px;
@@ -76,6 +83,7 @@ main {
 }
 
 main h2 {
+	color: var(--color_bg_2);
 	padding-top: 20px;
 	font-size: 1.5rem;
 	font-weight: 300;

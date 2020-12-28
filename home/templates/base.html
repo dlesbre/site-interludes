@@ -25,10 +25,26 @@
 		</header>
 
 		<nav>
-			<a href="/" class="internal">Inscriptions</a>
-			<a href="/" class="internal">Activités</a>
-			<a href="/" class="internal">FAQ</a>
-			<a href="/" class="internal">Bouton autre</a>
+			<a href="/" rel="text/html"
+				class={% if slug == "home" %}"current"{% else %}"internal"{% endif %}>
+				Acceuil
+			</a>
+			<a href="/inscription/" rel="text/html"
+				class={% if slug == "inscription" %}"current"{% else %}"internal"{% endif %}>
+				Inscriptions
+			</a>
+			<a href="/activites/" rel="text/html"
+				class={% if slug == "activites" %}"current"{% else %}"internal"{% endif %}>
+				Activités
+			</a>
+			<a href="/faq/" rel="text/html"
+				class={% if slug == "faq" %}"current"{% else %}"internal"{% endif %}>
+				FAQ
+			</a>
+			<a href="/undef/" rel="text/html"
+				class={% if slug == "undef" %}"current"{% else %}"internal"{% endif %}>
+				Bouton autre
+			</a>
 		</nav>
 
 		<main>
