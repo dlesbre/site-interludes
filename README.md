@@ -23,3 +23,19 @@ Pour tester modifier le repo, après l'avoir cloné :
 4. Installer les requirements
 
 		pip install -r requirements.txt
+
+## Test
+
+Pour pouvoir afficher et tester le site (après avoir tout installer)
+
+1. Lancer l'environnement virtuel si ce n'est pas déjà fait (si le prompt du terminal ne commence pas par `(venv)`)
+
+		source venv/bin/activate
+
+2. Lancer le serveur avec
+
+		python manage.py runserver
+
+	Cette commande bloque le terminal, le serveur tourne tant qu'elle n'est pas interrompue (par `Ctrl+C` ou autre)
+
+3. Dans un navigateur, le site se trouve à l'adresse [http://localhost:8000/](http://localhost:8000/)
