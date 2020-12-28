@@ -26,7 +26,7 @@ Pour tester modifier le repo, après l'avoir cloné :
 
 ## Test
 
-Pour pouvoir afficher et tester le site (après avoir tout installer)
+Pour pouvoir afficher et tester le site (après avoir tout installé)
 
 1. Lancer l'environnement virtuel si ce n'est pas déjà fait (si le prompt du terminal ne commence pas par `(venv)`)
 
