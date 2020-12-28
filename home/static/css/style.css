@@ -14,7 +14,17 @@ html, body {
 	line-height: 1.5;
 	font-family: Arial, Roboto, Helvetica, sans-serif;
 	align-items: center;
+}
+
+html {
+	position: relative;
+	min-height: 100%;
 	margin: 0;
+}
+
+body {
+	min-height: 100%;
+	margin: 0px 0px 50px;
 }
 
 header {
@@ -77,9 +87,10 @@ main {
 	background-color: var(--color-bg);
   justify-content: center;
 	text-align: justify;
-	padding: 1px 30px;
+	padding: 1px 30px 50px;
 	max-width: 920px;
 	margin: 0 auto 0 auto;
+	min-height: calc(100vh - 330px); /* viewport-height - (header+footer+nav bar) */
 }
 
 main h2 {
@@ -103,6 +114,10 @@ main a:link {
 }
 
 footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 50px;   /* Height of the footer */
 	color: white;
 	display: flex;
 	background-color: var(--color_bg_1);
