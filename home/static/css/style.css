@@ -33,6 +33,7 @@ header {
 	border-bottom: 2px solid var(--color_sep);
 	align-items: center;
 	padding: 0px 40px;
+	width: calc(100% - 80px);
 }
 
 header > * {
@@ -71,6 +72,7 @@ nav a {
 	text-decoration: none;
 	text-emphasis: bold;
 	width: 100%;
+	cursor: pointer;
 }
 
 nav a:hover {
