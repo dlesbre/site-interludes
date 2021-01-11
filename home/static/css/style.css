@@ -45,6 +45,7 @@ header h1, header h1 a, header h1 a:visited, header h1 a:active {
 	color: inherit;
 	font-size: 70px;
 	text-decoration: none;
+	margin: 10px 0;
 }
 
 header #head_main_infos {
