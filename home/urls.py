@@ -1,6 +1,6 @@
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import RedirectView
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 sitemaps = {"static_pages": views.StaticViewSitemap}
@@ -15,4 +15,5 @@ urlpatterns = [
 		'sitemap.xml', sitemap, {'sitemaps': sitemaps},
 		name='django.contrib.sitemaps.views.sitemap'
 	),
+        path('accounts/', include("accounts.urls")),
 ]

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block "content" %}
+<div id="content-area">
+	{% if form.errors %}
+	<p>Login ou mot de passe incorrect</p>
+	{% endif %}
+
+	{% if next %}
+	{% if user.is_authenticated %}
+	<p>Accès non autorisé.</p>
+	{% else %}
+	<p>Merci de vous connecter.</p>
+	{% endif %}
+	{% endif %}
+
+	<form method="post" action="{% url "accounts:login" %}?next={{ next|urlencode }}">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>{{ form.username.label_tag }}</td>
+				<td>{{ form.username }}</td>
+			</tr>
+			<tr>
+				<td>{{ form.password.label_tag }}</td>
+				<td>{{ form.password }}</td>
+			</tr>
+		</table>
+
+		<input type="submit" value="connexion" />
+		<input type="hidden" name="next" value="{{ next }}" />
+	</form>
+</div>
+
+{% endblock %}
