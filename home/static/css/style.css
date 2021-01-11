@@ -38,7 +38,6 @@ header {
 
 header > * {
 	color: #ddd;
-	width: 100%;
 }
 
 header h1, header h1 a, header h1 a:visited, header h1 a:active {
@@ -46,6 +45,7 @@ header h1, header h1 a, header h1 a:visited, header h1 a:active {
 	font-size: 70px;
 	text-decoration: none;
 	margin: 10px 0;
+	flex: 1;
 }
 
 header #head_main_infos {
@@ -53,6 +53,24 @@ header #head_main_infos {
 	flex-direction: column;
 	align-items: flex-end;
 	font-size: 20pt;
+	flex: 1;
+}
+
+@media (max-width: 800px) {
+	header h1, header h1 a {
+		font-size: 50px;
+	}
+	header #head_main_infos {
+		font-size: 10pt;
+	}
+}
+@media (max-width: 600px) {
+	header h1, header h1 a {
+		font-size: 30px;
+	}
+	header #head_main_infos {
+		font-size: 8pt;
+	}
 }
 
 nav {
