@@ -14,6 +14,7 @@
 	{% endif %}
 	{% endif %}
 
+	<h2>Connexion</h2>
 	<form method="post" action="{% url "accounts:login" %}?next={{ next|urlencode }}">
 		{% csrf_token %}
 		<table>
