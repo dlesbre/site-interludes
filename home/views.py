@@ -2,8 +2,11 @@ from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
 from django.urls import reverse
 
+from home.models import InterludesActivity
+
 def static_view(request, slug):
-	return render(request, slug+'.html', {'slug': slug})
+	activities = InterludesActivity.objects.filter(display=True)
+	return render(request, slug+'.html', {'slug': slug, 'activities': activities})
 
 
 class StaticViewSitemap(Sitemap):

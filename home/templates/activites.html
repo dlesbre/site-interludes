@@ -3,6 +3,15 @@
 {% block "content" %}
 	<h2>Activités</h2>
 	<p>
-	TODO : liste des activités, planning et infos si vous voulez proposez une activité
+	TODO : planning et infos si vous voulez proposez une activité
 	</p>
+
+	{% for activity in activities %}
+		<h3>{{ activity.title }}</h3>
+		<dl>
+			<dd>Durée :</dd><dt>{{ activity.duration }}</dt>
+			<dd>MJ :</dd><dt>{{ activity.host_name }}</dt>
+			<dd>Description :</dd><dt>{{ activity.description }}</dt>
+		</dl>
+	{% endfor %}
 {% endblock %}
