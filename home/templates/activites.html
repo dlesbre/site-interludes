@@ -2,6 +2,9 @@
 
 {% block "content" %}
 	<h2>Activités</h2>
+	<p>Durant tout l'événement, des jeux seront en libre-service et des tables disponibles pour jouer.
+		Certaines activités (JDRs, murders...) ne pourront se faire qu'avec inscription au vue d'un nombre de places limité.
+	</p>
 	<p>
 	TODO : planning et infos si vous voulez proposez une activité
 	</p>
@@ -11,7 +14,9 @@
 		<dl>
 			<dt>Durée :</dt><dd>{{ activity.duration }}</dd>
 			<dt>MJ :</dt><dd>{{ activity.host_name }}</dd>
-			<dt>Description :</dt><dd>{{ activity.description }}</dd>
+			<dt>Nombre de places :</dt><dd>{{ activity.nb_participants }}</dd>
+			<dt>Sur inscription :</dt><dd>{% if activity.must_book %} Oui {% else %} Non {% endif %}</dd>
+			<dt>Description :</dt><dd>{{ activity.description|linebreaksbr }}</dd>
 		</dl>
 	{% endfor %}
 {% endblock %}

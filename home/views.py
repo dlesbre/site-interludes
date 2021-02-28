@@ -5,7 +5,7 @@ from django.urls import reverse
 from home.models import InterludesActivity
 
 def static_view(request, slug):
-	activities = InterludesActivity.objects.filter(display=True)
+	activities = InterludesActivity.objects.filter(display=True).order_by("title")
 	return render(request, slug+'.html', {'slug': slug, 'activities': activities})
 
 

@@ -7,10 +7,27 @@ class InterludesActivity(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
 	title = models.CharField("Titre", max_length=200)
 	duration = models.DurationField("Durée", help_text="format hh:mm:ss")
+	max_participants = models.PositiveIntegerField(
+		"Nombre maximum de participants", help_text="0 pour illimité"
+	)
+	min_paricipants = models.PositiveIntegerField(
+		"Nombre minimum de participants"
+	)
 	display = models.BooleanField("Afficher cette activité", default=False)
+	must_book = models.BooleanField("Nécessite inscription", default=False)
 	host_name = models.CharField("Nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("Email de l'organisateur")
 	description = models.TextField("Description", max_length=2000)
+
+	@property
+	def nb_participants(self) -> str:
+		if self.max_participants == 0:
+			return "Illimité"
+		return "{} - {}".format(self.min_paricipants, self.max_participants)
+
+	def __str__(self):
+		return self.title
+
 
 class InterludesParticipant(models.Model):
 	"""un participant aux interludes"""
@@ -37,3 +54,4 @@ class ActivityList(models.Model):
 	class Meta:
 		# le couple participant, priority est unique
 		unique_together = (("priority", "participant"))
+		ordering = ("participant", "priority")

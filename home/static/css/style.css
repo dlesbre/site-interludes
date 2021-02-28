@@ -147,18 +147,16 @@ main a:link {
 dl {
 	list-style: none;
 	display: grid;
-	grid-template-columns: 1fr 5fr;
+	grid-template-columns: 1fr 4fr;
 }
 dl dt {
 	grid-column: 1 / span 1;
 	justify-self: end;
 	text-align: right;
-	margin: 5px 10px;
 	font-weight: bold;
-	align-self: center;
 }
 dl dd {
-	margin: 5px 5px;
+	margin: 0 10px;
 	justify-self: start;
 	text-align: left;
 }
