@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 class InterludesActivity(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
 	title = models.CharField("Titre", max_length=200)
-	duration = models.TimeField("Durée")
+	duration = models.DurationField("Durée")
 	host_name = models.CharField("Nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("Email de l'organisateur")
 	description = models.TextField("Description", max_length=2000)
