@@ -118,12 +118,22 @@ main h2 {
 	color: var(--color_bg_2);
 	padding-top: 20px;
 	font-size: 1.5rem;
+	font-weight: bold;
+	text-align: left;
+	border-bottom: 2px solid var(--color_bg_1);
+	border-image-source: linear-gradient(to right, var(--color_bg_1) 0%, transparent 75%);
+	border-image-slice: 1;
+}
+main h3 {
+	color: var(--color_bg_2);
+	font-size: 1.2rem;
 	font-weight: 300;
 	text-align: left;
 	border-bottom: 2px solid var(--color_bg_1);
 	border-image-source: linear-gradient(to right, var(--color_bg_1) 0%, transparent 75%);
 	border-image-slice: 1;
 }
+
 
 main p {
 	font-size: 1rem;
@@ -132,6 +142,25 @@ main p {
 main a:link {
 	text-decoration: underline;
 	color: rgb(62, 62, 255);
+}
+
+dl {
+	list-style: none;
+	display: grid;
+	grid-template-columns: 1fr 5fr;
+}
+dl dt {
+	grid-column: 1 / span 1;
+	justify-self: end;
+	text-align: right;
+	margin: 5px 10px;
+	font-weight: bold;
+	align-self: center;
+}
+dl dd {
+	margin: 5px 5px;
+	justify-self: start;
+	text-align: left;
 }
 
 footer {

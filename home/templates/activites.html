@@ -9,9 +9,9 @@
 	{% for activity in activities %}
 		<h3>{{ activity.title }}</h3>
 		<dl>
-			<dd>Durée :</dd><dt>{{ activity.duration }}</dt>
-			<dd>MJ :</dd><dt>{{ activity.host_name }}</dt>
-			<dd>Description :</dd><dt>{{ activity.description }}</dt>
+			<dt>Durée :</dt><dd>{{ activity.duration }}</dd>
+			<dt>MJ :</dt><dd>{{ activity.host_name }}</dd>
+			<dt>Description :</dt><dd>{{ activity.description }}</dd>
 		</dl>
 	{% endfor %}
 {% endblock %}
