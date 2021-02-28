@@ -2,6 +2,9 @@ myvenv
 /static
 .DS_Store
 
+# for VS Code
+.vscode
+
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
@@ -265,7 +268,8 @@ flycheck_*.el
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
