@@ -44,6 +44,10 @@ class InterludesParticipant(models.Model):
 	email = models.EmailField("email")
 	school = models.CharField("ENS de rattachement", choices=ENS.choices, max_length=1)
 
+	def __str__(self) -> str:
+		return "{} ({})".format(self.name, self.school)
+
+
 class ActivityList(models.Model):
 	"""liste d'activités souhaitée de chaque participant,
 	avec un order de priorité"""
