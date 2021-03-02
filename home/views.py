@@ -1,15 +1,16 @@
 from django.contrib.sitemaps import Sitemap
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from home.models import InterludesActivity
 
-def static_view(request, slug):
+def static_view(request, template):
+	"""Simple vues statique (rendu html)"""
 	activities = InterludesActivity.objects.filter(display=True).order_by("title")
-	return render(request, slug+'.html', {'slug': slug, 'activities': activities})
-
+	return render(request, template, {'activities': activities})
 
 class StaticViewSitemap(Sitemap):
+	"""Vue générant la sitemap.xml du site"""
 	changefreq = 'monthly'
 
 	def items(self):
