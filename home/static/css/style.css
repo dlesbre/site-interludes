@@ -161,6 +161,26 @@ dl dd {
 	text-align: left;
 }
 
+input[type=submit] {
+	color: white;
+	background-color: var(--color_bg_1);
+	padding: 5px 10px;
+	border-width: 0;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: var(--color_bg_2);
+}
+
+div.error {
+	color: red;
+	border: 2px solid red;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 10px;
+}
+
 footer {
 	position: absolute;
 	bottom: 0;

@@ -4,19 +4,18 @@
 
 {% block "content" %}
 <div id="content-area">
+	<h2>Connexion</h2>
 	{% if form.errors %}
-	<p>Login ou mot de passe incorrect</p>
+	<div class="error">Login ou mot de passe incorrect</div>
 	{% endif %}
 
 	{% if next %}
 	{% if user.is_authenticated %}
-	<p>Accès non autorisé.</p>
+	<div class="error">Accès non autorisé.</div>
 	{% else %}
 	<p>Merci de vous connecter.</p>
 	{% endif %}
 	{% endif %}
-
-	<h2>Connexion</h2>
 	<form method="post" action="{% url "accounts:login" %}?next={{ next|urlencode }}">
 		{% csrf_token %}
 		<table>
