@@ -4,8 +4,10 @@ from django.http import HttpResponse
 
 from home.models import InterludesActivity, InterludesParticipant, ActivityList
 
-# Titre de la vue (objet <h1> dans le html)
+# Titre de la vue (tag <h1>)
 admin.site.site_header = "Administration site interludes"
+# Tag html <title>
+admin.site.site_title = "Admin Interludes"
 
 class ExportCsvMixin:
 	"""class abstraite pour permettre l'export CSV rapide d'un modele"""
