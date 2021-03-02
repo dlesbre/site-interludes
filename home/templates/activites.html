@@ -15,7 +15,7 @@
 			<dt>Durée :</dt><dd>{{ activity.duration }}</dd>
 			<dt>MJ :</dt><dd>{{ activity.host_name }}</dd>
 			<dt>Nombre de places :</dt><dd>{{ activity.nb_participants }}</dd>
-			<dt>Sur inscription :</dt><dd>{% if activity.must_book %} Oui {% else %} Non {% endif %}</dd>
+			<dt>Sur inscription :</dt><dd>{% if activity.must_subscribe %} Oui {% else %} Non {% endif %}</dd>
 			<dt>Description :</dt><dd>{{ activity.description|linebreaksbr }}</dd>
 		</dl>
 	{% endfor %}

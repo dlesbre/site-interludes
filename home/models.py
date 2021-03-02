@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
 class InterludesActivity(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
 	title = models.CharField("Titre", max_length=200)
@@ -14,7 +13,7 @@ class InterludesActivity(models.Model):
 		"Nombre minimum de participants"
 	)
 	display = models.BooleanField("Afficher cette activité", default=False)
-	must_book = models.BooleanField("Nécessite inscription", default=False)
+	must_subscribe = models.BooleanField("Sur inscription", default=False)
 	host_name = models.CharField("Nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("Email de l'organisateur")
 	description = models.TextField("Description", max_length=2000)
@@ -27,6 +26,9 @@ class InterludesActivity(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	class Meta:
+		verbose_name = "activité"
 
 
 class InterludesParticipant(models.Model):
@@ -47,15 +49,24 @@ class InterludesParticipant(models.Model):
 	def __str__(self) -> str:
 		return "{} ({})".format(self.name, self.school)
 
+	class Meta:
+		verbose_name = "participant"
+
 
 class ActivityList(models.Model):
 	"""liste d'activités souhaitée de chaque participant,
 	avec un order de priorité"""
-	priority = models.PositiveIntegerField()
-	participant = models.ForeignKey(InterludesParticipant, on_delete=models.CASCADE)
-	activite = models.ForeignKey(InterludesActivity, on_delete=models.CASCADE)
+	priority = models.PositiveIntegerField("priorité")
+	participant = models.ForeignKey(
+		InterludesParticipant, on_delete=models.CASCADE, db_column="participant"
+	)
+	activity = models.ForeignKey(
+		InterludesActivity, on_delete=models.CASCADE, db_column="activité"
+	)
 
 	class Meta:
 		# le couple participant, priority est unique
 		unique_together = (("priority", "participant"))
 		ordering = ("participant", "priority")
+		verbose_name = "choix d'activités"
+		verbose_name_plural = "choix d'activités"
