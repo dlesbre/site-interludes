@@ -7,9 +7,8 @@
 	{% endif %}
 	<form method="post" action="{% url 'accounts:create' %}">
 		{% csrf_token %}
-		<table>
-			{{ form }}
-		</table>
+		{{ form.as_html }}
+		<br>
 		<input type="submit" value="Valider">
 	</form>
 {% endblock %}

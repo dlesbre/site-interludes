@@ -29,4 +29,4 @@ def create_account(request):
 			return redirect('home')
 	else:
 		form = CreateAccountForm()
-	return render(request, 'registration/create_account.html', {'form': form})
+	return render(request, 'create_account.html', {'form': form})
