@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from accounts.models import EmailUser
 
 class InterludesActivity(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
@@ -42,7 +43,7 @@ class InterludesParticipant(models.Model):
 		ENS_RENNES = "R", _("ENS Rennes")
 		ENS_CACHAN = "C", _("ENS Paris Saclay")
 
-	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="Utilisateur")
+	user = models.OneToOneField(EmailUser, on_delete=models.CASCADE, related_name="Utilisateur")
 	name = models.CharField("Nom complet", max_length=200)
 	email = models.EmailField("email")
 	school = models.CharField("ENS de rattachement", choices=ENS.choices, max_length=1)

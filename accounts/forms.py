@@ -1,10 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
-from home.models import InterludesParticipant
+from accounts.models import EmailUser
 
 class CreateAccountForm(UserCreationForm):
 	"""Form used to register a new user"""
 	class Meta:
-		model = User
-		fields = ('username', 'password1', 'password2',)
+		model = EmailUser
+		fields = ('email', 'first_name', 'last_name', 'password1', 'password2',)

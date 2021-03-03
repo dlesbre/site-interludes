@@ -22,7 +22,7 @@ def create_account(request):
 			raw_password = form.cleaned_data.get('password1')
 
 			# login user after signing up
-			user = authenticate(username=user.username, password=raw_password)
+			user = authenticate(email=user.email, password=raw_password)
 			login(request, user)
 
 			# redirect user to home page
