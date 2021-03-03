@@ -17,6 +17,7 @@ class InterludesActivity(models.Model):
 	host_name = models.CharField("Nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("Email de l'organisateur")
 	description = models.TextField("Description", max_length=2000)
+	notes = models.TextField("Notes privées", max_length=2000)
 
 	@property
 	def nb_participants(self) -> str:
