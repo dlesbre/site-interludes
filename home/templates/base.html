@@ -15,11 +15,19 @@
 	<body>
 		<header>
 			<div id="header_logo">
-				<h1><a href="/">Interludes 2021</a></h1>
+				<h1><a href="/">Interludes {% if settings.date_start %}{{ settings.date_start.year }}{% endif %}</a></h1>
 			</div>
 			<div id="head_main_infos">
 				<div id="location">ENS Ulm</div>
-				<div id="date">9-11 avril 2021</div>
+				<div id="date">{% if settings.date_start %}
+				{% if settings.date_end %}
+				{{ settings.date_start.day }}-{{ settings.date_end }}
+				{% else %}
+				{{ settings.date_start }}
+				{% endif %}
+				{% else %}
+				Date non-fixée
+				{% endif %}</div>
 			</div>
 		</header>
 
@@ -73,6 +81,9 @@
 					/>
 				</a>
 			</div>
+			{% if settings.contact_email %}
+			<p>Pour tout problème, contacter&nbsp;:<br>{{ settings.contact_email }}</p>
+			{% endif %}
 		</footer>
 
 	</body>

@@ -32,9 +32,9 @@ class SingletonModel(models.Model):
 
 class SiteSettings(SingletonModel):
 	"""Réglages globaux du site"""
-	contact_email = models.EmailField("Email contact")
-	date_start = models.DateField("Date de début", null=True)
-	date_end = models.DateField("Date de fin", null=True)
+	contact_email = models.EmailField("Email contact", blank=True, null=True)
+	date_start = models.DateField("Date de début", blank=True, null=True)
+	date_end = models.DateField("Date de fin", blank=True, null=True)
 
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=False)
 	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
