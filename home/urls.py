@@ -8,7 +8,7 @@ sitemaps = {"static_pages": views.StaticViewSitemap}
 
 urlpatterns = [
 	path('', views.static_view, {"template": "home.html"}, name = 'home'),
-	path('inscription/', views.static_view, {"template":"inscription.html"}, name = 'inscription'),
+	path('inscription/', views.sign_up, name = 'inscription'),
 	path('activites/', views.static_view, {"template":"activites.html"}, name = 'activites'),
 	path('faq/', views.static_view, {"template":"faq.html"}, name = 'FAQ'),
 	path('favicon.ico', RedirectView.as_view(url='/static/imgs/favicon.ico')),

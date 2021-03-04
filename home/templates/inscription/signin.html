@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block nav_inscription %}current{% endblock %}
+
+{% block "content" %}
+	<h2>Inscriptions</h2>
+	<p>Vous devez être connecté pour pouvoir vous inscrire à l'événement.</p>
+	<p>Aller à la page de <a href="{% url 'accounts:login' %}">connexion</a> pour vous connectez
+	ou à celle de <a href="{% url 'accounts:create' %}">création de compte</a> si vous n'avez pas de compte.</p>
+{% endblock %}

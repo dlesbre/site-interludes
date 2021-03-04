@@ -13,8 +13,10 @@ def static_view(request, template):
 def sign_up(request):
 	"""Page d'inscription"""
 	if not settings.REGISTRATION_EVENT_INSCRIPTIONS_OPEN:
-		return static_view(request, "inscription.html")
-
+		return static_view(request, "inscription/closed.html")
+	if not request.user.is_authenticated:
+		return static_view(request, "inscription/signin.html")
+	# TODO : actual inscription form
 
 
 class StaticViewSitemap(Sitemap):
