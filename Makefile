@@ -33,3 +33,19 @@ clean: ## Remove migrations and delete database
 .PHONY:	test
 test: ## Tests all the apps
 	$(PYTHON) $(MANAGER) test
+
+.PHONY: adduser
+adduser: ## Create a new superuser
+	$(PYTHON) $(MANAGER) createsuperuser
+
+.PHONY: shell
+shell: ## Run django's shell
+	$(PYTHON) $(MANAGER) shell
+
+.PHONY: static
+static: ## collect static files
+	$(PYTHON) $(MANAGER) collectstatic
+
+.PHONY: preprod
+preprod: test static ## Prepare and check production
+	$(PYTHON) $(MANAGER) check --deploy
