@@ -12,7 +12,9 @@ class EmailUserAdmin(admin.ModelAdmin):
 	list_display = ("email", "last_name", "first_name", "is_superuser")
 	list_filter = ("is_superuser",)
 	list_editable = ("is_superuser",)
+	fields = ("email", "last_name", "first_name", "is_superuser",
+		("date_joined", "last_login",),
+	)
 	ordering = ("last_name", "first_name")
 	readonly_fields = ("date_joined", "last_login",)
-	exclude = ("groups","password",)
 	list_per_page = 200
