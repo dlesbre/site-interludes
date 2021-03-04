@@ -129,3 +129,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = 'home'
+
+# Blocks account creation when false
+REGISTRATION_USER_CREATION_OPEN = True
+# Blocks event inscription
+REGISTRATION_EVENT_INSCRIPTIONS_OPEN = True
