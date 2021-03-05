@@ -6,12 +6,16 @@
 <div id="content-area">
 	<h2>Connexion</h2>
 	{% if form.errors %}
-	<div class="error">Login ou mot de passe incorrect</div>
+	<ul class="messagelist">
+		<li class="error">Login ou mot de passe incorrect</li>
+	</ul>
 	{% endif %}
 
 	{% if next %}
 	{% if user.is_authenticated %}
-	<div class="error">Accès non autorisé.</div>
+	<ul class="messagelist">
+		<li class="error">Accès non autorisé</li>
+	</ul>
 	{% else %}
 	<p>Merci de vous connecter.</p>
 	{% endif %}

@@ -56,6 +56,7 @@ class CreateAccountView(View):
 		self.check_creation_allowed()
 		form = self.form_class(request.POST)
 		if not form.is_valid():
+			messages.error(request, "Formulaire invalide. Veuillez corriger les erreurs et le renvoyer.")
 			return render(request, self.template_name, {'form': form})
 
 		user = form.save()
