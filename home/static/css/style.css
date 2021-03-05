@@ -209,22 +209,19 @@ ul.messagelist {
 ul.messagelist li {
 	display: block;
 	font-weight: 400;
-	font-size: 13px;
 	padding: 10px 10px 10px 65px;
 	margin: 0 0 10px 0;
 	background: #dfd;
-	background-size: 16px auto;
 	color: #333;
 }
-
 ul.messagelist li.warning {
 	background: #ffc;
-	background-size: 14px auto;
 }
-
 ul.messagelist li.error {
 	background: #ffefef;
-	background-size: 16px auto;
+}
+ul.messagelist li.info {
+	background: #ddf;
 }
 
 footer {

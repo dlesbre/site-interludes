@@ -12,13 +12,13 @@
 	{% endif %}
 
 	{% if next %}
-	{% if user.is_authenticated %}
 	<ul class="messagelist">
-		<li class="error">Accès non autorisé</li>
-	</ul>
+	{% if user.is_authenticated %}
+		<li class="error">Accès non autorisé.</li>
 	{% else %}
-	<p>Merci de vous connecter.</p>
+		<li class="info">Vous devez vous connectez pour accéder à cette page.</li>
 	{% endif %}
+	</ul>
 	{% endif %}
 	<form method="post" action="{% url 'accounts:login' %}?next={{ next|urlencode }}">
 		{% csrf_token %}

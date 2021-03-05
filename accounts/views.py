@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
@@ -32,9 +33,10 @@ class LogoutView(RedirectView):
 		return super().get_redirect_url(*args, **kwargs)
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
 	"""Vue des actions de gestion de son profil"""
 	template_name = "profile.html"
+	redirect_field_name = "next"
 
 
 class CreateAccountView(View):
