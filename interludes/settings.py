@@ -25,6 +25,8 @@ SECRET_KEY = 'tx$xi%n!8cghirp377zb)gd24g#=&w*ik(bx2h(i8ji0_&9_5l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ADMINS = [("respos", "respointerludes2021@ens.psl.eu"),]
+
 ALLOWED_HOSTS = []
 
 
@@ -136,3 +138,7 @@ LOGIN_REDIRECT_URL = 'home'
 REGISTRATION_USER_CREATION_OPEN = True
 # Blocks event inscription
 REGISTRATION_EVENT_INSCRIPTIONS_OPEN = True
+
+
+# This will display email in Console.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -9,9 +9,9 @@ admin.site.unregister(Group)
 @admin.register(EmailUser)
 class EmailUserAdmin(admin.ModelAdmin):
 	"""option d'affichage des activités dans la vue django admin"""
-	list_display = ("email", "last_name", "first_name", "is_superuser")
-	list_filter = ("is_superuser",)
-	list_editable = ("is_superuser",)
+	list_display = ("email", "last_name", "first_name", "is_superuser", "is_active", "email_confirmed",)
+	list_filter = ("is_superuser","is_active", "email_confirmed",)
+	list_editable = ("is_superuser","is_active")
 	fields = ("email", "last_name", "first_name", "is_superuser",
 		("date_joined", "last_login",),
 	)
