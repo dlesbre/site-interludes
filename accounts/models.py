@@ -34,7 +34,7 @@ class EmailUser(AbstractUser):
 	email = models.EmailField('adresse email', unique=True)
 	first_name = models.CharField('prénom', max_length=100)
 	last_name = models.CharField("nom", max_length=100)
-	email_confirmed = models.BooleanField("Email vérifié", default=False)
+	email_confirmed = models.BooleanField("email vérifié", default=False)
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ("last_name", "first_name",)
