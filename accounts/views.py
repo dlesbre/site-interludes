@@ -7,7 +7,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse
 from django.template.loader import render_to_string
-from django.views.generic import RedirectView, View
+from django.views.generic import RedirectView, TemplateView, View
 from django.shortcuts import render, redirect
 
 from accounts.forms import CreateAccountForm
@@ -30,6 +30,11 @@ class LogoutView(RedirectView):
 			logout(self.request)
 		messages.info(self.request, "Vous avez bien été déconnecté·e.")
 		return super().get_redirect_url(*args, **kwargs)
+
+
+class ProfileView(TemplateView):
+	"""Vue des actions de gestion de son profil"""
+	template_name = "profile.html"
 
 
 class CreateAccountView(View):

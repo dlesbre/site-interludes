@@ -20,7 +20,7 @@
 	<p>Merci de vous connecter.</p>
 	{% endif %}
 	{% endif %}
-	<form method="post" action="{% url "accounts:login" %}?next={{ next|urlencode }}">
+	<form method="post" action="{% url 'accounts:login' %}?next={{ next|urlencode }}">
 		{% csrf_token %}
 		<table>
 			<tr>

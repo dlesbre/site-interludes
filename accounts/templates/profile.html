@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block nav_profile %}current{% endblock %}
+
+{% block "content" %}
+
+<h2>Mon compte</h2>
+
+<p>Connecté en tant que {{ user.first_name }} {{ user.last_name }} ({{ user.email }})</p>
+
+{% if user.is_superuser %}
+<p>Vous avez les droits d'administrateurs. Aller à la <a href="{% url 'admin:index' %}">page d'administration du site</a></p>
+{% endif %}
+
+<p><a href="{% url 'inscription' %}">M'insrire à l'événement</a></p>
+
+<p><a href="TODO">Modifier mes informations</a></p>
+
+<p><a href="TODO">Changer mom mot de passe</a></p>
+
+<p><a class="button" href="{% url 'accounts:logout' %}">Déconnexion</a></p>
+
+{% endblock %}

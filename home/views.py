@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 
 from home.models import InterludesActivity
+from site_settings.models import SiteSettings
 
 
 class HomeView(TemplateView):
@@ -29,10 +30,11 @@ class FAQView(TemplateView):
 
 def sign_up(request):
 	"""Page d'inscription"""
-	if not settings.REGISTRATION_EVENT_INSCRIPTIONS_OPEN:
-		return static_view(request, "inscription/closed.html")
+	settings = SiteSettings.load()
+	if not settings.inscriptions_open:
+		return render(request, "inscription/closed.html")
 	if not request.user.is_authenticated:
-		return static_view(request, "inscription/signin.html")
+		return render(request, "inscription/signin.html")
 	# TODO : actual inscription form
 
 

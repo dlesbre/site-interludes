@@ -133,7 +133,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_URL = "accounts:login"
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "accounts:profile"
 
 # This will display email in Console.
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
