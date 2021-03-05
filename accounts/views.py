@@ -1,10 +1,9 @@
-from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse
 from django.template.loader import render_to_string
@@ -31,6 +30,7 @@ class LogoutView(RedirectView):
 			logout(self.request)
 		messages.info(self.request, "Vous avez bien été déconnecté·e.")
 		return super().get_redirect_url(*args, **kwargs)
+
 
 class CreateAccountView(View):
 	"""Vue pour la creation de compte"""
@@ -78,8 +78,9 @@ class CreateAccountView(View):
 
 		return redirect('accounts:login')
 
-class ActivateAccountView(RedirectView):
 
+class ActivateAccountView(RedirectView):
+	"""Vue d'activation de compte (lien envoyé par mail)"""
 	permanent = False
 
 	def get_redirect_url(self, uidb64, token, *args, **kwargs):
