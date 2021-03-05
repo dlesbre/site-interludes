@@ -1,0 +1,8 @@
+
+{% autoescape off %}
+Bonjour {{ user.first_name }} {{ user.last_name }},
+
+Veuillez suivre le lien ci dessous pour valider votre compte :
+
+http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}
+{% endautoescape %}
