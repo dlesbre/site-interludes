@@ -43,4 +43,4 @@ class SiteSettings(SingletonModel):
 		verbose_name = "paramètres"
 
 	def __str__(self) -> str:
-		return "Réglages"
+		return "Modifier les paramètres"

@@ -14,6 +14,4 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(SingletonModelAdmin):
-	list_display = ("contact_email", "date_start", "date_end", "registrations_open", "inscriptions_open",)
-	list_display_links = None
-	list_editable = ("contact_email", "date_start", "date_end", "registrations_open", "inscriptions_open",)
+	pass
