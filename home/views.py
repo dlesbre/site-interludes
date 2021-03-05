@@ -2,13 +2,31 @@ from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.generic import TemplateView
 
 from home.models import InterludesActivity
 
-def static_view(request, template):
-	"""Simple vues statique (rendu html)"""
-	activities = InterludesActivity.objects.filter(display=True).order_by("title")
-	return render(request, template, {'activities': activities})
+
+class HomeView(TemplateView):
+	"""Vue pour la page d'acceuil"""
+	template_name = "home.html"
+
+
+class ActivityView(TemplateView):
+	"""Vue pour la liste des activités"""
+	template_name = "activites.html"
+
+	def get_context_data(self, **kwargs):
+		"""ajoute la liste des activités au contexte"""
+		context = super(ActivityView, self).get_context_data(**kwargs)
+		context['activities'] = InterludesActivity.objects.filter(display=True).order_by("title")
+		return context
+
+
+class FAQView(TemplateView):
+	"""Vue pour la FAQ"""
+	template_name = "faq.html"
+
 
 def sign_up(request):
 	"""Page d'inscription"""
