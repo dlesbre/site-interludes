@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.utils.encoding import force_bytes, force_text
@@ -16,17 +16,26 @@ from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
 
-@login_required
-def logout_view(request):
+class LoginView(DjangoLoginView):
+	"""Vue pour se connecter"""
+	template_name = "login.html"
+
+class LogoutView(RedirectView):
 	"""Vue pour se deconnecter"""
-	logout(request)
-	messages.success(request, "Vous avez bien été déconecté·e.")
-	return redirect("home")
+
+	permanent = False
+	pattern_name = "home"
+
+	def get_redirect_url(self, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			logout(self.request)
+		messages.info(self.request, "Vous avez bien été déconnecté·e.")
+		return super().get_redirect_url(*args, **kwargs)
 
 class CreateAccountView(View):
 	"""Vue pour la creation de compte"""
 	form_class = CreateAccountForm
-	template_name = 'registration/create_account.html'
+	template_name = 'create_account.html'
 
 	@staticmethod
 	def check_creation_allowed():
