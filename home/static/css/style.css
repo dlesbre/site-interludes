@@ -201,6 +201,32 @@ div.error {
 	margin: 10px;
 }
 
+ul.messagelist {
+	padding: 0;
+	margin-top: 20px;
+}
+
+ul.messagelist li {
+	display: block;
+	font-weight: 400;
+	font-size: 13px;
+	padding: 10px 10px 10px 65px;
+	margin: 0 0 10px 0;
+	background: #dfd;
+	background-size: 16px auto;
+	color: #333;
+}
+
+ul.messagelist li.warning {
+	background: #ffc;
+	background-size: 14px auto;
+}
+
+ul.messagelist li.error {
+	background: #ffefef;
+	background-size: 16px auto;
+}
+
 footer {
 	position: absolute;
 	bottom: 0;

@@ -20,6 +20,7 @@ from site_settings.models import SiteSettings
 def logout_view(request):
 	"""Vue pour se deconnecter"""
 	logout(request)
+	messages.success(request, "Vous avez bien été déconecté·e.")
 	return redirect("home")
 
 class CreateAccountView(View):
