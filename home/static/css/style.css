@@ -167,15 +167,20 @@ span.helptext {
 	font-style: italic;
 }
 
-a.button, a.button:link, a.button:visited, input[type=submit] {
+.flex {
+	display: flex;
+}
+
+.button, .button:link, .button:visited, input[type=submit] {
 	color: white;
 	text-decoration: none;
 	background-color: var(--color_bg_1);
-	padding: 5px 10px;
+	padding: 7px 10px;
+	margin: 5px;
 	border-width: 0;
 	cursor: pointer;
 }
-a.button:hover, input[type=submit]:hover {
+.button:hover, input[type=submit]:hover {
 	background-color: var(--color_bg_2);
 }
 
