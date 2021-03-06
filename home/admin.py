@@ -28,25 +28,25 @@ class ExportCsvMixin:
 
 	export_as_csv.short_description = "Exporter au format CSV"
 
-	actions = ["export_as_csv"]
-
 
 @admin.register(InterludesActivity)
 class InterludesActivityAdmin(admin.ModelAdmin, ExportCsvMixin):
 	"""option d'affichage des activités dans la vue django admin"""
-	list_display = ("title", "host_name", "display", "must_subscribe",)
-	list_filter = ("display", "must_subscribe",)
+	list_display = ("title", "host_name", "display", "must_subscribe","on_planning")
+	list_filter = ("display", "must_subscribe", "on_planning")
 	ordering = ("title", "host_name",)
 	list_editable = ("display",)
 	list_per_page = 100
+	actions = ["export_as_csv"]
 
 @admin.register(InterludesParticipant)
 class InterludesParticipantAdmin(admin.ModelAdmin, ExportCsvMixin):
 	"""option d'affichage des participant dans la vue django admin"""
-	list_display = ("name", "school",)
-	list_filter = ("school",)
-	ordering = ("name",)
+	list_display = ("user", "school", "is_registered")
+	list_filter = ("school", "is_registered")
+	ordering = ("user",)
 	list_per_page = 200
+	actions = ["export_as_csv"]
 
 @admin.register(ActivityList)
 class ActivityListAdmin(admin.ModelAdmin, ExportCsvMixin):
@@ -55,3 +55,4 @@ class ActivityListAdmin(admin.ModelAdmin, ExportCsvMixin):
 	list_filter = ("activity", "participant",)
 	ordering = ("participant", "priority",)
 	list_per_page = 200
+	actions = ["export_as_csv"]

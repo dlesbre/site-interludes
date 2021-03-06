@@ -39,6 +39,8 @@ class SiteSettings(SingletonModel):
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=False)
 	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
 
+	display_planning = models.BooleanField("Afficher le planning", default=False)
+
 	class Meta:
 		verbose_name = "paramètres"
 

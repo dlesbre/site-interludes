@@ -13,11 +13,16 @@ class InterludesActivity(models.Model):
 	min_paricipants = models.PositiveIntegerField(
 		"Nombre minimum de participants"
 	)
-	display = models.BooleanField("Afficher cette activité", default=False)
-	must_subscribe = models.BooleanField("Sur inscription", default=False)
-	host_name = models.CharField("Nom de l'organisateur", max_length=50)
-	host_email = models.EmailField("Email de l'organisateur")
-	description = models.TextField("Description", max_length=2000)
+	display = models.BooleanField("afficher cette activité", default=False)
+	must_subscribe = models.BooleanField("sur inscription", default=False)
+	host_name = models.CharField("nom de l'organisateur", max_length=50)
+	host_email = models.EmailField("email de l'organisateur")
+	description = models.TextField("description", max_length=2000)
+
+	on_planning = models.BooleanField("afficher sur le planning", default=False)
+	start = models.DateTimeField("début", null=True, blank=True)
+	room = models.CharField("salle", max_length=100, null=True, blank=True)
+
 	notes = models.TextField("Notes privées", max_length=2000)
 
 	@property
@@ -44,12 +49,23 @@ class InterludesParticipant(models.Model):
 		ENS_CACHAN = "C", _("ENS Paris Saclay")
 
 	user = models.OneToOneField(EmailUser, on_delete=models.CASCADE, related_name="Utilisateur")
-	name = models.CharField("Nom complet", max_length=200)
-	email = models.EmailField("email")
 	school = models.CharField("ENS de rattachement", choices=ENS.choices, max_length=1)
 
+	is_registered = models.BooleanField("est inscrit", default=False)
+
+	meal_friday_evening = models.BooleanField("repas de vendredi soir", default=False)
+	meal_saturday_morning = models.BooleanField("repas de samedi matin", default=False)
+	meal_saturday_midday = models.BooleanField("repas de samedi midi", default=False)
+	meal_saturday_evening = models.BooleanField("repas de samedi soir", default=False)
+	meal_sunday_morning = models.BooleanField("repas de dimanche matin", default=False)
+	meal_sunday_midday = models.BooleanField("repas de dimanche soir", default=False)
+
+	sleeps = models.BooleanField("dormir sur place", default=False)
+
+	mug = models.BooleanField("commander une tasse", default=False)
+
 	def __str__(self) -> str:
-		return "{} ({})".format(self.name, self.school)
+		return "{} {} ({})".format(self.user.first_name, self.user.last_name, self.school)
 
 	class Meta:
 		verbose_name = "participant"
@@ -65,10 +81,11 @@ class ActivityList(models.Model):
 	activity = models.ForeignKey(
 		InterludesActivity, on_delete=models.CASCADE, db_column="activité"
 	)
+	accepted = models.BooleanField(default=False)
 
 	class Meta:
-		# le couple participant, priority est unique
-		unique_together = (("priority", "participant"))
+		# couples uniques
+		unique_together = (("priority", "participant"), ("participant", "activity"))
 		ordering = ("participant", "priority")
 		verbose_name = "choix d'activités"
 		verbose_name_plural = "choix d'activités"
