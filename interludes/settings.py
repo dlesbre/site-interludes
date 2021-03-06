@@ -40,9 +40,11 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'django.contrib.sitemaps',
+
 	'home.apps.HomeConfig',
 	'accounts.apps.AccountsConfig',
 	'site_settings.apps.SiteSettingsConfig',
+	'shared.apps.SharedConfig'
 ]
 
 MIDDLEWARE = [
