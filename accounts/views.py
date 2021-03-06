@@ -8,13 +8,25 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse
 from django.template.loader import render_to_string
-from django.views.generic import RedirectView, TemplateView, UpdateView, View
+from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, View
 from django.shortcuts import render, redirect
 
-from accounts.forms import CreateAccountForm, UpdateAccountForm
+from accounts.forms import CreateAccountForm, UpdateAccountForm, UpdatePasswordForm
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
+
+def send_validation_email(request, user, subject, template):
+	"""Send a validation email to user"""
+	current_site = get_current_site(request)
+	message = render_to_string(template, {
+		'user': user,
+		'domain': current_site.domain,
+		'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+		'token': email_token_generator.make_token(user),
+	})
+	user.email_user(subject, message)
+
 
 class LoginView(DjangoLoginView):
 	"""Vue pour se connecter"""
@@ -71,15 +83,7 @@ class CreateAccountView(View):
 		user.email_confirmed = False
 		user.save()
 
-		current_site = get_current_site(request)
-		subject = 'Activation de votre compte Interludes'
-		message = render_to_string('activation_email.html', {
-			'user': user,
-			'domain': current_site.domain,
-			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-			'token': email_token_generator.make_token(user),
-		})
-		user.email_user(subject, message)
+		send_validation_email(request, user, "Activer votre compte Interludes", "activation_email.html")
 
 		messages.info(request, 'Un lien vous a été envoyé par mail. Utilisez le pour finaliser la création de compte.')
 
@@ -127,18 +131,50 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
 	def get_object(self):
 		return self.request.user
 
-	# def get_context_data(self, **kwargs):
-	# 	context = super().get_context_data(**kwargs)
-	# 	context["change_password_form"] = registration_forms.UpdatePasswordForm(
-	# 		user=self.request.user
-	# 	)
-	# 	return context
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["update_form"] = context["form"]
+		context["password_form"] = UpdatePasswordForm(
+			user=self.request.user
+		)
+		return context
 
 	def get_success_url(self):
-		# if not self.request.user.email_confirmed:
+		if not self.request.user.email_confirmed:
+			send_validation_email(
+				self.request, self.request.user,
+				"Valider le changement d'email de votre compte Interludes",
+				"change_email.html"
+			)
+
+			messages.info(self.request, 'Un lien vous a été envoyé par mail. Utilisez le pour valider la mise à jour.')
+
 			# return reverse("registration:email_confirmation_needed")
 		return reverse("accounts:profile")
 
 	def form_valid(self, form):
 		messages.success(self.request, "Informations personnelles mises à jour")
 		return super().form_valid(form)
+
+
+class UpdatePasswordView(LoginRequiredMixin, FormView):
+	""" Change a user's password """
+
+	template_name = "update.html"
+	form_class = UpdatePasswordForm
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["password_form"] = context["form"]
+		context["update_form"] = UpdateAccountForm(instance=self.request.user)
+		return context
+
+	def get_form_kwargs(self):
+		kwargs = super().get_form_kwargs()
+		kwargs["user"] = self.request.user
+		return kwargs
+
+	def form_valid(self, form):
+		form.apply()
+		messages.success(self.request, "Mot de passe mis à jour")
+		return redirect("accounts:profile")

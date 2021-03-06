@@ -5,7 +5,16 @@
 
 	<form method="post" action="{% url 'accounts:update' %}">
 		{% csrf_token %}
-		{{ form.as_html }}
+		{{ update_form.as_html }}
+		<br>
+		<input type="submit" value="Valider">
+	</form>
+
+	<h2>Changer mon mot de passe</h2>
+
+	<form method="post" action="{% url 'accounts:change_password' %}">
+		{% csrf_token %}
+		{{ password_form.as_html }}
 		<br>
 		<input type="submit" value="Valider">
 	</form>
