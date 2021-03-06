@@ -29,7 +29,7 @@ class LogoutView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 		if self.request.user.is_authenticated:
 			logout(self.request)
-		messages.info(self.request, "Vous avez bien été déconnecté·e.")
+		messages.success(self.request, "Vous avez bien été déconnecté·e.")
 		return super().get_redirect_url(*args, **kwargs)
 
 

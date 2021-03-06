@@ -209,19 +209,38 @@ ul.messagelist {
 ul.messagelist li {
 	display: block;
 	font-weight: 400;
-	padding: 10px 10px 10px 65px;
+	padding: 10px 10px 10px 50px;
 	margin: 0 0 10px 0;
-	background: #dfd;
 	color: #333;
+}
+ul.messagelist li:before {
+	font-family: "Font Awesome 5 Free";
+	padding-right: 10px;
+	font-weight: 900;
+}
+ul.messagelist li.success {
+	background: #dfd;
+}
+ul.messagelist li.success:before {
+	content: "\f058";
 }
 ul.messagelist li.warning {
 	background: #ffc;
 }
+ul.messagelist li.warning:before {
+	content: "\f071";
+}
 ul.messagelist li.error {
 	background: #ffefef;
 }
+ul.messagelist li.error:before {
+	content: "\f057";
+}
 ul.messagelist li.info {
 	background: #ddf;
+}
+ul.messagelist li.info:before {
+	content: "\f05a";
 }
 
 footer {
