@@ -12,7 +12,7 @@ class EmailUserAdmin(admin.ModelAdmin):
 	list_display = ("email", "last_name", "first_name", "is_superuser", "is_active", "email_confirmed",)
 	list_filter = ("is_superuser","is_active", "email_confirmed",)
 	list_editable = ("is_superuser","is_active")
-	fields = ("email", "last_name", "first_name", "is_superuser",
+	fields = ("email", "last_name", "first_name", "is_superuser", "is_active", "email_confirmed",
 		("date_joined", "last_login",),
 	)
 	ordering = ("last_name", "first_name")

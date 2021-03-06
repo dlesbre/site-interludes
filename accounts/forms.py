@@ -1,8 +1,8 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.safestring import mark_safe
 
 from accounts.models import EmailUser
-
-from django.utils.safestring import mark_safe
 
 
 class FormRenderMixin:
@@ -131,3 +131,38 @@ class CreateAccountForm(FormRenderMixin, UserCreationForm):
 	class Meta:
 		model = EmailUser
 		fields = ('email', 'first_name', 'last_name', 'password1', 'password2',)
+
+class UpdateAccountForm(FormRenderMixin, forms.ModelForm):
+	"""Form used to update name/email"""
+	class Meta:
+		model = EmailUser
+		fields = ('email', 'first_name', 'last_name')
+		help_texts = {"email": "Si vous la changez, il faudra confirmer la nouvelle adresse",}
+
+	@staticmethod
+	def normalize_email(email):
+		""" Returns a normalized email """
+		return email.lower()
+
+	def clean_email(self):
+		""" Check email uniqueness """
+		email = self.cleaned_data["email"]
+		if email == self.instance.email:
+				return email
+		norm_email = self.normalize_email(email)
+		if EmailUser.objects.filter(email=norm_email).count() > 0:
+			raise forms.ValidationError(
+					"Un autre compte avec cette adresse mail existe déjà."
+			)
+		return norm_email
+
+	def save(self, *args, commit=True, **kwargs):
+		email = self.cleaned_data["email"]
+		email_changed = email != self.instance.username
+		user = super().save(*args, commit=False, **kwargs)
+		user.username = email
+		if email_changed:
+			user.email_confirmed = False
+		if commit:
+			user.save()
+		return user

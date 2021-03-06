@@ -8,10 +8,10 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse
 from django.template.loader import render_to_string
-from django.views.generic import RedirectView, TemplateView, View
+from django.views.generic import RedirectView, TemplateView, UpdateView, View
 from django.shortcuts import render, redirect
 
-from accounts.forms import CreateAccountForm
+from accounts.forms import CreateAccountForm, UpdateAccountForm
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
@@ -69,10 +69,11 @@ class CreateAccountView(View):
 		user = form.save()
 		user.is_active = False # can't login until email validation
 		user.email_confirmed = False
+		user.save()
 
 		current_site = get_current_site(request)
 		subject = 'Activation de votre compte Interludes'
-		message = render_to_string('registration/activation_email.html', {
+		message = render_to_string('activation_email.html', {
 			'user': user,
 			'domain': current_site.domain,
 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -80,9 +81,7 @@ class CreateAccountView(View):
 		})
 		user.email_user(subject, message)
 
-		user.save()
-
-		messages.success(request, ('Please Confirm your email to complete registration.'))
+		messages.info(request, 'Un lien vous a été envoyé par mail. Utilisez le pour finaliser la création de compte.')
 
 		return redirect('accounts:login')
 
@@ -90,6 +89,8 @@ class CreateAccountView(View):
 class ActivateAccountView(RedirectView):
 	"""Vue d'activation de compte (lien envoyé par mail)"""
 	permanent = False
+	success_pattern_name = "accounts:profile"
+	failure_pattern_name = "home"
 
 	def get_redirect_url(self, uidb64, token, *args, **kwargs):
 		try:
@@ -101,18 +102,43 @@ class ActivateAccountView(RedirectView):
 				"Le lien de confirmation d'adresse mail ne correspond à aucun·e "
 				"utilisateur·ice inscrit·e",
 			)
-			return reverse("home")
+			return reverse(self.failure_pattern_name)
 
 		if not email_token_generator.check_token(user, token):
 			messages.error(
 				self.request,
 				"Le lien de confirmation d'adresse mail est invalide ou déjà utilisé",
 			)
-			return reverse("home")
+			return reverse(self.failure_pattern_name)
 
 		user.is_active = True
 		user.email_confirmed = True
 		user.save()
 		login(self.request, user)
-		messages.info(self.request, "Votre adresse email a bien été confirmée.")
-		return reverse("home")
+		messages.success(self.request, "Votre adresse email a bien été confirmée.")
+		return reverse(self.success_pattern_name)
+
+
+class UpdateAccountView(LoginRequiredMixin, UpdateView):
+	"""Vue pour la mise à jour des infos personnelles"""
+	template_name = "update.html"
+	form_class = UpdateAccountForm
+
+	def get_object(self):
+		return self.request.user
+
+	# def get_context_data(self, **kwargs):
+	# 	context = super().get_context_data(**kwargs)
+	# 	context["change_password_form"] = registration_forms.UpdatePasswordForm(
+	# 		user=self.request.user
+	# 	)
+	# 	return context
+
+	def get_success_url(self):
+		# if not self.request.user.email_confirmed:
+			# return reverse("registration:email_confirmation_needed")
+		return reverse("accounts:profile")
+
+	def form_valid(self, form):
+		messages.success(self.request, "Informations personnelles mises à jour")
+		return super().form_valid(form)
