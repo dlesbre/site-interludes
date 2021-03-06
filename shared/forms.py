@@ -1,4 +1,4 @@
-
+from django.utils.safestring import mark_safe
 
 class FormRenderMixin:
 	""" A mixin that can be included in any form to make it render to html as we want
