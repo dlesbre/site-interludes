@@ -177,4 +177,5 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
 	def form_valid(self, form):
 		form.apply()
 		messages.success(self.request, "Mot de passe mis à jour")
+		login(self.request, self.request.user)
 		return redirect("accounts:profile")
