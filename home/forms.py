@@ -31,7 +31,7 @@ class ActivityForm(FormRenderMixin, forms.ModelForm):
 	class Meta:
 		model = ActivityList
 		fields = ("activity",)
-		#widgets = {"activity": forms.Select(choices=())}
+		labels = {"activity":""}
 
 	def __init__(self, *args, **kwargs):
 		super(ActivityForm, self).__init__(*args, **kwargs)
