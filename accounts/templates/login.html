@@ -5,6 +5,7 @@
 {% block "content" %}
 <div id="content-area">
 	<h2>Connexion</h2>
+
 	{% if form.errors %}
 	<ul class="messagelist">
 		<li class="error">Login ou mot de passe incorrect</li>
@@ -34,7 +35,12 @@
 		</table>
 		<br>
 
+		<div class="flex">
 		<input type="submit" value="Connexion">
+			{% if settings.registrations_open %}
+			<a class="button" href="{% url 'accounts:create' %}">Créer un compte</a>
+			{% endif %}
+		</div>
 		<input type="hidden" name="next" value="{{ next }}">
 	</form>
 </div>

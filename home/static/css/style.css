@@ -251,14 +251,16 @@ ul.messagelist li.info:before {
 footer {
 	position: absolute;
 	bottom: 0;
-	width: calc(100% - 80px); /* viewport width - padding */
-	padding: 10px 40px;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0;
 	height: 50px;
 	color: white;
 	display: flex;
 	background-color: var(--color_bg_1);
 	border-top: 5px solid var(--color_bg_2);
 	align-items: center;
+	justify-content: space-around;
 }
 
 footer #sponsors img {
