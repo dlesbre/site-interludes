@@ -58,24 +58,26 @@ button_add_activity.addEventListener("click", add_new_form);
 function delete_form(event) {
 	if (!event.target.classList.contains("delete-activity")) return;
 	event.preventDefault();
-	if (form_count == 0) return;
+	if (form_count == 0) {
+		// don't delete the first element
+		activity_form[0].querySelector("select").value = "";
+		return;
+	}
 	event.target.parentElement.remove();
 	form_count--;
 	total_forms.setAttribute("value", `${form_count+1}`);
-
 	// update form numbers
 	let count = 0;
 	for (const form of activity_form) {
-		console.log(form.children.item(0).find("option:selected").val())
+		// the replace changes the field value
+		// so we save and restore it
+		const select = form.querySelector("select");
+		const value = select.value;
 		form.innerHTML = form.innerHTML.replace(form_regex, `form-${count++}-`);
+		form.querySelector("select").value = value;
 	}
 }
 
-function change(event) {
-	console.log(event.target.value)
-}
-
 main_form.addEventListener("click", delete_form);
-main_form.addEventListener("change", change)
 	</script>
 {% endblock %}
