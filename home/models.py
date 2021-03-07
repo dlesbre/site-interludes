@@ -23,7 +23,7 @@ class InterludesActivity(models.Model):
 	start = models.DateTimeField("début", null=True, blank=True)
 	room = models.CharField("salle", max_length=100, null=True, blank=True)
 
-	notes = models.TextField("Notes privées", max_length=2000)
+	notes = models.TextField("Notes privées", max_length=2000, blank=True)
 
 	@property
 	def nb_participants(self) -> str:
