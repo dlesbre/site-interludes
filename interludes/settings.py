@@ -97,6 +97,7 @@ AUTHENTICATION_BACKENDS = (
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = 'accounts.EmailUser'
+AUTH_PROFILE_MODULE = 'home.InterludesParticipant'
 
 AUTH_PASSWORD_VALIDATORS = [
 	{

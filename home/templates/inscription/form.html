@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block nav_inscription %}current{% endblock %}
+
+{% block "content" %}
+	<h2>Inscriptions</h2>
+	<form method="post" action="{% url 'inscription' %}">
+		{% csrf_token %}
+		{{ form.as_html }}
+		<br>
+		<div class="flex">
+			<input type="submit" value="Valider">
+			<a class="button" href="{% url 'accounts:profile' %}">Annuler</a>
+		</div>
+	</form>
+{% endblock %}

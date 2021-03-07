@@ -89,3 +89,5 @@ class ActivityList(models.Model):
 		ordering = ("participant", "priority")
 		verbose_name = "choix d'activités"
 		verbose_name_plural = "choix d'activités"
+
+EmailUser.profile = property(lambda user: InterludesParticipant.objects.get_or_create(user=user)[0])

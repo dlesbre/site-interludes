@@ -12,7 +12,11 @@
 <p>Vous avez les droits d'administrateurs. Aller à la <a href="{% url 'admin:index' %}">page d'administration du site</a></p>
 {% endif %}
 
-<p><a href="{% url 'inscription' %}">M'insrire à l'événement</a></p>
+{% if user.profile.is_registered %}
+<p>Vous êtes inscrit à l'événement. <a href="{% url 'inscription' %}">Modifier mon inscription</a>.</p>
+{% else %}
+<p>Vous n'êtes pas incrit à l'événement : <a href="{% url 'inscription' %}">s'inscrire</a>.</p>
+{% endif %}
 
 <p><a href="{% url 'accounts:update' %}">Modifier mes informations</a></p>
 

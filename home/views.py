@@ -1,9 +1,12 @@
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import UpdateView, TemplateView, View
 
 from home.models import InterludesActivity
+from home.forms import InscriptionForm
 from site_settings.models import SiteSettings
 
 
@@ -28,14 +31,40 @@ class FAQView(TemplateView):
 	template_name = "faq.html"
 
 
-def sign_up(request):
-	"""Page d'inscription"""
-	settings = SiteSettings.load()
-	if not settings.inscriptions_open:
-		return render(request, "inscription/closed.html")
-	if not request.user.is_authenticated:
-		return render(request, "inscription/signin.html")
-	# TODO : actual inscription form
+class RegisterClosed(TemplateView):
+	"""Vue pour quand les inscriptions ne sont pas ouvertes"""
+	template_name = "inscription/closed.html"
+
+class RegisterSignIn(TemplateView):
+	"""Vue affichée quand les inscriptions sont ouverte mais
+	l'utilisateur n'est pas connecté"""
+	template_name = "inscription/signin.html"
+
+class RegisterUpdateView(LoginRequiredMixin, UpdateView):
+	"""Vue pour s'inscrire et modifier son inscription"""
+	template_name = "inscription/form.html"
+	form_class = InscriptionForm
+
+	def get_object(self):
+		return self.request.user.profile
+
+	def get_success_url(self):
+		return reverse("accounts:profile")
+
+	def form_valid(self, form):
+		messages.success(self.request, "Votre inscription a été enregistrée")
+		return super().form_valid(form)
+
+class RegisterView(View):
+	"""Vue pour l'inscription
+	repartie sur les vue RegisterClosed, RegisterSignIn et RegisterUpdateView"""
+	def dispatch(self, request, *args, **kwargs):
+		settings = SiteSettings.load()
+		if not settings.inscriptions_open:
+			return RegisterClosed.as_view()(request)
+		if not request.user.is_authenticated:
+			return RegisterSignIn.as_view()(request)
+		return RegisterUpdateView.as_view()(request)
 
 
 class StaticViewSitemap(Sitemap):
