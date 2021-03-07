@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from home.models import ActivityList, InterludesParticipant
 from shared.forms import FormRenderMixin
@@ -30,3 +31,22 @@ class ActivityForm(FormRenderMixin, forms.ModelForm):
 	class Meta:
 		model = ActivityList
 		fields = ("activity",)
+
+class BaseActivityFormSet(forms.BaseFormSet):
+	"""Form set that fails if duplicate activities"""
+	def clean(self):
+		"""Checks for duplicate activities"""
+		if any(self.errors):
+			# Don't bother validating the formset unless each form is valid on its own
+			return
+		activities = []
+		for form in self.forms:
+			if self.can_delete and self._should_delete_form(form):
+				continue
+			activity = form.cleaned_data.get('activity')
+			if activity is None:
+				continue
+			if activity in activities:
+				print(activity)
+				raise ValidationError("Vous ne pouvez pas sélectionner une même activtté plusieurs fois")
+			activities.append(activity)

@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
-from django.forms import modelformset_factory
+from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import UpdateView, TemplateView, View
 
 from home.models import ActivityList, InterludesActivity
-from home.forms import ActivityForm, InscriptionForm
+from home.forms import ActivityForm, BaseActivityFormSet, InscriptionForm
 from site_settings.models import SiteSettings
 
 
@@ -41,35 +41,50 @@ class RegisterSignIn(TemplateView):
 	l'utilisateur n'est pas connecté"""
 	template_name = "inscription/signin.html"
 
-class RegisterUpdateView(LoginRequiredMixin, UpdateView):
+class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 	"""Vue pour s'inscrire et modifier son inscription"""
 	template_name = "inscription/form.html"
 	form_class = InscriptionForm
-	formset = modelformset_factory(ActivityList, form=ActivityForm, extra=3)
+	formset_class = formset_factory(form=ActivityForm, extra=3, formset=BaseActivityFormSet)
 
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		context["formset"] = self.formset(queryset=ActivityList.objects.none())
-		return context
+	@staticmethod
+	def get_activities(participant):
+		activities = ActivityList.objects.filter(participant=participant).order_by("priority")
+		return [{"activity": act.activity} for act in activities]
 
-	def get_object(self):
-		return self.request.user.profile
+	@staticmethod
+	def set_activities(participant, formset):
+		# delete old activites
+		ActivityList.objects.filter(participant=participant).delete()
 
-	def get_success_url(self):
-		return reverse("accounts:profile")
+		priority = 0
+		for form in formset:
+			data = form.cleaned_data
+			if data:
+				activity = data["activity"]
+				ActivityList(priority=priority, participant=participant, activity=activity).save()
+				priority += 1
 
-	def form_valid(self, form):
-		messages.success(self.request, "Votre inscription a été enregistrée")
-		return super().form_valid(form)
+	def get(self, request, *args, **kwargs):
+		participant = request.user.profile
+		activities = self.get_activities(participant)
+		form = self.form_class(instance=participant)
+		formset = self.formset_class(initial=activities)
+		context = {"form": form, "formset": formset}
+		return render(request, self.template_name, context)
 
 	def post(self, request, *args, **kwargs):
-		form = self.form_class(request.POST)
-		formset = self.formset(request.POST)
-		if formset.is_valid():
-			print("\n\n{} {}\n\n".format(len(formset), formset))
-		else:
-			print("\n\nInvalid\n\n")
-		return super().post(request, *args, **kwargs)
+		form = self.form_class(request.POST, instance=request.user.profile)
+		formset = self.formset_class(request.POST)
+		if not (form.is_valid() and formset.is_valid()):
+			context = {"form": form, "formset": formset}
+			return render(request, self.template_name, context)
+
+		form.save()
+		self.set_activities(request.user.profile, formset)
+
+		messages.success(request, "Votre inscription a bien été enregistrée")
+		return redirect("accounts:profile", permanent=False)
 
 class RegisterView(View):
 	"""Vue pour l'inscription

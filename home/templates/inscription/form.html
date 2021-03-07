@@ -3,10 +3,6 @@
 
 {% block nav_inscription %}current{% endblock %}
 
-{% block "head" %}
-	<!--<script src="{% static 'js/formset.js' %}"></script>-->
-{% endblock %}
-
 {% block "content" %}
 	<h2>Inscriptions</h2>
 	<form id="main_form" method="post" action="{% url 'inscription' %}">
@@ -14,6 +10,13 @@
 		{{ form.as_p }}
 
 		<h3>Choix d'activités</h3>
+
+		<p>Saissisez les activités auquelles vous voulez vous inscrire, par ordre de préférence.</p>
+
+		{% if formset.non_form_errors %}
+		{{ formset.non_form_errors }}
+		{% endif %}
+
 		{{ formset.management_data }}
 		{{ formset.management_form }}
 		{% for form in formset %}
@@ -50,6 +53,7 @@ function add_new_form(event) {
 	new_form.innerHTML = new_form.innerHTML.replace(form_regex, `form-${form_count}-`);
 	// add it and increment form total
 	main_form.insertBefore(new_form, button_add_activity);
+	new_form.querySelector("select").value = "";
 	total_forms.setAttribute("value", `${form_count+1}`);
 }
 
