@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
+from django.forms import modelformset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import UpdateView, TemplateView, View
 
-from home.models import InterludesActivity
-from home.forms import InscriptionForm
+from home.models import ActivityList, InterludesActivity
+from home.forms import ActivityForm, InscriptionForm
 from site_settings.models import SiteSettings
 
 
@@ -44,6 +45,12 @@ class RegisterUpdateView(LoginRequiredMixin, UpdateView):
 	"""Vue pour s'inscrire et modifier son inscription"""
 	template_name = "inscription/form.html"
 	form_class = InscriptionForm
+	formset = modelformset_factory(ActivityList, form=ActivityForm, extra=3)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context["formset"] = self.formset(queryset=ActivityList.objects.none())
+		return context
 
 	def get_object(self):
 		return self.request.user.profile
@@ -54,6 +61,15 @@ class RegisterUpdateView(LoginRequiredMixin, UpdateView):
 	def form_valid(self, form):
 		messages.success(self.request, "Votre inscription a été enregistrée")
 		return super().form_valid(form)
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		formset = self.formset(request.POST)
+		if formset.is_valid():
+			print("\n\n{} {}\n\n".format(len(formset), formset))
+		else:
+			print("\n\nInvalid\n\n")
+		return super().post(request, *args, **kwargs)
 
 class RegisterView(View):
 	"""Vue pour l'inscription

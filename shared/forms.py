@@ -96,8 +96,8 @@ class FormRenderMixin:
 						'    <div class="label_line">\n'
 						'      <label for="{label_for}">{label_text}&nbsp;:</label>\n{errors}'
 						"    </div>\n"
-						"    {field_html}\n"
-            '    <div class="help">{tooltip}{inline_helptext_html}</div>\n'
+						"    {field_html}{tooltip}\n"
+            '    <div class="help">{inline_helptext_html}</div>\n'
 						"  </div>\n"
 						"</div>"
 					).format(
