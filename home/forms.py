@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from home.models import ActivityList, InterludesParticipant
+from home.models import ActivityList, InterludesParticipant, InterludesActivity
 from shared.forms import FormRenderMixin
 
 
@@ -31,6 +31,12 @@ class ActivityForm(FormRenderMixin, forms.ModelForm):
 	class Meta:
 		model = ActivityList
 		fields = ("activity",)
+		#widgets = {"activity": forms.Select(choices=())}
+
+	def __init__(self, *args, **kwargs):
+		super(ActivityForm, self).__init__(*args, **kwargs)
+		activities = InterludesActivity.objects.filter(display=True, must_subscribe=True)
+		self.fields['activity'].queryset = activities
 
 class BaseActivityFormSet(forms.BaseFormSet):
 	"""Form set that fails if duplicate activities"""
@@ -47,6 +53,5 @@ class BaseActivityFormSet(forms.BaseFormSet):
 			if activity is None:
 				continue
 			if activity in activities:
-				print(activity)
 				raise ValidationError("Vous ne pouvez pas sélectionner une même activtté plusieurs fois")
 			activities.append(activity)
