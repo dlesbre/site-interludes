@@ -31,6 +31,8 @@ def send_validation_email(request, user, subject, template):
 class LoginView(DjangoLoginView):
 	"""Vue pour se connecter"""
 	template_name = "login.html"
+	redirect_authenticated_user = "accounts:profile"
+
 
 class LogoutView(RedirectView):
 	"""Vue pour se deconnecter"""
