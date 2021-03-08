@@ -12,7 +12,7 @@ class EmailVerificationTokenGenerator:
 	Strategy object used to generate and check tokens for the email
 	verification mechanism.
 	"""
-	key_salt = "shared.EmailVerificationTokenGenerator"
+	key_salt = "accounts.EmailVerificationTokenGenerator"
 	secret = settings.SECRET_KEY
 
 	def make_token(self, user):

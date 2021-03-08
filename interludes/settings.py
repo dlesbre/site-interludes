@@ -114,6 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
 	},
 ]
 
+# Session time in seconds
+SESSION_COOKIE_AGE = 3600
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -138,5 +140,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "accounts:profile"
 
-# This will display email in Console.
+# This will display emails in Console.
+# FIXME: remove in production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

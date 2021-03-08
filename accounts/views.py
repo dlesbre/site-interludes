@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView as DjangoLoginView
+from django.contrib.auth import views as auth_views
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.template.loader import render_to_string
 from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, View
 from django.shortcuts import render, redirect
@@ -28,7 +28,7 @@ def send_validation_email(request, user, subject, template):
 	user.email_user(subject, message)
 
 
-class LoginView(DjangoLoginView):
+class LoginView(auth_views.LoginView):
 	"""Vue pour se connecter"""
 	template_name = "login.html"
 	redirect_authenticated_user = "accounts:profile"
@@ -57,6 +57,7 @@ class CreateAccountView(View):
 	"""Vue pour la creation de compte"""
 	form_class = CreateAccountForm
 	template_name = 'create_account.html'
+	email_template = 'email/activation.html'
 
 	@staticmethod
 	def check_creation_allowed():
@@ -85,7 +86,7 @@ class CreateAccountView(View):
 		user.email_confirmed = False
 		user.save()
 
-		send_validation_email(request, user, "Activer votre compte Interludes", "activation_email.html")
+		send_validation_email(request, user, "Activer votre compte Interludes", self.email_template)
 
 		messages.info(request, 'Un lien vous a été envoyé par mail. Utilisez le pour finaliser la création de compte.')
 
@@ -125,10 +126,16 @@ class ActivateAccountView(RedirectView):
 		return reverse(self.success_pattern_name)
 
 
+# ==============================
+# Update personal info
+# ==============================
+
+
 class UpdateAccountView(LoginRequiredMixin, UpdateView):
 	"""Vue pour la mise à jour des infos personnelles"""
 	template_name = "update.html"
 	form_class = UpdateAccountForm
+	email_template = "email/change.html"
 
 	def get_object(self):
 		return self.request.user
@@ -146,7 +153,7 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
 			send_validation_email(
 				self.request, self.request.user,
 				"Valider le changement d'email de votre compte Interludes",
-				"change_email.html"
+				self.email_template
 			)
 
 			messages.info(self.request, 'Un lien vous a été envoyé par mail. Utilisez le pour valider la mise à jour.')
@@ -181,3 +188,30 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
 		messages.success(self.request, "Mot de passe mis à jour")
 		login(self.request, self.request.user)
 		return redirect("accounts:profile")
+
+
+# ==============================
+# Reset password
+# ==============================
+
+
+class ResetPasswordView(auth_views.PasswordResetView):
+	"""Vue pour le gestion du mot de passe oublié"""
+	email_template_name = 'email/password_reset.html'
+	subject_template_name = 'email/password_reset.txt'
+	success_url = reverse_lazy('accounts:login')
+	template_name = 'password_reset.html'
+
+	def form_valid(self, form):
+		messages.info(self.request, "Un email vous a été envoyé avec un lien de réinitialisation")
+		return super().form_valid(form)
+
+
+class ResetPasswordConfirmView(auth_views.PasswordResetConfirmView):
+	"""Vue demandant de saisir un nouveau mot de passe"""
+	success_url = reverse_lazy('accounts:login')
+	template_name = "password_reset_confirm.html"
+
+	def form_valid(self, form):
+		messages.success(self.request, "Votre mot de passe a été enregistré")
+		return super().form_valid(form)
