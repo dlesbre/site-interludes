@@ -28,11 +28,15 @@ Pour tester modifier le repo, après l'avoir cloné :
 
 3. Installer la dernière version de pip
 
-		python -m pip install --upgrade pip
+		python3 -m pip install --upgrade pip
 
 4. Installer les requirements
 
-		pip install -r requirements.txt
+		pip3 install -r requirements.txt
+
+5. Faire les les migrations
+
+		make migrate
 
 ## Test
 
@@ -52,3 +56,5 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 
 3. Dans un navigateur, le site se trouve à l'adresse
    [http://localhost:8000/](http://localhost:8000/)
+
+4. Créer un compte super-utilisateur avec `make adduser`. Les réglages se modifient depuis les pages d'admin de Django [http://localhost:8000/admin](http://localhost:8000/admin).
