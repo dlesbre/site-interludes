@@ -170,6 +170,11 @@ span.helptext {
 	display: flex;
 }
 
+.antispam {
+	unicode-bidi: bidi-override;
+	direction: rtl;
+}
+
 .button, .button:link, .button:visited, input[type=submit] {
 	color: white;
 	text-decoration: none;

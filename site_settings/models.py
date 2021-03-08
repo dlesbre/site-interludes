@@ -41,6 +41,10 @@ class SiteSettings(SingletonModel):
 
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 
+	@property
+	def contact_email_reversed(self):
+		return self.contact_email[::-1]
+
 	class Meta:
 		verbose_name = "paramètres"
 
