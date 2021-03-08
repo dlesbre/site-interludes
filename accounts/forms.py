@@ -54,10 +54,8 @@ class UpdateAccountForm(FormRenderMixin, forms.ModelForm):
 		return norm_email
 
 	def save(self, *args, commit=True, **kwargs):
-		email = self.cleaned_data["email"]
-		email_changed = email != self.instance.username
+		email_changed = "email" in self.changed_data
 		user = super().save(*args, commit=False, **kwargs)
-		user.username = email
 		if email_changed:
 			user.email_confirmed = False
 			user.is_active = False
