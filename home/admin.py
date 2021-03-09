@@ -29,7 +29,8 @@ class InterludesParticipantAdmin(ExportCsvMixin, admin.ModelAdmin):
 @admin.register(ActivityList)
 class ActivityListAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des choix d'activités dans la vue django admin"""
-	list_display = ("participant", "priority", "activity",)
+	list_display = ("activity", "participant", "priority", "accepted")
 	list_filter = ("activity", "participant",)
-	ordering = ("participant", "priority",)
+	list_editable = ("accepted",)
+	ordering = ("activity", "priority", "participant",)
 	list_per_page = 200

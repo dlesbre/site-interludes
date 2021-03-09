@@ -81,7 +81,7 @@ class ActivityList(models.Model):
 	activity = models.ForeignKey(
 		InterludesActivity, on_delete=models.CASCADE, db_column="activité"
 	)
-	accepted = models.BooleanField(default=False)
+	accepted = models.BooleanField("Obtenue", default=False)
 
 	class Meta:
 		# couples uniques
