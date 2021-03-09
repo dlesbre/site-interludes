@@ -7,6 +7,9 @@
 		{% csrf_token %}
 		{{ form.as_html }}
 		<br>
-		<input type="submit" value="Valider">
+		<div class="flex">
+			<input type="submit" value="Valider">
+			<a class="button" href="{% url 'accounts:login' %}">Annuler</a>
+		</div>
 	</form>
 {% endblock %}
