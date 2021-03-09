@@ -1,3 +1,5 @@
-from django.db import models
+from django.contrib.auth.base_user import BaseUserManager
 
-# Create your models here.
+def normalize_email(email: str) -> str:
+	"""Normalizes an email address"""
+	return BaseUserManager.normalize_email(email)

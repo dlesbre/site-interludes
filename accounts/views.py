@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, View
 from django.shortcuts import render, redirect
 
-from accounts.forms import CreateAccountForm, UpdateAccountForm, UpdatePasswordForm
+from accounts import forms
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from home.models import ActivityList
@@ -33,6 +33,7 @@ class LoginView(auth_views.LoginView):
 	"""Vue pour se connecter"""
 	template_name = "login.html"
 	redirect_authenticated_user = "accounts:profile"
+	form_class = forms.LoginForm
 
 
 class LogoutView(RedirectView):
@@ -71,7 +72,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 class CreateAccountView(View):
 	"""Vue pour la creation de compte"""
-	form_class = CreateAccountForm
+	form_class = forms.CreateAccountForm
 	template_name = 'create_account.html'
 	email_template = 'email/activation.html'
 
@@ -150,7 +151,7 @@ class ActivateAccountView(RedirectView):
 class UpdateAccountView(LoginRequiredMixin, UpdateView):
 	"""Vue pour la mise à jour des infos personnelles"""
 	template_name = "update.html"
-	form_class = UpdateAccountForm
+	form_class = forms.UpdateAccountForm
 	email_template = "email/change.html"
 
 	def get_object(self):
@@ -159,7 +160,7 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context["update_form"] = context["form"]
-		context["password_form"] = UpdatePasswordForm(
+		context["password_form"] = forms.UpdatePasswordForm(
 			user=self.request.user
 		)
 		return context
@@ -186,12 +187,12 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
 	""" Change a user's password """
 
 	template_name = "update.html"
-	form_class = UpdatePasswordForm
+	form_class = forms.UpdatePasswordForm
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context["password_form"] = context["form"]
-		context["update_form"] = UpdateAccountForm(instance=self.request.user)
+		context["update_form"] = forms.UpdateAccountForm(instance=self.request.user)
 		return context
 
 	def get_form_kwargs(self):
@@ -217,6 +218,7 @@ class ResetPasswordView(auth_views.PasswordResetView):
 	subject_template_name = 'email/password_reset.txt'
 	success_url = reverse_lazy('accounts:login')
 	template_name = 'password_reset.html'
+	form_class = forms.PasswordResetEmailForm
 
 	def form_valid(self, form):
 		messages.info(self.request, "Un email vous a été envoyé avec un lien de réinitialisation")

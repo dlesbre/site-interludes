@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 
+from shared.models import normalize_email
 
 class EmailUserManager(BaseUserManager):
 	"""User model manager that replaces username with email"""
@@ -9,7 +10,7 @@ class EmailUserManager(BaseUserManager):
 		"""Create and save a User with the given email and password."""
 		if not email:
 			raise ValueError("Creating user with no email")
-		email = self.normalize_email(email)
+		email = normalize_email(email)
 		user = self.model(email=email, **extra_fields)
 		user.set_password(password)
 		user.save()

@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth import authenticate, password_validation
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm
 from django.utils.safestring import mark_safe
 
 from accounts.models import EmailUser
 from shared.forms import FormRenderMixin
+from shared.models import normalize_email
 
 def password_criterions_html():
 	"""Wraps password criterions into nice html used by other forms"""
@@ -22,6 +23,13 @@ def password_criterions_html():
 	return mark_safe(criterions_html)
 
 
+class LoginForm(AuthenticationForm):
+	"""Form used when loging in"""
+	def clean(self, *args, **kwargs):
+		self.cleaned_data["username"] = normalize_email(self.cleaned_data.get("username"))
+		return super().clean(*args, **kwargs)
+
+
 class CreateAccountForm(FormRenderMixin, UserCreationForm):
 	"""Form used to register a new user"""
 	class Meta:
@@ -36,17 +44,12 @@ class UpdateAccountForm(FormRenderMixin, forms.ModelForm):
 		fields = ('email', 'first_name', 'last_name')
 		help_texts = {"email": "Si vous la changez, il faudra confirmer la nouvelle adresse",}
 
-	@staticmethod
-	def normalize_email(email):
-		""" Returns a normalized email """
-		return email.lower()
-
 	def clean_email(self):
 		""" Check email uniqueness """
 		email = self.cleaned_data["email"]
 		if email == self.instance.email:
 				return email
-		norm_email = self.normalize_email(email)
+		norm_email = normalize_email(email)
 		if EmailUser.objects.filter(email=norm_email).count() > 0:
 			raise forms.ValidationError(
 					"Un autre compte avec cette adresse mail existe déjà."
@@ -112,3 +115,10 @@ class UpdatePasswordForm(FormRenderMixin, forms.Form):
 		""" Apply the password change, assuming validation was already passed """
 		self.user.set_password(self.cleaned_data["password"])
 		self.user.save()
+
+
+class PasswordResetEmailForm(PasswordResetForm):
+	"""Form used when asking email to send password reset linkk"""
+	def clean(self, *args, **kwargs):
+		self.cleaned_data["email"] = normalize_email(self.cleaned_data.get("email"))
+		return super().clean(*args, **kwargs)
