@@ -67,6 +67,13 @@ class InterludesParticipant(models.Model):
 	def __str__(self) -> str:
 		return "{} {} ({})".format(self.user.first_name, self.user.last_name, self.school)
 
+	@property
+	def nb_meals(self) -> int:
+		return (
+			self.meal_friday_evening + self.meal_saturday_evening + self.meal_saturday_midday +
+			self.meal_saturday_morning + self.meal_sunday_midday + self.meal_sunday_morning
+		)
+
 	class Meta:
 		verbose_name = "participant"
 

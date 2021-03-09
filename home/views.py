@@ -4,7 +4,7 @@ from django.contrib.sitemaps import Sitemap
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import UpdateView, TemplateView, View
+from django.views.generic import RedirectView, UpdateView, TemplateView, View
 
 from home.models import ActivityList, InterludesActivity
 from home.forms import ActivityForm, BaseActivityFormSet, InscriptionForm
@@ -96,6 +96,17 @@ class RegisterView(View):
 		if not request.user.is_authenticated:
 			return RegisterSignIn.as_view()(request)
 		return RegisterUpdateView.as_view()(request)
+
+
+class UnregisterView(LoginRequiredMixin, RedirectView):
+	pattern_name = "accounts:profile"
+
+	def get_redirect_url(self, *args, **kwargs):
+		participant = self.request.user.profile
+		participant.is_registered = False
+		participant.save()
+		messages.success(self.request, "Vous avez été désinscrit")
+		return reverse(self.pattern_name)
 
 
 class StaticViewSitemap(Sitemap):

@@ -14,6 +14,7 @@ from django.shortcuts import render, redirect
 from accounts.forms import CreateAccountForm, UpdateAccountForm, UpdatePasswordForm
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
+from home.models import ActivityList
 from site_settings.models import SiteSettings
 
 def send_validation_email(request, user, subject, template):
@@ -51,6 +52,13 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 	"""Vue des actions de gestion de son profil"""
 	template_name = "profile.html"
 	redirect_field_name = "next"
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		my_activities = ActivityList.objects.filter(participant=self.request.user.profile)
+		context["my_activities"] = my_activities
+		return context
+
 
 
 class CreateAccountView(View):

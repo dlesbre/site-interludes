@@ -9,17 +9,47 @@
 <p>Connecté en tant que {{ user.first_name }} {{ user.last_name }} ({{ user.email }})</p>
 
 {% if user.is_superuser %}
-<p>Vous avez les droits d'administrateurs. Aller à la <a href="{% url 'admin:index' %}">page d'administration du site</a></p>
-{% endif %}
+<ul class="messagelist">
+<li class="info">Vous avez les droits d'administrateurs. Aller à la <a href="{% url 'admin:index' %}">page d'administration du site</a></li>
+</ul>{% endif %}
 
 {% if user.profile.is_registered %}
-<p>Vous êtes inscrit à l'événement. <a href="{% url 'inscription' %}">Modifier mon inscription</a>.</p>
+	<strong>Mon inscription&nbsp;:</strong>
+	<ul>
+		<li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Ne dors pas sur place{% endif %}</li>
+		<li>{% if user.profile.mug %}Commande une tasse{% else %}Ne commande pas de tasse{% endif %}</li>
+		<li>Inscrit à {{ user.profile.nb_meals }} repas.</li>
+		{% if settings.activities_allocated %}
+
+		{% else %}
+			{% if my_activities %}
+			<li>{{ my_activities|length }} activités souhaitées&nbsp;:
+				<ol>
+					{% for activity in my_activities %}
+					<li>{{ activity.activity }}</li>
+					{% endfor %}
+				</ol>
+			</li>
+			{% else %}
+			<li>Aucune activité souhaitée</li>
+			{% endif %}
+
+		{% endif %}
+	</ul>
+<div class="flex">
+
+	<a class="button" href="{% url 'desinscription' %}">Me désinscrire</a>
+	<a class="button" href="{% url 'inscription' %}">Modifier mon inscription</a>
+
 {% else %}
-<p>Vous n'êtes pas incrit à l'événement : <a href="{% url 'inscription' %}">s'inscrire</a>.</p>
+	<strong>Vous n'êtes pas incrit à l'événement.</strong><br><br>
+<div class="flex">
+	<a class="button" href="{% url 'inscription' %}">S'inscrire</a>
 {% endif %}
 
-<p><a href="{% url 'accounts:update' %}">Modifier mes informations</a></p>
 
-<p><a class="button" href="{% url 'accounts:logout' %}">Déconnexion</a></p>
+	<a class="button" href="{% url 'accounts:update' %}">Modifier mes informations</a>
+	<a class="button" href="{% url 'accounts:logout' %}">Déconnexion</a>
+</div>
 
 {% endblock %}

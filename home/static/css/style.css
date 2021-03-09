@@ -138,6 +138,10 @@ main p {
 	font-size: 1rem;
 }
 
+strong {
+	font-weight: bold;
+}
+
 main a:link {
 	text-decoration: underline;
 	color: rgb(62, 62, 255);
