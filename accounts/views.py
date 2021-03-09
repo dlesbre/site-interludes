@@ -55,7 +55,15 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		my_activities = ActivityList.objects.filter(participant=self.request.user.profile)
+		settings = SiteSettings.load()
+		if settings.activities_allocated:
+			my_activities = ActivityList.objects.filter(
+				participant=self.request.user.profile,
+				accepted=True
+			)
+		else:
+			my_activities = ActivityList.objects.filter(participant=self.request.user.profile)
+
 		context["my_activities"] = my_activities
 		return context
 

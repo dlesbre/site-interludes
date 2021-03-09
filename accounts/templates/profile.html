@@ -20,7 +20,17 @@
 		<li>{% if user.profile.mug %}Commande une tasse{% else %}Ne commande pas de tasse{% endif %}</li>
 		<li>Inscrit à {{ user.profile.nb_meals }} repas.</li>
 		{% if settings.activities_allocated %}
-
+			{% if my_activities %}
+			<li>Inscrit à {{ my_activities|length }} activités&nbsp;:
+				<ul>
+					{% for activity in my_activities %}
+					<li>{{ activity.activity }}</li>
+					{% endfor %}
+				</ul>
+			</li>
+			{% else %}
+			<li>Inscrit à aucune activité</li>
+			{% endif %}
 		{% else %}
 			{% if my_activities %}
 			<li>{{ my_activities|length }} activités souhaitées&nbsp;:
@@ -36,17 +46,34 @@
 
 		{% endif %}
 	</ul>
-<div class="flex">
-
-	<a class="button" href="{% url 'desinscription' %}">Me désinscrire</a>
-	<a class="button" href="{% url 'inscription' %}">Modifier mon inscription</a>
-
 {% else %}
-	<strong>Vous n'êtes pas incrit à l'événement.</strong><br><br>
-<div class="flex">
-	<a class="button" href="{% url 'inscription' %}">S'inscrire</a>
+	<strong>Vous n'êtes pas incrit à l'événement.</strong>
+
+	{% if not settings.inscriptions_open %}
+	<p>Les inscriptions ne sont pas encore ouvertes ou ont été fermées.</p>
+	{% endif %}
+	<br><br>
 {% endif %}
 
+<div class="flex">
+	{% if user.profile.is_registered %}
+		{% if settings.inscriptions_open %}
+		<a class="button" href="{% url 'desinscription' %}">Me désinscrire</a>
+		<a class="button" href="{% url 'inscription' %}">Modifier mon inscription</a>
+		{% else %}
+		<script type="text/javascript">
+			function clicked() {
+				if (confirm(
+					'Les inscriptions étant fermées, vous ne pourrez pas vous réinscrire.\nVoulez vous vraiment vous désinscrire?'
+				))
+					window.location = "{% url 'desinscription' %}";
+			}
+		</script>
+		<button class="button" onclick="clicked();">Me désinscrire</button>
+		{% endif %}
+	{% elif settings.inscriptions_open %}
+	<a class="button" href="{% url 'inscription' %}">S'inscrire</a>
+	{% endif %}
 
 	<a class="button" href="{% url 'accounts:update' %}">Modifier mes informations</a>
 	<a class="button" href="{% url 'accounts:logout' %}">Déconnexion</a>
