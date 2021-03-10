@@ -146,6 +146,25 @@ main a:link {
 	text-decoration: underline;
 	color: rgb(62, 62, 255);
 }
+.lines {
+	border-top: 2px solid #333;
+	border-bottom: 2px solid #333;
+	justify-content: left
+}
+.stat {
+	min-width: 120px;
+	text-align: center;
+	padding: 5px;
+}
+.stat .qty {
+	font-size: 1.2em;
+}
+.stat .nb_big {
+	font-size: 3em;
+}
+.stat .nb_small {
+	font-size: 2em;
+}
 
 dl {
 	list-style: none;
@@ -172,6 +191,10 @@ span.helptext {
 
 .flex {
 	display: flex;
+}
+.wrap {
+	flex-flow: row wrap;
+	flex-wrap: wrap;
 }
 
 .antispam {

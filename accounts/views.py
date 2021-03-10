@@ -69,6 +69,10 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 		return context
 
 
+# ==============================
+# Create Account
+# ==============================
+
 
 class CreateAccountView(View):
 	"""Vue pour la creation de compte"""

@@ -6,9 +6,16 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import RedirectView, UpdateView, TemplateView, View
 
-from home.models import ActivityList, InterludesActivity
+from accounts.models import EmailUser
+from home.models import ActivityList, InterludesActivity, InterludesParticipant
 from home.forms import ActivityForm, BaseActivityFormSet, InscriptionForm
 from site_settings.models import SiteSettings
+from shared.views import SuperuserRequiredMixin
+
+
+# ==============================
+# Site static pages
+# ==============================
 
 
 class HomeView(TemplateView):
@@ -30,6 +37,11 @@ class ActivityView(TemplateView):
 class FAQView(TemplateView):
 	"""Vue pour la FAQ"""
 	template_name = "faq.html"
+
+
+# ==============================
+# Registration
+# ==============================
 
 
 class RegisterClosed(TemplateView):
@@ -107,6 +119,46 @@ class UnregisterView(LoginRequiredMixin, RedirectView):
 		participant.save()
 		messages.success(self.request, "Vous avez été désinscrit")
 		return reverse(self.pattern_name)
+
+
+# ==============================
+# Admin views
+# ==============================
+
+
+class MetricsView(SuperuserRequiredMixin, TemplateView):
+	template_name = "metrics.html"
+
+	def get_metrics(self):
+		registered = InterludesParticipant.objects.filter(is_registered = True)
+		class metrics:
+			participants = registered.count()
+			ulm = registered.filter(school="U").count()
+			lyon = registered.filter(school="L").count()
+			rennes = registered.filter(school="R").count()
+			saclay = registered.filter(school="P").count()
+			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
+
+			meal1 = registered.filter(meal_friday_evening=True).count()
+			meal2 = registered.filter(meal_saturday_morning=True).count()
+			meal3 = registered.filter(meal_saturday_midday=True).count()
+			meal4 = registered.filter(meal_saturday_evening=True).count()
+			meal5 = registered.filter(meal_sunday_morning=True).count()
+			meal6 = registered.filter(meal_sunday_midday=True).count()
+			meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
+
+			mugs = registered.filter(mug=True).count()
+			sleeps = registered.filter(sleeps=True).count()
+		return metrics
+
+	def get_context_data(self, *args, **kwargs):
+		context = super().get_context_data(*args, **kwargs)
+		context["metrics"] = self.get_metrics()
+		return context
+
+# ==============================
+# Sitemap
+# ==============================
 
 
 class StaticViewSitemap(Sitemap):
