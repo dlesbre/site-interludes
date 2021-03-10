@@ -7,13 +7,16 @@ from home import views
 sitemaps = {"static_pages": views.StaticViewSitemap}
 
 urlpatterns = [
-	path('', views.HomeView.as_view(), {"template": "home.html"}, name = 'home'),
+	path('', views.HomeView.as_view(), name = 'home'),
 	path('inscription/', views.RegisterView.as_view(), name = 'inscription'),
 	path('desinscription/', views.UnregisterView.as_view(), name="desinscription"),
-	path('activites/', views.ActivityView.as_view(), {"template":"activites.html"}, name = 'activites'),
-	path('faq/', views.FAQView.as_view(), {"template":"faq.html"}, name = 'FAQ'),
+	path('activites/', views.ActivityView.as_view(), name = 'activites'),
+	path('faq/', views.FAQView.as_view(), name = 'FAQ'),
 	path('favicon.ico', RedirectView.as_view(url='/static/imgs/favicon.ico')),
-	path('metrics/', views.MetricsView.as_view(), name="metrics"),
+	path('admin_site/', views.AdminView.as_view(), name="site_admin"),
+	path('export/activities/', views.ExportActivities.as_view(), name="activities.csv"),
+	path('export/participants/', views.ExportParticipants.as_view(), name="participants.csv"),
+	path('export/activity_choices/', views.ExportActivityChoices.as_view(), name="activity_choices.csv"),
 	path(
 		'sitemap.xml', sitemap, {'sitemaps': sitemaps},
 		name='django.contrib.sitemaps.views.sitemap'

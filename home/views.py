@@ -10,7 +10,7 @@ from accounts.models import EmailUser
 from home.models import ActivityList, InterludesActivity, InterludesParticipant
 from home.forms import ActivityForm, BaseActivityFormSet, InscriptionForm
 from site_settings.models import SiteSettings
-from shared.views import SuperuserRequiredMixin
+from shared.views import CSVWriteView, SuperuserRequiredMixin
 
 
 # ==============================
@@ -126,8 +126,8 @@ class UnregisterView(LoginRequiredMixin, RedirectView):
 # ==============================
 
 
-class MetricsView(SuperuserRequiredMixin, TemplateView):
-	template_name = "metrics.html"
+class AdminView(SuperuserRequiredMixin, TemplateView):
+	template_name = "admin.html"
 
 	def get_metrics(self):
 		registered = InterludesParticipant.objects.filter(is_registered = True)
@@ -155,6 +155,55 @@ class MetricsView(SuperuserRequiredMixin, TemplateView):
 		context = super().get_context_data(*args, **kwargs)
 		context["metrics"] = self.get_metrics()
 		return context
+
+
+class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
+	filename = "activites_interludes"
+	model = InterludesActivity
+
+class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
+	filename = "participants_interludes"
+	headers = [
+		"id", "mail", "prénom", "nom", "ENS", "Dors sur place", "Tasse",
+		"Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
+		"Repas D matin", "Repas D soir"
+	]
+	def get_rows(self):
+		profiles = InterludesParticipant.objects.filter(is_registered=True).all()
+		rows = []
+		for profile in profiles:
+			rows.append([
+				profile.user.id,
+				profile.user.email,
+				profile.user.first_name,
+				profile.user.last_name,
+				profile.school,
+				profile.sleeps,
+				profile.mug,
+				profile.meal_friday_evening,
+				profile.meal_saturday_morning,
+				profile.meal_saturday_midday,
+				profile.meal_saturday_evening,
+				profile.meal_sunday_morning,
+				profile.meal_sunday_midday,
+			])
+		return rows
+
+class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
+	filename = "choix_activite_interludes"
+	model = ActivityList
+	headers = ["id_participant", "nom_participant", "priorité", "nom_activité", "id_activité"]
+
+	def get_rows(self):
+		activities = ActivityList.objects.all()
+		rows = []
+		for act in activities:
+			if act.participant.is_registered:
+				rows.append([
+					act.participant.id, str(act.participant), act.priority,
+					str(act.activity), act.activity.id
+				])
+		return rows
 
 # ==============================
 # Sitemap

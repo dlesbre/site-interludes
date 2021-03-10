@@ -253,6 +253,7 @@ ul.messagelist li {
 ul.messagelist li:before {
 	font-family: "Font Awesome 5 Free";
 	padding-right: 10px;
+	margin-left: -30px;
 	font-weight: 900;
 }
 ul.messagelist li.success {

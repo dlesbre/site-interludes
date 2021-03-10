@@ -61,6 +61,12 @@
 					Connexion
 				</a>
 			{% endif %}
+			{% if user.is_superuser %}
+			<a href="{% url 'site_admin' %}"
+				class="{% block nav_admin %}{% endblock %} ">
+				Administration
+			</a>
+			{% endif %}
 		</nav>
 
 		<main>

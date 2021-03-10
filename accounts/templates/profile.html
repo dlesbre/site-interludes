@@ -10,7 +10,7 @@
 
 {% if user.is_superuser %}
 <ul class="messagelist">
-<li class="info">Vous avez les droits d'administrateurs. Aller à la <a href="{% url 'admin:index' %}">page d'administration du site</a></li>
+<li class="info">Vous avez les droits d'administrateurs. Aller à la <a href="{% url 'site_admin' %}">page d'administration du site</a></li>
 </ul>{% endif %}
 
 {% if user.profile.is_registered %}

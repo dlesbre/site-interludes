@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block nav_admin %}current{% endblock %}
+
+{% block "content" %}
+	<h2>Page d'administration</h2>
+
+	<div class="flex wrap">
+		<a class="button" href="{% url 'participants.csv' %}"><i class="fa fa-download"></i> Liste des participants</a>
+		<a class="button" href="{% url 'activities.csv' %}"><i class="fa fa-download"></i> Liste des activités</a>
+		<a class="button" href="{% url 'activity_choices.csv' %}"><i class="fa fa-download"></i> Choix d'activités</a>
+	</div>
+	<ul class="messagelist">
+		<li class="info">
+	Pour plus d'options d'accès et de modification, aller à la <a href="{% url 'admin:index' %}">page d'administration de django</a>.
+	<br>N'y modifiez rien si vous n'êtes pas sur de ce que cela fait.
+		</li></ul>
+
+	<h2>Paramètres du site</h2>
+
+		<ul>
+			<li>La création de compte est {% if settings.registrations_open %}ouverte{% else %}fermée{% endif %}.</li>
+			<li>Les inscriptions sont {% if settings.inscriptions_open %}ouvertes{% else %}fermées{% endif %}.</li>
+			<li>La répartition des activités {% if settings.activities_allocated %}est effectuée et affichée{% else %}n'est pas faite/affichée{% endif %}.</li>
+		</ul>
+
+	<h2>Métriques</h2>
+
+	<div class="flex wrap lines">
+		<div class="stat">
+			<div class="qty">Participants</div>
+			<div class="nb_big">{{ metrics.participants }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Ulm</div>
+			<div class="nb_small">{{ metrics.ulm }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Lyon</div>
+			<div class="nb_small">{{ metrics.lyon }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Rennes</div>
+			<div class="nb_small">{{ metrics.rennes }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Paris-Saclay</div>
+			<div class="nb_small">{{ metrics.saclay }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Non inscrits</div>
+			<div class="nb_small">{{ metrics.non_registered }}</div>
+		</div>
+	</div>
+
+	<div class="flex wrap lines">
+		<div class="stat">
+			<div class="qty">Repas</div>
+			<div class="nb_big">{{ metrics.meals }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Vendredi</div>
+			<div class="nb_small">{{ metrics.meal1 }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">S matin</div>
+			<div class="nb_small">{{ metrics.meal2 }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">S midi</div>
+			<div class="nb_small">{{ metrics.meal3 }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">S soir</div>
+			<div class="nb_small">{{ metrics.meal4 }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">D matin</div>
+			<div class="nb_small">{{ metrics.meal5 }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">D midi</div>
+			<div class="nb_small">{{ metrics.meal6 }}</div>
+		</div>
+	</div>
+
+	<div class="flex wrap lines">
+		<div class="stat">
+			<div class="qty">Tasses</div>
+			<div class="nb_small">{{ metrics.mugs }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Dormeurs</div>
+			<div class="nb_small">{{ metrics.sleeps }}</div>
+		</div>
+	</div>
+{% endblock %}
