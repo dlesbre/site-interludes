@@ -55,7 +55,7 @@
 	<br><br>
 {% endif %}
 
-<div class="flex">
+<div class="flex wrap">
 	{% if user.profile.is_registered %}
 		{% if settings.inscriptions_open %}
 		<a class="button" href="{% url 'desinscription' %}">Me désinscrire</a>

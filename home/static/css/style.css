@@ -102,6 +102,38 @@ nav a:hover {
 nav a.current {
 	background-color: var(--color_bg_1);
 }
+nav a.icon {
+  display: none;
+	width: 40px;
+}
+ /* hide all links except home and display menu icon */
+@media (max-width: 600px) {
+	nav {
+		padding: 0;
+	}
+  nav a:not(:first-child) {display: none;}
+  nav a.icon {
+    float: right;
+    display: block;
+  }
+	/* The "responsive" class is added bu JS when the user click the menu icon */
+  nav.responsive {
+		position: relative;
+    flex-direction: column;
+		justify-content: start;
+	}
+  nav.responsive a.icon {
+    position: absolute;
+    right: 0px;
+    top: 0;
+  }
+  nav.responsive a {
+		float: none;
+		display: block;
+  }
+
+}
+
 
 main {
 	background-color: var(--color-bg);

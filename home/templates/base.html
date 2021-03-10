@@ -33,7 +33,18 @@
 			</div>
 		</header>
 
-		<nav>
+		<script type="text/javascript">
+			function toggle_menu() {
+				var nav = document.getElementById("nav");
+				if (nav.className === "") {
+					nav.className += "responsive";
+				} else {
+					nav.className = "";
+				}
+			}
+		</script>
+
+		<nav id="nav">
 			<a href="{% url 'home' %}" rel="text/html"
 				class="{% block nav_home %}{% endblock %}">
 				Accueil
@@ -67,6 +78,9 @@
 				Administration
 			</a>
 			{% endif %}
+			<a href="javascript:void(0);" class="icon" onclick="toggle_menu()">
+				<i class="fa fa-bars"></i>
+			</a>
 		</nav>
 
 		<main>
