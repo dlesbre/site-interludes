@@ -27,7 +27,7 @@ DEBUG = True
 
 ADMINS = [("respos", "respointerludes2021@ens.psl.eu"),]
 
-ALLOWED_HOSTS = ['localhost', '192.168.43.13']
+ALLOWED_HOSTS = []
 
 
 # Application definition
