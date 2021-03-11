@@ -31,6 +31,7 @@ class ActivityView(TemplateView):
 		"""ajoute la liste des activités au contexte"""
 		context = super(ActivityView, self).get_context_data(**kwargs)
 		context['activities'] = InterludesActivity.objects.filter(display=True).order_by("title")
+		context['planning'] = InterludesActivity.objects.filter(on_planning=True).order_by("title")
 		return context
 
 

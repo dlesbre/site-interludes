@@ -13,17 +13,26 @@ class InterludesActivity(models.Model):
 	min_paricipants = models.PositiveIntegerField(
 		"Nombre minimum de participants"
 	)
-	display = models.BooleanField("afficher cette activité", default=False)
+	display = models.BooleanField("afficher dans la liste d'activités", default=False)
 	must_subscribe = models.BooleanField("sur inscription", default=False)
 	host_name = models.CharField("nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("email de l'organisateur")
 	description = models.TextField("description", max_length=2000)
 
-	on_planning = models.BooleanField("afficher sur le planning", default=False)
+	on_planning = models.BooleanField(
+		"afficher sur le planning", default=False,
+		help_text="Nécessite de salle et heure de début non vide"
+	)
 	start = models.DateTimeField("début", null=True, blank=True)
 	room = models.CharField("salle", max_length=100, null=True, blank=True)
 
 	notes = models.TextField("Notes privées", max_length=2000, blank=True)
+
+	@property
+	def end(self):
+		if (not self.start) or (not self.duration):
+			return None
+		return self.start + self.duration
 
 	@property
 	def nb_participants(self) -> str:

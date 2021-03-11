@@ -1,8 +1,52 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<script src="{% static 'js/vis-timeline.min.js' %}"></script>
+{% endblock %}
 
 {% block nav_activite %}current{% endblock %}
 
 {% block "content" %}
+	{% if settings.display_planning %}
+		<h2>Planning</h2>
+		<div id="visualization"></div>
+
+		<script type="text/javascript">
+			// https://visjs.org/
+			// DOM element where the Timeline will be attached
+			var container = document.getElementById('visualization');
+
+			// Create a DataSet (allows two way data-binding)
+			var items = new vis.DataSet([
+				{% for act in planning %}
+				{
+					id: {{ act.id }},
+					content: '<strong>{{ act.title }}</strong><div class="planning_room">{{ act.room }}</div>',
+					start: '{{ act.start|date:"Y-m-d H:i:s" }}',
+					align: 'left',
+					title: 'hello',
+					subgroup: '{{ act.room }}',
+					//end:'{{ act.end|date:"Y-m-d H:i:s" }}'
+				},
+				{% endfor %}
+			]);
+
+			// Configuration for the Timeline
+			var options = {
+				// showMajorLabels: false,
+				showCurrentTime: false,
+			};
+
+			// Create a Timeline
+			var timeline = new vis.Timeline(container, items, options);
+
+			// timeline.on('select', function (properties) {
+			// 	alert('selected items: ' + properties.items);
+			// });
+		</script>
+	{% endif %}
+
 	<h2>Activités</h2>
 	<p>Durant tout l'événement, des jeux seront en libre-service et des tables disponibles pour jouer.
 		Certaines activités (JDRs, murders...) ne pourront se faire qu'avec inscription au vue d'un nombre de places limité.

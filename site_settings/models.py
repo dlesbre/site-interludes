@@ -41,7 +41,10 @@ class SiteSettings(SingletonModel):
 
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 
-	activities_allocated = models.BooleanField("Afficher les activités obtenues", default=False)
+	activities_allocated = models.BooleanField(
+		"Afficher les activités obtenues", default=False,
+		help_text="Suppose que l'allocation des activités a été effectuée."
+	)
 
 	@property
 	def contact_email_reversed(self):
