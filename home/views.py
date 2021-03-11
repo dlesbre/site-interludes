@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
@@ -30,8 +32,12 @@ class ActivityView(TemplateView):
 	def get_context_data(self, **kwargs):
 		"""ajoute la liste des activités au contexte"""
 		context = super(ActivityView, self).get_context_data(**kwargs)
+		settings = SiteSettings.load()
 		context['activities'] = InterludesActivity.objects.filter(display=True).order_by("title")
 		context['planning'] = InterludesActivity.objects.filter(on_planning=True).order_by("title")
+		context['friday'] = settings.date_start.day
+		context['saturday'] = (settings.date_start + timedelta(days=1)).day
+		context['sunday'] = (settings.date_start + timedelta(days=2)).day
 		return context
 
 

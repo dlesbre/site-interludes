@@ -233,14 +233,6 @@ span.helptext {
 	unicode-bidi: bidi-override;
 	direction: rtl;
 }
-.planning_title {
-	font-size: 1em;
-}
-.planning_room {
-	font-size: 1em;
-	color: #555;
-	font-style: italic;
-}
 
 .button, .button:link, .button:visited, input[type=submit] {
 	color: white;

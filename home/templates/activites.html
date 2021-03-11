@@ -10,38 +10,47 @@
 {% block "content" %}
 	{% if settings.display_planning %}
 		<h2>Planning</h2>
-		<div id="visualization"></div>
+		<div id="planning"></div>
 
 		<script type="text/javascript">
 			// https://visjs.org/
 			// DOM element where the Timeline will be attached
-			var container = document.getElementById('visualization');
+			const container = document.getElementById('planning');
 
-			// Create a DataSet (allows two way data-binding)
-			var items = new vis.DataSet([
+			const groups = new vis.DataSet([
+				{id: {{ friday }}, content: "Vendredi", order: 0},
+				{id: {{ saturday }}, content: "Samedi", order: 1},
+				{id: {{ sunday }}, content: "Dimanche", order: 2},
+			]);
+
+			// Items in the timeline
+			const items = new vis.DataSet([
 				{% for act in planning %}
 				{
 					id: {{ act.id }},
 					content: '<strong>{{ act.title }}</strong><div class="planning_room">{{ act.room }}</div>',
-					start: '{{ act.start|date:"Y-m-d H:i:s" }}',
+					start: '{{ settings.date_start|date:"Y-m-d"}} {{ act.start|date:"H:i:s" }}',
 					align: 'left',
-					title: 'hello',
+					group: '{{ act.start|date:"d" }}',
 					subgroup: '{{ act.room }}',
-					//end:'{{ act.end|date:"Y-m-d H:i:s" }}'
+					end:'{{ settings.date_start|date:"Y-m-d"}} {{ act.end|date:"H:i:s" }}'
 				},
 				{% endfor %}
 			]);
 
 			// Configuration for the Timeline
-			var options = {
-				// showMajorLabels: false,
+			const options = {
+				showMajorLabels: false,
 				showCurrentTime: false,
 				locale: "fr-fr",
+				groupOrder: "order",
+				start: '{{ settings.date_start|date:"Y-m-d"}} 00:00:00',
+				end:  '{{ settings.date_start|date:"Y-m-d"}} 23:59:59',
 			};
 
 			// Create a Timeline
-			var timeline = new vis.Timeline(container, items, options);
-
+			const timeline = new vis.Timeline(container, items, options);
+			timeline.setGroups(groups);
 			// timeline.on('select', function (properties) {
 			// 	alert('selected items: ' + properties.items);
 			// });
