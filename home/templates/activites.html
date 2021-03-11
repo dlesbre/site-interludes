@@ -28,7 +28,8 @@
 				{% for act in planning %}
 				{
 					id: {{ act.id }},
-					content: '<strong>{{ act.title }}</strong><div class="planning_room">{{ act.room }}</div>',
+					content: '<a class="hidden" href="#act-{{act.id}}"><div><strong>{{ act.title }}</strong><br>{{ act.room }}</div></a>',
+					title: '<strong>{{ act.title }}</strong><br>{{ act.room }}',
 					start: '{{ settings.date_start|date:"Y-m-d"}} {{ act.start|date:"H:i:s" }}',
 					align: 'left',
 					group: '{{ act.start|date:"d" }}',
@@ -39,13 +40,18 @@
 			]);
 
 			// Configuration for the Timeline
+			const start = '{{ settings.date_start|date:"Y-m-d"}} 00:00:00';
+			const end = '{{ settings.date_start|date:"Y-m-d"}} 23:59:59';
 			const options = {
 				showMajorLabels: false,
 				showCurrentTime: false,
-				locale: "fr-fr",
+				locale: "fr",
 				groupOrder: "order",
-				start: '{{ settings.date_start|date:"Y-m-d"}} 00:00:00',
-				end:  '{{ settings.date_start|date:"Y-m-d"}} 23:59:59',
+				start: start,
+				min: start,
+				end: end,
+				max: end,
+				selectable: false,
 			};
 
 			// Create a Timeline
@@ -55,6 +61,31 @@
 			// 	alert('selected items: ' + properties.items);
 			// });
 		</script>
+
+		<style>
+			.vis-item {
+				background-color: var(--color_bg_1);
+				color: white;
+			}
+			.vis-item-content {
+				width: 100%;
+			}
+			.vis-item a, .vis-item a:link, .vis-item a:visited {
+				text-decoration: none;
+				color: white;
+				width: 100%
+			}
+			.vis-item a div {
+				width: 100%;
+			}
+			.vis-item:hover {
+				background-color: var(--color_bg_2);
+			}
+			.vis-time-axis .grid.vis-odd {
+    background: #444;
+  }
+
+		</style>
 	{% endif %}
 
 	<h2>Activités</h2>
@@ -66,7 +97,7 @@
 	</p>
 
 	{% for activity in activities %}
-		<h3>{{ activity.title }}</h3>
+		<h3 id="act-{{ activity.id }}"">{{ activity.title }}</h3>
 		<dl>
 			<dt>Durée :</dt><dd>{{ activity.duration }}</dd>
 			<dt>MJ :</dt><dd>{{ activity.host_name }}</dd>
