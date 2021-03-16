@@ -46,6 +46,8 @@ class SiteSettings(SingletonModel):
 		help_text="Suppose que l'allocation des activités a été effectuée."
 	)
 
+	activity_submission_form = models.CharField("Lien pour soumettre une activité", max_length=200, default="")
+
 	@property
 	def contact_email_reversed(self):
 		return self.contact_email[::-1]
