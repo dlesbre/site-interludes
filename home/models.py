@@ -5,12 +5,40 @@ from accounts.models import EmailUser
 
 class InterludesActivity(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
+
+	class Status(models.TextChoices):
+		"""en presentiel ou non"""
+		PRESENT = "P", _("En présentiel uniquement")
+		DISTANT = "D", _("En distanciel uniquement")
+		BOTH = "2", _("Les deux")
+
+	class Types(models.TextChoices):
+		"""types d'activités"""
+		TOURNAMENT = "Tournoi", _("Tournoi")
+		GAME = "partie", _("Une partie")
+		GAMES = "parties", _("Quelques parties")
+		FREEPLAY = "freeplay", _("Freeplay")
+		CARD_GAME = "jeu cartes", _("Jeu de cartes")
+		BOARD_GAME = "jeu plateau", _("Jeu de société")
+		TABLETOP_RPG = "table RPG", _("Jeu de rôle sur table")
+		LARGE_RPG = "large RPG", _("Jeu de rôle grandeur nature")
+		VIDEOGAME = "videogame", _("Jeu vidéo")
+		PARTYGAME = "partygame", _("Party game")
+		PUZZLE = "puzzle", _("Puzzle ou analogue")
+		SECRET_ROLES = "secret roles", _("Jeu à rôles secrets")
+		COOP = "coop", _("Jeu coopératif")
+		OTHER = "other", _("Autre")
+
 	title = models.CharField("Titre", max_length=200)
+
+	status = models.CharField("Présentiel/distanciel", choices=Status.choices, max_length=1)
+	act_type = models.CharField("Type", choices=Types.choices, max_length=12)
+
 	duration = models.DurationField("Durée", help_text="format hh:mm:ss")
 	max_participants = models.PositiveIntegerField(
 		"Nombre maximum de participants", help_text="0 pour illimité"
 	)
-	min_paricipants = models.PositiveIntegerField(
+	min_participants = models.PositiveIntegerField(
 		"Nombre minimum de participants"
 	)
 	display = models.BooleanField("afficher dans la liste d'activités", default=False)

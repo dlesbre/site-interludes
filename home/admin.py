@@ -16,6 +16,18 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 	list_filter = ("display", "must_subscribe", "on_planning")
 	ordering = ("title", "host_name",)
 	list_editable = ("display",)
+	fields = (
+		"title",
+		("host_name", "host_email"),
+		"status", "act_type", "duration",
+		("min_participants", "max_participants"),
+		"must_subscribe",
+		"description",
+		"display",
+		"room", "start",
+		"on_planning",
+		"notes"
+	)
 	list_per_page = 100
 
 @admin.register(InterludesParticipant)
