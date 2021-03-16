@@ -65,8 +65,22 @@ class InterludesActivity(models.Model):
 	@property
 	def nb_participants(self) -> str:
 		if self.max_participants == 0:
-			return "Illimité"
-		return "{} - {}".format(self.min_paricipants, self.max_participants)
+			ret = "Illimités"
+		else:
+			ret = "{} - {}".format(self.min_participants, self.max_participants)
+		if self.must_subscribe:
+			ret += " (sur inscription)"
+		return ret
+
+	@property
+	def pretty_duration(self) -> str:
+		hours, rem = divmod(self.duration.seconds, 3600)
+		minutes = "{:02}".format(rem // 60) if rem // 60 else ""
+		return "{}h{}".format(hours, minutes)
+
+	@property
+	def pretty_type(self) -> str:
+		return self.Types(self.act_type).label
 
 	def __str__(self):
 		return self.title

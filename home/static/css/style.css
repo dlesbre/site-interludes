@@ -201,10 +201,11 @@ main a:link {
 dl {
 	list-style: none;
 	display: grid;
-	grid-template-columns: 1fr 4fr;
+	grid-template-columns: auto auto;
+	justify-content: left;
+	padding-left: 10px;
 }
 dl dt {
-	grid-column: 1 / span 1;
 	justify-self: end;
 	text-align: right;
 	font-weight: bold;

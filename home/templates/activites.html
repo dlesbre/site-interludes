@@ -98,11 +98,12 @@
 
 	{% for activity in activities %}
 		<h3 id="act-{{ activity.id }}"">{{ activity.title }}</h3>
+		{{ activity.html_display }}
 		<dl>
-			<dt>Durée :</dt><dd>{{ activity.duration }}</dd>
-			<dt>MJ :</dt><dd>{{ activity.host_name }}</dd>
-			<dt>Nombre de places :</dt><dd>{{ activity.nb_participants }}</dd>
-			<dt>Sur inscription :</dt><dd>{% if activity.must_subscribe %} Oui {% else %} Non {% endif %}</dd>
+			<dt>Durée :</dt><dd>{{ activity.pretty_duration }}</dd>
+			<dt>Orga :</dt><dd>{{ activity.host_name }}</dd>
+			<dt>Type :</dt><dd>{{ activity.pretty_type }}</dd>
+			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
 			<dt>Description :</dt><dd>{{ activity.description|linebreaksbr }}</dd>
 		</dl>
 	{% endfor %}
