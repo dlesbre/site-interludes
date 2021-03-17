@@ -7,11 +7,24 @@
 	<h2>Inscriptions</h2>
 	<form id="main_form" method="post" action="{% url 'inscription' %}">
 		{% csrf_token %}
-		{{ form.as_p }}
+
+		<p>{{ form.school.label_tag }} {{ form.school }}</p>
+		<p>{{ form.sleeps.label_tag }} {{ form.sleeps }}</p>
+
+		<h3>Repas</h3>
+		<table>
+			<tr><td>Vendredi soir&nbsp;:</td><td>{{ form.meal_friday_evening }}</td></tr>
+			<tr><td>Samedi matin&nbsp;:</td><td>{{ form.meal_saturday_morning }}</td></tr>
+			<tr><td>Samedi midi&nbsp;:</td><td>{{ form.meal_saturday_midday }}</td></tr>
+			<tr><td>Samedi soir&nbsp;:</td><td>{{ form.meal_saturday_evening }}</td></tr>
+			<tr><td>Dimanche matin&nbsp;:</td><td>{{ form.meal_sunday_morning }}</td></tr>
+			<tr><td>Dimanche soir&nbsp;:</td><td>{{ form.meal_sunday_midday }}</td></tr>
+		</table>
 
 		<h3>Choix d'activités</h3>
 
 		<p>Saissisez les activités auquelles vous voulez vous inscrire, par ordre de préférence.</p>
+		<p>Vous pouvez revenir modifier votre choix jusqu'à la fermeture des inscriptions.</p>
 
 		{% if formset.non_form_errors %}
 		{{ formset.non_form_errors }}

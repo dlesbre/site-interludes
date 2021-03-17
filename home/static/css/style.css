@@ -249,6 +249,14 @@ span.helptext {
 	background-color: var(--color_bg_2);
 }
 
+.activity-form p {
+	flex-grow: 1;
+	max-width: 500px;
+}
+.activity-form select {
+	width: 100%;
+}
+
 ul.errorlist {
 	color: red;
 	font-size: 0.8em;
