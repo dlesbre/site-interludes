@@ -154,7 +154,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			meal6 = registered.filter(meal_sunday_midday=True).count()
 			meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
 
-			mugs = registered.filter(mug=True).count()
+			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
 		return metrics
 

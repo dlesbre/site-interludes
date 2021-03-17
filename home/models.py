@@ -113,7 +113,7 @@ class InterludesParticipant(models.Model):
 
 	sleeps = models.BooleanField("dormir sur place", default=False)
 
-	mug = models.BooleanField("commander une tasse", default=False)
+	# mug = models.BooleanField("commander une tasse", default=False)
 
 	def __str__(self) -> str:
 		return "{} {} ({})".format(self.user.first_name, self.user.last_name, self.school)
