@@ -52,6 +52,10 @@
 			<div class="qty">Non inscrits</div>
 			<div class="nb_small">{{ metrics.non_registered }}</div>
 		</div>
+		<div class="stat">
+			<div class="qty">Dormeurs</div>
+			<div class="nb_small">{{ metrics.sleeps }}</div>
+		</div>
 	</div>
 
 	<div class="flex wrap lines">
@@ -86,13 +90,21 @@
 	</div>
 
 	<div class="flex wrap lines">
-		<!--<div class="stat">
-			<div class="qty">Tasses</div>
-			<div class="nb_small">{{ metrics.mugs }}</div>
-		</div>-->
 		<div class="stat">
-			<div class="qty">Dormeurs</div>
-			<div class="nb_small">{{ metrics.sleeps }}</div>
+			<div class="qty">Activités</div>
+			<div class="nb_big">{{ metrics.activites }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Sur inscription</div>
+			<div class="nb_small">{{ metrics.act_ins }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Souhaits</div>
+			<div class="nb_small">{{ metrics.wish }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Obtenus</div>
+			<div class="nb_small">{{ metrics.granted }}</div>
 		</div>
 	</div>
 {% endblock %}

@@ -138,6 +138,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 	def get_metrics(self):
 		registered = InterludesParticipant.objects.filter(is_registered = True)
+		acts = InterludesActivity.objects.all()
+		wishes = ActivityList.objects.filter(participant__is_registered=True)
 		class metrics:
 			participants = registered.count()
 			ulm = registered.filter(school="U").count()
@@ -156,6 +158,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
+
+			activites = acts.count()
+			act_ins = acts.filter(must_subscribe=True).count()
+			wish = wishes.count()
+			granted = wishes.filter(accepted=True).count()
+
 		return metrics
 
 	def get_context_data(self, *args, **kwargs):
