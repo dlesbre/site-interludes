@@ -3,7 +3,35 @@
 {% block nav_faq %}current{% endblock %}
 
 {% block "content" %}
-	<h2>Comment se rendre à l'ENS Ulm ?</h2>
+
+<h2>Quelles seront les mesures de protection sanitaire&nbsp;?</h2>
+	<p>Les mesures définitives vous seront communiquées à l'arrivée à l'événement. Elles inclueront probablement&nbsp;:</p>
+	<ul>
+		<li>Port du masque obligatoire en permanence</li>
+		<li>Lavage de main entre chaque jeu/activité</li>
+		<li>Pause aération des salles régulières</li>
+	</ul>
+
+{% if settings.activity_submission_form %}
+	<h2>Comment proposer une activité ?</h2>
+		<p>Vous pouver proposer une activité en remplissant <a href="{{ settings.activity_submission_form }}">ce formulaire</a>.</p>
+		<p>Il vous faudra renseigner votre nom/mail, le titre, une description, le nombre de places, la durée, les horaires possibles/idéaux, et tout autre besoin particulier...
+		</p>
+{% endif %}
+
+<h2>Quelles seront les conditions pour dormir/manger</h2>
+	<p>	Il est possible que nous n'ayons pas le droit de faire dormir les participants et/ou
+		de distribuer des repas pendant l'événement pour des raisons sanitaires.
+		Nous communiquerons les plus tôt possible les mesures définitives.
+	</p>
+	<p>En l'état actuel, nous espérons pouvoir distribuer des repas qu'il faudra manger en extérieur ou
+		dans des salles dédiées.
+	</p>
+	<p>
+		Si vous dormez sur place il vous faudra prendre tapis de sol et duvet. Une salle (probablement le gymnase) y sera dédiée.
+	</p>
+
+<h2>Comment se rendre à l'ENS Ulm ?</h2>
 	<div>
 		<p id="mailing-address">
 			<i class="fas fa-map-marker-alt"></i>
@@ -43,12 +71,9 @@
 		<span id="transport-noctilien-stop">Auguste Comte</span>
 	</div>
 
-	<h2>Conditions sanitaires ?</h2>
-	<p>On ne sait pas trop...</p>
 
-	<h2>Conditions pour dormir/manger</h2>
-	<p>Une réponse</p>
 
-	<h2>Proposer une activité ?</h2>
-	<p>Une réponse</p>
+
+
+
 {% endblock %}
