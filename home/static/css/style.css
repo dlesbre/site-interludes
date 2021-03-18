@@ -352,6 +352,129 @@ ul.messagelist li.info:before {
 }
 
 /* ===========================
+// Location
+// =========================== */
+
+#mailing-address {
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+#interactive-map {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+#public-transport-info {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	font-size: 1.3rem;
+	margin-left: -20%;
+	white-space: nowrap;
+}
+
+#public-transport-info > * {
+	margin: 5px;
+	justify-self: left;
+}
+#public-transport-info img {
+	width: 40px;
+	height: 35px;
+	margin: 0 5px 0 0;
+}
+#transport-metro-icon,
+#transport-metro-stop,
+#transport-bus-1-icon,
+#transport-bus-1-stop {
+	grid-row: 1;
+}
+#transport-rer-icon,
+#transport-rer-stop,
+#transport-bus-2-icon,
+#transport-bus-2-stop {
+	grid-row: 2;
+}
+#transport-noctilien-icon,
+#transport-noctilien-stop {
+	grid-row: 3;
+}
+#transport-metro-icon,
+#transport-rer-icon {
+	grid-column: 1;
+	justify-self: end;
+}
+#transport-metro-stop,
+#transport-rer-stop {
+	grid-column: 2;
+}
+#transport-bus-1-icon,
+#transport-bus-2-icon,
+#transport-noctilien-icon {
+	grid-column: 3;
+	justify-self: end;
+}
+#transport-bus-1-stop,
+#transport-bus-2-stop,
+#transport-noctilien-stop {
+	grid-column: 4;
+}
+
+@media (max-width: 800px) {
+	#mailing-address {
+		font-size: 1.2rem;
+	}
+	#public-transport-info {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto auto auto auto;
+		align-items: center;
+	}
+	#transport-metro-icon,
+	#transport-metro-stop {
+		grid-row: 1;
+	}
+	#transport-rer-icon,
+	#transport-rer-stop {
+		grid-row: 2;
+	}
+	#transport-bus-1-icon,
+	#transport-bus-1-stop {
+		grid-row: 3;
+	}
+	#transport-bus-2-icon,
+	#transport-bus-2-stop {
+		grid-row: 4;
+	}
+	#transport-noctilien-icon,
+	#transport-noctilien-stop {
+		grid-row: 5;
+	}
+	#transport-metro-icon,
+	#transport-rer-icon,
+	#transport-bus-1-icon,
+	#transport-bus-2-icon,
+	#transport-noctilien-icon  {
+		grid-column: 1;
+		justify-self: end;
+	}
+	#transport-metro-stop,
+	#transport-rer-stop,
+	#transport-bus-1-stop,
+	#transport-bus-2-stop,
+	#transport-noctilien-stop  {
+		grid-column: 2;
+	}
+}
+@media (max-width: 600px) {
+	#public-transport-info {
+	font-size: 1em;
+	}
+	#public-transport-info img {
+		width: 30px;
+		height: 25px;
+	}
+}
+/* ===========================
 // Footer
 // =========================== */
 
