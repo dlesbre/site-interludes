@@ -17,7 +17,7 @@
 	<strong>Mon inscription&nbsp;:</strong>
 	<ul>
 		<li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Ne dors pas sur place{% endif %}</li>
-		<li>{% if user.profile.mug %}Commande une tasse{% else %}Ne commande pas de tasse{% endif %}</li>
+		<!--<li>{% if user.profile.mug %}Commande une tasse{% else %}Ne commande pas de tasse{% endif %}</li>-->
 		<li>Inscrit à {{ user.profile.nb_meals }} repas.</li>
 		{% if settings.activities_allocated %}
 			{% if my_activities %}
