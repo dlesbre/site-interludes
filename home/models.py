@@ -42,7 +42,9 @@ class InterludesActivity(models.Model):
 		"Nombre minimum de participants"
 	)
 	display = models.BooleanField("afficher dans la liste d'activités", default=False)
-	must_subscribe = models.BooleanField("sur inscription", default=False)
+	must_subscribe = models.BooleanField("sur inscription", default=False,
+		help_text="Une activité doit être affichée dans la liste également pour que l'on puisse si inscrire"
+	)
 	host_name = models.CharField("nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("email de l'organisateur")
 	description = models.TextField("description", max_length=2000)
@@ -81,6 +83,14 @@ class InterludesActivity(models.Model):
 	@property
 	def pretty_type(self) -> str:
 		return self.Types(self.act_type).label
+
+	def conflicts(self, other: "InterludesActivity") -> bool:
+		"""Check whether these activites overlap"""
+		if self.end is None or other.end is None:
+			return False
+		if self.start <= other.start:
+			return other.start <= self.end
+		return self.start <= other.end
 
 	def __str__(self):
 		return self.title

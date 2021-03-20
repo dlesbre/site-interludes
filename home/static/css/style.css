@@ -355,7 +355,7 @@ ul.messagelist li.info:before {
 // Location
 // =========================== */
 
-#mailing-address {
+.centered {
 	font-size: 1.5rem;
 	text-align: center;
 }
@@ -421,7 +421,7 @@ ul.messagelist li.info:before {
 }
 
 @media (max-width: 800px) {
-	#mailing-address {
+	.centered {
 		font-size: 1.2rem;
 	}
 	#public-transport-info {

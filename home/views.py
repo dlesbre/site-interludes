@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
+from django.db.models import Count
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -164,11 +165,95 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			wish = wishes.count()
 			granted = wishes.filter(accepted=True).count()
 
+		# validation de la repartition des activités
+		accepted = wishes.filter(accepted=True)
+		# order_by is useless but required
+		counts = accepted.values("activity").annotate(total=Count("id")).order_by("activity")
+
 		return metrics
+
+	def validate_activity_participant_nb(self):
+		""" Vérifie que le nombre de participant inscrit
+		à chaque activité est compris entre le min et le max"""
+		activities = InterludesActivity.objects.filter(must_subscribe=True, display=True)
+		min_fails = ""
+		max_fails = ""
+		for act in activities:
+			total = ActivityList.objects.filter(
+				activity=act, accepted=True, participant__is_registered=True
+			).aggregate(total=Count("id"))["total"]
+			max = act.max_participants
+			min = act.min_participants
+			if max != 0 and max < total:
+				max_fails += "<br> &bullet;&ensp;{}: {} inscrits (maximum {})".format(
+					act.title, total, max
+				)
+			if min > total:
+				min_fails += "<br> &bullet;&ensp;{}: {} inscrits (minimum {})".format(
+					act.title, total, max
+				)
+		message = ""
+		if min_fails:
+			message += '<li class="error">Activités en sous-effectif : {}</li>'.format(min_fails)
+		else:
+			message += '<li class="success">Aucune activité en sous-effectif</li>'
+		if max_fails:
+			message += '<li class="error">Activités en sur-effectif : {}</li>'.format(max_fails)
+		else:
+			message += '<li class="success">Aucune activité en sur-effectif</li>'
+		return message
+
+	def validate_activity_conflicts(self):
+		"""Vérifie que personne n'est inscrit à des activités simultanées"""
+		activities = InterludesActivity.objects.filter(must_subscribe=True, display=True)
+		conflicts = []
+		for i, act1 in enumerate(activities):
+			for act2 in activities[i+1:]:
+				if act1.conflicts(act2):
+					conflicts.append((act1, act2))
+		base_qs = ActivityList.objects.filter(accepted=True, participant__is_registered=True)
+		errors = ""
+		for act1, act2 in conflicts:
+			participants1 = base_qs.filter(activity=act1).values("participant")
+			participants2 = base_qs.filter(activity=act1).values("participant")
+			intersection = participants1 & participants2
+			if intersection:
+				print(intersection)
+				errors += '<br> &bullet;&ensp; {} participe(nt) à la fois à "{}" et à "{}"'.format(
+					",".join(str(InterludesParticipant.objects.get(id=x["participant"])) for x in intersection),
+					act1.title, act2.title
+				)
+
+		if errors:
+			return '<li class="error">Des participants ont plusieurs activités au même moment :{}</li>'.format(
+				errors
+			)
+		return '<li class="success">Aucun inscrit à plusieurs activités simultanées</li>'
+
+	def validate_activity_allocation(self):
+		settings = SiteSettings.load()
+		validations = '<ul class="messagelist">'
+
+		# validate global settings
+		if not settings.inscriptions_open:
+			validations += '<li class="success">Les inscriptions sont fermées</li>'
+		else:
+			validations += '<li class="error">Les inscriptions sont encores ouvertes</li>'
+		if settings.activities_allocated:
+			validations += '<li class="success">La répartition est marquée comme effectuée</li>'
+		else:
+			validations += '<li class="error">La répartition n\'est pas marquée comme effectuée</li>'
+
+		# longer validations
+		validations += self.validate_activity_participant_nb()
+		validations += self.validate_activity_conflicts()
+		validations += '</ul>'
+		return validations
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
 		context["metrics"] = self.get_metrics()
+		context["validations"] = self.validate_activity_allocation()
 		return context
 
 

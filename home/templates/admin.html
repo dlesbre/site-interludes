@@ -107,4 +107,32 @@
 			<div class="nb_small">{{ metrics.granted }}</div>
 		</div>
 	</div>
+
+	<h2>Répartition des activités</h2>
+
+	<p>La répartition se fait depuis la <a href="{% url 'admin:index' %}">page d'administration de django</a>,
+	dans la rebrique "Choix d'activités" via la colonne "obtenue".</p>
+
+	{{ validations|safe }}
+
+	<script type="text/javascript">
+		function mail_inscrits() {
+			if (confirm(
+				`Cette action va envoyer 20 emails.\nÊtes-vous sur de vouloir continuer ?`
+			))
+				window.location = "{% url 'home' %}";
+		}
+
+		function mail_orgas() {
+			if (confirm(
+				`Cette action va envoyer 20 emails.\nÊtes-vous sur de vouloir continuer ?`
+			))
+				window.location = "{% url 'home' %}";
+		}
+	</script>
+	<p class="centered"><strong>N'ENVOYER LES EMAILS QUE SI VOUS ÊTES SUR DE VOUS !</strong></p>
+	<div class="flex wrap">
+		<button class="button" onclick="mail_inscrits();">Email aux inscrits</button>
+		<button class="button" onclick="mail_inscrits();">Email aux orgas</button>
+	</div>
 {% endblock %}
