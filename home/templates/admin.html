@@ -113,24 +113,31 @@
 	<p>La répartition se fait depuis la <a href="{% url 'admin:index' %}">page d'administration de django</a>,
 	dans la rebrique "Choix d'activités" via la colonne "obtenue".</p>
 
+	<p>Une fois la répartition effectuée, vérifiez qu'elle passe les tests avant d'envoyer les mails</p>
+
 	{{ validations|safe }}
 
 	<script type="text/javascript">
+		{% if validation_errors %}
+		  const errors = "!! Cette répartition ne passe PAS tous les tests !!\n\n";
+		{% else %}
+			const errors = "";
+		{% endif %}
 		{% if not settings.user_notified %}
 			function mail_inscrits() {
 				if (confirm(
-					`Cette action va envoyer 20 emails.\nÊtes-vous sur de vouloir continuer ?`
+					`${errors}Cette action va envoyer {{ user_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
 				))
 					window.location = "{% url 'home' %}";
 			}
 		{% endif %}
 		{% if not settings.orga_notified %}
-		function mail_orgas() {
-			if (confirm(
-				`Cette action va envoyer 10 emails.\nÊtes-vous sur de vouloir continuer ?`
-			))
-				window.location = "{% url 'home' %}";
-		}
+			function mail_orgas() {
+				if (confirm(
+					`${errors}Cette action va envoyer {{ orga_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
+				))
+					window.location = "{% url 'home' %}";
+			}
 		{% endif %}
 	</script>
 	<p class="centered"><i class="fas fa-exclamation-triangle"></i> N'ENVOYER LES EMAILS QUE SI VOUS ÊTES SUR DE VOUS ! <i class="fas fa-exclamation-triangle"></i></p>
@@ -155,7 +162,7 @@
 		{% if settings.orga_notified %}
 			<button class="button disabled">Email aux orgas</button>
 		{% else %}
-			<button class="button" onclick="mail_orgas();">Email aux orgass</button>
+			<button class="button" onclick="mail_orgas();">Email aux orgas</button>
 		{% endif %}
 	</div>
 {% endblock %}

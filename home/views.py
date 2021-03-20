@@ -248,12 +248,25 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		validations += self.validate_activity_participant_nb()
 		validations += self.validate_activity_conflicts()
 		validations += '</ul>'
-		return validations
+
+		user_email_nb = ActivityList.objects.filter(
+			participant__is_registered=True
+		).values("participant").distinct().count()
+		orga_email_nb = InterludesActivity.objects.filter(
+			display=True, must_subscribe=True, communicate_participants=True
+		).count()
+
+		return {
+			"validations": validations,
+			"user_email_nb": user_email_nb,
+			"orga_email_nb": orga_email_nb,
+			"validation_errors": '<li class="error">' in validations
+		}
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
 		context["metrics"] = self.get_metrics()
-		context["validations"] = self.validate_activity_allocation()
+		context.update(self.validate_activity_allocation())
 		return context
 
 
