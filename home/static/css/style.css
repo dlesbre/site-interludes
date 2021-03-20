@@ -267,6 +267,11 @@ dl dd {
 .button:hover, input[type=submit]:hover {
 	background-color: var(--color_bg_2);
 }
+.disabled, .disabled:hover {
+	color: black;
+	background-color: #888;
+	cursor: not-allowed;
+}
 
 span.helptext {
 	color: #444444;

@@ -48,6 +48,15 @@ class SiteSettings(SingletonModel):
 
 	activity_submission_form = models.CharField("Lien pour soumettre une activité", max_length=200, default="")
 
+	user_notified = models.BooleanField(
+		"L'email de répartition des activités a été envoyé", default=False,
+		help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails"
+	)
+	orga_notified = models.BooleanField(
+		"L'email de liste des participants a été envoyé", default=False,
+		help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails"
+	)
+
 	@property
 	def contact_email_reversed(self):
 		return self.contact_email[::-1]

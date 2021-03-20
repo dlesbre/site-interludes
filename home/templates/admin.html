@@ -116,23 +116,46 @@
 	{{ validations|safe }}
 
 	<script type="text/javascript">
-		function mail_inscrits() {
-			if (confirm(
-				`Cette action va envoyer 20 emails.\nÊtes-vous sur de vouloir continuer ?`
-			))
-				window.location = "{% url 'home' %}";
-		}
-
+		{% if not settings.user_notified %}
+			function mail_inscrits() {
+				if (confirm(
+					`Cette action va envoyer 20 emails.\nÊtes-vous sur de vouloir continuer ?`
+				))
+					window.location = "{% url 'home' %}";
+			}
+		{% endif %}
+		{% if not settings.orga_notified %}
 		function mail_orgas() {
 			if (confirm(
-				`Cette action va envoyer 20 emails.\nÊtes-vous sur de vouloir continuer ?`
+				`Cette action va envoyer 10 emails.\nÊtes-vous sur de vouloir continuer ?`
 			))
 				window.location = "{% url 'home' %}";
 		}
+		{% endif %}
 	</script>
-	<p class="centered"><strong>N'ENVOYER LES EMAILS QUE SI VOUS ÊTES SUR DE VOUS !</strong></p>
+	<p class="centered"><i class="fas fa-exclamation-triangle"></i> N'ENVOYER LES EMAILS QUE SI VOUS ÊTES SUR DE VOUS ! <i class="fas fa-exclamation-triangle"></i></p>
+
+	{% if settings.user_notified %}
+		<p>Un email communiquant la répartition aux utilisateurs a déjà été envoyé.
+			(Modifiez les paramètres s'il faut en renvoyer un)
+		</p>
+	{% endif %}
+	{% if settings.orga_notified %}
+		<p>Un email communiquant les inscrits aux organisateur à déjà été envoyé.
+			(Modifiez les paramètres s'il faut en renvoyer un)
+		</p>
+	{% endif %}
+
 	<div class="flex wrap">
-		<button class="button" onclick="mail_inscrits();">Email aux inscrits</button>
-		<button class="button" onclick="mail_inscrits();">Email aux orgas</button>
+		{% if settings.user_notified %}
+			<button class="button disabled">Email aux inscrits</button>
+		{% else %}
+			<button class="button" onclick="mail_inscrits();">Email aux inscrits</button>
+		{% endif %}
+		{% if settings.orga_notified %}
+			<button class="button disabled">Email aux orgas</button>
+		{% else %}
+			<button class="button" onclick="mail_orgas();">Email aux orgass</button>
+		{% endif %}
 	</div>
 {% endblock %}

@@ -41,6 +41,8 @@ class InterludesActivity(models.Model):
 	min_participants = models.PositiveIntegerField(
 		"Nombre minimum de participants"
 	)
+
+	communicate_participants = models.BooleanField("communiquer la liste des participants à l'orga avant l'événement")
 	display = models.BooleanField("afficher dans la liste d'activités", default=False)
 	must_subscribe = models.BooleanField("sur inscription", default=False,
 		help_text="Une activité doit être affichée dans la liste également pour que l'on puisse si inscrire"

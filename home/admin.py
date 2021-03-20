@@ -22,6 +22,7 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"status", "act_type", "duration",
 		("min_participants", "max_participants"),
 		"must_subscribe",
+		"communicate_participants",
 		"description",
 		"display",
 		"room", "start",
