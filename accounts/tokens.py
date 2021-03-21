@@ -64,7 +64,10 @@ class EmailVerificationTokenGenerator:
 		Running this data through salted_hmac() prevents cracking attempts,
 		provided the secret isn't compromised.
 		"""
-		return str(user.pk) + user.email + str(timestamp)
+		# Truncate microseconds so that tokens are consistent even if the
+		# database doesn't support microseconds.
+		login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+		return str(user.pk) + user.email + str(timestamp) + str(login_timestamp)
 
 	def _num_days(self, dt):
 		return (dt - date(2001, 1, 1)).days
