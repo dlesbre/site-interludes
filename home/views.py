@@ -331,7 +331,11 @@ class SendEmailBase(SuperuserRequiredMixin, RedirectView):
 		raise NotImplementedError("{}.send_emails isn't implemented".format(self.__class__.__name__))
 
 	def get_redirect_url(self, *args, **kwargs):
-		self.send_emails()
+		settings = SiteSettings.load()
+		if settings.allow_mass_mail:
+			self.send_emails()
+		else:
+			messages.error(self.request, "L'envoi de mail de masse est désactivé dans les réglages")
 		return reverse(self.pattern_name)
 
 class SendUserEmail(SendEmailBase):

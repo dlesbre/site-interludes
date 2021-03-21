@@ -58,6 +58,11 @@ class SiteSettings(SingletonModel):
 
 	activity_submission_form = models.CharField("Lien pour soumettre une activité", max_length=200, default="")
 
+	allow_mass_mail = models.BooleanField(
+		"Permettre l'envoi de mails collectifs (aux utilisateurs et orgas)", default=False,
+		help_text="Par sécurité, n'activez ceci qu'au moment d'envoyer les emails et désactivez le après"
+	)
+
 	user_notified = models.BooleanField(
 		"L'email de répartition des activités a été envoyé", default=False,
 		help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails"

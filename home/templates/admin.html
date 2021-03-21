@@ -141,7 +141,7 @@
 		{% else %}
 			const errors = "";
 		{% endif %}
-		{% if not settings.user_notified %}
+		{% if not settings.user_notified and settings.allow_mass_mail %}
 			function mail_inscrits() {
 				if (confirm(
 					`${errors}Cette action va envoyer {{ user_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
@@ -149,7 +149,7 @@
 					window.location = "{% url 'email_users' %}";
 			}
 		{% endif %}
-		{% if not settings.orga_notified %}
+		{% if not settings.orga_notified and settings.allow_mass_mail %}
 			function mail_orgas() {
 				if (confirm(
 					`${errors}Cette action va envoyer {{ orga_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
@@ -159,7 +159,11 @@
 		{% endif %}
 	</script>
 	<p class="centered"><i class="fas fa-exclamation-triangle"></i> N'ENVOYER LES EMAILS QUE SI VOUS ÊTES SUR DE VOUS ! <i class="fas fa-exclamation-triangle"></i></p>
-
+	{% if not settings.allow_mass_mail %}
+		<p>L'envoi d'emails collectifs est désactivé dans les réglages. Activez le avant d'envoyer
+			et redésactivez le après.
+		</p>
+	{% endif %}
 	{% if settings.user_notified %}
 		<p>Un email communiquant la répartition aux utilisateurs a déjà été envoyé.
 			(Modifiez les paramètres s'il faut en renvoyer un)
@@ -176,12 +180,12 @@
 	{% endif %}
 
 	<div class="flex wrap">
-		{% if settings.user_notified %}
+		{% if settings.user_notified or not settings.allow_mass_mail %}
 			<button class="button disabled">Email aux inscrits</button>
 		{% else %}
 			<button class="button" onclick="mail_inscrits();">Email aux inscrits</button>
 		{% endif %}
-		{% if settings.orga_notified %}
+		{% if settings.orga_notified or not settings.allow_mass_mail %}
 			<button class="button disabled">Email aux orgas</button>
 		{% else %}
 			<button class="button" onclick="mail_orgas();">Email aux orgas</button>
