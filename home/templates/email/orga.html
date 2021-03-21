@@ -1,0 +1,12 @@
+{% autoescape off %}
+Bonjour {{ activity.host_name }},
+
+Voici la liste des participant·e·s inscrit·e·s à votre activité {{ activity }}{% if activity.start and activity.room %} (le {{ activity.start|date:"l à H:i" }} en {{ activity.room }}){% endif %} :
+{% for participant in participants %}
+- {{ participant.participant }} {{ participant.participant.user.email }}{% empty %}
+Aucun participant inscrit.{% endfor %}
+
+--
+L'équipe Interludes
+{% if settings.contact_email %}Pour nous contacter, envoyer un email à {{ settings.contact_email }}{% endif %}
+{% endautoescape %}

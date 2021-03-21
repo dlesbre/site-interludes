@@ -1,0 +1,17 @@
+{% autoescape off %}
+Bonjour {{ user.first_name }} {{ user.last_name }},
+
+Les inscriptions aux Interludes sont fermées et la répartition des activités à été effectuée.
+{% if requested_activities_nb %}
+Vous avez obtenu {{ activities|length }} activité(s) (sur {{ requested_activities_nb }} souhaitée(s)).
+{% for act in activities %}
+- {{ act.activity.title }}{% if act.activity.start and act.activity.room %} (le {{ act.activity.start|date:"l à H:i" }} en {{ act.activity.room }}){% endif %}{% endfor %}{% if activities %}
+
+Cette liste est également disponible sur la page "Mon compte" du site: {% url "accounts:profile" %}.{% endif %}
+{% else %}
+Vous n'aviez demandé aucune activité.
+{% endif %}
+--
+L'équipe Interludes
+{% if settings.contact_email %}Pour nous contacter, envoyer un email à {{ settings.contact_email }}{% endif %}
+{% endautoescape %}
