@@ -128,7 +128,8 @@ class InterludesParticipant(models.Model):
 	# mug = models.BooleanField("commander une tasse", default=False)
 
 	def __str__(self) -> str:
-		return "{} {} ({})".format(self.user.first_name, self.user.last_name, self.school)
+		school = self.ENS(self.school).label.replace("ENS ", "") if self.school else ""
+		return "{} {} ({})".format(self.user.first_name, self.user.last_name, school)
 
 	@property
 	def nb_meals(self) -> int:

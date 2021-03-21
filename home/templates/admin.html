@@ -142,7 +142,7 @@
 				if (confirm(
 					`${errors}Cette action va envoyer {{ orga_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
 				))
-					window.location = "{% url 'home' %}";
+					window.location = "{% url 'email_orgas' %}";
 			}
 		{% endif %}
 	</script>
@@ -152,11 +152,15 @@
 		<p>Un email communiquant la répartition aux utilisateurs a déjà été envoyé.
 			(Modifiez les paramètres s'il faut en renvoyer un)
 		</p>
+	{% else %}
+		<p>L'email aux inscrits enverra un email à tous les utilisateurs inscrits</p>
 	{% endif %}
 	{% if settings.orga_notified %}
 		<p>Un email communiquant les inscrits aux organisateur à déjà été envoyé.
 			(Modifiez les paramètres s'il faut en renvoyer un)
 		</p>
+		{% else %}
+		<p>L'email aux orga enverra un email uniquement aux orgas des activités qui ont demandé de communiquer la liste de participants.</p>
 	{% endif %}
 
 	<div class="flex wrap">

@@ -1,6 +1,5 @@
 from datetime import timedelta
 
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
@@ -252,9 +251,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		validations += self.validate_activity_conflicts()
 		validations += '</ul>'
 
-		user_email_nb = ActivityList.objects.filter(
-			participant__is_registered=True
-		).values("participant").distinct().count()
+		user_email_nb = InterludesParticipant.objects.filter(is_registered=True).count()
 		orga_email_nb = InterludesActivity.objects.filter(
 			display=True, must_subscribe=True, communicate_participants=True
 		).count()
@@ -321,26 +318,40 @@ class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 				])
 		return rows
 
-class SendUserEmail(SuperuserRequiredMixin, RedirectView):
-	"""Envoie aux utilisateurs leur repartition d'activité"""
+class SendEmailBase(SuperuserRequiredMixin, RedirectView):
+	"""Classe abstraite pour l'envoie d'un groupe d'emails"""
 	pattern_name = "site_admin"
-	from_address = settings.DEFAULT_FROM_EMAIL
+	from_address = None
+
+	def send_emails(self):
+		raise NotImplementedError("{}.send_emails isn't implemented".format(self.__class__.__name__))
+
+	def get_redirect_url(self, *args, **kwargs):
+		self.send_emails()
+		return reverse(self.pattern_name)
+
+class SendUserEmail(SendEmailBase):
+	"""Envoie aux utilisateurs leur repartition d'activité"""
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
 		# on envoie qu'au participant qui se sont inscrit à des activites
-		participants = ActivityList.objects.filter(
-			participant__is_registered=True
-		).values("participant").distinct()
+		participants = InterludesParticipant.objects.filter(is_registered=True)
 		emails = []
-		for p in participants:
-			participant = InterludesParticipant.objects.get(id = p["participant"])
-			messages = render_to
+		settings = SiteSettings.load()
+		for participant in participants:
+			my_activities = ActivityList.objects.filter(participant=participant)
+			message = render_to_string("email/user.html", {
+				"user": participant.user,
+				"settings": settings,
+				"requested_activities_nb": my_activities.count(),
+				"activities": my_activities.filter(accepted=True),
+			})
 			emails.append((
 				"Vos activités interludes", # subject
 				message,
 				self.from_address, # From:
-				[participant.user.email] # To:
+				[participant.user.email], # To:
 			))
 		return emails
 
@@ -351,12 +362,64 @@ class SendUserEmail(SuperuserRequiredMixin, RedirectView):
 			return
 		settings.user_notified = True
 		settings.save()
-		messages.success(self.request, "Email aux utilisateurs envoyé")
-		send
+		emails = self.get_emails()
 
-	def get_redirect_url(self, *args, **kwargs):
-		self.send_emails()
-		return reverse(self.pattern_name)
+		nb_sent = send_mass_mail(emails, fail_silently=False)
+		mail_admins(
+			"Emails de répartition envoyés aux participants",
+			"Les participants ont reçu un mail leur communiquant la répartition des activités\n"
+			"Nombre total de mail envoyés: {}\n\n"
+			"-- Site Interludes (mail généré automatiquement".format(nb_sent)
+		)
+		messages.success(self.request, "{} mails envoyés aux utilisateurs".format(nb_sent))
+
+class SendOrgaEmail(SendEmailBase):
+	"""
+	Envoie aux organisateur leur communiquant les nom/mail des inscrits
+	à leurs activités
+	"""
+
+	def get_emails(self):
+		"""genere les mails a envoyer"""
+		# on envoie qu'au participant qui se sont inscrit à des activites
+		activities = InterludesActivity.objects.filter(
+			must_subscribe=True, display=True, communicate_participants=True
+		)
+		emails = []
+		settings = SiteSettings.load()
+		for act in activities:
+			participants = ActivityList.objects.filter(activity=act, accepted=True)
+			message = render_to_string("email/orga.html", {
+				"activity": act,
+				"settings": settings,
+				"participants": participants,
+			})
+			emails.append((
+				"Vos activités interludes", # subject
+				message,
+				self.from_address, # From:
+				[act.host_email] # To:
+			))
+		return emails
+
+	def send_emails(self):
+		settings = SiteSettings.load()
+		if settings.orga_notified:
+			messages.error(self.request, "Les orgas ont déjà reçu un mail avec leur listes d'inscrits. Modifiez les réglages pour en envoyer un autre")
+			return
+		settings.orga_notified = True
+		settings.save()
+		emails = self.get_emails()
+
+		nb_sent = send_mass_mail(emails, fail_silently=False)
+		mail_admins(
+			"Listes d'inscrits envoyés aux orgas",
+			"Les mails communiquant aux organisateurs leur listes d'inscrit ont été envoyés\n"
+			"Nombre total de mail envoyés: {}\n\n"
+			"-- Site Interludes (mail généré automatiquement".format(nb_sent)
+		)
+		messages.success(self.request, "{} mails envoyés aux orgas".format(nb_sent))
+
 
 
 # ==============================
