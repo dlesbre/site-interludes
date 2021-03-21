@@ -13,8 +13,15 @@
 	<p>
 		Cette année, c'est au tour de l'ENS Ulm d'organiser les interludes.
 		L'événement a habituellement lieu en février mais à cause du COVID,
-		il a été retardé et est prévu le week-end du vendredi 9 au dimanche 11
-		avril 2021.
+		il a été retardé. Cette année il est prévu
+		{% if settings.date_start %}{% if settings.date_end %}
+			le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
+		{% else %}
+			le week-end du <strong>{{ settings.date_start }}</strong>.
+		{% endif %}
+		{% else %}
+			à une date non-fixée.
+		{% endif %}
 	</p>
 	<h2>Inscriptions</h2>
 
