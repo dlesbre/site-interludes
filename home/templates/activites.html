@@ -97,14 +97,18 @@
 	{% endif %}
 
 	{% for activity in activities %}
-		<h3 id="act-{{ activity.id }}"">{{ activity.title }}</h3>
-		{{ activity.html_display }}
+		<h3 id="act-{{ activity.id }}">{{ activity.title }}</h3>
+
 		<dl>
 			<dt>Durée :</dt><dd>{{ activity.pretty_duration }}</dd>
 			<dt>Orga :</dt><dd>{{ activity.host_name }}</dd>
 			<dt>Type :</dt><dd>{{ activity.pretty_type }}</dd>
 			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
-			<dt>Description :</dt><dd>{{ activity.description|linebreaksbr }}</dd>
+			{% if activity.start and activity.room %}
+			<dt>Heure/Lieu :</dt><dd>{{ activity.start|date:"l à H:i"|capfirst }} en {{ activity.room }}</dd>
+			{% endif %}
+			<dt>Description :</dt>
 		</dl>
+		<p class="desc">{{ activity.description|linebreaksbr }}</p>
 	{% endfor %}
 {% endblock %}

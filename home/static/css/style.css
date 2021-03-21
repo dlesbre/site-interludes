@@ -182,6 +182,18 @@ main h3 {
 	border-image-source: linear-gradient(to right, var(--color_bg_1) 0%, transparent 75%);
 	border-image-slice: 1;
 }
+@media (max-width: 600px) {
+	main {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	main h2 {
+		font-size: 1.1rem;
+	}
+	main h3 {
+		font-size: 1rem;
+	}
+}
 
 
 main p {
@@ -233,6 +245,11 @@ main a:link {
 .stat .nb_small {
 	font-size: 2em;
 }
+@media (max-width:600px) {
+	.stat {
+		min-width: 0;
+	}
+}
 
 /* ===========================
 // Lists
@@ -244,6 +261,7 @@ dl {
 	grid-template-columns: auto auto;
 	justify-content: left;
 	padding-left: 10px;
+	margin-bottom: 5px;
 }
 dl dt {
 	justify-self: end;
@@ -254,6 +272,11 @@ dl dd {
 	margin: 0 10px;
 	justify-self: start;
 	text-align: left;
+}
+p.desc {
+	margin-top: 0;
+	padding: 0 10px 20px;
+	text-indent: 25px;
 }
 
 /* ===========================
