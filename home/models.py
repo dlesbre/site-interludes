@@ -84,7 +84,14 @@ class InterludesActivity(models.Model):
 
 	@property
 	def pretty_type(self) -> str:
-		return self.Types(self.act_type).label
+		type = self.Types(self.act_type).label
+		status = self.Status(self.status)
+		status_repr = "présentiel ou distanciel"
+		if status == self.Status.DISTANT:
+			status_repr = "distanciel"
+		elif status == self.Status.PRESENT:
+			status_repr = "présentiel"
+		return "{} ({})".format(type, status_repr)
 
 	def conflicts(self, other: "InterludesActivity") -> bool:
 		"""Check whether these activites overlap"""

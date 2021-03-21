@@ -167,6 +167,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			wish = wishes.count()
 			granted = wishes.filter(accepted=True).count()
 
+			st_present = acts.filter(status=InterludesActivity.Status.PRESENT).count()
+			st_distant = acts.filter(status=InterludesActivity.Status.DISTANT).count()
+			st_both = acts.filter(status=InterludesActivity.Status.BOTH).count()
+
 		# validation de la repartition des activités
 		accepted = wishes.filter(accepted=True)
 		# order_by is useless but required
