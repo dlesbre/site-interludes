@@ -21,6 +21,10 @@ migrate: ## Make and run migrations
 serve: ## Run the django server
 	$(PYTHON) $(MANAGER) runserver
 
+.PHONY: host
+host: ## Host localy to access from same netword (make sure to add IP to ALLOWED_HOSTS)
+	$(PYTHON) $(MANAGER) runserver 0.0.0.0:8000
+
 .PHONY: start
 start: install migrate serve ## Install requirements, apply migrations, then start development server
 
