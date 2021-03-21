@@ -25,7 +25,7 @@ SECRET_KEY = 'tx$xi%n!8cghirp377zb)gd24g#=&w*ik(bx2h(i8ji0_&9_5l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ADMINS = [("respos", "respointerludes2021@ens.psl.eu"),]
+ADMINS = [("respos", "respointerludes21@ens.psl.eu"),]
 
 ALLOWED_HOSTS = []
 
@@ -143,3 +143,6 @@ LOGIN_REDIRECT_URL = "accounts:profile"
 # This will display emails in Console.
 # FIXME: remove in production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Prefix to mails to admins
+EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '

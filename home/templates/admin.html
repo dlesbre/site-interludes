@@ -20,9 +20,15 @@
 
 		<ul>
 			<li>La création de compte est {% if settings.registrations_open %}ouverte{% else %}fermée{% endif %}.</li>
-			<li>Les inscriptions sont {% if settings.inscriptions_open %}ouvertes{% else %}fermées{% endif %}.</li>
+			<li>Les inscriptions sont {% if settings.inscriptions_open %}ouvertes{% else %}fermées{% endif %}. Dates informatives:
+				<ul>
+					<li>Ouverture : {{ settings.inscriptions_start|default:"non fixée" }}</li>
+					<li>Fermeture : {{ settings.inscriptions_end|default:"non fixée" }}</li>
+				</ul>
+			</li>
 			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 			<li>La répartition des activités {% if settings.activities_allocated %}est effectuée et affichée{% else %}n'est pas faite/affichée{% endif %}.</li>
+			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>
 		</ul>
 
 	<h2>Métriques</h2>
@@ -128,7 +134,7 @@
 				if (confirm(
 					`${errors}Cette action va envoyer {{ user_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
 				))
-					window.location = "{% url 'home' %}";
+					window.location = "{% url 'email_users' %}";
 			}
 		{% endif %}
 		{% if not settings.orga_notified %}

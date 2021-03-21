@@ -1,11 +1,14 @@
 from datetime import timedelta
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
+from django.core.mail import mail_admins, send_mass_mail
 from django.db.models import Count
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.generic import RedirectView, UpdateView, TemplateView, View
 
@@ -317,6 +320,44 @@ class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 					str(act.activity), act.activity.id
 				])
 		return rows
+
+class SendUserEmail(SuperuserRequiredMixin, RedirectView):
+	"""Envoie aux utilisateurs leur repartition d'activité"""
+	pattern_name = "site_admin"
+	from_address = settings.DEFAULT_FROM_EMAIL
+
+	def get_emails(self):
+		"""genere les mails a envoyer"""
+		# on envoie qu'au participant qui se sont inscrit à des activites
+		participants = ActivityList.objects.filter(
+			participant__is_registered=True
+		).values("participant").distinct()
+		emails = []
+		for p in participants:
+			participant = InterludesParticipant.objects.get(id = p["participant"])
+			messages = render_to
+			emails.append((
+				"Vos activités interludes", # subject
+				message,
+				self.from_address, # From:
+				[participant.user.email] # To:
+			))
+		return emails
+
+	def send_emails(self):
+		settings = SiteSettings.load()
+		if settings.user_notified:
+			messages.error(self.request, "Les participants ont déjà reçu un mail annonçant la répartition. Modifiez les réglages pour en envoyer un autre")
+			return
+		settings.user_notified = True
+		settings.save()
+		messages.success(self.request, "Email aux utilisateurs envoyé")
+		send
+
+	def get_redirect_url(self, *args, **kwargs):
+		self.send_emails()
+		return reverse(self.pattern_name)
+
 
 # ==============================
 # Sitemap

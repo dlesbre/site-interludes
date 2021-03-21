@@ -4,8 +4,19 @@
 
 {% block "content" %}
 	<h2>Inscriptions</h2>
-	<p>
-	Les inscriptions ne sont pas encores ouvertes.
-	Nous communiquerons pas mail via les BDE des différentes écoles pour leur ouverture.
-	</p>
+	{% if settings.inscriptions_not_open_yet %}
+		<p>Les inscriptions ne sont pas encores ouvertes.</p>
+		<p>Leur ouverture est prévue le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+		<p>Nous communiquerons pas mail via les BDE des différentes écoles pour leur ouverture.</p>
+	{% elif settings.inscriptions_have_closed %}
+		<p>Les inscriptions sont fermées.</p>
+		{% if settings.contact_email %}
+			<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span></p>
+		{% endif %}
+	{% else %}
+		<p>
+		Les inscriptions ne sont pas encores ouvertes ou ont été fermées.
+		Nous communiquerons pas mail via les BDE des différentes écoles pour leur ouverture.
+		</p>
+	{% endif %}
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.cache import cache
+from django.utils.timezone import now
 
 class SingletonModel(models.Model):
 	"""Table de la BDD qui ne possède qu'un seul élément"""
@@ -39,6 +40,15 @@ class SiteSettings(SingletonModel):
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=False)
 	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
 
+	inscriptions_start = models.DateTimeField("Ouverture des inscriptions",
+		blank=True, null=True,
+		help_text="Cette date n'est qu'informative. Les inscription s'ouvrent via la checkbox uniquement"
+	)
+	inscriptions_end = models.DateTimeField("Fermeture des inscriptions",
+		blank=True, null=True,
+		help_text="Cette date n'est qu'informative. Les inscription se ferment via la checkbox uniquement"
+	)
+
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 
 	activities_allocated = models.BooleanField(
@@ -57,12 +67,29 @@ class SiteSettings(SingletonModel):
 		help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails"
 	)
 
+	global_message = models.TextField("Message global", blank=True, null=True,
+		help_text="Message affiché en haut de chaque page (si non vide)"
+	)
+
 	@property
-	def contact_email_reversed(self):
+	def contact_email_reversed(self) -> str:
 		return self.contact_email[::-1]
+
+	@property
+	def inscriptions_not_open_yet(self) -> bool:
+		if self.inscriptions_start:
+			return now() <= self.inscriptions_start
+		return False
+
+	@property
+	def inscriptions_have_closed(self) -> bool:
+		if self.inscriptions_end:
+			return now() >= self.inscriptions_end
+		return False
 
 	class Meta:
 		verbose_name = "paramètres"
+		verbose_name_plural = "paramètres"
 
 	def __str__(self) -> str:
 		return "Modifier les paramètres"

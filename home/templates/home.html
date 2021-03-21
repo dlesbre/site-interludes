@@ -16,4 +16,23 @@
 		il a été retardé et est prévu le week-end du vendredi 9 au dimanche 11
 		avril 2021.
 	</p>
+	<h2>Inscriptions</h2>
+
+	<p>
+		Ce site vous permettra de vous inscrire à l'événement et
+		de voir les activités qui y seront proposées. Cette année l'événement est
+		<strong>gratuir</strong> car entièrement financé par le
+		<a class="external" href="https://cof.ens.fr/">COF</a> (cela n'inclut pas
+		les éventuels frais de transport).
+	</p>
+	{% if settings.inscriptions_start and settings.inscriptions_end %}
+		<p>Les inscriptions seront ouvertes
+			du <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>
+			au <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.
+		</p>
+	{% elif settings.inscriptions_start %}
+		<p>Les inscriptions ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+	{% elif settings.inscriptions_end %}
+		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
+	{% endif %}
 {% endblock %}

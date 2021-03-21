@@ -17,6 +17,7 @@ urlpatterns = [
 	path('export/activities/', views.ExportActivities.as_view(), name="activities.csv"),
 	path('export/participants/', views.ExportParticipants.as_view(), name="participants.csv"),
 	path('export/activity_choices/', views.ExportActivityChoices.as_view(), name="activity_choices.csv"),
+	path('email/send_user_emails_0564946523/', views.SendUserEmail.as_view(), name="email_users"),
 	path(
 		'sitemap.xml', sitemap, {'sitemaps': sitemaps},
 		name='django.contrib.sitemaps.views.sitemap'

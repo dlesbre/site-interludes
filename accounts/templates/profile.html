@@ -15,6 +15,9 @@
 
 {% if user.profile.is_registered %}
 	<strong>Mon inscription&nbsp;:</strong>
+	{% if settings.inscriptions_open and settings.inscriptions_end %}
+	  modifiable jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}
+	{% endif %}
 	<ul>
 		<li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Ne dors pas sur place{% endif %}</li>
 		<!--<li>{% if user.profile.mug %}Commande une tasse{% else %}Ne commande pas de tasse{% endif %}</li>-->
@@ -50,7 +53,15 @@
 	<strong>Vous n'êtes pas incrit à l'événement.</strong>
 
 	{% if not settings.inscriptions_open %}
-	<p>Les inscriptions ne sont pas encore ouvertes ou ont été fermées.</p>
+		{% if settings.inscriptions_not_open_yet %}
+			<p>Les inscriptions ne sont pas encores ouvertes. Elles ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+		{% elif settings.inscriptions_have_closed %}
+			<p>Les inscriptions sont fermées.</p>
+		{% else %}
+			<p>Les inscriptions ne sont pas encores ouvertes ou ont été fermées.</p>
+		{% endif %}
+	{% elif settings.inscriptions_end %}
+		<p>les inscriptions sont ouvertes jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}).</p>
 	{% endif %}
 	<br><br>
 {% endif %}

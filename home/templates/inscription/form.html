@@ -38,7 +38,14 @@
 		<h3>Choix d'activités</h3>
 
 		<p>Saissisez les activités auquelles vous voulez vous inscrire, par ordre de préférence.</p>
-		<p>Vous pouvez revenir modifier votre choix jusqu'à la fermeture des inscriptions.</p>
+		<p>
+			Vous pouvez revenir modifier votre choix jusqu'à la fermeture des
+			inscriptions{% if settings.inscriptions_end %} (le {{ settings.inscriptions_end|date:"l d F Y à H:i" }}){% endif %}.
+		</p>
+		<p>Si vous vous inscrivez à une activité qui nécessite préparation, nous communiquerons
+			votre email aux orgas pour qu'iels puissent vous contacter.
+		</p>
+
 
 		{% if formset.non_form_errors %}
 		{{ formset.non_form_errors }}
