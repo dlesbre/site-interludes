@@ -64,6 +64,16 @@ if DEBUG:
 else:
 	EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+	SECURE_SSL_REDIRECT = True
+	CSRF_COOKIE_SECURE = True
+	SESSION_COOKIE_SECURE = True
+
+	SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+	SECURE_HSTS_SECONDS = 60
+	SECURE_HSTS_PRELOAD = True
+
+	SECURE_REFERRER_POLICY = "same-origin"
+
 # Application definition
 
 INSTALLED_APPS = [
