@@ -281,7 +281,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 	filename = "participants_interludes"
 	headers = [
-		"id", "mail", "prénom", "nom", "ENS", "Dors sur place", "Tasse",
+		"id", "mail", "prénom", "nom", "ENS", "Dors sur place", #"Tasse",
 		"Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
 		"Repas D matin", "Repas D soir"
 	]
@@ -296,7 +296,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 				profile.user.last_name,
 				profile.school,
 				profile.sleeps,
-				profile.mug,
+				# profile.mug,
 				profile.meal_friday_evening,
 				profile.meal_saturday_morning,
 				profile.meal_saturday_midday,
@@ -309,7 +309,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 	filename = "choix_activite_interludes"
 	model = ActivityList
-	headers = ["id_participant", "nom_participant", "priorité", "nom_activité", "id_activité"]
+	headers = ["id_participant", "nom_participant", "priorité", "obtenu", "nom_activité", "id_activité"]
 
 	def get_rows(self):
 		activities = ActivityList.objects.all()
@@ -318,7 +318,7 @@ class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 			if act.participant.is_registered:
 				rows.append([
 					act.participant.id, str(act.participant), act.priority,
-					str(act.activity), act.activity.id
+					act.accepted, str(act.activity), act.activity.id
 				])
 		return rows
 

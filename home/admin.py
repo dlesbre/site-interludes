@@ -13,7 +13,7 @@ admin.site.site_title = "Admin Interludes"
 class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des activités dans la vue django admin"""
 	list_display = ("title", "host_name", "display", "must_subscribe","on_planning")
-	list_filter = ("display", "must_subscribe", "on_planning")
+	list_filter = ("display", "must_subscribe", "on_planning", "status")
 	ordering = ("title", "host_name",)
 	list_editable = ("display",)
 	fields = (
@@ -35,7 +35,11 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 class InterludesParticipantAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des participant dans la vue django admin"""
 	list_display = ("user", "school", "is_registered")
-	list_filter = ("school", "is_registered")
+	list_filter = (
+		"school", "is_registered", "sleeps",
+		"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
+		"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
+	)
 	ordering = ("user",)
 	list_per_page = 200
 
@@ -43,7 +47,10 @@ class InterludesParticipantAdmin(ExportCsvMixin, admin.ModelAdmin):
 class ActivityListAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des choix d'activités dans la vue django admin"""
 	list_display = ("activity", "participant", "priority", "accepted")
-	list_filter = ("activity", "participant__is_registered", "participant")
+	list_filter = (
+		"activity", "participant__is_registered", "activity__display",
+		"accepted", "activity__must_subscribe",
+	)
 	list_editable = ("accepted",)
 	ordering = ("activity", "priority", "participant",)
-	list_per_page = 200
+	list_per_page = 400

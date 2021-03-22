@@ -41,7 +41,6 @@ class CSVWriteView(View):
 		raise NotImplementedError("{}.get_rows isn't implemented".format(self.__class__.__name__))
 
 	def get(self, request, *args, **kwargs):
-		print("\n\nHelloe\n\n\n")
 		response = HttpResponse(content_type='text/csv')
 		filename = self.filename
 		if not filename.endswith(".csv"):
