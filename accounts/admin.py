@@ -10,6 +10,7 @@ admin.site.unregister(Group)
 @admin.register(EmailUser)
 class EmailUserAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des activités dans la vue django admin"""
+	filename = "export_utilisateurs.csv"
 	list_display = ("email", "last_name", "first_name", "is_superuser", "is_active", "email_confirmed",)
 	list_filter = ("is_superuser","is_active", "email_confirmed",)
 	list_editable = ("is_superuser","is_active")

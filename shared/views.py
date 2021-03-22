@@ -18,31 +18,47 @@ class CSVWriteView(View):
 	filename = "csv_file.csv"
 	headers = None
 	model = None
+	exclude_fields = []
 
-
+	def get_filename(self):
+		return self.filename
 
 	def get_headers(self):
 		"""overload this to dynamicaly generate headers"""
 		if self.headers:
 			return self.headers
 		if self.model:
-			return [field.name for field in self.model._meta.fields]
+			return [field.name for field in self.get_field_names()]
 		return None
+
+	def get_values(self):
+		"""overload to change queryset used in self.get_rows"""
+		if self.model:
+			return self.model.objects.values()
+		raise NotImplementedError("{}.get_values() isn't implemented when model is None".format(
+			self.__class__.__name__
+		))
+
+	def get_field_names(self):
+		"""overload to limit/change field names
+		default to all minus those in exclude_fields"""
+		return [
+			field for field in self.model._meta.fields
+			if not field.name in self.exclude_fields
+		]
 
 	def get_rows(self):
 		"""overload this to return the list of rows"""
-		if self.model:
-			queryset = self.model.objects.values()
-			fields = self.model._meta.fields
-			table = []
-			for row in queryset:
-				table.append([row[field.name] for field in fields])
-			return table
-		raise NotImplementedError("{}.get_rows isn't implemented".format(self.__class__.__name__))
+		queryset = self.get_values()
+		fields = self.get_field_names()
+		table = []
+		for row in queryset:
+			table.append([row[field.name] for field in fields])
+		return table
 
 	def get(self, request, *args, **kwargs):
 		response = HttpResponse(content_type='text/csv')
-		filename = self.filename
+		filename = self.get_filename()
 		if not filename.endswith(".csv"):
 			filename += ".csv"
 		response['Content-Disposition'] = 'attachment; filename="{}"'.format(self.filename)
