@@ -1,3 +1,6 @@
+# secret file
+interludes/secret.py
+
 myvenv
 /static
 .DS_Store

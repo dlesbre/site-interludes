@@ -34,7 +34,11 @@ Pour tester modifier le repo, après l'avoir cloné :
 
 		pip3 install -r requirements.txt
 
-5. Faire les les migrations
+5. Copier/linker le fichier `interludes/secret_example.py` dans `interludes/secret.py`
+
+		ln -s interludes/secret_example.py interludes/secret.py
+
+6. Faire les les migrations
 
 		make migrate
 

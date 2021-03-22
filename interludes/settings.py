@@ -19,16 +19,50 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tx$xi%n!8cghirp377zb)gd24g#=&w*ik(bx2h(i8ji0_&9_5l'
+try:
+	from . import secret
+except ImportError:
+	raise ImportError(
+		"The interludes/secret.py file is missing.\n"
+		"Run 'make secret' to generate a secret."
+	)
 
-# SECURITY WARNING: don't run with debug turned on in production!
+def import_secret(name):
+	"""
+	Shorthand for importing a value from the secret module and raising an
+	informative exception if a secret is missing.
+	"""
+	try:
+		return getattr(secret, name)
+	except AttributeError:
+		raise RuntimeError("Secret missing: {}".format(name))
+
+SECRET_KEY = import_secret("SECRET_KEY")
+
+DB_NAME = import_secret("DB_NAME")
+
+ADMINS = import_secret("ADMINS")
+
+SERVER_EMAIL = import_secret("SERVER_EMAIL")
+DEFAULT_FROM_EMAIL = import_secret("DEFAULT_FROM_EMAIL")
+EMAIL_HOST = import_secret("EMAIL_HOST")
+EMAIL_PORT = import_secret("EMAIL_PORT")
+EMAIL_HOST_USER = import_secret("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = import_secret("EMAIL_HOST_PASSWORD")
+
+EMAIL_USE_SSL = True
+
+# FIXME - set to False in production
 DEBUG = True
 
-ADMINS = [("respos", "respointerludes21@ens.psl.eu"),]
-
+# FIXME - set hosts in production
 ALLOWED_HOSTS = []
 
+if DEBUG:
+	# This will display emails in Console.
+	EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+	EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Application definition
 
@@ -85,7 +119,7 @@ WSGI_APPLICATION = 'interludes.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+		'NAME': os.path.join(BASE_DIR, DB_NAME),
 	}
 }
 
@@ -100,18 +134,10 @@ AUTH_USER_MODEL = 'accounts.EmailUser'
 AUTH_PROFILE_MODULE = 'home.InterludesParticipant'
 
 AUTH_PASSWORD_VALIDATORS = [
-	{
-		'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-	},
-	{
-		'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-	},
-	{
-		'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-	},
-	{
-		'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-	},
+	{ 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+	{ 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+	{ 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+	{ 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
 # Session time in seconds
@@ -139,10 +165,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "accounts:profile"
-
-# This will display emails in Console.
-# FIXME: remove in production
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Prefix to mails to admins
 EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '

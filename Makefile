@@ -12,6 +12,10 @@ install: ## Install requirements
 	$(PYTHON) -m pip install --upgrade pip
 	pip install -r requirements.txt
 
+.PHONY: secret
+secret: ## Link the secret_example.py to secret.py (only in dev mode)
+	ln -s interludes/secret_example.py interludes/secret.py
+
 .PHONY: migrate
 migrate: ## Make and run migrations
 	$(PYTHON) $(MANAGER) makemigrations
@@ -26,7 +30,7 @@ host: ## Host localy to access from same netword (make sure to add IP to ALLOWED
 	$(PYTHON) $(MANAGER) runserver 0.0.0.0:8000
 
 .PHONY: start
-start: install migrate serve ## Install requirements, apply migrations, then start development server
+start: install secret migrate serve ## Install requirements, apply migrations, then start development server
 
 .PHONY: clean
 clean: ## Remove migrations and delete database
