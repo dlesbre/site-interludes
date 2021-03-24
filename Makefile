@@ -14,7 +14,7 @@ install: ## Install requirements
 
 .PHONY: secret
 secret: ## Link the secret_example.py to secret.py (only in dev mode)
-	ln -s interludes/secret_example.py interludes/secret.py
+	ln -s ./interludes/secret_example.py interludes/secret.py
 
 .PHONY: migrate
 migrate: ## Make and run migrations
