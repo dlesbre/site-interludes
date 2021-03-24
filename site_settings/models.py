@@ -56,7 +56,10 @@ class SiteSettings(SingletonModel):
 		help_text="Suppose que l'allocation des activités a été effectuée."
 	)
 
-	activity_submission_form = models.CharField("Lien pour soumettre une activité", max_length=200, default="")
+	activity_submission_form = models.CharField(
+		"Lien pour soumettre une activité", max_length=200, default="",
+		blank=True, null=True
+	)
 
 	allow_mass_mail = models.BooleanField(
 		"Permettre l'envoi de mails collectifs (aux utilisateurs et orgas)", default=False,
