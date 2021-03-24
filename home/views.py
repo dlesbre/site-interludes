@@ -38,7 +38,7 @@ class ActivityView(TemplateView):
 		settings = SiteSettings.load()
 		context['activities'] = InterludesActivity.objects.filter(display=True).order_by("title")
 		context['planning'] = InterludesActivity.objects.filter(on_planning=True).order_by("title")
-		if settings.start_date is not None:
+		if settings.date_start is not None:
 			context['friday'] = settings.date_start.day
 			context['saturday'] = (settings.date_start + timedelta(days=1)).day
 			context['sunday'] = (settings.date_start + timedelta(days=2)).day
