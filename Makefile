@@ -2,6 +2,7 @@ SHELL := /bin/bash
 PYTHON := python3
 MANAGER := manage.py
 DB := db.sqlite3
+SECRET := interludes/secret.py
 
 .PHONY: help
 help: ## Show this help
@@ -14,19 +15,21 @@ install: ## Install requirements
 
 .PHONY: secret
 secret: ## Link the secret_example.py to secret.py (only in dev mode)
-	ln -s ./interludes/secret_example.py interludes/secret.py
+	ln -s "$(PWD)/interludes/secret_example.py" interludes/secret.py
+
+$(SECRET): secret
 
 .PHONY: migrate
-migrate: ## Make and run migrations
+migrate: $(SECRET) ## Make and run migrations
 	$(PYTHON) $(MANAGER) makemigrations
 	$(PYTHON) $(MANAGER) migrate
 
 .PHONY: serve
-serve: ## Run the django server
+serve: $(SECRET) ## Run the django server
 	$(PYTHON) $(MANAGER) runserver
 
 .PHONY: host
-host: ## Host localy to access from same netword (make sure to add IP to ALLOWED_HOSTS)
+host: $(SECRET) ## Host localy to access from same netword (make sure to add IP to ALLOWED_HOSTS)
 	$(PYTHON) $(MANAGER) runserver 0.0.0.0:8000
 
 .PHONY: start
@@ -39,19 +42,19 @@ clean: ## Remove migrations and delete database
 	rm $(DB)
 
 .PHONY:	test
-test: ## Tests all the apps
+test: $(SECRET) ## Tests all the apps
 	$(PYTHON) $(MANAGER) test
 
 .PHONY: adduser
-adduser: ## Create a new superuser
+adduser: $(SECRET) ## Create a new superuser
 	$(PYTHON) $(MANAGER) createsuperuser
 
 .PHONY: shell
-shell: ## Run django's shell
+shell: $(SECRET) ## Run django's shell
 	$(PYTHON) $(MANAGER) shell
 
 .PHONY: static
-static: ## collect static files
+static: $(SECRET) ## collect static files
 	$(PYTHON) $(MANAGER) collectstatic
 
 .PHONY: preprod
