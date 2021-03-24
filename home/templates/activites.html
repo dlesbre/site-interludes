@@ -18,9 +18,9 @@
 			const container = document.getElementById('planning');
 
 			const groups = new vis.DataSet([
-				{id: {{ friday }}, content: "Vendredi", order: 0},
-				{id: {{ saturday }}, content: "Samedi", order: 1},
-				{id: {{ sunday }}, content: "Dimanche", order: 2},
+				{id: {{ friday }}, content: "Ven.", order: 0},
+				{id: {{ saturday }}, content: "Sam.", order: 1},
+				{id: {{ sunday }}, content: "Dim.", order: 2},
 			]);
 
 			// Items in the timeline
@@ -32,7 +32,7 @@
 					title: '<strong>{{ act.title }}</strong><br>{{ act.room }}',
 					start: '{{ settings.date_start|date:"Y-m-d"}} {{ act.start|date:"H:i:s" }}',
 					align: 'left',
-					group: '{{ act.start|date:"d" }}',
+					group: {{ act.start|date:"d" }},
 					subgroup: '{{ act.room }}',
 					end:'{{ settings.date_start|date:"Y-m-d"}} {{ act.end|date:"H:i:s" }}'
 				},
@@ -110,5 +110,9 @@
 			<dt>Description :</dt>
 		</dl>
 		<p class="desc">{{ activity.description|linebreaksbr }}</p>
+	{% empty %}
+
+	<p>Il n'y a aucune activité pour l'instant, revenez dans quelques jour pour avoir une liste plus remplie.</p>
+
 	{% endfor %}
 {% endblock %}
