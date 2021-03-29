@@ -106,7 +106,7 @@
 			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
 			{% if activity.times_and_places %}
 			<dt>Heure/Lieu :</dt><dd>{% for act in activity.times_and_places %}
-				{{ act.start|date:"l H:i" }} {{ act.room }}{% if not forloop.last %}, {% endif %}
+				{{ act.start|date:"l H:i" }} {{ act.room }}{% if not forloop.last %},<br> {% endif %}
 				{% endfor %}
 			</dd>
 			{% endif %}
