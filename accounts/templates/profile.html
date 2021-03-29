@@ -20,14 +20,14 @@
 	{% endif %}
 	<ul>
 		<li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Ne dors pas sur place{% endif %}</li>
-		<!--<li>{% if user.profile.mug %}Commande une tasse{% else %}Ne commande pas de tasse{% endif %}</li>-->
+		<!--<li>{% if user.profile.mug %}Commandse une tasse{% else %}Ne commande pas de tasse{% endif %}</li>-->
 		<li>Inscrit à {{ user.profile.nb_meals }} repas.</li>
 		{% if settings.activities_allocated %}
 			{% if my_activities %}
 			<li>Inscrit à {{ my_activities|length }} activités&nbsp;:
 				<ul>
 					{% for activity in my_activities %}
-					<li>{{ activity.activity.title }}
+					<li><a href="{% url 'activites' %}#{{ activity.activity.slug }}">{{ activity.activity.title }}</a>
 						{% if activity.activity.start and activity.activity.room %}
 							(le {{ activity.activity.start|date:"l à H:i" }} en {{ activity.activity.room }})
 						{% endif %}
@@ -43,7 +43,7 @@
 			<li>{{ my_activities|length }} activités souhaitées&nbsp;:
 				<ol>
 					{% for activity in my_activities %}
-					<li>{{ activity.activity.title }}
+					<li><a href="{% url 'activites' %}#{{ activity.activity.slug }}">{{ activity.activity.title }}</a>
 						{% if activity.activity.start and activity.activity.room %}
 							(le {{ activity.activity.start|date:"l à H:i" }} en {{ activity.activity.room }})
 						{% endif %}
