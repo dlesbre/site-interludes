@@ -7,7 +7,8 @@ Vous avez obtenu {{ activities|length }} activité(s) (sur {{ requested_activiti
 {% for act in activities %}
 - {{ act.activity.title }}{% if act.activity.start and act.activity.room %} (le {{ act.activity.start|date:"l à H:i" }} en {{ act.activity.room }}){% endif %}{% endfor %}{% if activities %}
 
-Cette liste est également disponible sur la page "Mon compte" du site: {% url "accounts:profile" %}.{% endif %}
+Cette liste est également disponible sur la page "Mon compte" du site: {% url "accounts:profile" %}.
+Votre adresse email sera communiquée aux orgas pour les activités nécessitant préparation avant l'événement.{% endif %}
 {% else %}
 Vous n'aviez demandé aucune activité.
 {% endif %}
