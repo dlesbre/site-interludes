@@ -8,6 +8,8 @@
 - Separate activity must_subscribe display from actual subscriptions
 	(so a single activity can have multiple clones: one displayed in list, and multiple in
 	planning and inscription lists if occurs more than once)
+- Added links to activities from profile page
+- Added admin warning for malformed activity wishes.
 
 ## Version 1.0.1 - day one patch - 2021-03-24
 
