@@ -49,7 +49,13 @@ class InterludesActivity(models.Model):
 	)
 	host_name = models.CharField("nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("email de l'organisateur")
-	description = models.TextField("description", max_length=2000)
+	description = models.TextField(
+		"description", max_length=2000,
+		help_text='Texte ou html selon la valeur de "Description HTML".\n'
+	)
+	desc_as_html = models.BooleanField("Description au format HTML", default=False,
+		help_text="Assurer vous que le texte est bien formaté, cette option peut casser la page activités."
+	)
 
 	on_planning = models.BooleanField(
 		"afficher sur le planning", default=False,

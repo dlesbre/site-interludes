@@ -24,7 +24,7 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 		("min_participants", "max_participants"),
 		"must_subscribe",
 		"communicate_participants",
-		"description",
+		"description", "desc_as_html",
 		"display",
 		"room", "start",
 		"on_planning",

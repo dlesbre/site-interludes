@@ -273,9 +273,14 @@ dl dd {
 	justify-self: start;
 	text-align: left;
 }
-p.desc {
+div.desc {
 	margin-top: 0;
 	padding: 0 10px 20px;
+}
+div.desc p {
+	margin: 0;
+}
+div.desc p.indent {
 	text-indent: 25px;
 }
 

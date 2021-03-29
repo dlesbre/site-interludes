@@ -109,7 +109,13 @@
 			{% endif %}
 			<dt>Description :</dt>
 		</dl>
-		<p class="desc">{{ activity.description|linebreaksbr }}</p>
+		<div class="desc">
+		{% if activity.desc_as_html %}
+			{{ activity.description|safe }}
+		{% else %}
+		<p class="indent">{{ activity.description|linebreaksbr }}</p>
+		{% endif %}
+		</div>
 	{% empty %}
 
 	<p>Il n'y a aucune activité pour l'instant, revenez dans quelques jour pour avoir une liste plus remplie.</p>
