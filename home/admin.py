@@ -54,7 +54,7 @@ class ActivityListAdmin(ExportCsvMixin, admin.ModelAdmin):
 	list_display = ("activity", "participant", "priority", "accepted")
 	list_filter = (
 		"activity", "participant__is_registered", "activity__display",
-		"accepted", "activity__must_subscribe",
+		"accepted", "activity__subscribing_open",
 	)
 	list_editable = ("accepted",)
 	ordering = ("activity", "priority", "participant",)

@@ -139,6 +139,10 @@
 			<div class="qty">Obtenus</div>
 			<div class="nb_small">{{ metrics.granted }}</div>
 		</div>
+		<div class="stat">
+			<div class="qty">Malformé</div>
+			<div class="nb_small">{{ metrics.malformed }}</div>
+		</div>
 	</div>
 
 	<p>*Le nombre d'activité "inscription" est le nombre d'activités affichée (dans la liste de la page
@@ -146,6 +150,12 @@
 		qui apparaissent dans la liste du formulaire d'inscription (une activité avec plusieurs créneaux peut y
 		apparaître plusieures fois)
 	</p>
+
+	{% if metrics.malformed %}
+	<ul class="messagelist"><li class="error">
+		Des activités non ouvertes aux inscriptions apparaissent dans les listes de souhait.
+	</li></ul>
+	{% endif %}
 
 	<h2>Répartition des activités</h2>
 

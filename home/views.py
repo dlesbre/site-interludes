@@ -155,6 +155,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			rennes = registered.filter(school="R").count()
 			saclay = registered.filter(school="P").count()
 			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
+			# mugs = registered.filter(mug=True).count()
+			sleeps = registered.filter(sleeps=True).count()
 
 			meal1 = registered.filter(meal_friday_evening=True).count()
 			meal2 = registered.filter(meal_saturday_morning=True).count()
@@ -164,20 +166,18 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			meal6 = registered.filter(meal_sunday_midday=True).count()
 			meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
 
-			# mugs = registered.filter(mug=True).count()
-			sleeps = registered.filter(sleeps=True).count()
-
 			activites = acts.count()
 			displayed = acts.filter(display=True).count()
 			planning = acts.filter(on_planning=True).count()
 			act_ins = acts.filter(display=True, must_subscribe=True).count()
-			true_ins = acts.filter(subscribing_open=True).count()
-			wish = wishes.count()
-			granted = wishes.filter(accepted=True).count()
-
 			st_present = acts.filter(display=True, status=InterludesActivity.Status.PRESENT).count()
 			st_distant = acts.filter(display=True, status=InterludesActivity.Status.DISTANT).count()
 			st_both = acts.filter(display=True, status=InterludesActivity.Status.BOTH).count()
+
+			true_ins = acts.filter(subscribing_open=True).count()
+			wish = wishes.count()
+			granted = wishes.filter(accepted=True).count()
+			malformed = ActivityList.objects.filter(activity__subscribing_open=False).count()
 
 		# validation de la repartition des activités
 		accepted = wishes.filter(accepted=True)
