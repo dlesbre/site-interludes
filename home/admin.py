@@ -28,7 +28,8 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"display",
 		"room", "start",
 		"on_planning",
-		"notes"
+		"notes",
+		"canonical",
 	)
 	list_per_page = 100
 	save_as = True # Allow to duplicate models

@@ -69,6 +69,14 @@ class InterludesActivity(models.Model):
 	start = models.DateTimeField("début", null=True, blank=True)
 	room = models.CharField("salle", max_length=100, null=True, blank=True)
 
+	canonical = models.ForeignKey("self",
+		on_delete=models.SET_NULL, null=True, blank=True,
+		verbose_name="Représentant canonique",
+		help_text="Si plusieurs copie d'une activité existe (pour plusieurs crénaux), "
+			"et une seule est affichée, sélectionner là dans les copie pour réparer les liens "
+			"du planning vers la description"
+	)
+
 	notes = models.TextField("Notes privées", max_length=2000, blank=True)
 
 	@property
@@ -105,6 +113,14 @@ class InterludesActivity(models.Model):
 		elif status == self.Status.PRESENT:
 			status_repr = "présentiel"
 		return "{} ({})".format(type, status_repr)
+
+	@property
+	def slug(self) -> str:
+		"""Returns the planning/display slug for this activity"""
+		id = self.id
+		if self.canonical:
+			id = self.canonical.id
+		return "act-{}".format(id)
 
 	def conflicts(self, other: "InterludesActivity") -> bool:
 		"""Check whether these activites overlap"""
