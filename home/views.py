@@ -201,7 +201,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 				)
 			if min > total:
 				min_fails += "<br> &bullet;&ensp;{}: {} inscrits (minimum {})".format(
-					act.title, total, max
+					act.title, total, min
 				)
 		message = ""
 		if min_fails:
