@@ -122,6 +122,16 @@ class InterludesActivity(models.Model):
 			id = self.canonical.id
 		return "act-{}".format(id)
 
+	@property
+	def times_and_places(self) -> str:
+		"""Returns a list of start times and place related to self
+		(check canonical links for multiple timetable,
+		only displays if on_planning is true)"""
+		objects = InterludesActivity.objects.filter(
+			models.Q(id=self.id) | models.Q(canonical=self)
+		).filter(on_planning=True).values("start", "room").order_by("start")
+		return objects
+
 	def conflicts(self, other: "InterludesActivity") -> bool:
 		"""Check whether these activites overlap"""
 		if self.end is None or other.end is None:
