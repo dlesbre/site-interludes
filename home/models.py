@@ -70,6 +70,8 @@ class InterludesActivity(models.Model):
 	def nb_participants(self) -> str:
 		if self.max_participants == 0:
 			ret = "Illimités"
+		elif self.max_participants == self.min_participants:
+			ret = "{}".format(self.min_participants)
 		else:
 			ret = "{} - {}".format(self.min_participants, self.max_participants)
 		if self.must_subscribe:
