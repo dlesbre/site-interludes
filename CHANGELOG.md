@@ -1,6 +1,6 @@
 # Change Log
 
-## Version ??? - Soon
+## Version 1.1.0 - Repeated Activities - 2021-03-26
 
 - Fix typos, wrong value displays
 - Reworked activity display and allow HTML display inputs
