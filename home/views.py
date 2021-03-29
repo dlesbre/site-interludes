@@ -168,13 +168,16 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			sleeps = registered.filter(sleeps=True).count()
 
 			activites = acts.count()
-			act_ins = acts.filter(must_subscribe=True).count()
+			displayed = acts.filter(display=True).count()
+			planning = acts.filter(on_planning=True).count()
+			act_ins = acts.filter(display=True, must_subscribe=True).count()
+			true_ins = acts.filter(subscribing_open=True).count()
 			wish = wishes.count()
 			granted = wishes.filter(accepted=True).count()
 
-			st_present = acts.filter(status=InterludesActivity.Status.PRESENT).count()
-			st_distant = acts.filter(status=InterludesActivity.Status.DISTANT).count()
-			st_both = acts.filter(status=InterludesActivity.Status.BOTH).count()
+			st_present = acts.filter(display=True, status=InterludesActivity.Status.PRESENT).count()
+			st_distant = acts.filter(display=True, status=InterludesActivity.Status.DISTANT).count()
+			st_both = acts.filter(display=True, status=InterludesActivity.Status.BOTH).count()
 
 		# validation de la repartition des activités
 		accepted = wishes.filter(accepted=True)

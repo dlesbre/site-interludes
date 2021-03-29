@@ -101,16 +101,16 @@
 			<div class="nb_big">{{ metrics.activites }}</div>
 		</div>
 		<div class="stat">
-			<div class="qty">Sur inscription</div>
+			<div class="qty">Affichées</div>
+			<div class="nb_small">{{ metrics.displayed }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Planning</div>
+			<div class="nb_small">{{ metrics.planning }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Inscription*</div>
 			<div class="nb_small">{{ metrics.act_ins }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Souhaits</div>
-			<div class="nb_small">{{ metrics.wish }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Obtenus</div>
-			<div class="nb_small">{{ metrics.granted }}</div>
 		</div>
 		<div class="stat">
 			<div class="qty">Présentiel</div>
@@ -125,6 +125,27 @@
 			<div class="nb_small">{{ metrics.st_both }}</div>
 		</div>
 	</div>
+
+	<div class="flex wrap lines">
+		<div class="stat">
+			<div class="qty">Créneaux*</div>
+			<div class="nb_big">{{ metrics.true_ins }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Souhaits</div>
+			<div class="nb_small">{{ metrics.wish }}</div>
+		</div>
+		<div class="stat">
+			<div class="qty">Obtenus</div>
+			<div class="nb_small">{{ metrics.granted }}</div>
+		</div>
+	</div>
+
+	<p>*Le nombre d'activité "inscription" est le nombre d'activités affichée (dans la liste de la page
+		<a href="{% url 'activites' %}">activités</a>), tandis que le nombre de Créneaux est le nombre d'activités
+		qui apparaissent dans la liste du formulaire d'inscription (une activité avec plusieurs créneaux peut y
+		apparaître plusieures fois)
+	</p>
 
 	<h2>Répartition des activités</h2>
 
