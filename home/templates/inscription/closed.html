@@ -7,7 +7,7 @@
 	{% if settings.inscriptions_not_open_yet %}
 		<p>Les inscriptions ne sont pas encores ouvertes.</p>
 		<p>Leur ouverture est prévue le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
-		<p>Nous communiquerons pas mail via les BDE des différentes écoles pour leur ouverture.</p>
+		<p>Nous communiquerons par mail via les BDE des différentes écoles pour leur ouverture.</p>
 	{% elif settings.inscriptions_have_closed %}
 		<p>Les inscriptions sont fermées.</p>
 		{% if settings.contact_email %}
