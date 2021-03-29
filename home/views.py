@@ -186,7 +186,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 	def validate_activity_participant_nb(self):
 		""" Vérifie que le nombre de participant inscrit
 		à chaque activité est compris entre le min et le max"""
-		activities = InterludesActivity.objects.filter(must_subscribe=True, display=True)
+		activities = InterludesActivity.objects.filter(subscribing_open=True)
 		min_fails = ""
 		max_fails = ""
 		for act in activities:
@@ -216,7 +216,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 	def validate_activity_conflicts(self):
 		"""Vérifie que personne n'est inscrit à des activités simultanées"""
-		activities = InterludesActivity.objects.filter(must_subscribe=True, display=True)
+		activities = InterludesActivity.objects.filter(subscribing_open=True)
 		conflicts = []
 		for i, act1 in enumerate(activities):
 			for act2 in activities[i+1:]:
@@ -262,7 +262,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 		user_email_nb = InterludesParticipant.objects.filter(is_registered=True).count()
 		orga_email_nb = InterludesActivity.objects.filter(
-			display=True, must_subscribe=True, communicate_participants=True
+			subscribing_open=True, communicate_participants=True
 		).count()
 
 		return {
@@ -348,7 +348,6 @@ class SendUserEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		# on envoie qu'au participant qui se sont inscrit à des activites
 		participants = InterludesParticipant.objects.filter(is_registered=True)
 		emails = []
 		settings = SiteSettings.load()
@@ -394,9 +393,8 @@ class SendOrgaEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		# on envoie qu'au participant qui se sont inscrit à des activites
 		activities = InterludesActivity.objects.filter(
-			must_subscribe=True, display=True, communicate_participants=True
+			subscribing_open=True, communicate_participants=True
 		)
 		emails = []
 		settings = SiteSettings.load()

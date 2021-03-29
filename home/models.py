@@ -43,9 +43,14 @@ class InterludesActivity(models.Model):
 	)
 
 	communicate_participants = models.BooleanField("communiquer la liste des participants à l'orga avant l'événement")
-	display = models.BooleanField("afficher dans la liste d'activités", default=False)
+	display = models.BooleanField("afficher dans la liste", default=False,
+		help_text="Si vrai, s'affiche sur la page activités"
+	)
 	must_subscribe = models.BooleanField("sur inscription", default=False,
-		help_text="Une activité doit être affichée dans la liste également pour que l'on puisse si inscrire"
+		help_text="Informatif, il faut utiliser 'ouverte aux inscriptions' pour ajouter dans la liste d'inscription"
+	)
+	subscribing_open = models.BooleanField("ouverte aux inscriptions", default=False,
+		help_text="Si vrai, apparaît dans la liste du formulaire d'inscription"
 	)
 	host_name = models.CharField("nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("email de l'organisateur")

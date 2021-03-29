@@ -37,7 +37,7 @@ class ActivityForm(FormRenderMixin, forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(ActivityForm, self).__init__(*args, **kwargs)
-		activities = InterludesActivity.objects.filter(display=True, must_subscribe=True)
+		activities = InterludesActivity.objects.filter(subscribing_open=True)
 		self.fields['activity'].queryset = activities
 
 class BaseActivityFormSet(forms.BaseFormSet):

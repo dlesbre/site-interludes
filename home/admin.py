@@ -13,16 +13,16 @@ admin.site.site_title = "Admin Interludes"
 class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des activités dans la vue django admin"""
 	filename = "export_activites.csv"
-	list_display = ("title", "host_name", "display", "must_subscribe","on_planning")
-	list_filter = ("display", "must_subscribe", "on_planning", "status")
+	list_display = ("title", "host_name", "display", "must_subscribe", "subscribing_open","on_planning")
+	list_filter = ("display", "must_subscribe", "subscribing_open", "on_planning", "status")
 	ordering = ("title", "host_name",)
-	list_editable = ("display",)
+	list_editable = ("display", "subscribing_open",)
 	fields = (
 		"title",
 		("host_name", "host_email"),
 		"status", "act_type", "duration",
 		("min_participants", "max_participants"),
-		"must_subscribe",
+		("must_subscribe", "subscribing_open"),
 		"communicate_participants",
 		"description", "desc_as_html",
 		"display",
@@ -31,6 +31,7 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"notes"
 	)
 	list_per_page = 100
+	save_as = True # Allow to duplicate models
 
 @admin.register(InterludesParticipant)
 class InterludesParticipantAdmin(ExportCsvMixin, admin.ModelAdmin):
