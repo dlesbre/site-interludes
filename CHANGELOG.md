@@ -11,6 +11,7 @@
 - Added links to activities from profile page
 - Added admin warning for malformed activity wishes.
 - Fixed multiple day display on planning and added planning preview to admin files
+- Added version number to admin pages
 
 ## Version 1.0.1 - day one patch - 2021-03-24
 

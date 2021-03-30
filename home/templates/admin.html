@@ -8,7 +8,7 @@
 
 {% block "content" %}
 	<h2>Page d'administration</h2>
-
+	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }}</strong></p>
 	<div class="flex wrap">
 		<a class="button" href="{% url 'participants.csv' %}"><i class="fa fa-download"></i> Liste des participants</a>
 		<a class="button" href="{% url 'activities.csv' %}"><i class="fa fa-download"></i> Liste des activités</a>
