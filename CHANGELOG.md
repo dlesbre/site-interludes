@@ -1,6 +1,6 @@
 # Change Log
 
-## Version 1.1.0 - Repeated Activities - 2021-03-26
+## Version 1.1.0 - Repeated Activities - 2021-03-30
 
 - Fix typos, wrong value displays
 - Reworked activity display and allow HTML display inputs
@@ -10,6 +10,7 @@
 	planning and inscription lists if occurs more than once)
 - Added links to activities from profile page
 - Added admin warning for malformed activity wishes.
+- Fixed multiple day display on planning and added planning preview to admin files
 
 ## Version 1.0.1 - day one patch - 2021-03-24
 
