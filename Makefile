@@ -33,7 +33,7 @@ host: $(SECRET) ## Host localy to access from same netword (make sure to add IP 
 	$(PYTHON) $(MANAGER) runserver 0.0.0.0:8000
 
 .PHONY: start
-start: install secret migrate serve ## Install requirements, apply migrations, then start development server
+start: install $(SECRET) migrate serve ## Install requirements, apply migrations, then start development server
 
 .PHONY: clean
 clean: ## Remove migrations and delete database
