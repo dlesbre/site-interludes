@@ -11,7 +11,10 @@
 	{% if settings.display_planning %}
 		<h2>Planning</h2>
 		<div id="planning"></div>
-
+<!--
+In order to limit the planning's width, we cheat using the timeline's groups
+I.E we set all dates to the first day (Friday) and set groups allowing vertical display:
+-->
 		<script type="text/javascript">
 			// https://visjs.org/
 			// DOM element where the Timeline will be attached
@@ -26,16 +29,36 @@
 			// Items in the timeline
 			const items = new vis.DataSet([
 				{% for act in planning %}
-				{
-					id: {{ act.id }},
-					content: '<a class="hidden" href="#{{ act.slug }}"><div><strong>{{ act.title }}</strong><br>{{ act.room }}</div></a>',
-					title: '<strong>{{ act.title }}</strong><br>{{ act.room }}',
-					start: '{{ settings.date_start|date:"Y-m-d"}} {{ act.start|date:"H:i:s" }}',
-					align: 'left',
-					group: {{ act.start|date:"d" }},
-					subgroup: '{{ act.room }}',
-					end:'{{ settings.date_start|date:"Y-m-d"}} {{ act.end|date:"H:i:s" }}'
-				},
+					{% if act.start|date:"d" == act.end|date:"d" %}
+					{
+						content: '<a class="hidden" href="#{{ act.slug }}"><div><strong>{{ act.title }}</strong><br>{{ act.room }}</div></a>',
+						title: '<strong>{{ act.title }}</strong><br>{{ act.room }}',
+						start: '{{ settings.date_start|date:"Y-m-d"}} {{ act.start|date:"H:i:s" }}',
+						align: 'left',
+						group: {{ act.start|date:"d" }},
+						subgroup: '{{ act.room }}',
+						end:'{{ settings.date_start|date:"Y-m-d"}} {{ act.end|date:"H:i:s" }}'
+					},
+					{% else %} // activity spans multiple days
+					{
+						content: '<a class="hidden" href="#{{ act.slug }}"><div><strong>{{ act.title }}</strong><br>{{ act.room }}</div></a>',
+						title: '<strong>{{ act.title }}</strong><br>{{ act.room }}',
+						start: '{{ settings.date_start|date:"Y-m-d"}} {{ act.start|date:"H:i:s" }}',
+						align: 'left',
+						group: {{ act.start|date:"d" }},
+						subgroup: '{{ act.room }}',
+						end:'{{ settings.date_start|date:"Y-m-d"}} 23:59:59'
+					},
+					{
+						content: '<a class="hidden" href="#{{ act.slug }}"><div><strong>{{ act.title }}</strong><br>{{ act.room }}</div></a>',
+						title: '<strong>{{ act.title }}</strong><br>{{ act.room }}',
+						start: '{{ settings.date_start|date:"Y-m-d"}} 00:00:00',
+						align: 'left',
+						group: {{ act.start|date:"d"|add:"1" }},
+						subgroup: '{{ act.room }}',
+						end:'{{ settings.date_start|date:"Y-m-d"}} {{ act.end|date:"H:i:s" }}'
+					},
+					{% endif %}
 				{% endfor %}
 			]);
 
