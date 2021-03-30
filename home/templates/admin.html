@@ -1,6 +1,10 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block nav_admin %}current{% endblock %}
+
+{% block head %}
+<script src="{% static 'js/vis-timeline.min.js' %}"></script>
+{% endblock %}
 
 {% block "content" %}
 	<h2>Page d'administration</h2>
@@ -156,6 +160,10 @@
 		Des activités non ouvertes aux inscriptions apparaissent dans les listes de souhait.
 	</li></ul>
 	{% endif %}
+
+	<h2>Prévisualisation du planning</h2>
+
+	{% include "_planning.html" %}
 
 	<h2>Répartition des activités</h2>
 

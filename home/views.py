@@ -27,6 +27,20 @@ class HomeView(TemplateView):
 	"""Vue pour la page d'acceuil"""
 	template_name = "home.html"
 
+def get_planning_context():
+	"""Returns the context dict needed to display the planning"""
+	settings = SiteSettings.load()
+	context = dict()
+	context['planning'] = InterludesActivity.objects.filter(on_planning=True).order_by("title")
+	if settings.date_start is not None:
+		context['friday'] = settings.date_start.day
+		context['saturday'] = (settings.date_start + timedelta(days=1)).day
+		context['sunday'] = (settings.date_start + timedelta(days=2)).day
+	else:
+		context['friday'] = 1
+		context['saturday'] = 2
+		context['sunday'] = 3
+	return context
 
 class ActivityView(TemplateView):
 	"""Vue pour la liste des activités"""
@@ -35,17 +49,8 @@ class ActivityView(TemplateView):
 	def get_context_data(self, **kwargs):
 		"""ajoute la liste des activités au contexte"""
 		context = super(ActivityView, self).get_context_data(**kwargs)
-		settings = SiteSettings.load()
 		context['activities'] = InterludesActivity.objects.filter(display=True).order_by("title")
-		context['planning'] = InterludesActivity.objects.filter(on_planning=True).order_by("title")
-		if settings.date_start is not None:
-			context['friday'] = settings.date_start.day
-			context['saturday'] = (settings.date_start + timedelta(days=1)).day
-			context['sunday'] = (settings.date_start + timedelta(days=2)).day
-		else:
-			context['friday'] = 1
-			context['saturday'] = 2
-			context['sunday'] = 3
+		context.update(get_planning_context())
 		return context
 
 
@@ -278,6 +283,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
 		context["metrics"] = self.get_metrics()
+		context.update(get_planning_context())
 		context.update(self.validate_activity_allocation())
 		return context
 
