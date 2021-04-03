@@ -1,5 +1,7 @@
 # Change Log
 
+## Version ??? - Soon
+
 ## Version 1.1.0 - Repeated Activities - 2021-03-30
 
 - Fix typos, wrong value displays
