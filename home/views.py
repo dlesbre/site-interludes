@@ -75,7 +75,7 @@ class RegisterSignIn(TemplateView):
 
 class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 	"""Vue pour s'inscrire et modifier son inscription"""
-	template_name = "inscription/form.html"
+	template_name = "inscription/form-distanciel.html"
 	form_class = InscriptionForm
 	formset_class = formset_factory(form=ActivityForm, extra=3, formset=BaseActivityFormSet)
 
