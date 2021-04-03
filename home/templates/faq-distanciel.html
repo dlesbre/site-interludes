@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav_faq %}current{% endblock %}
+
+{% block "content" %}
+
+<h2>Comment seront organisées les interludes à distance&nbsp;?</h2>
+	<p>Les interludes passeront principalement par un serveur discord. Nous y regrouperont
+		une liste de sites permettant de jouer en ligne et des canaux vocaux dédiés.
+	</p>
+	<p>Pour les <a href="{% url 'activites' %}">activités</a> proposées, leur description
+		vous indiquera s'il vous faudra autre chose qu'un ordinateur et une connexion internet pour participer.
+	</p>
+
+{% if settings.activity_submission_form %}
+	<h2>Comment proposer une activité ?</h2>
+		<p>Vous pouver proposer une activité en remplissant <a href="{{ settings.activity_submission_form }}">ce formulaire</a>.</p>
+		<p>Il vous faudra renseigner votre nom/mail, le titre, une description, le nombre de places, la durée, les horaires possibles/idéaux, et tout autre besoin particulier...
+		</p>
+{% endif %}
+
+{% endblock %}

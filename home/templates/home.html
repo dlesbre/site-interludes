@@ -23,14 +23,17 @@
 			à une date non-fixée.
 		{% endif %}
 	</p>
+	<p>
+		La situation actuelle ne se prête malheureusement pas à un tel événement. Nous ne pouvons donc
+		que proposer un événement à distance, qui passera principalement par un serveur discord.
+	</p>
+
 	<h2>Inscriptions</h2>
 
 	<p>
 		Ce site vous permettra de vous <a href="{% url 'inscription' %}">inscrire à l'événement</a> et
-		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées. Cette année l'événement est
-		<strong>gratuit</strong> car entièrement financé par le
-		<a class="external" href="https://cof.ens.fr/">COF</a> (cela n'inclut pas
-		les éventuels frais de transport).
+		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées. L'événement est
+		<strong>gratuit</strong>.
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
 		<p>Les inscriptions seront ouvertes
