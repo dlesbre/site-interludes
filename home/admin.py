@@ -38,6 +38,7 @@ class InterludesSlotAdmin(ExportCsvMixin, admin.ModelAdmin):
 	list_display = ("__str__", "start", "room", "subscribing_open", "on_planning",)
 	list_filter = ("subscribing_open", "on_planning", "activity__display",)
 	list_editable = ("subscribing_open", "on_planning",)
+	ordering = ("activity", "title", "start",)
 
 
 @admin.register(models.InterludesParticipant)

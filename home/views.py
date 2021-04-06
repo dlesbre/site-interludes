@@ -274,8 +274,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		validations += '</ul>'
 
 		user_email_nb = models.InterludesParticipant.objects.filter(is_registered=True).count()
-		orga_email_nb = models.InterludesSlot.objects.filter(
-			subscribing_open=True, activity__communicate_participants=True
+		orga_email_nb = models.InterludesActivity.objects.filter(
+			communicate_participants=True
 		).count()
 
 		return {
@@ -377,15 +377,15 @@ class SendUserEmail(SendEmailBase):
 		emails = []
 		settings = SiteSettings.load()
 		for participant in participants:
-			my_activities = models.InterludesActivityChoices.objects.filter(participant=participant)
+			my_choices = models.InterludesActivityChoices.objects.filter(participant=participant)
 			message = render_to_string("email/user.html", {
 				"user": participant.user,
 				"settings": settings,
-				"requested_activities_nb": my_activities.count(),
-				"activities": my_activities.filter(accepted=True),
+				"requested_activities_nb": my_choices.count(),
+				"my_choices": my_choices.filter(accepted=True),
 			})
 			emails.append((
-				"Vos activités interludes", # subject
+				"Information interludes", # subject
 				message,
 				self.from_address, # From:
 				[participant.user.email], # To:
@@ -418,23 +418,21 @@ class SendOrgaEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		activities = models.InterludesActivity.objects.filter(
-			subscribing_open=True, communicate_participants=True
-		)
+		activities = models.InterludesActivity.objects.filter(communicate_participants=True)
 		emails = []
 		settings = SiteSettings.load()
-		for act in activities:
-			participants = models.InterludesActivityChoices.objects.filter(activity=act, accepted=True)
+		for activity in activities:
+			slots = models.InterludesSlot.objects.filter(activity=activity)
 			message = render_to_string("email/orga.html", {
-				"activity": act,
+				"activity": activity,
 				"settings": settings,
-				"participants": participants,
+				"slots": slots,
 			})
 			emails.append((
-				"Vos activités interludes", # subject
+				"[interludes] Liste d'inscrit à votre activité {}".format(activity.title), # subject
 				message,
 				self.from_address, # From:
-				[act.host_email] # To:
+				[activity.host_email] # To:
 			))
 		return emails
 

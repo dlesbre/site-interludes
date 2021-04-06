@@ -132,6 +132,10 @@ class InterludesSlot(models.Model):
 	)
 
 	@property
+	def participants(self):
+		return InterludesActivityChoices.objects.filter(slot=self, accepted=True)
+
+	@property
 	def end(self):
 		"""Heure de fin du crénau"""
 		if (not self.start) or (not self.activity.duration):

@@ -1,18 +1,18 @@
 {% autoescape off %}
 Bonjour {{ user.first_name }} {{ user.last_name }},
-
+{% if settings.discord_link %}
+Vous pouvez rejoindre notre serveur discord avec le lien suivant : {{ settings.discord_link }}
+{% endif %}
 Les inscriptions aux Interludes sont fermées et la répartition des activités à été effectuée.
 {% if requested_activities_nb %}
-Vous avez obtenu {{ activities|length }} activité(s) (sur {{ requested_activities_nb }} souhaitée(s)).
-{% for act in activities %}
-- {{ act.activity.title }}{% if act.activity.on_planning %} (le {{ act.activity.start|date:"l à H:i" }}){% endif %}{% endfor %}{% if activities %}
+Vous avez obtenu {{ my_choices|length }} activité(s) (sur {{ requested_activities_nb }} souhaitée(s)).
+{% for choice in my_choices %}
+- {{ choice.slot }}{% if choice.slot.on_planning %} (le {{ choice.slot.start|date:"l à H:i" }}){% endif %}{% endfor %}{% if activities %}
 
 Cette liste est également disponible sur la page "Mon compte" du site: {% url "accounts:profile" %}.
 Votre adresse email sera communiquée aux orgas pour les activités nécessitant préparation avant l'événement.{% endif %}
 {% else %}
 Vous n'aviez demandé aucune activité.
-{% endif %}{% if settings.discord_link %}
-Si vous ne l'avez pas encore fait, rejoignez notre serveur discord : {{ settings.discord_link }}
 {% endif %}
 --
 L'équipe Interludes
