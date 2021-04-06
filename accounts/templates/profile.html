@@ -28,8 +28,8 @@
 				<ul>
 					{% for activity in my_activities %}
 					<li><a href="{% url 'activites' %}#{{ activity.activity.slug }}">{{ activity.activity.title }}</a>
-						{% if activity.activity.start and activity.activity.room %}
-							(le {{ activity.activity.start|date:"l à H:i" }} en {{ activity.activity.room }})
+						{% if activity.activity.on_planning %}
+							(le {{ activity.activity.start|date:"l à H:i" }}<!--  en {{ activity.activity.room }} -->)
 						{% endif %}
 					</li>
 					{% endfor %}
@@ -44,8 +44,8 @@
 				<ol>
 					{% for activity in my_activities %}
 					<li><a href="{% url 'activites' %}#{{ activity.activity.slug }}">{{ activity.activity.title }}</a>
-						{% if activity.activity.start and activity.activity.room %}
-							(le {{ activity.activity.start|date:"l à H:i" }} en {{ activity.activity.room }})
+						{% if activity.activity.on_planning %}
+							(le {{ activity.activity.start|date:"l à H:i" }}<!-- en {{ activity.activity.room }} -->)
 						{% endif %}
 					</li>
 					{% endfor %}

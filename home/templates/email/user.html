@@ -5,7 +5,7 @@ Les inscriptions aux Interludes sont fermées et la répartition des activités 
 {% if requested_activities_nb %}
 Vous avez obtenu {{ activities|length }} activité(s) (sur {{ requested_activities_nb }} souhaitée(s)).
 {% for act in activities %}
-- {{ act.activity.title }}{% if act.activity.start and act.activity.room %} (le {{ act.activity.start|date:"l à H:i" }} en {{ act.activity.room }}){% endif %}{% endfor %}{% if activities %}
+- {{ act.activity.title }}{% if act.activity.on_planning %} (le {{ act.activity.start|date:"l à H:i" }}){% endif %}{% endfor %}{% if activities %}
 
 Cette liste est également disponible sur la page "Mon compte" du site: {% url "accounts:profile" %}.
 Votre adresse email sera communiquée aux orgas pour les activités nécessitant préparation avant l'événement.{% endif %}
