@@ -38,9 +38,9 @@
 			<dt>Orga :</dt><dd>{{ activity.host_name }}</dd>
 			<dt>Type :</dt><dd>{{ activity.pretty_type }}</dd>
 			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
-			{% if activity.times_and_places %}
-			<dt>Heure/Lieu :</dt><dd>{% for act in activity.times_and_places %}
-				{{ act.start|date:"l H:i" }}<!-- {{ act.room }} -->{% if not forloop.last %},<br> {% endif %}
+			{% if activity.slots %}
+			<dt>Heure/Lieu :</dt><dd>{% for slot in activity.slots %}
+				{{ slot.start|date:"l H:i" }}<!-- {{ slot.room }} -->{% if not forloop.last %},<br> {% endif %}
 				{% endfor %}
 			</dd>
 			{% endif %}

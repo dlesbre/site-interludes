@@ -47,10 +47,7 @@ class InterludesActivity(models.Model):
 		help_text="Si vrai, s'affiche sur la page activités"
 	)
 	must_subscribe = models.BooleanField("sur inscription", default=False,
-		help_text="Informatif, il faut utiliser 'ouverte aux inscriptions' pour ajouter dans la liste d'inscription"
-	)
-	subscribing_open = models.BooleanField("ouverte aux inscriptions", default=False,
-		help_text="Si vrai, apparaît dans la liste du formulaire d'inscription"
+		help_text="Informatif, il faut utiliser les crénaux pour ajouter dans la liste d'inscription"
 	)
 	host_name = models.CharField("nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("email de l'organisateur")
@@ -62,28 +59,7 @@ class InterludesActivity(models.Model):
 		help_text="Assurer vous que le texte est bien formaté, cette option peut casser la page activités."
 	)
 
-	on_planning = models.BooleanField(
-		"afficher sur le planning", default=False,
-		help_text="Nécessite de salle et heure de début non vide"
-	)
-	start = models.DateTimeField("début", null=True, blank=True)
-	room = models.CharField("salle", max_length=100, null=True, blank=True)
-
-	canonical = models.ForeignKey("self",
-		on_delete=models.SET_NULL, null=True, blank=True,
-		verbose_name="Représentant canonique",
-		help_text="Si plusieurs copie d'une activité existe (pour plusieurs crénaux), "
-			"et une seule est affichée, sélectionner là dans les copie pour réparer les liens "
-			"du planning vers la description"
-	)
-
 	notes = models.TextField("Notes privées", max_length=2000, blank=True)
-
-	@property
-	def end(self):
-		if (not self.start) or (not self.duration):
-			return None
-		return self.start + self.duration
 
 	@property
 	def nb_participants(self) -> str:
@@ -118,34 +94,64 @@ class InterludesActivity(models.Model):
 	@property
 	def slug(self) -> str:
 		"""Returns the planning/display slug for this activity"""
-		id = self.id
-		if self.canonical:
-			id = self.canonical.id
-		return "act-{}".format(id)
+		return "act-{}".format(self.id)
 
 	@property
-	def times_and_places(self) -> str:
-		"""Returns a list of start times and place related to self
-		(check canonical links for multiple timetable,
-		only displays if on_planning is true)"""
-		objects = InterludesActivity.objects.filter(
-			models.Q(id=self.id) | models.Q(canonical=self)
-		).filter(on_planning=True).values("start", "room").order_by("start")
-		return objects
-
-	def conflicts(self, other: "InterludesActivity") -> bool:
-		"""Check whether these activites overlap"""
-		if self.end is None or other.end is None:
-			return False
-		if self.start <= other.start:
-			return other.start <= self.end
-		return self.start <= other.end
+	def slots(self):
+		"""Returns a list of slots related to self"""
+		return InterludesSlot.objects.filter(activity=self, on_planning=True).order_by("start")
 
 	def __str__(self):
 		return self.title
 
 	class Meta:
 		verbose_name = "activité"
+
+
+class InterludesSlot(models.Model):
+	"""Crénaux indiquant ou une activité se place dans le planning
+	Dans une table à part car un activité peut avoir plusieurs crénaux.
+	Les inscriptions se font à des crénaux et non des activités"""
+
+	TITLE_SPECIFIER = "{act_title}"
+
+	activity = models.ForeignKey(InterludesActivity, on_delete=models.CASCADE, verbose_name="Activité")
+	title = models.CharField(
+		"Titre", max_length=200, default=TITLE_SPECIFIER,
+		help_text="Utilisez '{}' pour insérer le titre de l'activité correspondante".format(
+			TITLE_SPECIFIER),
+	)
+	start = models.DateTimeField("début", null=True, blank=True)
+	room = models.CharField("salle", max_length=100, null=True, blank=True)
+	on_planning = models.BooleanField(
+		"afficher sur le planning", default=False,
+		help_text="Nécessite de salle et heure de début non vide",
+	)
+	subscribing_open = models.BooleanField("ouvert aux inscriptions", default=False,
+		help_text="Si vrai, apparaît dans la liste du formulaire d'inscription"
+	)
+
+	@property
+	def end(self):
+		"""Heure de fin du crénau"""
+		if (not self.start) or (not self.activity.duration):
+			return None
+		return self.start + self.activity.duration
+
+	def conflicts(self, other: "InterludesSlot") -> bool:
+		"""Check whether these slots overlap"""
+		if self.end is None or other.end is None:
+			return False
+		if self.start <= other.start:
+			return other.start <= self.end
+		return self.start <= other.end
+
+	def __str__(self) -> str:
+		return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)
+
+	class Meta:
+		verbose_name = "crénau"
+		verbose_name_plural = "crénaux"
 
 
 class InterludesParticipant(models.Model):
@@ -189,21 +195,21 @@ class InterludesParticipant(models.Model):
 		verbose_name = "participant"
 
 
-class ActivityList(models.Model):
+class InterludesActivityChoices(models.Model):
 	"""liste d'activités souhaitée de chaque participant,
 	avec un order de priorité"""
 	priority = models.PositiveIntegerField("priorité")
 	participant = models.ForeignKey(
-		InterludesParticipant, on_delete=models.CASCADE, db_column="participant"
+		InterludesParticipant, on_delete=models.CASCADE, verbose_name="participant",
 	)
-	activity = models.ForeignKey(
-		InterludesActivity, on_delete=models.CASCADE, db_column="activité"
+	slot = models.ForeignKey(
+		InterludesSlot, on_delete=models.CASCADE, verbose_name="crénau",
 	)
 	accepted = models.BooleanField("Obtenue", default=False)
 
 	class Meta:
 		# couples uniques
-		unique_together = (("priority", "participant"), ("participant", "activity"))
+		unique_together = (("priority", "participant"), ("participant", "slot"))
 		ordering = ("participant", "priority")
 		verbose_name = "choix d'activités"
 		verbose_name_plural = "choix d'activités"

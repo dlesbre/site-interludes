@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.views.generic import RedirectView, UpdateView, TemplateView, View
 
 from accounts.models import EmailUser
-from home.models import ActivityList, InterludesActivity, InterludesParticipant
+from home import models
 from home.forms import ActivityForm, BaseActivityFormSet, InscriptionForm
 from site_settings.models import SiteSettings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
@@ -31,7 +31,7 @@ def get_planning_context():
 	"""Returns the context dict needed to display the planning"""
 	settings = SiteSettings.load()
 	context = dict()
-	context['planning'] = InterludesActivity.objects.filter(on_planning=True).order_by("title")
+	context['planning'] = models.InterludesSlot.objects.filter(on_planning=True).order_by("title")
 	if settings.date_start is not None:
 		context['friday'] = settings.date_start.day
 		context['saturday'] = (settings.date_start + timedelta(days=1)).day
@@ -49,7 +49,7 @@ class ActivityView(TemplateView):
 	def get_context_data(self, **kwargs):
 		"""ajoute la liste des activités au contexte"""
 		context = super(ActivityView, self).get_context_data(**kwargs)
-		context['activities'] = InterludesActivity.objects.filter(display=True).order_by("title")
+		context['activities'] = models.InterludesActivity.objects.filter(display=True).order_by("title")
 		context.update(get_planning_context())
 		return context
 
@@ -80,28 +80,30 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 	formset_class = formset_factory(form=ActivityForm, extra=3, formset=BaseActivityFormSet)
 
 	@staticmethod
-	def get_activities(participant):
-		activities = ActivityList.objects.filter(participant=participant).order_by("priority")
-		return [{"activity": act.activity} for act in activities]
+	def get_slots(participant):
+		activities = models.InterludesActivityChoices.objects.filter(participant=participant).order_by("priority")
+		return [{"slot": act.slot} for act in activities]
 
 	@staticmethod
 	def set_activities(participant, formset):
 		# delete old activites
-		ActivityList.objects.filter(participant=participant).delete()
+		models.InterludesActivityChoices.objects.filter(participant=participant).delete()
 
 		priority = 0
 		for form in formset:
 			data = form.cleaned_data
 			if data:
-				activity = data["activity"]
-				ActivityList(priority=priority, participant=participant, activity=activity).save()
+				slot = data["slot"]
+				models.InterludesActivityChoices(
+					priority=priority, participant=participant, slot=slot
+				).save()
 				priority += 1
 
 	def get(self, request, *args, **kwargs):
 		participant = request.user.profile
-		activities = self.get_activities(participant)
+		slots = self.get_slots(participant)
 		form = self.form_class(instance=participant)
-		formset = self.formset_class(initial=activities)
+		formset = self.formset_class(initial=slots)
 		context = {"form": form, "formset": formset}
 		return render(request, self.template_name, context)
 
@@ -150,9 +152,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 	template_name = "admin.html"
 
 	def get_metrics(self):
-		registered = InterludesParticipant.objects.filter(is_registered = True)
-		acts = InterludesActivity.objects.all()
-		wishes = ActivityList.objects.filter(participant__is_registered=True)
+		registered = models.InterludesParticipant.objects.filter(is_registered = True)
+		acts = models.InterludesActivity.objects.all()
+		slots_in = models.InterludesSlot.objects.all()
+		wishes = models.InterludesActivityChoices.objects.filter(participant__is_registered=True)
 		class metrics:
 			participants = registered.count()
 			ulm = registered.filter(school="U").count()
@@ -173,43 +176,39 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 			activites = acts.count()
 			displayed = acts.filter(display=True).count()
-			planning = acts.filter(on_planning=True).count()
 			act_ins = acts.filter(display=True, must_subscribe=True).count()
-			st_present = acts.filter(display=True, status=InterludesActivity.Status.PRESENT).count()
-			st_distant = acts.filter(display=True, status=InterludesActivity.Status.DISTANT).count()
-			st_both = acts.filter(display=True, status=InterludesActivity.Status.BOTH).count()
+			communicate = acts.filter(communicate_participants=True).count()
+			st_present = acts.filter(display=True, status=models.InterludesActivity.Status.PRESENT).count()
+			st_distant = acts.filter(display=True, status=models.InterludesActivity.Status.DISTANT).count()
+			st_both = acts.filter(display=True, status=models.InterludesActivity.Status.BOTH).count()
 
-			true_ins = acts.filter(subscribing_open=True).count()
+			slots = slots_in.count()
+			true_ins = slots_in.filter(subscribing_open=True).count()
 			wish = wishes.count()
 			granted = wishes.filter(accepted=True).count()
-			malformed = ActivityList.objects.filter(activity__subscribing_open=False).count()
-
-		# validation de la repartition des activités
-		accepted = wishes.filter(accepted=True)
-		# order_by is useless but required
-		counts = accepted.values("activity").annotate(total=Count("id")).order_by("activity")
+			malformed = models.InterludesActivityChoices.objects.filter(slot__subscribing_open=False).count()
 
 		return metrics
 
 	def validate_activity_participant_nb(self):
 		""" Vérifie que le nombre de participant inscrit
 		à chaque activité est compris entre le min et le max"""
-		activities = InterludesActivity.objects.filter(subscribing_open=True)
+		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
 		min_fails = ""
 		max_fails = ""
-		for act in activities:
-			total = ActivityList.objects.filter(
-				activity=act, accepted=True, participant__is_registered=True
+		for slot in slots:
+			total = models.InterludesActivityChoices.objects.filter(
+				slot=slot, accepted=True, participant__is_registered=True
 			).aggregate(total=Count("id"))["total"]
-			max = act.max_participants
-			min = act.min_participants
+			max = slot.activity.max_participants
+			min = slot.activity.min_participants
 			if max != 0 and max < total:
 				max_fails += "<br> &bullet;&ensp;{}: {} inscrits (maximum {})".format(
-					act.title, total, max
+					slot, total, max
 				)
 			if min > total:
 				min_fails += "<br> &bullet;&ensp;{}: {} inscrits (minimum {})".format(
-					act.title, total, min
+					slot, total, min
 				)
 		message = ""
 		if min_fails:
@@ -224,23 +223,23 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 	def validate_activity_conflicts(self):
 		"""Vérifie que personne n'est inscrit à des activités simultanées"""
-		activities = InterludesActivity.objects.filter(subscribing_open=True)
+		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
 		conflicts = []
-		for i, act1 in enumerate(activities):
-			for act2 in activities[i+1:]:
-				if act1.conflicts(act2):
-					conflicts.append((act1, act2))
-		base_qs = ActivityList.objects.filter(accepted=True, participant__is_registered=True)
+		for i, slot_1 in enumerate(slots):
+			for slot_2 in slots[i+1:]:
+				if slot_1.conflicts(slot_2):
+					conflicts.append((slot_1, slot_2))
+		base_qs = models.InterludesActivityChoices.objects.filter(
+			accepted=True, participant__is_registered=True
+		)
 		errors = ""
-		for act1, act2 in conflicts:
-			participants1 = base_qs.filter(activity=act1).values("participant")
-			participants2 = base_qs.filter(activity=act1).values("participant")
-			intersection = participants1 & participants2
+		for slot_1, slot_2 in conflicts:
+			participants_1 = {x.participant for x in base_qs.filter(slot=slot_1)}
+			participants_2 = {x.participant for x in base_qs.filter(slot=slot_2)}
+			intersection = participants_1.intersection(participants_2)
 			if intersection:
-				print(intersection)
 				errors += '<br> &bullet;&ensp; {} participe(nt) à la fois à "{}" et à "{}"'.format(
-					",".join(str(InterludesParticipant.objects.get(id=x["participant"])) for x in intersection),
-					act1.title, act2.title
+					", ".join(str(x) for x in intersection), slot_1, slot_2
 				)
 
 		if errors:
@@ -274,9 +273,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 		validations += '</ul>'
 
-		user_email_nb = InterludesParticipant.objects.filter(is_registered=True).count()
-		orga_email_nb = InterludesActivity.objects.filter(
-			subscribing_open=True, communicate_participants=True
+		user_email_nb = models.InterludesParticipant.objects.filter(is_registered=True).count()
+		orga_email_nb = models.InterludesSlot.objects.filter(
+			subscribing_open=True, activity__communicate_participants=True
 		).count()
 
 		return {
@@ -296,7 +295,18 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 	filename = "activites_interludes"
-	model = InterludesActivity
+	model = models.InterludesActivity
+
+class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
+	filename = "crénaux_interludes"
+	headers = ["Titre", "Début", "Salle", "Ouverte aux inscriptions", "Affichée sur le planning"]
+
+	def get_rows(self):
+		slots = models.InterludesSlot.objects.all()
+		rows = []
+		for slot in slots:
+			rows.append([str(slot), slot.start, slot.room, slot.subscribing_open, slot.on_planning])
+		return rows
 
 class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 	filename = "participants_interludes"
@@ -306,7 +316,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 		"Repas D matin", "Repas D soir"
 	]
 	def get_rows(self):
-		profiles = InterludesParticipant.objects.filter(is_registered=True).all()
+		profiles = models.InterludesParticipant.objects.filter(is_registered=True).all()
 		rows = []
 		for profile in profiles:
 			rows.append([
@@ -328,17 +338,17 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 
 class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 	filename = "choix_activite_interludes"
-	model = ActivityList
-	headers = ["id_participant", "nom_participant", "priorité", "obtenu", "nom_activité", "id_activité"]
+	model = models.InterludesActivityChoices
+	headers = ["id_participant", "nom_participant", "priorité", "obtenu", "nom_crénau", "id_crénau"]
 
 	def get_rows(self):
-		activities = ActivityList.objects.all()
+		activities = models.InterludesActivityChoices.objects.all()
 		rows = []
 		for act in activities:
 			if act.participant.is_registered:
 				rows.append([
 					act.participant.id, str(act.participant), act.priority,
-					act.accepted, str(act.activity), act.activity.id
+					act.accepted, str(act.slot), act.slot.id
 				])
 		return rows
 
@@ -363,11 +373,11 @@ class SendUserEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		participants = InterludesParticipant.objects.filter(is_registered=True)
+		participants = models.InterludesParticipant.objects.filter(is_registered=True)
 		emails = []
 		settings = SiteSettings.load()
 		for participant in participants:
-			my_activities = ActivityList.objects.filter(participant=participant)
+			my_activities = models.InterludesActivityChoices.objects.filter(participant=participant)
 			message = render_to_string("email/user.html", {
 				"user": participant.user,
 				"settings": settings,
@@ -408,13 +418,13 @@ class SendOrgaEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		activities = InterludesActivity.objects.filter(
+		activities = models.InterludesActivity.objects.filter(
 			subscribing_open=True, communicate_participants=True
 		)
 		emails = []
 		settings = SiteSettings.load()
 		for act in activities:
-			participants = ActivityList.objects.filter(activity=act, accepted=True)
+			participants = models.InterludesActivityChoices.objects.filter(activity=act, accepted=True)
 			message = render_to_string("email/orga.html", {
 				"activity": act,
 				"settings": settings,

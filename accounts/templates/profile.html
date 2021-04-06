@@ -23,13 +23,13 @@
 		<!-- <li>{% if user.profile.mug %}Commandse une tasse{% else %}Ne commande pas de tasse{% endif %}</li> -->
 		<!-- <li>Inscrit à {{ user.profile.nb_meals }} repas.</li> -->
 		{% if settings.activities_allocated %}
-			{% if my_activities %}
-			<li>Inscrit à {{ my_activities|length }} activités&nbsp;:
+			{% if my_choices %}
+			<li>Inscrit à {{ my_choices|length }} activités&nbsp;:
 				<ul>
-					{% for activity in my_activities %}
-					<li><a href="{% url 'activites' %}#{{ activity.activity.slug }}">{{ activity.activity.title }}</a>
-						{% if activity.activity.on_planning %}
-							(le {{ activity.activity.start|date:"l à H:i" }}<!--  en {{ activity.activity.room }} -->)
+					{% for choice in my_choices %}
+					<li><a href="{% url 'activites' %}#{{ choice.slot.activity.slug }}">{{ choice.slot }}</a>
+						{% if choice.slot.on_planning %}
+							(le {{ choice.slot.start|date:"l à H:i" }}<!--  en {{ choice.slot.room }} -->)
 						{% endif %}
 					</li>
 					{% endfor %}
@@ -39,13 +39,13 @@
 			<li>Inscrit à aucune activité</li>
 			{% endif %}
 		{% else %}
-			{% if my_activities %}
-			<li>{{ my_activities|length }} activités souhaitées&nbsp;:
+			{% if my_choices %}
+			<li>{{ my_choices|length }} activités souhaitées&nbsp;:
 				<ol>
-					{% for activity in my_activities %}
-					<li><a href="{% url 'activites' %}#{{ activity.activity.slug }}">{{ activity.activity.title }}</a>
-						{% if activity.activity.on_planning %}
-							(le {{ activity.activity.start|date:"l à H:i" }}<!-- en {{ activity.activity.room }} -->)
+					{% for choice in my_choices %}
+					<li><a href="{% url 'activites' %}#{{ choice.slot.activity.slug }}">{{ choice.slot }}</a>
+						{% if choice.slot.on_planning %}
+							(le {{ choice.slot.start|date:"l à H:i" }}<!--  en {{ choice.slot.room }} -->)
 						{% endif %}
 					</li>
 					{% endfor %}

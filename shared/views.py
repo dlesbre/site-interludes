@@ -70,5 +70,4 @@ class CSVWriteView(View):
 
 		for row in self.get_rows():
 			writer.writerow(row)
-		print(writer)
 		return response

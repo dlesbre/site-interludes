@@ -14,7 +14,7 @@ from django.shortcuts import render, redirect
 from accounts import forms
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
-from home.models import ActivityList
+from home.models import InterludesActivityChoices
 from site_settings.models import SiteSettings
 
 def send_validation_email(request, user, subject, template):
@@ -58,14 +58,14 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 		context = super().get_context_data(**kwargs)
 		settings = SiteSettings.load()
 		if settings.activities_allocated:
-			my_activities = ActivityList.objects.filter(
+			my_choices = InterludesActivityChoices.objects.filter(
 				participant=self.request.user.profile,
 				accepted=True
 			)
 		else:
-			my_activities = ActivityList.objects.filter(participant=self.request.user.profile)
+			my_choices = InterludesActivityChoices.objects.filter(participant=self.request.user.profile)
 
-		context["my_activities"] = my_activities
+		context["my_choices"] = my_choices
 		return context
 
 

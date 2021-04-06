@@ -1,14 +1,14 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from home.models import ActivityList, InterludesParticipant, InterludesActivity
+from home import models
 from shared.forms import FormRenderMixin
 
 
 class InscriptionForm(FormRenderMixin, forms.ModelForm):
 
 	class Meta:
-		model = InterludesParticipant
+		model = models.InterludesParticipant
 		fields = (
 			"school", "sleeps", # "mug",
 			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
@@ -31,14 +31,14 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
 
 class ActivityForm(FormRenderMixin, forms.ModelForm):
 	class Meta:
-		model = ActivityList
-		fields = ("activity",)
-		labels = {"activity":""}
+		model = models.InterludesActivityChoices
+		fields = ("slot",)
+		labels = {"slot":""}
 
 	def __init__(self, *args, **kwargs):
 		super(ActivityForm, self).__init__(*args, **kwargs)
-		activities = InterludesActivity.objects.filter(subscribing_open=True)
-		self.fields['activity'].queryset = activities
+		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
+		self.fields['slot'].queryset = slots
 
 class BaseActivityFormSet(forms.BaseFormSet):
 	"""Form set that fails if duplicate activities"""
@@ -51,7 +51,7 @@ class BaseActivityFormSet(forms.BaseFormSet):
 		for form in self.forms:
 			if self.can_delete and self._should_delete_form(form):
 				continue
-			activity = form.cleaned_data.get('activity')
+			activity = form.cleaned_data.get('slot')
 			if activity is None:
 				continue
 			if activity in activities:
