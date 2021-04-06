@@ -11,6 +11,8 @@ Cette liste est également disponible sur la page "Mon compte" du site: {% url "
 Votre adresse email sera communiquée aux orgas pour les activités nécessitant préparation avant l'événement.{% endif %}
 {% else %}
 Vous n'aviez demandé aucune activité.
+{% endif %}{% if settings.discord_link %}
+Si vous ne l'avez pas encore fait, rejoignez notre serveur discord : {{ settings.discord_link }}
 {% endif %}
 --
 L'équipe Interludes

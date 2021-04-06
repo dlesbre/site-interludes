@@ -4,6 +4,16 @@
 
 {% block "content" %}
 
+{% if settings.discord_link %}
+<h2>Comment rejoindre le serveur discord&nbsp;?</h2>
+
+<p>Suivez <a href="{{ setttings.discord_link }}">ce lien</a>.</p>
+<p>
+	Vous pouvez utilisez discord assez simplement dans un navigatuer mais ils vous faudra télécharger
+	le <a href="https://discord.com/">programme</a> pour avoir accès aux canaux vocaux.
+</p>
+{% endif %}
+
 <h2>Comment seront organisées les interludes à distance&nbsp;?</h2>
 	<p>Les interludes passeront principalement par un serveur discord. Nous y regrouperont
 		une liste de sites permettant de jouer en ligne et des canaux vocaux dédiés.

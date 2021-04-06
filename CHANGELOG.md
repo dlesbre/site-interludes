@@ -3,6 +3,7 @@
 ## Version ??? - Soon
 
 - Update inscription form and displayed info for 'at home' event.
+- Added link to discord
 
 ## Version 1.1.0 - Repeated Activities - 2021-03-30
 
