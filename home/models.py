@@ -106,13 +106,14 @@ class InterludesActivity(models.Model):
 	@property
 	def pretty_type(self) -> str:
 		type = self.Types(self.act_type).label
-		status = self.Status(self.status)
-		status_repr = "présentiel ou distanciel"
-		if status == self.Status.DISTANT:
-			status_repr = "distanciel"
-		elif status == self.Status.PRESENT:
-			status_repr = "présentiel"
-		return "{} ({})".format(type, status_repr)
+		return type
+		# status = self.Status(self.status)
+		# status_repr = "présentiel ou distanciel"
+		# if status == self.Status.DISTANT:
+		# 	status_repr = "distanciel"
+		# elif status == self.Status.PRESENT:
+		# 	status_repr = "présentiel"
+		# return "{} ({})".format(type, status_repr)
 
 	@property
 	def slug(self) -> str:
