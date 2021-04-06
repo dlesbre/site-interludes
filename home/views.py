@@ -266,6 +266,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		# longer validations
 		validations += self.validate_activity_participant_nb()
 		validations += self.validate_activity_conflicts()
+
+		if settings.discord_link:
+			validations += '<li class="success">Le lien du discord est renseigné</li>'
+		else:
+			validations += '<li class="error">Le lien du discord n\'est pas renseigné</li>'
+
 		validations += '</ul>'
 
 		user_email_nb = InterludesParticipant.objects.filter(is_registered=True).count()
