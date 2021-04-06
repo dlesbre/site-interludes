@@ -21,6 +21,15 @@
 	<p>Vous pouver proposer une activité en remplissant <a href="{{ settings.activity_submission_form }}">ce formulaire</a>.</p>
 	{% endif %}
 
+	{% if activities %}
+	<p><strong>Liste des activités&nbsp;:</strong></p>
+	<ul>
+		{% for activity in activities %}
+		<li><a href="#{{ activity.slug }}">{{ activity.title }}</a></li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+
 	{% for activity in activities %}
 		<h3 id="{{ activity.slug }}">{{ activity.title }}</h3>
 
