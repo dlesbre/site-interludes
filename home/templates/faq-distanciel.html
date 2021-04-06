@@ -11,6 +11,8 @@
 	<p>Pour les <a href="{% url 'activites' %}">activités</a> proposées, leur description
 		vous indiquera s'il vous faudra autre chose qu'un ordinateur et une connexion internet pour participer.
 	</p>
+	<p>Le serveur contiendra des salon écrits et vocaux pour organiser des parties sur d'autres plateformes en lignes.</p>
+
 
 <h2>Comment rejoindre le serveur discord&nbsp;?</h2>
 	{% if settings.discord_link %}
@@ -18,9 +20,25 @@
 	{% else %}
 		<p>Le lien vous sera communiqué par mail peu avant l'événement. Il apparaîtra également sur ce site.</p>
 	{% endif %}
+	<p>Vous pouvez utiliser Discord sur navigateur sans créer de compte (mais se connecter sans compte
+		pose parfois des problèmes). Sinon il existe une application mobile (Android et iOS) et un programme (Linux/Windows/Mac)
+		permettant d'y accèder via un compte.
+	</p>
+
+	<h2>Où jouer en ligne&nbsp;?</h2>
+
+	<p>Voici une liste (non-exhaustive) des plateformes de jeu en ligne&nbsp;:
+		<ul>
+			<li><a href="https://fr.boardgamearena.com/">Board Game Arena</a> (site gratuit nécessitant un compte)</li>
+			<li><a href="https://store.steampowered.com/app/286160/Tabletop_Simulator/">Tabletop Simulator</a> (jeu vendu 20€ sur steam)</li>
+			<li>Des sites spécialisés comme <a href="https://codenames.game/">codenames.game</a> ou <a href="https://hanab.live/">hanab.live</a></li>
+			<li>N'importe quel jeu vidéo multijoueur</li>
+		</ul>
+		Vous trouverez une liste plus fournie sur le discord interludes.
+	</p>
 
 {% if settings.activity_submission_form %}
-	<h2>Comment proposer une activité ?</h2>
+	<h2>Comment proposer une activité&nbsp;?</h2>
 		<p>Vous pouver proposer une activité en remplissant <a href="{{ settings.activity_submission_form }}">ce formulaire</a>.</p>
 		<p>Il vous faudra renseigner votre nom/mail, le titre, une description, le nombre de places, la durée, les horaires possibles/idéaux, et tout autre besoin particulier...
 		</p>
