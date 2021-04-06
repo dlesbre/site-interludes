@@ -248,6 +248,20 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			)
 		return '<li class="success">Aucun inscrit à plusieurs activités simultanées</li>'
 
+	def validate_slot_less(self):
+		"""verifie que toutes les activité demandant une liste de participant ont un crénaux"""
+		activities = models.InterludesActivity.objects.filter(communicate_participants=True)
+		errors = ""
+		for activity in activities:
+			count = models.InterludesSlot.objects.filter(activity=activity).count()
+			if count == 0:
+				errors += "<br> &bullet;&ensp; {}".format(activity.title)
+		if errors:
+			return '<li class="error">Certaines activités demandant une liste de participants n\'ont pas de crénaux :{}<br>Leurs orgas vont recevoir un mail inutile.</li>'.format(
+				errors
+			)
+		return '<li class="success">Toutes les activités demandant une liste de participants ont au moins un crénau</li>'
+
 	def validate_activity_allocation(self):
 		settings = SiteSettings.load()
 		validations = '<ul class="messagelist">'
@@ -265,6 +279,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		# longer validations
 		validations += self.validate_activity_participant_nb()
 		validations += self.validate_activity_conflicts()
+		validations += self.validate_slot_less()
 
 		if settings.discord_link:
 			validations += '<li class="success">Le lien du discord est renseigné</li>'
