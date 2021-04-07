@@ -249,7 +249,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		return '<li class="success">Aucun inscrit à plusieurs activités simultanées</li>'
 
 	def validate_slot_less(self):
-		"""verifie que toutes les activité demandant une liste de participant ont un crénaux"""
+		"""verifie que toutes les activité demandant une liste de participant ont un créneaux"""
 		activities = models.InterludesActivity.objects.filter(communicate_participants=True)
 		errors = ""
 		for activity in activities:
@@ -257,10 +257,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			if count == 0:
 				errors += "<br> &bullet;&ensp; {}".format(activity.title)
 		if errors:
-			return '<li class="error">Certaines activités demandant une liste de participants n\'ont pas de crénaux :{}<br>Leurs orgas vont recevoir un mail inutile.</li>'.format(
+			return '<li class="error">Certaines activités demandant une liste de participants n\'ont pas de créneaux :{}<br>Leurs orgas vont recevoir un mail inutile.</li>'.format(
 				errors
 			)
-		return '<li class="success">Toutes les activités demandant une liste de participants ont au moins un crénau</li>'
+		return '<li class="success">Toutes les activités demandant une liste de participants ont au moins un créneau</li>'
 
 	def validate_activity_allocation(self):
 		settings = SiteSettings.load()
@@ -313,7 +313,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 	model = models.InterludesActivity
 
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
-	filename = "crénaux_interludes"
+	filename = "créneaux_interludes"
 	headers = ["Titre", "Début", "Salle", "Ouverte aux inscriptions", "Affichée sur le planning"]
 
 	def get_rows(self):
@@ -354,7 +354,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 	filename = "choix_activite_interludes"
 	model = models.InterludesActivityChoices
-	headers = ["id_participant", "nom_participant", "priorité", "obtenu", "nom_crénau", "id_crénau"]
+	headers = ["id_participant", "nom_participant", "priorité", "obtenu", "nom_créneau", "id_créneau"]
 
 	def get_rows(self):
 		activities = models.InterludesActivityChoices.objects.all()

@@ -47,7 +47,7 @@ class InterludesActivity(models.Model):
 		help_text="Si vrai, s'affiche sur la page activités"
 	)
 	must_subscribe = models.BooleanField("sur inscription", default=False,
-		help_text="Informatif, il faut utiliser les crénaux pour ajouter dans la liste d'inscription"
+		help_text="Informatif, il faut utiliser les créneaux pour ajouter dans la liste d'inscription"
 	)
 	host_name = models.CharField("nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("email de l'organisateur")
@@ -110,8 +110,8 @@ class InterludesActivity(models.Model):
 
 class InterludesSlot(models.Model):
 	"""Crénaux indiquant ou une activité se place dans le planning
-	Dans une table à part car un activité peut avoir plusieurs crénaux.
-	Les inscriptions se font à des crénaux et non des activités"""
+	Dans une table à part car un activité peut avoir plusieurs créneaux.
+	Les inscriptions se font à des créneaux et non des activités"""
 
 	TITLE_SPECIFIER = "{act_title}"
 
@@ -137,7 +137,7 @@ class InterludesSlot(models.Model):
 
 	@property
 	def end(self):
-		"""Heure de fin du crénau"""
+		"""Heure de fin du créneau"""
 		if (not self.start) or (not self.activity.duration):
 			return None
 		return self.start + self.activity.duration
@@ -154,8 +154,8 @@ class InterludesSlot(models.Model):
 		return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)
 
 	class Meta:
-		verbose_name = "crénau"
-		verbose_name_plural = "crénaux"
+		verbose_name = "créneau"
+		verbose_name_plural = "créneaux"
 
 
 class InterludesParticipant(models.Model):
@@ -207,7 +207,7 @@ class InterludesActivityChoices(models.Model):
 		InterludesParticipant, on_delete=models.CASCADE, verbose_name="participant",
 	)
 	slot = models.ForeignKey(
-		InterludesSlot, on_delete=models.CASCADE, verbose_name="crénau",
+		InterludesSlot, on_delete=models.CASCADE, verbose_name="créneau",
 	)
 	accepted = models.BooleanField("Obtenue", default=False)
 

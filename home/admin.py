@@ -33,7 +33,7 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 
 @admin.register(models.InterludesSlot)
 class InterludesSlotAdmin(ExportCsvMixin, admin.ModelAdmin):
-	"""option d'affichage des crénaux dans la vue d'admin"""
+	"""option d'affichage des créneaux dans la vue d'admin"""
 	filename = "export_slots.csv"
 	list_display = ("__str__", "start", "room", "subscribing_open", "on_planning",)
 	list_filter = ("subscribing_open", "on_planning", "activity__display",)
