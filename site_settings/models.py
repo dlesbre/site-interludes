@@ -81,6 +81,10 @@ class SiteSettings(SingletonModel):
 	global_message = models.TextField("Message global", blank=True, null=True,
 		help_text="Message affiché en haut de chaque page (si non vide)"
 	)
+	global_message_as_html = models.BooleanField(
+		"Message global au format HTML", default=False,
+		help_text="Assurez vous que le message est bien formaté, cela peut casser toutes les pages du site",
+	)
 
 	@property
 	def contact_email_reversed(self) -> str:

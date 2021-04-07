@@ -85,15 +85,19 @@
 		</nav>
 
 		<main>
-			{% if messages or settings.global_message %}
+			{% if messages %}
 			<ul class="messagelist">
 				{% for message in messages %}
 					<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
 				{% endfor %}
-				{% if settings.global_message %}
-					<li class="info">{{ settings.global_message }}</li>
-				{% endif %}
 			</ul>
+			{% endif %}
+			{% if settings.global_message %}
+				{% if settings.global_message_as_html %}
+					{{ settings.global_message|safe }}
+				{% else %}
+					<ul class="messagelist"><li class="info">{{ settings.global_message }}</li></ul>
+				{% endif %}
 			{% endif %}
 
 			{% block "content" %}
