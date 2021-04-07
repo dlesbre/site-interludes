@@ -19,31 +19,28 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	{% for slot in planning %}
 		{% if slot.start|date:"d" == slot.end|date:"d" %}
 			{
-				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room }}</div></a>',
-				title: '<strong>{{ slot }}</strong><br>{{ slot.room }}',
+				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
+				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
 				start: '{{ settings.date_start|date:"Y-m-d"}} {{ slot.start|date:"H:i:s" }}',
 				align: 'left',
 				group: {{ slot.start|date:"d" }},
-				subgroup: '{{ slot.room }}',
 				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}'
 			},
 		{% else %} // activity spans multiple days
 			{
-				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room }}</div></a>',
-				title: '<strong>{{ slot }}</strong><br>{{ slot.room }}',
+				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
+				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
 				start: '{{ settings.date_start|date:"Y-m-d"}} {{ slot.start|date:"H:i:s" }}',
 				align: 'left',
 				group: {{ slot.start|date:"d" }},
-				subgroup: '{{ slot.room }}',
 				end:'{{ settings.date_start|date:"Y-m-d"}} 23:59:59'
 			},
 			{
-				content: '<a class="hidden" href="#{{ slot.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room }}</div></a>',
-				title: '<strong>{{ slot }}</strong><br>{{ slot.room }}',
+				content: '<a class="hidden" href="#{{ slot.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
+				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
 				start: '{{ settings.date_start|date:"Y-m-d"}} 00:00:00',
 				align: 'left',
 				group: {{ slot.start|date:"d"|add:"1" }},
-				subgroup: '{{ slot.room }}',
 				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}'
 			},
 		{% endif %}
