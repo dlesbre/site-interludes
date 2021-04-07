@@ -1,10 +1,13 @@
 # Change Log
 
-## Version ??? - Soon
+## Version 1.2.0 - 2021-04-07
 
 - Update inscription form and displayed info for 'at home' event.
 - Update metrics to remove unused info (meals, sleeps, ...)
 - Added link to discord
+- Changed models for repeated activities to a separate "slot" table (cleaner)
+- Added check for slotless activity before sending mails
+- Added HTML formatting for global message
 
 ## Version 1.1.0 - Repeated Activities - 2021-03-30
 
