@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 1.2.1 - 2021-04-24
+
+- Fix too small character limit on activity description
+- Added links to more games
+- Fix typos
+
 ## Version 1.2.0 - 2021-04-07
 
 - Update inscription form and displayed info for 'at home' event.
