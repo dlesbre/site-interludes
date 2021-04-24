@@ -5,6 +5,7 @@
 - Fix too small character limit on activity description
 - Added links to more games
 - Fix typos
+- Added colors to planning
 
 ## Version 1.2.0 - 2021-04-07
 
