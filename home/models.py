@@ -49,8 +49,14 @@ class InterludesActivity(models.Model):
 	must_subscribe = models.BooleanField("sur inscription", default=False,
 		help_text="Informatif, il faut utiliser les créneaux pour ajouter dans la liste d'inscription"
 	)
-	host_name = models.CharField("nom de l'organisateur", max_length=50)
-	host_email = models.EmailField("email de l'organisateur")
+	host_name = models.CharField(
+		"nom de l'organisateur", max_length=50, null=True, blank=True,
+		help_text="Peut-être laissé vide pour des simples activités sans orga"
+	)
+	host_email = models.EmailField(
+		"email de l'organisateur",
+		help_text="Utilisé pour communiquer la liste des participants si demandé"
+	)
 	description = models.TextField(
 		"description", max_length=10000,
 		help_text='Texte ou html selon la valeur de "Description HTML".\n'

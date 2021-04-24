@@ -35,7 +35,9 @@
 
 		<dl>
 			<dt>Durée :</dt><dd>{{ activity.pretty_duration }}</dd>
+			{% if activity.host_name %}
 			<dt>Orga :</dt><dd>{{ activity.host_name }}</dd>
+			{% endif %}
 			<dt>Type :</dt><dd>{{ activity.pretty_type }}</dd>
 			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
 			{% if activity.slots %}
