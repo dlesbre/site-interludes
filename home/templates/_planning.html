@@ -19,12 +19,13 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	{% for slot in planning %}
 		{% if slot.start|date:"d" == slot.end|date:"d" %}
 			{
-				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
+				content: '<div style="background-color: yellow;"><a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a></div>',
 				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
 				start: '{{ settings.date_start|date:"Y-m-d"}} {{ slot.start|date:"H:i:s" }}',
 				align: 'left',
 				group: {{ slot.start|date:"d" }},
-				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}'
+				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}',
+				className: "color-{{ slot.color }}",
 			},
 		{% else %} // activity spans multiple days
 			{
@@ -33,7 +34,8 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 				start: '{{ settings.date_start|date:"Y-m-d"}} {{ slot.start|date:"H:i:s" }}',
 				align: 'left',
 				group: {{ slot.start|date:"d" }},
-				end:'{{ settings.date_start|date:"Y-m-d"}} 23:59:59'
+				end:'{{ settings.date_start|date:"Y-m-d"}} 23:59:59',
+				className: "color-{{ slot.color }}",
 			},
 			{
 				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
@@ -41,7 +43,8 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 				start: '{{ settings.date_start|date:"Y-m-d"}} 00:00:00',
 				align: 'left',
 				group: {{ slot.start|date:"d"|add:"1" }},
-				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}'
+				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}',
+				className: "color-{{ slot.color }}",
 			},
 		{% endif %}
 	{% endfor %}
@@ -90,7 +93,105 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 		background-color: var(--color_bg_2);
 	}
 	.vis-time-axis .grid.vis-odd {
-background: #444;
-}
+		background: #444;
+	}
+
+	/* Color specific things */
+	:root {
+		--color_1: var(--color_bg_1);
+		--color_1_hover: var(--color_bg_2);
+		--color_1_fg: white;
+		--color_2: #e84855;
+		--color_2_hover: #da1b2b;
+		--color_2_fg: white;
+		--color_3: #f9dc5c;
+		--color_3_hover: #f7d126;
+		--color_3_fg: black;
+		--color_4: #3185fc;
+		--color_4_hover: #0467f1;
+		--color_4_fg: white;
+		--color_5: #7cae7a;
+		--color_5_hover: #5f8b55;
+		--color_5_fg: white;
+		--color_6: #483D3F;
+		--color_6_hover: #2c2627;
+		--color_6_fg: white;
+		--color_7: #dd7230;
+		--color_7_hover: #c15d1f;
+		--color_7_fg: white;
+	}
+	.vis-item.color-a {
+		background-color: var(--color_1);
+	}
+	.vis-item.color-a a, .vis-item.color-a a:link, .vis-item.color-a a:visited {
+		color: var(--color_1_fg);
+	}
+	.vis-item.color-a:hover {
+		color: var(--color_1_hover)
+	}
+	.vis-item.color-b {
+		background-color: var(--color_2);
+	}
+	.vis-item.color-b a, .vis-item.color-b a:link, .vis-item.color-b a:visited {
+		color: var(--color_2_fg);
+	}
+	.vis-item.color-b:hover {
+		color: var(--color_2_hover)
+	}
+	.vis-item.color-c {
+		background-color: var(--color_2);
+	}
+	.vis-item.color-c a, .vis-item.color-c a:link, .vis-item.color-c a:visited {
+		color: var(--color_2_fg);
+	}
+	.vis-item.color-c:hover {
+		color: var(--color_2_hover)
+	}
+	.vis-item.color-c {
+		background-color: var(--color_3);
+	}
+	.vis-item.color-c a, .vis-item.color-c a:link, .vis-item.color-c a:visited {
+		color: var(--color_3_fg);
+	}
+	.vis-item.color-c:hover {
+		color: var(--color_3_hover)
+	}
+	.vis-item.color-d {
+		background-color: var(--color_4);
+	}
+	.vis-item.color-d a, .vis-item.color-d a:link, .vis-item.color-d a:visited {
+		color: var(--color_4_fg);
+	}
+	.vis-item.color-d:hover {
+		color: var(--color_4_hover)
+	}
+
+	.vis-item.color-e {
+		background-color: var(--color_5);
+	}
+	.vis-item.color-e a, .vis-item.color-e a:link, .vis-item.color-e a:visited {
+		color: var(--color_5_fg);
+	}
+	.vis-item.color-e:hover {
+		color: var(--color_5_hover)
+	}
+	.vis-item.color-f {
+		background-color: var(--color_6);
+	}
+	.vis-item.color-f a, .vis-item.color-f a:link, .vis-item.color-f a:visited {
+		color: var(--color_6_fg);
+	}
+	.vis-item.color-f:hover {
+		color: var(--color_6_hover)
+	}
+	.vis-item.color-g {
+		background-color: var(--color_7);
+	}
+	.vis-item.color-g a, .vis-item.color-g a:link, .vis-item.color-g a:visited {
+		color: var(--color_7_fg);
+	}
+	.vis-item.color-g:hover {
+		color: var(--color_7_hover)
+	}
 
 </style>
