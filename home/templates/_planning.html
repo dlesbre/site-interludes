@@ -36,7 +36,7 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 				end:'{{ settings.date_start|date:"Y-m-d"}} 23:59:59'
 			},
 			{
-				content: '<a class="hidden" href="#{{ slot.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
+				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
 				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
 				start: '{{ settings.date_start|date:"Y-m-d"}} 00:00:00',
 				align: 'left',
