@@ -52,7 +52,7 @@ class InterludesActivity(models.Model):
 	host_name = models.CharField("nom de l'organisateur", max_length=50)
 	host_email = models.EmailField("email de l'organisateur")
 	description = models.TextField(
-		"description", max_length=2000,
+		"description", max_length=10000,
 		help_text='Texte ou html selon la valeur de "Description HTML".\n'
 	)
 	desc_as_html = models.BooleanField("Description au format HTML", default=False,
