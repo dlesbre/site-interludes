@@ -6,6 +6,7 @@
 - Added links to more games
 - Fix typos
 - Added colors to planning
+- Added caption to planning, can be set in site_settings
 
 ## Version 1.2.0 - 2021-04-07
 

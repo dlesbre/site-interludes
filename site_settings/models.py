@@ -86,6 +86,11 @@ class SiteSettings(SingletonModel):
 		help_text="Assurez vous que le message est bien formaté, cela peut casser toutes les pages du site",
 	)
 
+	planning_caption = models.TextField("Légende du planning", blank=True, null=True,
+		help_text="Légende du planning (au format HTML). Les couleurs sont accessibles dans le style"
+		"via var(--color_1), var(--color_1_fg) et var(--color_1_hover)"
+	)
+
 	@property
 	def contact_email_reversed(self) -> str:
 		return self.contact_email[::-1]

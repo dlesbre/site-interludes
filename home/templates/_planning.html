@@ -194,3 +194,8 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	}
 
 </style>
+{% if settings.planning_caption %}
+<div class="caption">
+	{{ settings.planning_caption|safe }}
+</div>
+{% endif %}
