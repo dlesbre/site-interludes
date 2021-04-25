@@ -188,16 +188,13 @@ class InterludesSlot(models.Model):
 	@staticmethod
 	def fake_date(date: datetime.datetime):
 		"""Fake day for display on the (single day planning)"""
-		print("hllo!!!! ================")
 		settings = SiteSettings.load()
 		if settings.date_start:
-			x = timezone.datetime.combine(
+			return timezone.datetime.combine(
 				settings.date_start,
 				date.time(),
 				timezone.get_current_timezone()
 			)
-			print(x)
-			return x
 		return None
 
 	@property
