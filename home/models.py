@@ -191,9 +191,8 @@ class InterludesSlot(models.Model):
 		settings = SiteSettings.load()
 		if settings.date_start:
 			return timezone.datetime.combine(
-				settings.date_start + datetime.timedelta(days=InterludesSlot.relative_day(date)),
-				date.time(),
-				timezone.get_current_timezone()
+				settings.date_start,
+				date.timetz()
 			)
 		return None
 
