@@ -22,7 +22,7 @@
 	{% endif %}
 
 	{% if activities %}
-	<p><strong>Liste des activités&nbsp;:</strong></p>
+	<p id="act-list"><strong>Liste des activités&nbsp;:</strong></p>
 	<ul>
 		{% for activity in activities %}
 		<li><a href="#{{ activity.slug }}">{{ activity.title }}</a></li>
@@ -55,6 +55,7 @@
 		<p class="indent">{{ activity.description|linebreaksbr }}</p>
 		{% endif %}
 		</div>
+		<a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
 	{% empty %}
 
 	<p>Il n'y a aucune activité pour l'instant, revenez dans quelques jours pour avoir une liste plus remplie.</p>
