@@ -1,5 +1,9 @@
 # Change Log
 
+## Version ??? - soon
+
+- Changed planning break from midnight to 4am
+
 ## Version 1.2.1 - 2021-04-24
 
 - Fix too small character limit on activity description
