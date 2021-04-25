@@ -71,4 +71,16 @@
 		<span id="transport-noctilien-stop">Auguste Comte</span>
 	</div>
 
+<h2>Comment sont réparties les activités&nbsp;?</h2>
+
+	<p>
+		La répartition est faite par un algorithme puis vérifiée à la main. Il se base sur le problème hôpital-résident, comme celui des années précédentes.
+		Sont fonctionnement exact est un peu modifié :
+	</p>
+	<ol>
+		<li>L'algo commence par essayer d'attribuer une activité à chaque participant.es au mieux possible. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre liste de souhait, plus vous avez de chance de vous le voir attribuer.</li>
+		<li>Puis, toutes les activités attribuées sont supprimées, les voeux résolu des joueurs aussi.</li>
+		<li>Tant qu'il reste des place dans des activités et des participant.es qui veulent y participer, on recommence à l'étape 1.</li>
+	</ol>
+
 {% endblock %}
