@@ -190,8 +190,12 @@ class InterludesSlot(models.Model):
 		"""Fake day for display on the (single day planning)"""
 		settings = SiteSettings.load()
 		if settings.date_start:
+			time = date.timetz()
+			offset = datetime.timedelta(0)
+			if time.hour <= 4:
+				offset = datetime.timedelta(days=1)
 			return timezone.datetime.combine(
-				settings.date_start,
+				settings.date_start + offset,
 				date.timetz()
 			)
 		return None
