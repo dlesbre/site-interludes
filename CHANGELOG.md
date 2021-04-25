@@ -2,6 +2,10 @@
 
 ## Version 1.2.2 - 2021-04-25
 
+- Planning bug fixes
+
+## Version 1.2.2 - 2021-04-25
+
 - Changed planning break from midnight to 4am-8am
 - Added "back to top" links to activity pages
 - Make slot start field non-nullable to simplify code
