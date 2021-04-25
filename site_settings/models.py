@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.core.cache import cache
 from django.utils.timezone import now
@@ -106,6 +108,12 @@ class SiteSettings(SingletonModel):
 		if self.inscriptions_end:
 			return now() >= self.inscriptions_end
 		return False
+
+	@property
+	def date_2(self):
+		"""The date of the second day"""
+		if self.date_start:
+			return self.date_start + timedelta(days=1)
 
 	class Meta:
 		verbose_name = "paramètres"

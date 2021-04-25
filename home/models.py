@@ -1,7 +1,11 @@
+import datetime
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 from accounts.models import EmailUser
+from site_settings.models import SiteSettings
 
 class InterludesActivity(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
@@ -138,7 +142,7 @@ class InterludesSlot(models.Model):
 		help_text="Utilisez '{}' pour insérer le titre de l'activité correspondante".format(
 			TITLE_SPECIFIER),
 	)
-	start = models.DateTimeField("début", null=True, blank=True)
+	start = models.DateTimeField("début")
 	room = models.CharField("salle", max_length=100, null=True, blank=True)
 	on_planning = models.BooleanField(
 		"afficher sur le planning", default=False,
@@ -158,17 +162,61 @@ class InterludesSlot(models.Model):
 	@property
 	def end(self):
 		"""Heure de fin du créneau"""
-		if (not self.start) or (not self.activity.duration):
-			return None
 		return self.start + self.activity.duration
 
 	def conflicts(self, other: "InterludesSlot") -> bool:
 		"""Check whether these slots overlap"""
-		if self.end is None or other.end is None:
-			return False
 		if self.start <= other.start:
 			return other.start <= self.end
 		return self.start <= other.end
+
+	@staticmethod
+	def relative_day(date: datetime.datetime) -> int:
+		"""Relative day to start.
+		- friday   04:00 -> 03:59 = day 0
+		- saturday 04:00 -> 03:59 = day 1
+		- sunday   04:00 -> 03:59 = day 2
+		returns 0 if no date_start is defined in settings"""
+		settings = SiteSettings.load()
+		if settings.date_start:
+			return (date - timezone.datetime.combine(
+				settings.date_start, datetime.time(hour=4), timezone.get_current_timezone()
+			)).days
+		else:
+			return 0
+
+	@staticmethod
+	def fake_date(date: datetime.datetime):
+		"""Fake day for display on the (single day planning)"""
+		print("hllo!!!! ================")
+		settings = SiteSettings.load()
+		if settings.date_start:
+			x = timezone.datetime.combine(
+				settings.date_start,
+				date.time(),
+				timezone.get_current_timezone()
+			)
+			print(x)
+			return x
+		return None
+
+	@property
+	def start_day(self) -> int:
+		"""returns a day (0-2)"""
+		return self.relative_day(self.start)
+
+	@property
+	def end_day(self) -> int:
+		"""returns a day (0-2)"""
+		return self.relative_day(self.end)
+
+	@property
+	def planning_start(self) -> int:
+		return self.fake_date(self.start)
+
+	@property
+	def planning_end(self) -> int:
+		return self.fake_date(self.end)
 
 	def __str__(self) -> str:
 		return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)

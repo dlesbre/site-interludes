@@ -9,41 +9,41 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	const container = document.getElementById('planning');
 
 	const groups = new vis.DataSet([
-		{id: {{ friday }}, content: "Ven.", order: 0},
-		{id: {{ saturday }}, content: "Sam.", order: 1},
-		{id: {{ sunday }}, content: "Dim.", order: 2},
+		{id: 0, content: "Ven.", order: 0},
+		{id: 1, content: "Sam.", order: 1},
+		{id: 2, content: "Dim.", order: 2},
 	]);
 
 	// Items in the timeline
 	const items = new vis.DataSet([
 	{% for slot in planning %}
-		{% if slot.start|date:"d" == slot.end|date:"d" %}
+		{% if slot.start_day == slot.end_day %}
 			{
 				content: '<div style="background-color: yellow;"><a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a></div>',
 				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
-				start: '{{ settings.date_start|date:"Y-m-d"}} {{ slot.start|date:"H:i:s" }}',
+				start: '{{ slot.planning_start|date:"Y-m-d H:i:s"}}',
 				align: 'left',
-				group: {{ slot.start|date:"d" }},
-				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}',
+				group: {{ slot.start_day }},
+				end:'{{ slot.planning_end|date:"Y-m-d H:i:s"}}',
 				className: "color-{{ slot.color }}",
 			},
 		{% else %} // activity spans multiple days
 			{
 				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
 				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
-				start: '{{ settings.date_start|date:"Y-m-d"}} {{ slot.start|date:"H:i:s" }}',
+				start: '{{ slot.planning_start|date:"Y-m-d H:i:s"}}',
 				align: 'left',
-				group: {{ slot.start|date:"d" }},
-				end:'{{ settings.date_start|date:"Y-m-d"}} 23:59:59',
+				group: {{ slot.start_day }},
+				end:'{{ settings.date_2|date:"Y-m-d"}} 04:00:00',
 				className: "color-{{ slot.color }}",
 			},
 			{
 				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
 				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
-				start: '{{ settings.date_start|date:"Y-m-d"}} 00:00:00',
+				start: '{{ settings.date_start|date:"Y-m-d"}} 04:00:00',
 				align: 'left',
-				group: {{ slot.start|date:"d"|add:"1" }},
-				end:'{{ settings.date_start|date:"Y-m-d"}} {{ slot.end|date:"H:i:s" }}',
+				group: {{ slot.end_day }},
+				end:'{{ slot.planning_end|date:"Y-m-d H:i:s"}}',
 				className: "color-{{ slot.color }}",
 			},
 		{% endif %}
@@ -51,8 +51,8 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	]);
 
 	// Configuration for the Timeline
-	const start = '{{ settings.date_start|date:"Y-m-d"}} 00:00:00';
-	const end = '{{ settings.date_start|date:"Y-m-d"}} 23:59:59';
+	const start = '{{ settings.date_start|date:"Y-m-d"}} 04:00:00';
+	const end = '{{ settings.date_start|date:"Y-m"}}-{{ saturday }} 04:00:00';
 	const options = {
 		showMajorLabels: false,
 		showCurrentTime: false,
@@ -84,7 +84,7 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	.vis-item a, .vis-item a:link, .vis-item a:visited {
 		text-decoration: none;
 		color: white;
-		width: 100%
+		width: 100%;
 	}
 	.vis-item a div {
 		width: 100%;
