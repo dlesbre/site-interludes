@@ -191,7 +191,7 @@ class InterludesSlot(models.Model):
 		settings = SiteSettings.load()
 		if settings.date_start:
 			return timezone.datetime.combine(
-				settings.date_start,
+				settings.date_start + datetime.timedelta(days=InterludesSlot.relative_day(date)),
 				date.time(),
 				timezone.get_current_timezone()
 			)
@@ -213,7 +213,10 @@ class InterludesSlot(models.Model):
 
 	@property
 	def planning_end(self) -> int:
-		return self.fake_date(self.end)
+		end = self.fake_date(self.end)
+		if end and end <= self.planning_start:
+			end += datetime.timedelta(days = 1)
+		return end
 
 	def __str__(self) -> str:
 		return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)
