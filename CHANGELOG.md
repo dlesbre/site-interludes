@@ -3,6 +3,7 @@
 ## Version ??? - soon
 
 - Changed planning break from midnight to 4am
+- Make slot start field non-nullable to simplify code
 
 ## Version 1.2.1 - 2021-04-24
 
