@@ -196,6 +196,13 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 </style>
 {% if settings.planning_caption %}
 <div class="caption">
-	{{ settings.planning_caption|safe }}
+	<p><strong>Légende :</strong></p>
+	<ul style="list-style-type: none; margin-left:-20px">
+		<li><span style="background-color: var(--color_2);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle grandeur nature</li>
+		<li><span style="background-color: var(--color_7);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle sur table</li>
+		<li><span style="background-color: var(--color_3);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Activités libres</li>
+		<li><span style="background-color: var(--color_5);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Tournois</li>
+		<li><span style="background-color: var(--color_6);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Autre</li>
+	</ul>
 </div>
 {% endif %}
