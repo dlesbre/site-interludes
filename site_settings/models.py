@@ -52,6 +52,9 @@ class SiteSettings(SingletonModel):
 	)
 
 	display_planning = models.BooleanField("Afficher le planning", default=False)
+	planning_file = models.FileField(
+		verbose_name="Version PDF du planning", null=True, blank=True,
+	)
 
 	activities_allocated = models.BooleanField(
 		"Afficher les activités obtenues", default=False,

@@ -195,7 +195,7 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	}
 
 </style>
-{% if settings.planning_caption %}
+
 <div class="caption">
 	<p><strong>Légende :</strong></p>
 	<ul style="list-style-type: none; margin-left:-20px">
@@ -206,4 +206,6 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 		<li><span style="background-color: var(--color_6);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Autre</li>
 	</ul>
 </div>
+{% if settings.planning_file %}
+	<div></div><a class="button" href="{{ settings.planning_file.url }}"><i class="fa fa-download"></i> Télécharger le planning</a></div>
 {% endif %}

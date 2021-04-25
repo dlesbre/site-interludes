@@ -14,4 +14,9 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(SingletonModelAdmin):
-	pass
+
+	def planning_file_link(self, obj):
+		if obj.file:
+			return "<a href='%s'>download</a>" % (obj.file.url,)
+		else:
+			return "No attachment"
