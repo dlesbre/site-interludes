@@ -6,6 +6,7 @@
 - Added "back to top" links to activity pages
 - Make slot start field non-nullable to simplify code
 - Added planning caption
+- Added planning PDF upload and download
 
 ## Version 1.2.1 - 2021-04-24
 
