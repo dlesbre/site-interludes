@@ -1,6 +1,13 @@
 # Change Log
 
-## Version 1.2.2 - 2021-04-25
+## Version ??? - soon
+
+- Custom title to error pages
+- Update FAQ
+- More captions for planning
+- Fix bugs
+
+## Version 1.2.3 - 2021-04-25
 
 - Planning bug fixes
 
