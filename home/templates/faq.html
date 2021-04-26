@@ -73,17 +73,20 @@
 
 <h2>Comment sont réparties les activités&nbsp;?</h2>
 
-	<p>
-		La répartition est faite par un algorithme puis vérifiée à la main.
-		Dans la mesure du possible, l'algorithme essaie d'attribue au moins une activité par personne. Par conséquent, si vous ne mettez qu'une seul activité, vous avez plus de chance de l'avoir.
-	</p>
-	<p>On n'a pas trouvé le code des années précédentes, mais je suspecte fortement que ce soit globalement le même algo en départageant les égalités aléatoirement plutôt qu'au shotgun.</p>
-	<p>Plus précisément: l'algorithme se base sur le problème hôpital-résident&nbsp;:</p>
-	<ol>
-		<li>Il commence par essayer d'attribuer une activité à chaque participant.es au mieux possible, en utilisant la librairie matching de python. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre liste de souhait, plus vous avez de chance de vous le voir attribuer. Si vous n'avez qu'un seul choix, vous avez plus de chance de vous le voir attribué.</li>
-		<li>Toutes les activités attribuées sont supprimées, ainsi que les voeux résolus des joueurs.</li>
-		<li>Tant qu'il reste des place dans des activités et des participant.es qui veulent y participer, on recommence à l'étape 1.</li>
-	</ol>
-	<p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, mais on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers (conflits d'horaires, activité présente plusieurs fois...).
+<p>
+	La répartition est faite par un algorithme puis vérifiée à la main.
+	Dans la mesure du possible, l'algorithme essaie d'attribue au moins une activité par personne. Par conséquent, si vous ne mettez qu'une seul activité, vous avez plus de chance de l'avoir.
+</p>
+<p>
+	Les activités qui n'ont pas de limite de place (et toutes les activités avec moins de demande que de places) ne comptent pas pour ce système, donc vous pouvez les mettre et vous ne serez pas pénalisés.
+</p>
+<p>On n'a pas trouvé le code des années précédentes, mais je suspecte fortement que ce soit un algo similaire en départageant les égalités aléatoirement plutôt qu'au shotgun.</p>
+<p>Plus précisément : l'algorithme se base sur le problème hôpital-résident&nbsp;:</p>
+<ol>
+	<li>Il commence par essayer d'attribuer une activité à chaque participant.es au mieux possible, en utilisant la librairie matching de python. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre liste de souhait, plus vous avez de chance de vous le voir attribuer. Si vous n'avez qu'un seul choix, vous avez plus de chance de vous le voir attribué. (les participant.es avec un seul choix sont automatique placé.es avant ceux qui en ont plusieurs)</li>
+	<li>Toutes les activités attribuées sont supprimées, ainsi que les voeux résolus des joueurs.</li>
+	<li>Tant qu'il reste des place dans des activités et des participant.es qui veulent y participer, on recommence à l'étape 1.</li>
+</ol>
+<p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, il ne marche pas encore parfaitement, et on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers (conflits d'horaires, activité présente plusieurs fois...).
 
 {% endblock %}
