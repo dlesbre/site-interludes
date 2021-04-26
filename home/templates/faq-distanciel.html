@@ -52,13 +52,16 @@
 <h2>Comment sont réparties les activités&nbsp;?</h2>
 
 	<p>
-		La répartition est faite par un algorithme puis vérifiée à la main (code source sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>). Il se base sur le problème hôpital-résident, comme celui des années précédentes.
-		Son fonctionnement exact est un peu modifié :
+		La répartition est faite par un algorithme puis vérifiée à la main.
+		Dans la mesure du possible, l'algorithme essaie d'attribue au moins une activité par personne. Par conséquent, si vous ne mettez qu'une seul activité, vous avez plus de chance de l'avoir.
 	</p>
+	<p>On n'a pas trouvé le code des années précédentes, mais je suspecte fortement que ce soit globalement le même algo en départageant les égalités aléatoirement plutôt qu'au shotgun.</p>
+	<p>Plus précisément: l'algorithme se base sur le problème hôpital-résident&nbsp;:</p>
 	<ol>
-		<li>L'algo commence par essayer d'attribuer une activité à chaque participant.es au mieux possible. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre liste de souhait, plus vous avez de chance de vous le voir attribuer.</li>
-		<li>Puis, toutes les activités attribuées sont supprimées, les voeux résolu des joueurs aussi.</li>
+		<li>Il commence par essayer d'attribuer une activité à chaque participant.es au mieux possible, en utilisant la librairie matching de python. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre liste de souhait, plus vous avez de chance de vous le voir attribuer. Si vous n'avez qu'un seul choix, vous avez plus de chance de vous le voir attribué.</li>
+		<li>Toutes les activités attribuées sont supprimées, ainsi que les voeux résolus des joueurs.</li>
 		<li>Tant qu'il reste des place dans des activités et des participant.es qui veulent y participer, on recommence à l'étape 1.</li>
 	</ol>
+	<p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, mais on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers (conflits d'horaires, activité présente plusieurs fois...).
 
 {% endblock %}
