@@ -158,10 +158,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		wishes = models.InterludesActivityChoices.objects.filter(participant__is_registered=True)
 		class metrics:
 			participants = registered.count()
-			ulm = registered.filter(school="U").count()
-			lyon = registered.filter(school="L").count()
-			rennes = registered.filter(school="R").count()
-			saclay = registered.filter(school="P").count()
+			ulm = registered.filter(school=models.InterludesParticipant.ENS.ENS_ULM).count()
+			lyon = registered.filter(school=models.InterludesParticipant.ENS.ENS_LYON).count()
+			rennes = registered.filter(school=models.InterludesParticipant.ENS.ENS_RENNES).count()
+			saclay = registered.filter(school=models.InterludesParticipant.ENS.ENS_CACHAN).count()
 			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
 			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
