@@ -1,8 +1,28 @@
 from datetime import timedelta
+from pathlib import Path
 
 from django.db import models
 from django.core.cache import cache
+from django.core.files.storage import FileSystemStorage
 from django.utils.timezone import now
+
+
+class OverwriteStorage(FileSystemStorage):
+	"""used to enforcing a fixed filename to upload file
+	This allow for a constant link to a changeable file"""
+	filename = "PlanningInterludes"
+	def get_available_name(self, name, **kwargs):
+		"""
+		Returns a filename that's free on the target storage system, and
+		available for new content to be written to.
+		"""
+		# If the filename already exists, remove it as if it was a true file system
+		extension = Path(name).suffix
+		new_name = self.filename + extension
+		if self.exists(new_name):
+			self.delete(new_name)
+		return super(FileSystemStorage, self).get_available_name(new_name, **kwargs)
+
 
 class SingletonModel(models.Model):
 	"""Table de la BDD qui ne possède qu'un seul élément"""
@@ -54,6 +74,7 @@ class SiteSettings(SingletonModel):
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 	planning_file = models.FileField(
 		verbose_name="Version PDF du planning", null=True, blank=True,
+		storage=OverwriteStorage(),
 	)
 
 	activities_allocated = models.BooleanField(
