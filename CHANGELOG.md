@@ -1,12 +1,13 @@
 # Change Log
 
-## Version ??? - soon
+## Version 1.2.4 - 2021-04-28
 
 - Custom title to error pages
 - Update FAQ
 - More captions for planning
 - Reworked file upload to allow for file replacement (and not just upload to a new unique name)
 - Fix bugs
+- Added links to home page
 
 ## Version 1.2.3 - 2021-04-25
 
