@@ -314,13 +314,21 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 	filename = "créneaux_interludes"
-	headers = ["Titre", "Début", "Salle", "Ouverte aux inscriptions", "Affichée sur le planning"]
+	headers = [
+		"Titre", "Début", "Salle",
+		"Ouverte aux inscriptions", "Affichée sur le planning",
+		"Couleur", "Durée", "Durée activité",
+	]
 
 	def get_rows(self):
 		slots = models.InterludesSlot.objects.all()
 		rows = []
 		for slot in slots:
-			rows.append([str(slot), slot.start, slot.room, slot.subscribing_open, slot.on_planning])
+			rows.append([
+				str(slot), slot.start, slot.room,
+				slot.subscribing_open, slot.on_planning,
+				models.InterludesSlot.Colors(slot.color).name, slot.duration, slot.activity.duration	,
+			])
 		return rows
 
 class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
@@ -354,7 +362,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 	filename = "choix_activite_interludes"
 	model = models.InterludesActivityChoices
-	headers = ["id_participant", "nom_participant", "priorité", "obtenu", "nom_créneau", "id_créneau"]
+	headers = ["id_participant", "nom_participant", "mail_participant", "priorité", "obtenu", "nom_créneau", "id_créneau"]
 
 	def get_rows(self):
 		activities = models.InterludesActivityChoices.objects.all()
@@ -362,7 +370,7 @@ class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 		for act in activities:
 			if act.participant.is_registered:
 				rows.append([
-					act.participant.id, str(act.participant), act.priority,
+					act.participant.id, str(act.participant), act.participant.user.email, act.priority,
 					act.accepted, str(act.slot), act.slot.id
 				])
 		return rows
