@@ -143,6 +143,10 @@ class InterludesSlot(models.Model):
 			TITLE_SPECIFIER),
 	)
 	start = models.DateTimeField("début")
+	duration = models.DurationField(
+		"durée", blank=True, null=True,
+		help_text="Format 00:00:00. Laisser vide pour prendre la durée de l'activité correspondante"
+	)
 	room = models.CharField("salle", max_length=100, null=True, blank=True)
 	on_planning = models.BooleanField(
 		"afficher sur le planning", default=False,
@@ -162,6 +166,8 @@ class InterludesSlot(models.Model):
 	@property
 	def end(self):
 		"""Heure de fin du créneau"""
+		if self.duration:
+			return self.start + self.duration
 		return self.start + self.activity.duration
 
 	def conflicts(self, other: "InterludesSlot") -> bool:
@@ -192,7 +198,7 @@ class InterludesSlot(models.Model):
 		if settings.date_start:
 			time = date.timetz()
 			offset = datetime.timedelta(0)
-			if time.hour <= 4:
+			if time.hour < 4:
 				offset = datetime.timedelta(days=1)
 			return timezone.datetime.combine(
 				settings.date_start + offset,
@@ -216,10 +222,7 @@ class InterludesSlot(models.Model):
 
 	@property
 	def planning_end(self) -> int:
-		end = self.fake_date(self.end)
-		if end and end <= self.planning_start:
-			end += datetime.timedelta(days = 1)
-		return end
+		return self.fake_date(self.end)
 
 	def __str__(self) -> str:
 		return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)
