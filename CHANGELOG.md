@@ -1,5 +1,13 @@
 # Change Log
 
+## Version 1.2.5 - 2021-04-30
+
+- Added logo !
+- Added check for inscription to multiple instances of same activity
+- Fixed planning bugs
+- Added missing columns to some CSV exports
+- Added optionnal nullable field to change a slot's duration
+
 ## Version 1.2.4 - 2021-04-28
 
 - Custom title to error pages
