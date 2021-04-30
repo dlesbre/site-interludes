@@ -238,7 +238,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			participants_2 = {x.participant for x in base_qs.filter(slot=slot_2)}
 			intersection = participants_1.intersection(participants_2)
 			if intersection:
-				errors += '<br> &bullet;&ensp; {} participe(nt) à la fois à "{}" et à "{}"'.format(
+				errors += '<br> &bullet;&ensp; {} participe à la fois à "{}" et à "{}"'.format(
 					", ".join(str(x) for x in intersection), slot_1, slot_2
 				)
 
@@ -262,6 +262,33 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			)
 		return '<li class="success">Toutes les activités demandant une liste de participants ont au moins un créneau</li>'
 
+	def validate_multiple_similar_inscription(self):
+		"""verifie que personne n'est inscrit à la même activité plusieurs fois"""
+		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
+		conflicts = []
+		for i, slot_1 in enumerate(slots):
+			for slot_2 in slots[i+1:]:
+				if slot_1.activity == slot_2.activity:
+					conflicts.append((slot_1, slot_2))
+		base_qs = models.InterludesActivityChoices.objects.filter(
+			accepted=True, participant__is_registered=True
+		)
+		errors = ""
+		for slot_1, slot_2 in conflicts:
+			participants_1 = {x.participant for x in base_qs.filter(slot=slot_1)}
+			participants_2 = {x.participant for x in base_qs.filter(slot=slot_2)}
+			intersection = participants_1.intersection(participants_2)
+			if intersection:
+				errors += '<br> &bullet;&ensp; {} inscrit aux créneaux "{}" et  "{}" de l\'activité "{}"'.format(
+					", ".join(str(x) for x in intersection), slot_1, slot_2, slot_1.activity
+				)
+
+		if errors:
+			return '<li class="error">Des participants sont inscrits plusieurs fois à la même activité :{}</li>'.format(
+				errors
+			)
+		return '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
+
 	def validate_activity_allocation(self):
 		settings = SiteSettings.load()
 		validations = '<ul class="messagelist">'
@@ -279,6 +306,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		# longer validations
 		validations += self.validate_activity_participant_nb()
 		validations += self.validate_activity_conflicts()
+		validations += self.validate_multiple_similar_inscription()
 		validations += self.validate_slot_less()
 
 		if settings.discord_link:
