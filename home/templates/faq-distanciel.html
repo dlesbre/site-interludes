@@ -10,7 +10,7 @@
 		Une inscription est seulement nécessaire pour certaines activités au nombre de places limité.
 		Sans inscription tu peux rejoindre notre
 		{% if settings.discord_link %}
-			<a href="{{ setttings.discord_link }}">serveur discord</a>
+			<a href="{{ settings.discord_link }}">serveur discord</a>
 		{% else %}serveur discord{% endif %}
 		et y participer au jeux libres et à toutes les activités sans inscriptions.
 	</p>
@@ -18,7 +18,7 @@
 
 <h2>Comment seront organisées les interludes à distance&nbsp;?</h2>
 	<p>Les interludes passeront principalement par un
-	{% if settings.discord_link %}<a href="{{ setttings.discord_link }}">serveur discord</a>{% else %}serveur discord{% endif %}.
+	{% if settings.discord_link %}<a href="{{ settings.discord_link }}">serveur discord</a>{% else %}serveur discord{% endif %}.
 	Nous y regrouperont
 		une liste de sites permettant de jouer en ligne et des canaux vocaux dédiés.
 	</p>
@@ -30,7 +30,7 @@
 
 <h2>Comment rejoindre le serveur discord&nbsp;?</h2>
 	{% if settings.discord_link %}
-		<p>Suivez <a href="{{ setttings.discord_link }}">ce lien</a>.</p>
+		<p>Suivez <a href="{{ settings.discord_link }}">ce lien</a>.</p>
 	{% else %}
 		<p>Le lien vous sera communiqué par mail peu avant l'événement. Il apparaîtra également sur ce site.</p>
 	{% endif %}
