@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 1.2.6 - 2021-05-03
+
+- Added CSS version number query string to force reload on display breaking changes
+- Added more links to discord server
+- Mentionned that subscriptions are optionnal
+
 ## Version 1.2.5 - 2021-04-30
 
 - Added logo !
