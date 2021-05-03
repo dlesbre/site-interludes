@@ -3,7 +3,13 @@
 {% block nav_home %}current{% endblock %}
 
 {% block "content" %}
+
 	<h2>Présentation</h2>
+	{% if settings.discord_link %}
+		<ul class="messagelist"><li class="info">
+			Rejoins notre <a href="{{ settings.discord_link }}">serveur discord</a> pour participer à l'événement.{{ settings.global_message }}
+		</li></ul>
+	{% endif %}
 	<p>
 		Les interludes, ou interENS ludiques, regroupent annuellement
 		les étudiants des quatre ENS de France autour d'activités ludiques.

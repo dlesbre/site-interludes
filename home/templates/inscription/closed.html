@@ -10,6 +10,11 @@
 		<p>Nous communiquerons par mail via les BDE des différentes écoles pour leur ouverture.</p>
 	{% elif settings.inscriptions_have_closed %}
 		<p>Les inscriptions sont fermées.</p>
+		<p>
+			Les inscriptions cette année sont facultatives,
+			tu peux quand même rejoindre le {% if settings.discord_link %}<a href="{{ setttings.discord_link }}">serveur discord</a>{% else %}serveur discord{% endif %} et participer aux jeux libres et
+			aux activités qui ne nécessitent pas d'inscription.
+		</p>
 		{% if settings.contact_email %}
 			<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span></p>
 		{% endif %}
