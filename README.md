@@ -103,8 +103,8 @@ Le site se gère depuis deux pages d'administration:
 	- affiche l'état du site (version, réglages actuels, différentes métriques)
 	- une prévisualisation du planning
 	- permet d'envoyer deux séries d'emails :
-		- un aux inscrits pour leur communiquer les activités qu'ils ont obtenus
-		- un aux orgas qui ont besoin de connaître la liste des participants à l'avance pour préparer leurs activités.
+		- une aux inscrits pour leur communiquer les activités qu'ils ont obtenus
+		- une aux orgas qui ont besoin de connaître la liste des participants à l'avance pour préparer leurs activités.
 
 ## En production
 
@@ -124,11 +124,11 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 ## Idées de développement
 
-A.K.A. la liste des trucs qui pourait être utiles que j'ai pas eu le temps d'ajouter
+A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
 
 - Un formulaire pour proposer une activité directement sur le site
 - Intégrer l'[algorithme de répartition](https://github.com/Imakoala/InterludesMatchings) dans le site au lieu de le faire tourner en externe à partir des export CSV et de remplir les résultats à la main
-- Replacer les templates html statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)
+- Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)
 
 ## Liens divers
 
