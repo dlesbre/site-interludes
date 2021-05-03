@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.2.7 - 2021-05-03
+
+- Fix broken discord link
+
 ## Version 1.2.6 - 2021-05-03
 
 - Added CSS version number query string to force reload on display breaking changes

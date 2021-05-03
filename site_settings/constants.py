@@ -1,5 +1,5 @@
 # The website version number
-WEBSITE_VERSION = "1.2.6"
+WEBSITE_VERSION = "1.2.7"
 WEBSITE_VERSION_DATE = "2021-05-03"
 
 WEBSITE_FULL_VERSION = "{} - {}".format(
