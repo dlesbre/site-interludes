@@ -37,7 +37,9 @@
 	</p>
 
 	<h2>Inscriptions</h2>
-
+	<ul class="messagelist"><li class="info">
+		Les interlude étant à distance cette année, les inscriptions sont facultatives.
+	</li></ul>
 	<p>
 		Ce site vous permettra de vous <a href="{% url 'inscription' %}">inscrire à l'événement</a> et
 		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées. L'événement est
@@ -53,6 +55,8 @@
 	{% elif settings.inscriptions_end %}
 		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
 	{% endif %}
+
+
 	<p>Pour plus de détails, consultez la <a href="{% url 'FAQ' %}">FAQ</a>.</p>
 
 	<h2>Liens divers</h2>
