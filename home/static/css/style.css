@@ -95,6 +95,15 @@ header #head_main_infos {
 	}
 }
 
+div.easter_egg {
+	display: inline-block;
+  }
+  
+#circle {
+	-webkit-clip-path: circle(50% at 50% 50%);
+	clip-path: circle(50% at 50% 50%)
+}
+
 
 /* ===========================
 // Navbar
