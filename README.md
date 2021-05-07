@@ -128,6 +128,7 @@ A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
 
 - Un formulaire pour proposer une activité directement sur le site
 - Intégrer l'[algorithme de répartition](https://github.com/Imakoala/InterludesMatchings) dans le site au lieu de le faire tourner en externe à partir des export CSV et de remplir les résultats à la main
+- Envoyer une concaténation de tous les emails aux admin (pour vérification, et pas juste en copie pour éviter le spam...)
 - Générer la version PDF du planning automatiquement au lieu de la faire à base de captures d'écran
 - Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)
 
