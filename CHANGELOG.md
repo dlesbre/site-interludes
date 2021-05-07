@@ -3,6 +3,7 @@
 ## Version 1.2.8 - 2021-05-06
 
 - Added links to FAQ
+- Added django-admin link to admin profile page
 
 ## Version 1.2.7 - 2021-05-03
 
