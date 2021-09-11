@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
 from accounts.models import EmailUser
-from site_settings.models import SiteSettings
+from site_settings.models import Colors, SiteSettings
 
 class InterludesActivity(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
@@ -123,17 +123,6 @@ class InterludesSlot(models.Model):
 	Dans une table à part car un activité peut avoir plusieurs créneaux.
 	Les inscriptions se font à des créneaux et non des activités"""
 
-	class Colors(models.TextChoices):
-		"""Couleur d'affichage dans le planning
-		Leur code HTML est hardcodé dans la template "_planning.html"."""
-		DARK_BLUE = "a", "Bleu foncé"
-		RED = "b", "Rouge"
-		YELLOW = "c", "Jaune"
-		BLUE = "d", "Bleu"
-		GREEN = "e", "Vert"
-		BLACK = "f", "Noir"
-		ORANGE = "g", "Orange"
-
 	TITLE_SPECIFIER = "{act_title}"
 
 	activity = models.ForeignKey(InterludesActivity, on_delete=models.CASCADE, verbose_name="Activité")
@@ -156,7 +145,8 @@ class InterludesSlot(models.Model):
 		help_text="Si vrai, apparaît dans la liste du formulaire d'inscription"
 	)
 	color = models.CharField(
-		"Couleur", choices=Colors.choices, max_length=1, default=Colors.DARK_BLUE
+		"Couleur", choices=Colors.choices, max_length=1, default=Colors.DARK_BLUE,
+		help_text="La légende des couleurs est modifiable dans les paramètres"
 	)
 
 	@property

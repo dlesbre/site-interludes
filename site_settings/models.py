@@ -7,6 +7,18 @@ from django.core.files.storage import FileSystemStorage
 from django.utils.timezone import now
 
 
+class Colors(models.TextChoices):
+	"""Couleur d'affichage dans le planning
+	Leur code HTML est hardcodé dans la template "_planning.html"."""
+	RED = "a", "Rouge"
+	ORANGE = "b", "Orange"
+	YELLOW = "c", "Jaune"
+	GREEN = "d", "Vert"
+	BLUE = "e", "Bleu"
+	DARK_BLUE = "f", "Bleu foncé"
+	BLACK = "g", "Noir"
+
+
 class OverwriteStorage(FileSystemStorage):
 	"""used to enforcing a fixed filename to upload file
 	This allow for a constant link to a changeable file"""
@@ -112,6 +124,37 @@ class SiteSettings(SingletonModel):
 		help_text="Assurez vous que le message est bien formaté, cela peut casser toutes les pages du site",
 	)
 
+	# Légende du planning modifiable
+	caption_red = models.CharField(
+		"Légende planning (rouge)", default="Jeux de rôle grandeur nature",
+		blank=True, null=True, max_length=200,
+	)
+	caption_orange = models.CharField(
+		"Légende planning (orange)", default="Jeux de rôle sur table",
+		blank=True, null=True, max_length=200,
+	)
+	caption_yellow = models.CharField(
+		"Légende planning (jaune)", default="Activités libres",
+		blank=True, null=True, max_length=200,
+	)
+	caption_green = models.CharField(
+		"Légende planning (vert)", default="Tournois",
+		blank=True, null=True, max_length=200,
+	)
+	caption_blue = models.CharField(
+		"Légende planning (bleu)", default="Événements de début et fin",
+		blank=True, null=True, max_length=200,
+	)
+	caption_dark_blue = models.CharField(
+		"Légende planning (bleu foncé)", default="Jeux vidéos",
+		blank=True, null=True, max_length=200,
+	)
+	caption_black = models.CharField(
+		"Légende planning (noir)", default="Autre",
+		blank=True, null=True, max_length=200,
+	)
+
+
 	@property
 	def contact_email_reversed(self) -> str:
 		return self.contact_email[::-1]
@@ -133,6 +176,17 @@ class SiteSettings(SingletonModel):
 		"""The date of the second day"""
 		if self.date_start:
 			return self.date_start + timedelta(days=1)
+
+	@property
+	def has_caption(self) -> bool:
+		"""Vérifie si l'une des légende est non-nulle"""
+		return self.caption_red \
+			or self.caption_orange \
+			or self.caption_yellow \
+			or self.caption_green \
+			or self.caption_blue \
+			or self.caption_dark_blue \
+			or self.caption_black
 
 	class Meta:
 		verbose_name = "paramètres"

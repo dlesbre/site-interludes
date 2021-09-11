@@ -9,7 +9,7 @@ from django.views.generic import RedirectView, TemplateView
 from accounts.models import EmailUser
 from home import models
 from home.views import get_planning_context
-from site_settings.models import SiteSettings
+from site_settings.models import Colors, SiteSettings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
 
 # ==============================
@@ -229,7 +229,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 			rows.append([
 				str(slot), slot.start, slot.room,
 				slot.subscribing_open, slot.on_planning,
-				models.InterludesSlot.Colors(slot.color).name, slot.duration, slot.activity.duration	,
+				Colors(slot.color).name, slot.duration, slot.activity.duration	,
 			])
 		return rows
 
@@ -316,7 +316,7 @@ class SendUserEmail(SendEmailBase):
 				"my_choices": my_choices.filter(accepted=True),
 			})
 			emails.append((
-				"Information interludes", # subject
+				"[interludes] Vos activités", # subject
 				message,
 				self.from_address, # From:
 				[participant.user.email], # To:
@@ -360,7 +360,7 @@ class SendOrgaEmail(SendEmailBase):
 				"slots": slots,
 			})
 			emails.append((
-				"[interludes] Liste d'inscrit à votre activité {}".format(activity.title), # subject
+				"[interludes] Liste d'inscrits à votre activité {}".format(activity.title), # subject
 				message,
 				self.from_address, # From:
 				[activity.host_email] # To:

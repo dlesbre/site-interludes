@@ -99,27 +99,41 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 
 	/* Color specific things */
 	:root {
-		--color_1: var(--color_bg_1);
-		--color_1_hover: var(--color_bg_2);
+		/* red */
+		--color_1: #e84855;
+		--color_1_hover: #da1b2b;
 		--color_1_fg: white;
-		--color_2: #e84855;
-		--color_2_hover: #da1b2b;
+
+		/* orange */
+		--color_2: #dd7230;
+		--color_2_hover: #c15d1f;
 		--color_2_fg: white;
+
+		/* yellow */
 		--color_3: #f9dc5c;
 		--color_3_hover: #f7d126;
 		--color_3_fg: black;
-		--color_4: #3185fc;
-		--color_4_hover: #0467f1;
+
+		/* green */
+		--color_4: #7cae7a;
+		--color_4_hover: #5f8b55;
 		--color_4_fg: white;
-		--color_5: #7cae7a;
-		--color_5_hover: #5f8b55;
+
+		/* blue */
+		--color_5: #3185fc;
+		--color_5_hover: #0467f1;
 		--color_5_fg: white;
-		--color_6: #483D3F;
-		--color_6_hover: #2c2627;
+
+		/* dark blue */
+		--color_6: #4c4c7c;
+		--color_6_hover: #26263c;
 		--color_6_fg: white;
-		--color_7: #dd7230;
-		--color_7_hover: #c15d1f;
+
+		/* black */
+		--color_7: #483D3F;
+		--color_7_hover: #2c2627;
 		--color_7_fg: white;
+
 	}
 	.vis-item.color-a {
 		background-color: var(--color_1);
@@ -195,19 +209,20 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 	}
 
 </style>
-
+{% if settings.has_caption %}
 <div class="caption">
 	<p><strong>Légende :</strong></p>
 	<ul style="list-style-type: none; margin-left:-20px">
-		<li><span style="background-color: var(--color_2);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle grandeur nature</li>
-		<li><span style="background-color: var(--color_7);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle sur table</li>
-		<li><span style="background-color: var(--color_3);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Activités libres</li>
-		<li><span style="background-color: var(--color_5);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Tournois</li>
-		<li><span style="background-color: var(--color_4);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Événements de début et fin</li>
-		<li><span style="background-color: var(--color_1);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux vidéos</li>
-		<li><span style="background-color: var(--color_6);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Autre</li>
+		{% if settings.caption_red %}<li><span style="background-color: var(--color_1);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ settings.caption_red }}</li>{% endif %}
+		{% if settings.caption_orange %}<li><span style="background-color: var(--color_2);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ settings.caption_orange }}</li>{% endif %}
+		{% if settings.caption_yellow %}<li><span style="background-color: var(--color_3);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ settings.caption_yellow }}</li>{% endif %}
+		{% if settings.caption_green %}<li><span style="background-color: var(--color_4);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ settings.caption_green }}</li>{% endif %}
+		{% if settings.caption_blue %}<li><span style="background-color: var(--color_5);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ settings.caption_blue }}</li>{% endif %}
+		{% if settings.caption_dark_blue %}<li><span style="background-color: var(--color_6);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ settings.caption_dark_blue }}</li>{% endif %}
+		{% if settings.caption_black %}<li><span style="background-color: var(--color_7);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ settings.caption_black }}</li>{% endif %}
 	</ul>
 </div>
+{% endif %}
 {% if settings.planning_file %}
-	<div></div><a class="button" href="{{ settings.planning_file.url }}"><i class="fa fa-download"></i> Télécharger le planning</a></div>
+	<div><p><a class="button" href="{{ settings.planning_file.url }}"><i class="fa fa-download"></i> Télécharger le planning</a></p></div>
 {% endif %}
