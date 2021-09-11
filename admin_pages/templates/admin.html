@@ -10,10 +10,10 @@
 	<h2>Page d'administration</h2>
 	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }}</strong></p>
 	<div class="flex wrap">
-		<a class="button" href="{% url 'participants.csv' %}"><i class="fa fa-download"></i> Participants</a>
-		<a class="button" href="{% url 'activities.csv' %}"><i class="fa fa-download"></i> Activités</a>
-		<a class="button" href="{% url 'slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>
-		<a class="button" href="{% url 'activity_choices.csv' %}"><i class="fa fa-download"></i> Choix d'activités</a>
+		<a class="button" href="{% url 'admin_pages:participants.csv' %}"><i class="fa fa-download"></i> Participants</a>
+		<a class="button" href="{% url 'admin_pages:activities.csv' %}"><i class="fa fa-download"></i> Activités</a>
+		<a class="button" href="{% url 'admin_pages:slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>
+		<a class="button" href="{% url 'admin_pages:activity_choices.csv' %}"><i class="fa fa-download"></i> Choix d'activités</a>
 	</div>
 	<ul class="messagelist">
 		<li class="info">
@@ -191,7 +191,7 @@
 				if (confirm(
 					`${errors}Cette action va envoyer {{ user_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
 				))
-					window.location = "{% url 'email_users' %}";
+					window.location = "{% url 'admin_pages:email_users' %}";
 			}
 		{% endif %}
 		{% if not settings.orga_notified and settings.allow_mass_mail %}
@@ -199,7 +199,7 @@
 				if (confirm(
 					`${errors}Cette action va envoyer {{ orga_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
 				))
-					window.location = "{% url 'email_orgas' %}";
+					window.location = "{% url 'admin_pages:email_orgas' %}";
 			}
 		{% endif %}
 	</script>

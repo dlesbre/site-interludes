@@ -75,7 +75,7 @@
 				</a>
 			{% endif %}
 			{% if user.is_superuser %}
-			<a href="{% url 'site_admin' %}"
+			<a href="{% url 'admin_pages:index' %}"
 				class="{% block nav_admin %}{% endblock %} ">
 				Administration
 			</a>

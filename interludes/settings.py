@@ -86,9 +86,10 @@ INSTALLED_APPS = [
 	'django.contrib.sitemaps',
 
 	'home.apps.HomeConfig',
+	'admin_pages.apps.AdminPagesConfig',
 	'accounts.apps.AccountsConfig',
 	'site_settings.apps.SiteSettingsConfig',
-	'shared.apps.SharedConfig'
+	'shared.apps.SharedConfig',
 ]
 
 MIDDLEWARE = [

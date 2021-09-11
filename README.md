@@ -98,7 +98,7 @@ Le site se gère depuis deux pages d'administration:
 	- Participant - liste des gens inscrits et des informations sur leur inscription (ENS, repas choisi...)
 	- Choix d'activité - Liste de (participant, priorité, activité) indiquant les voeux des participant. Une fois que vous avez fait l'attribution, cocher les case "Obtenues" pour indiquer qui a eu quelle activité.
 
-- celle du site [http://localhost:8000/admin_site/](http://localhost:8000/admin_site/)
+- celle du site [http://localhost:8000/admin_pages/](http://localhost:8000/admin_pages/)
 	- permet d'exporter les différentes tables au format CSV
 	- affiche l'état du site (version, réglages actuels, différentes métriques)
 	- une prévisualisation du planning

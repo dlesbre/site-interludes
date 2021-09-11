@@ -12,7 +12,7 @@
 <ul class="messagelist">
 <li class="info">
 	Vous avez les droits d'administrateurs.
-	<br>Aller à la <a href="{% url 'site_admin' %}">page d'administration du site</a>
+	<br>Aller à la <a href="{% url 'admin_pages:index' %}">page d'administration du site</a>
 	{% if user.is_staff %}
 	<br>Aller à la <a href="{% url 'admin:index' %}">page d'administration de django</a>
 	(N'y modifier rien sy vous n'êtes pas sûrs de vous)
