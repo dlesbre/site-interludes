@@ -32,7 +32,7 @@ def send_validation_email(request, user, subject, template):
 class LoginView(auth_views.LoginView):
 	"""Vue pour se connecter"""
 	template_name = "login.html"
-	redirect_authenticated_user = "accounts:profile"
+	redirect_authenticated_user = "profile"
 	form_class = forms.LoginForm
 
 
@@ -47,26 +47,6 @@ class LogoutView(RedirectView):
 			logout(self.request)
 		messages.success(self.request, "Vous avez bien été déconnecté·e.")
 		return super().get_redirect_url(*args, **kwargs)
-
-
-class ProfileView(LoginRequiredMixin, TemplateView):
-	"""Vue des actions de gestion de son profil"""
-	template_name = "profile.html"
-	redirect_field_name = "next"
-
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		settings = SiteSettings.load()
-		if settings.activities_allocated:
-			my_choices = InterludesActivityChoices.objects.filter(
-				participant=self.request.user.profile,
-				accepted=True
-			)
-		else:
-			my_choices = InterludesActivityChoices.objects.filter(participant=self.request.user.profile)
-
-		context["my_choices"] = my_choices
-		return context
 
 
 # ==============================
@@ -117,7 +97,7 @@ class CreateAccountView(View):
 class ActivateAccountView(RedirectView):
 	"""Vue d'activation de compte (lien envoyé par mail)"""
 	permanent = False
-	success_pattern_name = "accounts:profile"
+	success_pattern_name = "profile"
 	failure_pattern_name = "home"
 
 	def get_redirect_url(self, uidb64, token, *args, **kwargs):
@@ -180,7 +160,7 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
 			messages.info(self.request, 'Un lien vous a été envoyé par mail. Utilisez le pour valider la mise à jour.')
 
 			# return reverse("registration:email_confirmation_needed")
-		return reverse("accounts:profile")
+		return reverse("profile")
 
 	def form_valid(self, form):
 		messages.success(self.request, "Informations personnelles mises à jour")
@@ -208,7 +188,7 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
 		form.apply()
 		messages.success(self.request, "Mot de passe mis à jour")
 		login(self.request, self.request.user)
-		return redirect("accounts:profile")
+		return redirect("profile")
 
 
 # ==============================

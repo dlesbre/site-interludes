@@ -55,8 +55,30 @@ class FAQView(TemplateView):
 
 
 # ==============================
-# Registration
+# Profile and registration
 # ==============================
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+	"""Vue des actions de gestion de son profil"""
+	template_name = "profile.html"
+	redirect_field_name = "next"
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		settings = SiteSettings.load()
+		if settings.activities_allocated:
+			my_choices = models.InterludesActivityChoices.objects.filter(
+				participant=self.request.user.profile,
+				accepted=True
+			)
+		else:
+			my_choices = models.InterludesActivityChoices.objects.filter(
+				participant=self.request.user.profile
+			)
+
+		context["my_choices"] = my_choices
+		return context
 
 
 class RegisterClosed(TemplateView):
@@ -113,7 +135,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 		self.set_activities(request.user.profile, formset)
 
 		messages.success(request, "Votre inscription a bien été enregistrée")
-		return redirect("accounts:profile", permanent=False)
+		return redirect("profile", permanent=False)
 
 class RegisterView(View):
 	"""Vue pour l'inscription
@@ -128,7 +150,7 @@ class RegisterView(View):
 
 
 class UnregisterView(LoginRequiredMixin, RedirectView):
-	pattern_name = "accounts:profile"
+	pattern_name = "profile"
 
 	def get_redirect_url(self, *args, **kwargs):
 		participant = self.request.user.profile

@@ -14,12 +14,13 @@ urlpatterns = [
 	path('desinscription/', views.UnregisterView.as_view(), name="desinscription"),
 	path('activites/', views.ActivityView.as_view(), name = 'activites'),
 	path('faq/', views.FAQView.as_view(), name = 'FAQ'),
+	path("profile/", views.ProfileView.as_view(), name="profile"),
 	path('favicon.ico', RedirectView.as_view(url='/static/imgs/favicon.ico')),
-	path('admin_pages/', include(('admin_pages.urls', 'admin_pages'), namespace="admin_pages")),
 	path(
 		'sitemap.xml', sitemap, {'sitemaps': sitemaps},
 		name='django.contrib.sitemaps.views.sitemap'
 	),
+	path('admin_pages/', include(('admin_pages.urls', 'admin_pages'), namespace="admin_pages")),
 	path('accounts/', include("accounts.urls")),
 ]
 

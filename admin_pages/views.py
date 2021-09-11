@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
 from django.db.models import Count
 from django.shortcuts import redirect
@@ -284,7 +285,7 @@ class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 
 class SendEmailBase(SuperuserRequiredMixin, RedirectView):
 	"""Classe abstraite pour l'envoie d'un groupe d'emails"""
-	pattern_name = "admin_page"
+	pattern_name = "admin_pages:index"
 	from_address = None
 
 	def send_emails(self):

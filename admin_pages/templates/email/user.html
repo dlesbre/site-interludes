@@ -9,7 +9,7 @@ Vous avez obtenu {{ my_choices|length }} activité(s) (sur {{ requested_activiti
 {% for choice in my_choices %}
 - {{ choice.slot }}{% if choice.slot.on_planning %} (le {{ choice.slot.start|date:"l à H:i" }}){% endif %}{% endfor %}{% if activities %}
 
-Cette liste est également disponible sur la page "Mon compte" du site: {% url "accounts:profile" %}.
+Cette liste est également disponible sur la page "Mon compte" du site: {% url "profile" %}.
 Votre adresse email sera communiquée aux orgas pour les activités nécessitant préparation avant l'événement.{% endif %}
 {% else %}
 Vous n'aviez demandé aucune activité.
