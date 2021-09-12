@@ -7,7 +7,7 @@ from django.utils import timezone
 from accounts.models import EmailUser
 from site_settings.models import Colors, SiteSettings
 
-class InterludesActivity(models.Model):
+class ActivityModel(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
 
 	class Status(models.TextChoices):
@@ -109,7 +109,7 @@ class InterludesActivity(models.Model):
 	@property
 	def slots(self):
 		"""Returns a list of slots related to self"""
-		return InterludesSlot.objects.filter(activity=self, on_planning=True).order_by("start")
+		return SlotModel.objects.filter(activity=self, on_planning=True).order_by("start")
 
 	def __str__(self):
 		return self.title
@@ -118,14 +118,14 @@ class InterludesActivity(models.Model):
 		verbose_name = "activité"
 
 
-class InterludesSlot(models.Model):
+class SlotModel(models.Model):
 	"""Crénaux indiquant ou une activité se place dans le planning
 	Dans une table à part car un activité peut avoir plusieurs créneaux.
 	Les inscriptions se font à des créneaux et non des activités"""
 
 	TITLE_SPECIFIER = "{act_title}"
 
-	activity = models.ForeignKey(InterludesActivity, on_delete=models.CASCADE, verbose_name="Activité")
+	activity = models.ForeignKey(ActivityModel, on_delete=models.CASCADE, verbose_name="Activité")
 	title = models.CharField(
 		"Titre", max_length=200, default=TITLE_SPECIFIER,
 		help_text="Utilisez '{}' pour insérer le titre de l'activité correspondante".format(
@@ -151,7 +151,7 @@ class InterludesSlot(models.Model):
 
 	@property
 	def participants(self):
-		return InterludesActivityChoices.objects.filter(slot=self, accepted=True)
+		return ActivityChoicesModel.objects.filter(slot=self, accepted=True)
 
 	@property
 	def end(self):
@@ -160,7 +160,7 @@ class InterludesSlot(models.Model):
 			return self.start + self.duration
 		return self.start + self.activity.duration
 
-	def conflicts(self, other: "InterludesSlot") -> bool:
+	def conflicts(self, other: "SlotModel") -> bool:
 		"""Check whether these slots overlap"""
 		if self.start <= other.start:
 			return other.start <= self.end
@@ -222,7 +222,7 @@ class InterludesSlot(models.Model):
 		verbose_name_plural = "créneaux"
 
 
-class InterludesParticipant(models.Model):
+class ParticipantModel(models.Model):
 	"""un participant aux interludes"""
 
 	class ENS(models.TextChoices):
@@ -263,15 +263,15 @@ class InterludesParticipant(models.Model):
 		verbose_name = "participant"
 
 
-class InterludesActivityChoices(models.Model):
+class ActivityChoicesModel(models.Model):
 	"""liste d'activités souhaitée de chaque participant,
 	avec un order de priorité"""
 	priority = models.PositiveIntegerField("priorité")
 	participant = models.ForeignKey(
-		InterludesParticipant, on_delete=models.CASCADE, verbose_name="participant",
+		ParticipantModel, on_delete=models.CASCADE, verbose_name="participant",
 	)
 	slot = models.ForeignKey(
-		InterludesSlot, on_delete=models.CASCADE, verbose_name="créneau",
+		SlotModel, on_delete=models.CASCADE, verbose_name="créneau",
 	)
 	accepted = models.BooleanField("Obtenue", default=False)
 
@@ -282,4 +282,4 @@ class InterludesActivityChoices(models.Model):
 		verbose_name = "choix d'activités"
 		verbose_name_plural = "choix d'activités"
 
-EmailUser.profile = property(lambda user: InterludesParticipant.objects.get_or_create(user=user)[0])
+EmailUser.profile = property(lambda user: ParticipantModel.objects.get_or_create(user=user)[0])

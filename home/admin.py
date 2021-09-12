@@ -9,8 +9,8 @@ admin.site.site_header = "Administration site interludes"
 admin.site.site_title = "Admin Interludes"
 
 
-@admin.register(models.InterludesActivity)
-class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
+@admin.register(models.ActivityModel)
+class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des activités dans la vue django admin"""
 	filename = "export_activites.csv"
 	list_display = ("title", "host_name", "display", "must_subscribe",)
@@ -31,8 +31,8 @@ class InterludesActivityAdmin(ExportCsvMixin, admin.ModelAdmin):
 	list_per_page = 100
 
 
-@admin.register(models.InterludesSlot)
-class InterludesSlotAdmin(ExportCsvMixin, admin.ModelAdmin):
+@admin.register(models.SlotModel)
+class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des créneaux dans la vue d'admin"""
 	filename = "export_slots.csv"
 	list_display = ("__str__", "start", "room", "subscribing_open", "on_planning",)
@@ -41,8 +41,8 @@ class InterludesSlotAdmin(ExportCsvMixin, admin.ModelAdmin):
 	ordering = ("activity", "title", "start",)
 
 
-@admin.register(models.InterludesParticipant)
-class InterludesParticipantAdmin(ExportCsvMixin, admin.ModelAdmin):
+@admin.register(models.ParticipantModel)
+class ParticipantModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des participant dans la vue django admin"""
 	filename = "export_participants.csv"
 	list_display = ("user", "school", "is_registered")
@@ -55,7 +55,7 @@ class InterludesParticipantAdmin(ExportCsvMixin, admin.ModelAdmin):
 	list_per_page = 200
 
 
-@admin.register(models.InterludesActivityChoices)
+@admin.register(models.ActivityChoicesModel)
 class ActivityListAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des choix d'activités dans la vue django admin"""
 	filename = "export_choix_activite.csv"

@@ -25,20 +25,20 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 	template_name = "admin.html"
 
 	def get_metrics(self):
-		registered = models.InterludesParticipant.objects.filter(
+		registered = models.ParticipantModel.objects.filter(
 			is_registered=True, user__is_active=True
 		)
-		acts = models.InterludesActivity.objects.all()
-		slots_in = models.InterludesSlot.objects.all()
-		wishes = models.InterludesActivityChoices.objects.filter(
+		acts = models.ActivityModel.objects.all()
+		slots_in = models.SlotModel.objects.all()
+		wishes = models.ActivityChoicesModel.objects.filter(
 			participant__is_registered=True, participant__user__is_active=True
 		)
 		class metrics:
 			participants = registered.count()
-			ulm = registered.filter(school=models.InterludesParticipant.ENS.ENS_ULM).count()
-			lyon = registered.filter(school=models.InterludesParticipant.ENS.ENS_LYON).count()
-			rennes = registered.filter(school=models.InterludesParticipant.ENS.ENS_RENNES).count()
-			saclay = registered.filter(school=models.InterludesParticipant.ENS.ENS_CACHAN).count()
+			ulm = registered.filter(school=models.ParticipantModel.ENS.ENS_ULM).count()
+			lyon = registered.filter(school=models.ParticipantModel.ENS.ENS_LYON).count()
+			rennes = registered.filter(school=models.ParticipantModel.ENS.ENS_RENNES).count()
+			saclay = registered.filter(school=models.ParticipantModel.ENS.ENS_CACHAN).count()
 			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
 			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
@@ -55,26 +55,26 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			displayed = acts.filter(display=True).count()
 			act_ins = acts.filter(display=True, must_subscribe=True).count()
 			communicate = acts.filter(communicate_participants=True).count()
-			st_present = acts.filter(display=True, status=models.InterludesActivity.Status.PRESENT).count()
-			st_distant = acts.filter(display=True, status=models.InterludesActivity.Status.DISTANT).count()
-			st_both = acts.filter(display=True, status=models.InterludesActivity.Status.BOTH).count()
+			st_present = acts.filter(display=True, status=models.ActivityModel.Status.PRESENT).count()
+			st_distant = acts.filter(display=True, status=models.ActivityModel.Status.DISTANT).count()
+			st_both = acts.filter(display=True, status=models.ActivityModel.Status.BOTH).count()
 
 			slots = slots_in.count()
 			true_ins = slots_in.filter(subscribing_open=True).count()
 			wish = wishes.count()
 			granted = wishes.filter(accepted=True).count()
-			malformed = models.InterludesActivityChoices.objects.filter(slot__subscribing_open=False).count()
+			malformed = models.ActivityChoicesModel.objects.filter(slot__subscribing_open=False).count()
 
 		return metrics
 
 	def validate_activity_participant_nb(self):
 		""" Vérifie que le nombre de participant inscrit
 		à chaque activité est compris entre le min et le max"""
-		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
+		slots = models.SlotModel.objects.filter(subscribing_open=True)
 		min_fails = ""
 		max_fails = ""
 		for slot in slots:
-			total = models.InterludesActivityChoices.objects.filter(
+			total = models.ActivityChoicesModel.objects.filter(
 				slot=slot, accepted=True, participant__is_registered=True,
 				participant__user__is_active=True
 			).aggregate(total=Count("id"))["total"]
@@ -101,13 +101,13 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 	def validate_activity_conflicts(self):
 		"""Vérifie que personne n'est inscrit à des activités simultanées"""
-		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
+		slots = models.SlotModel.objects.filter(subscribing_open=True)
 		conflicts = []
 		for i, slot_1 in enumerate(slots):
 			for slot_2 in slots[i+1:]:
 				if slot_1.conflicts(slot_2):
 					conflicts.append((slot_1, slot_2))
-		base_qs = models.InterludesActivityChoices.objects.filter(
+		base_qs = models.ActivityChoicesModel.objects.filter(
 			accepted=True, participant__is_registered=True,
 			participant__user__is_active=True
 		)
@@ -129,10 +129,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 	def validate_slot_less(self):
 		"""verifie que toutes les activité demandant une liste de participant ont un créneaux"""
-		activities = models.InterludesActivity.objects.filter(communicate_participants=True)
+		activities = models.ActivityModel.objects.filter(communicate_participants=True)
 		errors = ""
 		for activity in activities:
-			count = models.InterludesSlot.objects.filter(activity=activity).count()
+			count = models.SlotModel.objects.filter(activity=activity).count()
 			if count == 0:
 				errors += "<br> &bullet;&ensp; {}".format(activity.title)
 		if errors:
@@ -143,13 +143,13 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 	def validate_multiple_similar_inscription(self):
 		"""verifie que personne n'est inscrit à la même activité plusieurs fois"""
-		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
+		slots = models.SlotModel.objects.filter(subscribing_open=True)
 		conflicts = []
 		for i, slot_1 in enumerate(slots):
 			for slot_2 in slots[i+1:]:
 				if slot_1.activity == slot_2.activity:
 					conflicts.append((slot_1, slot_2))
-		base_qs = models.InterludesActivityChoices.objects.filter(
+		base_qs = models.ActivityChoicesModel.objects.filter(
 			accepted=True, participant__is_registered=True,
 			participant__user__is_active=True
 		)
@@ -196,10 +196,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 		validations += '</ul>'
 
-		user_email_nb = models.InterludesParticipant.objects.filter(
+		user_email_nb = models.ParticipantModel.objects.filter(
 			is_registered=True, user__is_active=True
 		).count()
-		orga_email_nb = models.InterludesActivity.objects.filter(
+		orga_email_nb = models.ActivityModel.objects.filter(
 			communicate_participants=True
 		).count()
 
@@ -225,7 +225,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 	filename = "activites_interludes"
-	model = models.InterludesActivity
+	model = models.ActivityModel
 
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 	filename = "créneaux_interludes"
@@ -236,7 +236,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 	]
 
 	def get_rows(self):
-		slots = models.InterludesSlot.objects.all()
+		slots = models.SlotModel.objects.all()
 		rows = []
 		for slot in slots:
 			rows.append([
@@ -254,7 +254,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 		"Repas D matin", "Repas D soir"
 	]
 	def get_rows(self):
-		profiles = models.InterludesParticipant.objects.filter(
+		profiles = models.ParticipantModel.objects.filter(
 			is_registered=True,user__is_active=True
 		).all()
 		rows = []
@@ -278,11 +278,11 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 
 class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 	filename = "choix_activite_interludes"
-	model = models.InterludesActivityChoices
+	model = models.ActivityChoicesModel
 	headers = ["id_participant", "nom_participant", "mail_participant", "priorité", "obtenu", "nom_créneau", "id_créneau"]
 
 	def get_rows(self):
-		activities = models.InterludesActivityChoices.objects.all()
+		activities = models.ActivityChoicesModel.objects.all()
 		rows = []
 		for act in activities:
 			if act.participant.is_registered and act.participant.user.is_active:
@@ -319,13 +319,13 @@ class SendUserEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		participants = models.InterludesParticipant.objects.filter(
+		participants = models.ParticipantModel.objects.filter(
 			is_registered=True, participant__user__is_active=True
 		)
 		emails = []
 		settings = SiteSettings.load()
 		for participant in participants:
-			my_choices = models.InterludesActivityChoices.objects.filter(participant=participant)
+			my_choices = models.ActivityChoicesModel.objects.filter(participant=participant)
 			message = render_to_string("email/user.html", {
 				"user": participant.user,
 				"settings": settings,
@@ -366,11 +366,11 @@ class SendOrgaEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		activities = models.InterludesActivity.objects.filter(communicate_participants=True)
+		activities = models.ActivityModel.objects.filter(communicate_participants=True)
 		emails = []
 		settings = SiteSettings.load()
 		for activity in activities:
-			slots = models.InterludesSlot.objects.filter(activity=activity)
+			slots = models.SlotModel.objects.filter(activity=activity)
 			message = render_to_string("email/orga.html", {
 				"activity": activity,
 				"settings": settings,
@@ -417,7 +417,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 			users = EmailUser.objects.filter(is_active=True)
 			return [u.email for u in users]
 		elif selection == Recipients.REGISTERED:
-			participants = models.InterludesParticipant.objects.filter(
+			participants = models.ParticipantModel.objects.filter(
 				is_registered=True, user__is_active=True
 			)
 			return [p.user.email for p in participants]
@@ -466,7 +466,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 		"""ajoute l'email d'envoie aux données contextuelles"""
 		context = super().get_context_data(*args, **kwargs)
 		context["from_email"] = self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
-		context["registered_nb"] =  models.InterludesParticipant.objects.filter(
+		context["registered_nb"] =  models.ParticipantModel.objects.filter(
 			is_registered = True, user__is_active=True
 		).count()
 		context["accounts_nb"] = EmailUser.objects.filter(is_active=True).count()

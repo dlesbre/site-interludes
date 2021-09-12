@@ -26,7 +26,7 @@ def get_planning_context():
 	"""Returns the context dict needed to display the planning"""
 	settings = SiteSettings.load()
 	context = dict()
-	context['planning'] = models.InterludesSlot.objects.filter(on_planning=True).order_by("title")
+	context['planning'] = models.SlotModel.objects.filter(on_planning=True).order_by("title")
 	if settings.date_start is not None:
 		context['friday'] = settings.date_start.day
 		context['saturday'] = (settings.date_start + timedelta(days=1)).day
@@ -44,7 +44,7 @@ class ActivityView(TemplateView):
 	def get_context_data(self, **kwargs):
 		"""ajoute la liste des activités au contexte"""
 		context = super(ActivityView, self).get_context_data(**kwargs)
-		context['activities'] = models.InterludesActivity.objects.filter(display=True).order_by("title")
+		context['activities'] = models.ActivityModel.objects.filter(display=True).order_by("title")
 		context.update(get_planning_context())
 		return context
 
@@ -68,12 +68,12 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 		context = super().get_context_data(**kwargs)
 		settings = SiteSettings.load()
 		if settings.activities_allocated:
-			my_choices = models.InterludesActivityChoices.objects.filter(
+			my_choices = models.ActivityChoicesModel.objects.filter(
 				participant=self.request.user.profile,
 				accepted=True
 			)
 		else:
-			my_choices = models.InterludesActivityChoices.objects.filter(
+			my_choices = models.ActivityChoicesModel.objects.filter(
 				participant=self.request.user.profile
 			)
 
@@ -98,20 +98,20 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 
 	@staticmethod
 	def get_slots(participant):
-		activities = models.InterludesActivityChoices.objects.filter(participant=participant).order_by("priority")
+		activities = models.ActivityChoicesModel.objects.filter(participant=participant).order_by("priority")
 		return [{"slot": act.slot} for act in activities]
 
 	@staticmethod
 	def set_activities(participant, formset):
 		# delete old activites
-		models.InterludesActivityChoices.objects.filter(participant=participant).delete()
+		models.ActivityChoicesModel.objects.filter(participant=participant).delete()
 
 		priority = 0
 		for form in formset:
 			data = form.cleaned_data
 			if data:
 				slot = data["slot"]
-				models.InterludesActivityChoices(
+				models.ActivityChoicesModel(
 					priority=priority, participant=participant, slot=slot
 				).save()
 				priority += 1

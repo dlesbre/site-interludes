@@ -8,7 +8,7 @@ from shared.forms import FormRenderMixin
 class InscriptionForm(FormRenderMixin, forms.ModelForm):
 
 	class Meta:
-		model = models.InterludesParticipant
+		model = models.ParticipantModel
 		fields = (
 			"school", "sleeps", # "mug",
 			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
@@ -31,13 +31,13 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
 
 class ActivityForm(FormRenderMixin, forms.ModelForm):
 	class Meta:
-		model = models.InterludesActivityChoices
+		model = models.ActivityChoicesModel
 		fields = ("slot",)
 		labels = {"slot":""}
 
 	def __init__(self, *args, **kwargs):
 		super(ActivityForm, self).__init__(*args, **kwargs)
-		slots = models.InterludesSlot.objects.filter(subscribing_open=True)
+		slots = models.SlotModel.objects.filter(subscribing_open=True)
 		self.fields['slot'].queryset = slots
 
 class BaseActivityFormSet(forms.BaseFormSet):

@@ -8,13 +8,12 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse, reverse_lazy
 from django.template.loader import render_to_string
-from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, View
+from django.views.generic import FormView, RedirectView, UpdateView, View
 from django.shortcuts import render, redirect
 
 from accounts import forms
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
-from home.models import InterludesActivityChoices
 from site_settings.models import SiteSettings
 
 def send_validation_email(request, user, subject, template):
