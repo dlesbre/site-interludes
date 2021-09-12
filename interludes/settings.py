@@ -183,5 +183,8 @@ LOGIN_REDIRECT_URL = 'profile'
 # Prefix to mails to admins
 EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '
 
+# Signature to mails to admins
+EMAIL_SIGNATURE = '-- Site Interludes (mail généré automatiquement)'
+
 # Prefix to mails to users
 USER_EMAIL_SUBJECT_PREFIX = "[interludes] "

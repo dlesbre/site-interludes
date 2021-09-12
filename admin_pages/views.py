@@ -2,9 +2,10 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
 from django.db.models import Count
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView
 
 from accounts.models import EmailUser
@@ -24,10 +25,14 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 	template_name = "admin.html"
 
 	def get_metrics(self):
-		registered = models.InterludesParticipant.objects.filter(is_registered = True)
+		registered = models.InterludesParticipant.objects.filter(
+			is_registered=True, user__is_active=True
+		)
 		acts = models.InterludesActivity.objects.all()
 		slots_in = models.InterludesSlot.objects.all()
-		wishes = models.InterludesActivityChoices.objects.filter(participant__is_registered=True)
+		wishes = models.InterludesActivityChoices.objects.filter(
+			participant__is_registered=True, participant__user__is_active=True
+		)
 		class metrics:
 			participants = registered.count()
 			ulm = registered.filter(school=models.InterludesParticipant.ENS.ENS_ULM).count()
@@ -70,7 +75,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		max_fails = ""
 		for slot in slots:
 			total = models.InterludesActivityChoices.objects.filter(
-				slot=slot, accepted=True, participant__is_registered=True
+				slot=slot, accepted=True, participant__is_registered=True,
+				participant__user__is_active=True
 			).aggregate(total=Count("id"))["total"]
 			max = slot.activity.max_participants
 			min = slot.activity.min_participants
@@ -102,7 +108,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 				if slot_1.conflicts(slot_2):
 					conflicts.append((slot_1, slot_2))
 		base_qs = models.InterludesActivityChoices.objects.filter(
-			accepted=True, participant__is_registered=True
+			accepted=True, participant__is_registered=True,
+			participant__user__is_active=True
 		)
 		errors = ""
 		for slot_1, slot_2 in conflicts:
@@ -143,7 +150,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 				if slot_1.activity == slot_2.activity:
 					conflicts.append((slot_1, slot_2))
 		base_qs = models.InterludesActivityChoices.objects.filter(
-			accepted=True, participant__is_registered=True
+			accepted=True, participant__is_registered=True,
+			participant__user__is_active=True
 		)
 		errors = ""
 		for slot_1, slot_2 in conflicts:
@@ -188,7 +196,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 		validations += '</ul>'
 
-		user_email_nb = models.InterludesParticipant.objects.filter(is_registered=True).count()
+		user_email_nb = models.InterludesParticipant.objects.filter(
+			is_registered=True, user__is_active=True
+		).count()
 		orga_email_nb = models.InterludesActivity.objects.filter(
 			communicate_participants=True
 		).count()
@@ -244,7 +254,9 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 		"Repas D matin", "Repas D soir"
 	]
 	def get_rows(self):
-		profiles = models.InterludesParticipant.objects.filter(is_registered=True).all()
+		profiles = models.InterludesParticipant.objects.filter(
+			is_registered=True,user__is_active=True
+		).all()
 		rows = []
 		for profile in profiles:
 			rows.append([
@@ -273,7 +285,7 @@ class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
 		activities = models.InterludesActivityChoices.objects.all()
 		rows = []
 		for act in activities:
-			if act.participant.is_registered:
+			if act.participant.is_registered and act.participant.user.is_active:
 				rows.append([
 					act.participant.id, str(act.participant), act.participant.user.email, act.priority,
 					act.accepted, str(act.slot), act.slot.id
@@ -307,7 +319,9 @@ class SendUserEmail(SendEmailBase):
 
 	def get_emails(self):
 		"""genere les mails a envoyer"""
-		participants = models.InterludesParticipant.objects.filter(is_registered=True)
+		participants = models.InterludesParticipant.objects.filter(
+			is_registered=True, participant__user__is_active=True
+		)
 		emails = []
 		settings = SiteSettings.load()
 		for participant in participants:
@@ -340,7 +354,7 @@ class SendUserEmail(SendEmailBase):
 			"Emails de répartition envoyés aux participants",
 			"Les participants ont reçu un mail leur communiquant la répartition des activités\n"
 			"Nombre total de mail envoyés: {}\n\n"
-			"-- Site Interludes (mail généré automatiquement".format(nb_sent)
+			"{}".format(nb_sent, settings.EMAIL_SIGNATURE)
 		)
 		messages.success(self.request, "{} mails envoyés aux utilisateurs".format(nb_sent))
 
@@ -385,7 +399,7 @@ class SendOrgaEmail(SendEmailBase):
 			"Listes d'inscrits envoyés aux orgas",
 			"Les mails communiquant aux organisateurs leur listes d'inscrit ont été envoyés\n"
 			"Nombre total de mail envoyés: {}\n\n"
-			"-- Site Interludes (mail généré automatiquement".format(nb_sent)
+			"{}".format(nb_sent, settings.EMAIL_SIGNATURE)
 		)
 		messages.success(self.request, "{} mails envoyés aux orgas".format(nb_sent))
 
@@ -395,9 +409,74 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 	template_name = "send_email.html"
 	form_class = SendEmailForm
 	success_url = "admin_pages:index"
+	from_address = None
+
+	def get_emails(self, selection):
+		"""return the list of destination emails"""
+		if selection == Recipients.ALL:
+			users = EmailUser.objects.filter(is_active=True)
+			return [u.email for u in users]
+		elif selection == Recipients.REGISTERED:
+			participants = models.InterludesParticipant.objects.filter(
+				is_registered=True, user__is_active=True
+			)
+			return [p.user.email for p in participants]
+		else:
+			raise ValueError("Invalid selection specifier\n")
+
+	@staticmethod
+	def sending_allowed():
+		"""Checks if sending mass emails is allowed"""
+		settings = SiteSettings.load()
+		return settings.allow_mass_mail
 
 	def form_valid(self, form):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
-		#form.send_email()
+		if not self.sending_allowed():
+			messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")
+		else:
+			dest = form.cleaned_data["dest"]
+			subject = form.cleaned_data["subject"]
+			text = form.cleaned_data["text"]
+			emails = []
+			for to_addr in self.get_emails(dest):
+				emails.append([
+					subject,
+					text,
+					self.from_address,
+					[to_addr]
+				])
+			nb_sent = send_mass_mail(emails, fail_silently=False)
+			mail_admins(
+				"Email envoyé",
+				"Un email a été envoyé à {}.\n"
+				"Nombre total de mail envoyés: {}\n\n"
+				"Sujet : {}\n\n"
+				"{}\n\n"
+				"{}".format(
+					Recipients(dest).label, nb_sent, subject, text,
+					settings.EMAIL_SIGNATURE
+				)
+			)
+			messages.success(self.request, "{} mails envoyés".format(nb_sent))
 		return super().form_valid(form)
+
+	def get_context_data(self, *args, **kwargs):
+		"""ajoute l'email d'envoie aux données contextuelles"""
+		context = super().get_context_data(*args, **kwargs)
+		context["from_email"] = self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
+		context["registered_nb"] =  models.InterludesParticipant.objects.filter(
+			is_registered = True, user__is_active=True
+		).count()
+		context["accounts_nb"] = EmailUser.objects.filter(is_active=True).count()
+		return context
+
+	def get(self, request, *args, **kwargs):
+		if self.sending_allowed():
+			return super().get(request, *args, **kwargs)
+		messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")
+		return HttpResponseRedirect(self.get_success_url())
+
+	def get_success_url(self):
+		return reverse(self.success_url)

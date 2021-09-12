@@ -244,5 +244,5 @@
 
 	<p>Évitez de spammer. N'envoyez que si vraiment nécessaire.</p>
 
-	<p><a class="button" href="{% url 'admin_pages:email_new' %}">Écrire un nouveau mail</a></p>
+	<p><a class="button{% if not settings.allow_mass_mail %} disabled{% endif %}" href="{% url 'admin_pages:email_new' %}">Écrire un nouveau mail</a></p>
 {% endblock %}
