@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "content" %}
+<h2>Envoyer un email</h2>
+
+<form method="post" action="{% url 'admin_pages:email_new' %}">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<br>
+	<div class="flex">
+		<input type="submit" value="Envoyer">
+		<a class="button" href="{% url 'admin_pages:index' %}">Annuler</a>
+	</div>
+</form>
+{% endblock %}

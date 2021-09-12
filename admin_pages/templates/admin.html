@@ -237,4 +237,12 @@
 			<button class="button" onclick="mail_orgas();">Email aux orgas</button>
 		{% endif %}
 	</div>
+
+	<h2>Mail aux utilisateurs</h2>
+
+	<p>Écrire un mail aux utilisateurs (tous ou seulement les inscrits)</p>
+
+	<p>Évitez de spammer. N'envoyez que si vraiment nécessaire.</p>
+
+	<p><a class="button" href="{% url 'admin_pages:email_new' %}">Écrire un nouveau mail</a></p>
 {% endblock %}

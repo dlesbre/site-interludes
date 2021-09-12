@@ -177,8 +177,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = "accounts:login"
-LOGIN_REDIRECT_URL = "profile"
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'profile'
 
 # Prefix to mails to admins
 EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '
+
+# Prefix to mails to users
+USER_EMAIL_SUBJECT_PREFIX = "[interludes] "

@@ -1,16 +1,19 @@
+from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
 from django.db.models import Count
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import FormView, RedirectView, TemplateView
 
 from accounts.models import EmailUser
 from home import models
 from home.views import get_planning_context
 from site_settings.models import Colors, SiteSettings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
+
+from admin_pages.forms import Recipients, SendEmailForm
 
 # ==============================
 # Main Admin views
@@ -316,7 +319,7 @@ class SendUserEmail(SendEmailBase):
 				"my_choices": my_choices.filter(accepted=True),
 			})
 			emails.append((
-				"[interludes] Vos activités", # subject
+				settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités", # subject
 				message,
 				self.from_address, # From:
 				[participant.user.email], # To:
@@ -360,7 +363,8 @@ class SendOrgaEmail(SendEmailBase):
 				"slots": slots,
 			})
 			emails.append((
-				"[interludes] Liste d'inscrits à votre activité {}".format(activity.title), # subject
+				settings.USER_EMAIL_SUBJECT_PREFIX +
+				"Liste d'inscrits à votre activité {}".format(activity.title), # subject
 				message,
 				self.from_address, # From:
 				[activity.host_email] # To:
@@ -384,3 +388,16 @@ class SendOrgaEmail(SendEmailBase):
 			"-- Site Interludes (mail généré automatiquement".format(nb_sent)
 		)
 		messages.success(self.request, "{} mails envoyés aux orgas".format(nb_sent))
+
+
+class NewEmail(SuperuserRequiredMixin, FormView):
+	"""Créer un nouveau mail"""
+	template_name = "send_email.html"
+	form_class = SendEmailForm
+	success_url = "admin_pages:index"
+
+	def form_valid(self, form):
+		# This method is called when valid form data has been POSTed.
+		# It should return an HttpResponse.
+		#form.send_email()
+		return super().form_valid(form)

@@ -10,4 +10,5 @@ urlpatterns = [
 	path('export/activity_choices/', views.ExportActivityChoices.as_view(), name="activity_choices.csv"),
 	path('email/send_user_emails_0564946523/', views.SendUserEmail.as_view(), name="email_users"),
 	path('email/send_orga_emails_5682480453/', views.SendOrgaEmail.as_view(), name="email_orgas"),
+	path('email/new_email/', views.NewEmail.as_view(), name="email_new"),
 ]
