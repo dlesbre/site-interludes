@@ -10,12 +10,12 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
 	class Meta:
 		model = models.ParticipantModel
 		fields = (
-			"school", "sleeps", # "mug",
+			"sleeps", # "mug",
 			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
 			"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
 		)
 
-	field_groups = [["school"], ["sleeps"], #["mug"],
+	field_groups = [["sleeps"], #["mug"],
 		[
 			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
 			"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",

@@ -35,10 +35,6 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		)
 		class metrics:
 			participants = registered.count()
-			ulm = registered.filter(school=models.ParticipantModel.ENS.ENS_ULM).count()
-			lyon = registered.filter(school=models.ParticipantModel.ENS.ENS_LYON).count()
-			rennes = registered.filter(school=models.ParticipantModel.ENS.ENS_RENNES).count()
-			saclay = registered.filter(school=models.ParticipantModel.ENS.ENS_CACHAN).count()
 			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
 			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
@@ -189,11 +185,6 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		validations += self.validate_multiple_similar_inscription()
 		validations += self.validate_slot_less()
 
-		if settings.discord_link:
-			validations += '<li class="success">Le lien du discord est renseigné</li>'
-		else:
-			validations += '<li class="error">Le lien du discord n\'est pas renseigné</li>'
-
 		validations += '</ul>'
 
 		user_email_nb = models.ParticipantModel.objects.filter(
@@ -277,7 +268,6 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 				profile.user.email,
 				profile.user.first_name,
 				profile.user.last_name,
-				profile.school,
 				profile.sleeps,
 				# profile.mug,
 				profile.meal_friday_evening,

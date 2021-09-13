@@ -34,7 +34,6 @@
 			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 			<li>La répartition des activités {% if settings.activities_allocated %}est effectuée et affichée{% else %}n'est pas faite/affichée{% endif %}.</li>
 			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>
-			<li>Le lien du serveur discord {% if settings.discord_link %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 		</ul>
 
 	<h2>Métriques</h2>
@@ -43,22 +42,6 @@
 		<div class="stat">
 			<div class="qty">Participants</div>
 			<div class="nb_big">{{ metrics.participants }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Ulm</div>
-			<div class="nb_small">{{ metrics.ulm }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Lyon</div>
-			<div class="nb_small">{{ metrics.lyon }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Rennes</div>
-			<div class="nb_small">{{ metrics.rennes }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Paris-Saclay</div>
-			<div class="nb_small">{{ metrics.saclay }}</div>
 		</div>
 		<div class="stat">
 			<div class="qty">Non inscrits</div>
@@ -214,8 +197,7 @@
 			(Modifiez les paramètres s'il faut en renvoyer un)
 		</p>
 	{% else %}
-		<p>L'email aux inscrits enverra un email à tous les utilisateurs inscrits.
-			Il communiquera également le lien du discord si celui-ci est renseigné.</p>
+		<p>L'email aux inscrits enverra un email à tous les utilisateurs inscrits.</p>
 	{% endif %}
 	{% if settings.orga_notified %}
 		<p>Un email communiquant les inscrits aux organisateur à déjà été envoyé.

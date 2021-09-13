@@ -71,9 +71,9 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 class ParticipantModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des participant dans la vue django admin"""
 	filename = "export_participants.csv"
-	list_display = ("user", "school", "is_registered")
+	list_display = ("user", "is_registered")
 	list_filter = (
-		"school", "is_registered", "sleeps",
+		"is_registered", "sleeps",
 		"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
 		"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
 	)

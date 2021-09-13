@@ -1,8 +1,6 @@
 {% autoescape off %}
 Bonjour {{ user.first_name }} {{ user.last_name }},
-{% if settings.discord_link %}
-Vous pouvez rejoindre notre serveur discord avec le lien suivant : {{ settings.discord_link }}
-{% endif %}
+
 Les inscriptions aux 48h des jeux sont fermées et la répartition des activités à été effectuée.
 {% if requested_activities_nb %}
 Vous avez obtenu {{ my_choices|length }} activité(s) (sur {{ requested_activities_nb }} souhaitée(s)).

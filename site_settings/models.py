@@ -100,11 +100,6 @@ class SiteSettings(SingletonModel):
 	)
 
 
-
-	discord_link = models.CharField(
-		"Lien du serveur discord", max_length=200, blank=True, null=True
-	)
-
 	allow_mass_mail = models.BooleanField(
 		"Permettre l'envoi de mails collectifs (aux utilisateurs et orgas)", default=False,
 		help_text="Par sécurité, n'activez ceci qu'au moment d'envoyer les emails et désactivez le après"
