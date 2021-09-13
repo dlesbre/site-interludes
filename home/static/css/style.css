@@ -1,10 +1,10 @@
 :root {
 	--color-bg: #fefefe;
-	--color_bg_1: #4c4c7c;
-	--color_bg_2: #26263c;
-	--color_bg_3: #39395c;
-	--color_sep: #eb811b;
-	--color_header: #e4e4e4;
+	--color_bg_2: #575451;
+	--color_bg_1: #171514;
+	--color_bg_3: #42403c;
+	--color_sep: #d13f3f;
+	--color_header: var(--color-bg);
 }
 
 html, body {
@@ -34,7 +34,7 @@ body {
 header {
 	display: flex;
 	background-color: var(--color_bg_1);
-	border-bottom: 2px solid var(--color_sep);
+	border-bottom: 3px solid var(--color_sep);
 	align-items: center;
 	padding: 0px 40px;
 	width: calc(100% - 80px);
@@ -185,13 +185,12 @@ main {
 }
 
 main h2 {
-	color: var(--color_bg_2);
 	padding-top: 20px;
 	font-size: 1.5rem;
 	font-weight: bold;
 	text-align: left;
-	border-bottom: 2px solid var(--color_bg_1);
-	border-image-source: linear-gradient(to right, var(--color_bg_1) 0%, transparent 75%);
+	border-bottom: 3px solid var(--color_sep);
+	border-image-source: linear-gradient(to right, var(--color_sep) 0%, transparent 75%);
 	border-image-slice: 1;
 }
 main h3 {
@@ -547,7 +546,7 @@ footer {
 	color: var(--color_header);
 	display: flex;
 	background-color: var(--color_bg_1);
-	border-top: 5px solid var(--color_bg_2);
+	border-top: 3px solid var(--color_sep);
 	align-items: center;
 	justify-content: space-around;
 }
