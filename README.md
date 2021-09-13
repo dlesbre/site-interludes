@@ -1,6 +1,6 @@
-# Site des interludes
+# Site des 48h des jeux
 
-Ce répo contient le sites des interludes. Ce site est en ligne à [https://interludes.ens.fr](https://interludes.ens.fr).
+Ce répo contient le sites des 48h des jeux. Ce site n'est pas encore en ligne.
 
 Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses/mit/).
 
@@ -17,7 +17,7 @@ Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses
 
 Pour installer toutes les dépendances et lancer le serveur :
 
-		git clone https://git.eleves.ens.fr/dlesbre/site-interludes.git &&
+		git clone https://git.eleves.ens.fr/dlesbre/48h-des-jeux.git &&
 		cd site-interlude &&
 		python3 -m venv venv &&
 		source venv/bin/activate &&
@@ -51,9 +51,9 @@ Pour tester et modifier le repo, après l'avoir cloné :
 
 		pip3 install -r requirements.txt
 
-5. Copier/linker le fichier `interludes/secret_example.py` dans `interludes/secret.py`
+5. Copier/linker le fichier `site48h/secret_example.py` dans `site48h/secret.py`
 
-		ln -s interludes/secret_example.py interludes/secret.py
+		ln -s site48h/secret_example.py site48h/secret.py
 
 6. Faire les les migrations
 
@@ -114,9 +114,9 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 1. Installer les dépendances `make install`
 
-2. S'assurer que `DEBUG = False` et que `ALLOWED_HOSTS` contient les adresses des hôtes dans [settings.py](./interludes/settings.py)
+2. S'assurer que `DEBUG = False` et que `ALLOWED_HOSTS` contient les adresses des hôtes dans [settings.py](./site48h/settings.py)
 
-3. Créer ou remplacer le fichier `interludes/secret.py` pour qu'il ait les mots de passe et un nouveau secret. Vous pouvez générer un secret django avec
+3. Créer ou remplacer le fichier `site48h/secret.py` pour qu'il ait les mots de passe et un nouveau secret. Vous pouvez générer un secret django avec
 
 		python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
 
@@ -135,6 +135,4 @@ A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
 
 ## Liens divers
 
-- [Le site des interludes 2021](https://interludes.ens.fr)
 - [Le github de l'algorithme de répartition](https://github.com/Imakoala/InterludesMatchings)
-- [Le wiki de Paris-Saclay](https://wiki.crans.org/VieBdl/InterLudes) qui recensent les visuels, sites webs et photos des interludes passées.

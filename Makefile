@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PYTHON := python3
 MANAGER := manage.py
 DB := db.sqlite3
-SECRET := interludes/secret.py
+SECRET := site48h/secret.py
 
 .PHONY: help
 help: ## Show this help
@@ -17,7 +17,7 @@ install: ## Install requirements
 secret: ## Link the secret_example.py to secret.py (only in dev mode)
 
 secret $(SECRET):
-	ln -s "$(PWD)/interludes/secret_example.py" interludes/secret.py
+	ln -s "$(PWD)/site48h/secret_example.py" site48h/secret.py
 
 .PHONY: migrate
 migrate: $(SECRET) ## Make and run migrations

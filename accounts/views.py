@@ -86,7 +86,7 @@ class CreateAccountView(View):
 		user.email_confirmed = False
 		user.save()
 
-		send_validation_email(request, user, "Activer votre compte Interludes", self.email_template)
+		send_validation_email(request, user, "Activer votre compte 48h des jeux", self.email_template)
 
 		messages.info(request, 'Un lien vous a été envoyé par mail. Utilisez le pour finaliser la création de compte.')
 
@@ -152,7 +152,7 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
 		if not self.request.user.email_confirmed:
 			send_validation_email(
 				self.request, self.request.user,
-				"Valider le changement d'email de votre compte Interludes",
+				"Valider le changement d'email de votre compte 48h des jeux",
 				self.email_template
 			)
 

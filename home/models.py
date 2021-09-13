@@ -16,7 +16,7 @@ def validate_nonzero(value):
 		)
 
 class ActivityModel(models.Model):
-	"""une activité des interludes (i.e. JDR, murder)..."""
+	"""une activité (i.e. JDR, murder)..."""
 
 	class Status(models.TextChoices):
 		"""en presentiel ou non"""
@@ -299,7 +299,7 @@ class SlotModel(models.Model):
 
 
 class ParticipantModel(models.Model):
-	"""un participant aux interludes"""
+	"""un participant"""
 
 	class ENS(models.TextChoices):
 		"""enum representant les ENS"""

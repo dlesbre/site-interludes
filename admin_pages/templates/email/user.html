@@ -3,7 +3,7 @@ Bonjour {{ user.first_name }} {{ user.last_name }},
 {% if settings.discord_link %}
 Vous pouvez rejoindre notre serveur discord avec le lien suivant : {{ settings.discord_link }}
 {% endif %}
-Les inscriptions aux Interludes sont fermées et la répartition des activités à été effectuée.
+Les inscriptions aux 48h des jeux sont fermées et la répartition des activités à été effectuée.
 {% if requested_activities_nb %}
 Vous avez obtenu {{ my_choices|length }} activité(s) (sur {{ requested_activities_nb }} souhaitée(s)).
 {% for choice in my_choices %}
@@ -15,6 +15,6 @@ Votre adresse email sera communiquée aux orgas pour les activités nécessitant
 Vous n'aviez demandé aucune activité.
 {% endif %}
 --
-L'équipe Interludes
+L'équipe 48h des jeux
 {% if settings.contact_email %}Pour nous contacter, envoyer un email à {{ settings.contact_email }}{% endif %}
 {% endautoescape %}

@@ -11,15 +11,14 @@
 		</li></ul>
 	{% endif %}
 	<p>
-		Les interludes, ou interENS ludiques, regroupent annuellement
-		les étudiants des quatre ENS de France autour d'activités ludiques.
-		Jeux de plateau, jeux de rôles, jeux vidéos, murders et autres sont
-		à l'honneur durant ce week-end de trois jours.
+		Les 48h des jeux sont le week-end de rentré des clubs jeux, jeux vidéo et jeu de rôle
+		de l'ENS Ulm. Elles se deroulent chaque année fin septembre/début octobre.
+		Rejoins-nous aux Pôt pendant ce week-end magique où les
+		jeux de plateau, jeux de rôles, jeux vidéos, murders et autres sont
+		à l'honneur.
 	</p>
 	<p>
-		Cette année, c'est au tour de l'ENS Ulm d'organiser les interludes.
-		L'événement a habituellement lieu en février mais à cause du COVID,
-		il a été retardé. Cette année il est prévu
+		Cette année, elles sont prévues
 		{% if settings.date_start %}{% if settings.date_end %}
 			le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
 		{% else %}
@@ -30,15 +29,15 @@
 		{% endif %}
 	</p>
 	<p>
-		La situation actuelle ne se prête malheureusement pas à un tel événement. Nous ne pouvons donc
-		que proposer un événement à distance, qui passera principalement par un serveur discord.
-		Vous trouverez une liste de sites utiles pour jouer en ligne dans la
-		<a href="{% url 'FAQ' %}">FAQ</a> et sur le serveur discord.
+		La situation actuelle impose des mesures spéciales pour l'événement, notamment le port
+		du masque et le contrôle du pass sanitaire.
+		Voir la	<a href="{% url 'FAQ' %}">FAQ</a> pour plus de détails.
 	</p>
 
 	<h2>Inscriptions</h2>
 	<ul class="messagelist"><li class="info">
-		Les interlude étant à distance cette année, les inscriptions sont facultatives.
+		Les inscriptions sont facultatives.
+		Elles servent uniquement pour les activités avec préparation/au nombre de place limité.
 	</li></ul>
 	<p>
 		Ce site vous permettra de vous <a href="{% url 'inscription' %}">inscrire à l'événement</a> et
@@ -62,7 +61,7 @@
 	<h2>Liens divers</h2>
 
 	<ul>
-		<li>Le code source de ce site est sur <a href="https://git.eleves.ens.fr/dlesbre/site-interludes">gitlab</a>.</li>
-		<li>Un historique des interludes avec leurs visuels, site webs et photos est sur le <a href="https://wiki.crans.org/VieBdl/InterLudes">wiki de Paris-Saclay</a>.</li>
+		<li>Le <a href="https://jeux.cof.ens.fr/">site du club jeux</a></li>
+		<li>Le code source de ce site est sur <a href="https://git.eleves.ens.fr/dlesbre/48h-des-jeux">gitlab</a>.</li>
 	</ul>
 {% endblock %}

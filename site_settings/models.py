@@ -22,7 +22,8 @@ class Colors(models.TextChoices):
 class OverwriteStorage(FileSystemStorage):
 	"""used to enforcing a fixed filename to upload file
 	This allow for a constant link to a changeable file"""
-	filename = "PlanningInterludes"
+	filename = "Planning48hDesJeux"
+
 	def get_available_name(self, name, **kwargs):
 		"""
 		Returns a filename that's free on the target storage system, and

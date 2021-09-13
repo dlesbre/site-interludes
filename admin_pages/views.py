@@ -224,7 +224,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 
 class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
-	filename = "activites_interludes"
+	filename = "activites_48h"
 	model = models.ActivityModel
 	fields = [
 		# The key is "host_id" but listed as "host" in auto-found field names
@@ -241,7 +241,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 	]
 
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
-	filename = "créneaux_interludes"
+	filename = "créneaux_48h"
 	headers = [
 		"Titre", "Début", "Salle",
 		"Ouverte aux inscriptions", "Affichée sur le planning",
@@ -260,7 +260,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 		return rows
 
 class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
-	filename = "participants_interludes"
+	filename = "participants_48h"
 	headers = [
 		"id", "mail", "prénom", "nom", "ENS", "Dors sur place", #"Tasse",
 		"Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
@@ -290,7 +290,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 		return rows
 
 class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
-	filename = "choix_activite_interludes"
+	filename = "choix_activite_48h"
 	model = models.ActivityChoicesModel
 	headers = ["id_participant", "nom_participant", "mail_participant", "priorité", "obtenu", "nom_créneau", "id_créneau"]
 

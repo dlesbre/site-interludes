@@ -51,7 +51,7 @@ class ActivityView(TemplateView):
 
 class FAQView(TemplateView):
 	"""Vue pour la FAQ"""
-	template_name = "faq-distanciel.html"
+	template_name = "faq.html"
 
 
 # ==============================

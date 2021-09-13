@@ -1,5 +1,5 @@
 # secret file
-interludes/secret.py
+site_48h/secret.py
 
 myvenv
 /static
@@ -294,4 +294,3 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/osx
-

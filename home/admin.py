@@ -4,9 +4,9 @@ from home import models
 from shared.admin import ExportCsvMixin
 
 # Titre de la vue (tag <h1>)
-admin.site.site_header = "Administration site interludes"
+admin.site.site_header = "Administration site 48h des Jeux"
 # Tag html <title>
-admin.site.site_title = "Admin Interludes"
+admin.site.site_title = "Admin 48h des jeux"
 
 
 @admin.register(models.ActivityModel)
