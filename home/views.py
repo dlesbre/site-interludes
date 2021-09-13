@@ -8,6 +8,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView, View
 
+from authens.views import LogoutView as AuthensLogoutView
+
 from home import models
 from home.forms import ActivityForm, ActivitySubmissionForm, BaseActivityFormSet, InscriptionForm
 from site_settings.models import SiteSettings
@@ -227,3 +229,9 @@ class StaticViewSitemap(Sitemap):
 				return 0.8
 		else:
 			return None # defaults to 0.5 when unset
+
+
+class LogoutView(AuthensLogoutView):
+	def get_next_page(self):
+		messages.success(self.request, "Vous avez bien été déconnecté.")
+		return reverse("home")
