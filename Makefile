@@ -37,8 +37,8 @@ start: install $(SECRET) migrate serve ## Install requirements, apply migrations
 
 .PHONY: clean
 clean: ## Remove migrations and delete database
-	find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-	find . -path "*/migrations/*.pyc" -delete
+	find . -path "*/migrations/*.py" -not -name "__init__.py" -not -path "*/venv/*" -delete
+	find . -path "*/migrations/*.pyc" -not -path "*/venv/*" -delete
 	rm $(DB)
 
 .PHONY:	test
