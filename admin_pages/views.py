@@ -408,7 +408,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 	"""Créer un nouveau mail"""
 	template_name = "send_email.html"
 	form_class = SendEmailForm
-	success_url = "admin_pages:index"
+	success_url = reverse_lazy("admin_pages:index")
 	from_address = None
 
 	def get_emails(self, selection):
@@ -477,6 +477,3 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 			return super().get(request, *args, **kwargs)
 		messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")
 		return HttpResponseRedirect(self.get_success_url())
-
-	def get_success_url(self):
-		return reverse(self.success_url)

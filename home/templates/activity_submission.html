@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_activite %}current{% endblock %}
+
+{% block "content" %}
+<h2>Proposer une activité</h2>
+
+<form method="post" action="{% url 'activity_submission' %}">
+	{% csrf_token %}
+
+	<table>
+		<tr><td><strong>Titre&nbsp;:</strong></td><td> {{ form.title }}</td></tr>
+		<tr><td><strong>Type d'activité&nbsp;:</strong></td><td> {{ form.act_type }}</td></tr>
+		<tr><td><strong>Type de jeu&nbsp;:</strong></td><td> {{ form.game_type }}</td></tr>
+	</table>
+
+	<p><strong>Description&nbsp;:</strong> ce texte sera affiché sur la page
+		<a href="{% url 'activites' %}">activités</a> pour présenter votre activité.
+	</p>
+		{{ form.description }}
+
+	<h3>Organisateurs</h3>
+
+	<p>
+		L'email de votre compte sera le principal moyen de contact.
+		Vous pouvez spécifiez d'autre moyen de contact ci-dessous, ainsi que d'autres
+		organisateurs si vous êtes plusieurs
+	</p>
+
+		{{ form.host_info }}
+
+	<h3>Participants et inscription</h3>
+
+	<table>
+		<tr><td><strong>Nécessite une inscription&nbsp;:</strong></td><td> {{ form.must_subscribe }}</td></tr>
+		<tr><td><strong>Me communiquer la liste des participants à l'avance&nbsp;:</strong></td><td> {{ form.communicate_participants }}</td></tr>
+
+		<tr><td><strong>Nombre max de participants&nbsp;:</strong></td><td> {{ form.max_participants }} (mettez 0 pour illimité)</td></tr>
+		<tr><td><strong>Nombre min de participants&nbsp;:</strong></td><td> {{ form.min_participants }}</td></tr>
+	</table>
+
+	<h3>Durée et crénaux</h3>
+
+	<table>
+		<tr><td><strong>Durée approximative&nbsp;:</strong></td><td> {{ form.duration }} (format hh:mm:ss)</td></tr>
+		<tr><td><strong>Nombre de crénaux souhaités&nbsp;:</strong></td><td> {{ form.desired_slot_nb }}</td></tr>
+		<tr><td><strong>Disponibilités&nbsp;:</strong></td></tr>
+		<tr><td>&nbsp;-&nbsp;Vendredi soir&nbsp;:</td><td>{{ form.available_friday_evening }}</td></tr>
+		<tr><td>&nbsp;-&nbsp;Vendredi nuit&nbsp;:</td><td>{{ form.available_friday_night }}</td></tr>
+		<tr><td>&nbsp;-&nbsp;Samedi matin&nbsp;:</td><td>{{ form.available_saturday_morning }}</td></tr>
+		<tr><td>&nbsp;-&nbsp;Samedi après-midi&nbsp;:</td><td>{{ form.available_saturday_afternoon }}</td></tr>
+		<tr><td>&nbsp;-&nbsp;Samedi soir&nbsp;:</td><td>{{ form.available_saturday_evening }}</td></tr>
+		<tr><td>&nbsp;-&nbsp;Samedi nuit&nbsp;:</td><td>{{ form.available_saturday_night }}</td></tr>
+		<tr><td>&nbsp;-&nbsp;Dimanche matin &nbsp;:</td><td>{{ form.available_sunday_morning }}</td></tr>
+		<tr><td>&nbsp;-&nbsp;Dimanche après-midi&nbsp;:</td><td>{{ form.available_sunday_afternoon }}</td></tr>
+	</table>
+
+	<p>Si vous avez des contraintes particulières, vous pouvez les préciser ici&nbsp;:</p>
+
+	{{ form.constraints }}
+
+	<h3>Modalités pratiques</h3>
+
+	<p><strong>Présentiel/distanciel&nbsp;:</strong> &nbsp;{{ form.status }}</p>
+
+	<p><strong>Besoins spécifiques&nbsp;:</strong></p>
+	<ul>
+		<li>Vous faut-il une ou plusieurs salles&nbsp;?</li>
+		<li>Vous faut-il du matériel spécial&nbsp;?</li>
+		<li>Si possible en distanciel, quel outils faut-il pour participer&nbsp;?</li>
+		<li>Et tout autre besoin de ce type...</li>
+	</ul>
+
+	{{ form.needs }}
+
+	<h3>Commentaires</h3>
+
+	<p>D'autre choses à nous communiquer qui ne rentre pas dans les champs précédents&nbsp;?</p>
+
+	{{ form.comments }}
+
+	<div class="flex">
+		<input type="submit" value="Valider">
+		<a class="button" href="{% url 'profile' %}">Annuler</a>
+	</div>
+
+</form>
+{% endblock %}

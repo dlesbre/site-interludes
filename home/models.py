@@ -7,6 +7,13 @@ from django.utils import timezone
 from accounts.models import EmailUser
 from site_settings.models import Colors, SiteSettings
 
+def validate_nonzero(value):
+	"""Make a positive integer field non-zero"""
+	if value == 0:
+		raise ValidationError(
+			_('Cette valeur doit-être non-nulle'),
+		)
+
 class ActivityModel(models.Model):
 	"""une activité des interludes (i.e. JDR, murder)..."""
 
@@ -16,12 +23,16 @@ class ActivityModel(models.Model):
 		DISTANT = "D", _("En distanciel uniquement")
 		BOTH = "2", _("Les deux")
 
-	class Types(models.TextChoices):
-		"""types d'activités"""
+	class ActivityTypes(models.TextChoices):
+		"""quantité d'activité"""
+		GAME = "1 partie", _("Une partie")
+		GAMES = "2+ parties", _("Quelques parties")
 		TOURNAMENT = "Tournoi", _("Tournoi")
-		GAME = "partie", _("Une partie")
-		GAMES = "parties", _("Quelques parties")
 		FREEPLAY = "freeplay", _("Freeplay")
+		OTHER = "other", _("Autre")
+
+	class GameTypes(models.TextChoices):
+		"""types de jeu"""
 		CARD_GAME = "jeu cartes", _("Jeu de cartes")
 		BOARD_GAME = "jeu plateau", _("Jeu de société")
 		TABLETOP_RPG = "table RPG", _("Jeu de rôle sur table")
@@ -33,25 +44,31 @@ class ActivityModel(models.Model):
 		COOP = "coop", _("Jeu coopératif")
 		OTHER = "other", _("Autre")
 
-	title = models.CharField("Titre", max_length=200)
+	class Availability(models.TextChoices):
+		"""Diponibilité à un moment donné"""
+		IDEAL = "0", _("Idéal")
+		POSSIBLE = "1", _("Acceptable")
+		UNAVAILABLE = "2", _("Indisponible")
 
-	status = models.CharField("Présentiel/distanciel", choices=Status.choices, max_length=1)
-	act_type = models.CharField("Type", choices=Types.choices, max_length=12)
-
-	duration = models.DurationField("Durée", help_text="format hh:mm:ss")
-	max_participants = models.PositiveIntegerField(
-		"Nombre maximum de participants", help_text="0 pour illimité"
-	)
-	min_participants = models.PositiveIntegerField(
-		"Nombre minimum de participants"
-	)
-
-	communicate_participants = models.BooleanField("communiquer la liste des participants à l'orga avant l'événement")
 	display = models.BooleanField("afficher dans la liste", default=False,
 		help_text="Si vrai, s'affiche sur la page activités"
 	)
-	must_subscribe = models.BooleanField("sur inscription", default=False,
-		help_text="Informatif, il faut utiliser les créneaux pour ajouter dans la liste d'inscription"
+
+	title = models.CharField("Titre", max_length=200)
+
+	act_type = models.CharField("Type d'activité", choices=ActivityTypes.choices, max_length=12)
+	game_type = models.CharField("Type de jeu", choices=GameTypes.choices, max_length=12)
+	description = models.TextField(
+		"description", max_length=10000,
+		help_text='Texte ou html selon la valeur de "Description HTML".\n'
+	)
+	desc_as_html = models.BooleanField("Description au format HTML", default=False,
+		help_text="Assurer vous que le texte est bien formaté, cette option peut casser la page activités."
+	)
+
+	host = models.ForeignKey(
+		EmailUser, on_delete=models.SET_NULL, verbose_name="Organisateur",
+		blank=True, null=True
 	)
 	host_name = models.CharField(
 		"nom de l'organisateur", max_length=50, null=True, blank=True,
@@ -61,15 +78,73 @@ class ActivityModel(models.Model):
 		"email de l'organisateur",
 		help_text="Utilisé pour communiquer la liste des participants si demandé"
 	)
-	description = models.TextField(
-		"description", max_length=10000,
-		help_text='Texte ou html selon la valeur de "Description HTML".\n'
-	)
-	desc_as_html = models.BooleanField("Description au format HTML", default=False,
-		help_text="Assurer vous que le texte est bien formaté, cette option peut casser la page activités."
+	host_info = models.TextField(
+		"Autre orgas/contacts", max_length=1000, blank=True, null=True
 	)
 
-	notes = models.TextField("Notes privées", max_length=2000, blank=True)
+	must_subscribe = models.BooleanField("sur inscription", default=False,
+		help_text="Informatif, il faut utiliser les créneaux pour ajouter dans la liste d'inscription"
+	)
+	communicate_participants = models.BooleanField("communiquer la liste des participants à l'orga avant l'événement")
+	max_participants = models.PositiveIntegerField(
+		"Nombre maximum de participants", help_text="0 pour illimité", default=0
+	)
+	min_participants = models.PositiveIntegerField(
+		"Nombre minimum de participants", default=0
+	)
+
+	## Information fournies par le respo
+	duration = models.DurationField("Durée", help_text="format hh:mm:ss")
+	desired_slot_nb = models.PositiveIntegerField(
+		"Nombre de créneaux souhaités", default=1,
+		validators=[validate_nonzero]
+	)
+
+	available_friday_evening = models.CharField(
+		"Crénau vendredi soir", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+	available_friday_night = models.CharField(
+		"Crénau vendredi nuit", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+	available_saturday_morning = models.CharField(
+		"Crénau samedi matin", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+	available_saturday_afternoon = models.CharField(
+		"Crénau samedi après-midi", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+	available_saturday_evening = models.CharField(
+		"Crénau samedi soir", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+	available_saturday_night = models.CharField(
+		"Crénau samedi nuit", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+	available_sunday_morning = models.CharField(
+		"Crénau dimanche matin", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+	available_sunday_afternoon = models.CharField(
+		"Crénau dimanche après-midi", choices=Availability.choices, max_length=1,
+		default=Availability.POSSIBLE,
+	)
+
+	constraints = models.TextField(
+		"Contraintes particulières", max_length=2000, blank=True, null=True
+	)
+
+	status = models.CharField("Présentiel/distanciel", choices=Status.choices, max_length=1)
+	needs = models.TextField(
+		"Besoin particuliers", max_length=2000, blank=True, null=True
+	)
+
+	comments = models.TextField(
+		"Commentaires", max_length=2000, blank=True, null=True
+	)
 
 	@property
 	def nb_participants(self) -> str:

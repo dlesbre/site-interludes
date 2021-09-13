@@ -71,7 +71,7 @@ class SiteSettings(SingletonModel):
 	date_start = models.DateField("Date de début", blank=True, null=True)
 	date_end = models.DateField("Date de fin", blank=True, null=True)
 
-	registrations_open = models.BooleanField("Ouvrir la création de compte", default=False)
+	registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
 	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
 
 	inscriptions_start = models.DateTimeField("Ouverture des inscriptions",
@@ -94,10 +94,11 @@ class SiteSettings(SingletonModel):
 		help_text="Suppose que l'allocation des activités a été effectuée."
 	)
 
-	activity_submission_form = models.CharField(
-		"Lien pour soumettre une activité", max_length=200, default="",
-		blank=True, null=True
+	activity_submission_open = models.BooleanField(
+		"Ouvrir l'ajout d'activité", default=False,
+		help_text="Permet de proposer une activité via le formulaire dédié"
 	)
+
 	discord_link = models.CharField(
 		"Lien du serveur discord", max_length=200, blank=True, null=True
 	)

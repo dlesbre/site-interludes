@@ -5,11 +5,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
-from django.urls import reverse
-from django.views.generic import RedirectView, TemplateView, View
+from django.urls import reverse, reverse_lazy
+from django.views.generic import FormView, RedirectView, TemplateView, View
 
 from home import models
-from home.forms import ActivityForm, BaseActivityFormSet, InscriptionForm
+from home.forms import ActivityForm, ActivitySubmissionForm, BaseActivityFormSet, InscriptionForm
 from site_settings.models import SiteSettings
 
 
@@ -158,6 +158,18 @@ class UnregisterView(LoginRequiredMixin, RedirectView):
 		participant.save()
 		messages.success(self.request, "Vous avez été désinscrit")
 		return reverse(self.pattern_name)
+
+
+# ==============================
+# Activity Submission Form
+# ==============================
+
+
+class ActivitySubmissionView(LoginRequiredMixin, FormView):
+	"""Vue pour proposer une activité"""
+	template_name = "activity_submission.html"
+	form_class = ActivitySubmissionForm
+	success_url = reverse_lazy("profile")
 
 
 # ==============================

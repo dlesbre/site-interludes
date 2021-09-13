@@ -57,3 +57,40 @@ class BaseActivityFormSet(forms.BaseFormSet):
 			if activity in activities:
 				raise ValidationError("Vous ne pouvez pas sélectionner une même activtté plusieurs fois")
 			activities.append(activity)
+
+
+class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
+
+	class Meta:
+		model = models.ActivityModel
+		fields = (
+			"title", "act_type", "game_type", "description",
+
+			"host_info",
+
+			"must_subscribe", "communicate_participants",
+			"max_participants",	"min_participants",
+
+			"duration", "desired_slot_nb",
+			"available_friday_evening",
+			"available_friday_night",
+			"available_saturday_morning",
+			"available_saturday_afternoon",
+			"available_saturday_evening",
+			"available_saturday_night",
+			"available_sunday_morning",
+			"available_sunday_afternoon",
+			"constraints",
+
+			"status", "needs",
+
+			"comments",
+		)
+
+
+	def save(self, *args, commit=True, **kwargs):
+		participant = super().save(*args, commit=False, **kwargs)
+		participant.is_registered = True
+		if commit:
+			participant.save()
+		return participant

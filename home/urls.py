@@ -13,6 +13,7 @@ urlpatterns = [
 	path('inscription/', views.RegisterView.as_view(), name = 'inscription'),
 	path('desinscription/', views.UnregisterView.as_view(), name="desinscription"),
 	path('activites/', views.ActivityView.as_view(), name = 'activites'),
+	path('activites/nouvelle/', views.ActivitySubmissionView.as_view(), name = 'activity_submission'),
 	path('faq/', views.FAQView.as_view(), name = 'FAQ'),
 	path("profile/", views.ProfileView.as_view(), name="profile"),
 	path('favicon.ico', RedirectView.as_view(url='/static/imgs/favicon.ico')),
