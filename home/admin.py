@@ -18,15 +18,28 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	ordering = ("title", "host_name",)
 	list_editable = ("display",)
 	fields = (
-		"title",
+		"title", "display",
 		("host_name", "host_email"),
-		"status", "act_type", "duration",
+		"host_info",
+		"act_type", "game_type",
+		"description", "desc_as_html",
 		("min_participants", "max_participants"),
 		"must_subscribe",
 		"communicate_participants",
-		"description", "desc_as_html",
-		"display",
-		"notes",
+		("duration", "desired_slot_nb"),
+		(
+			"available_friday_evening",
+			"available_friday_night",
+			"available_saturday_morning",
+			"available_saturday_afternoon",
+			"available_saturday_evening",
+			"available_saturday_night",
+			"available_sunday_morning",
+			"available_sunday_afternoon"
+		),
+		"constraints",
+		"status", "needs",
+		"comments",
 	)
 	list_per_page = 100
 

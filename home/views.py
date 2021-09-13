@@ -95,6 +95,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 	template_name = "inscription/form-distanciel.html"
 	form_class = InscriptionForm
 	formset_class = formset_factory(form=ActivityForm, extra=3, formset=BaseActivityFormSet)
+	success_url = reverse_lazy("profile")
 
 	@staticmethod
 	def get_slots(participant):
@@ -135,7 +136,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 		self.set_activities(request.user.profile, formset)
 
 		messages.success(request, "Votre inscription a bien été enregistrée")
-		return redirect("profile", permanent=False)
+		return redirect(self.success_url, permanent=False)
 
 class RegisterView(View):
 	"""Vue pour l'inscription
@@ -170,6 +171,18 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 	template_name = "activity_submission.html"
 	form_class = ActivitySubmissionForm
 	success_url = reverse_lazy("profile")
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		if not form.is_valid():
+			context = self.get_context_data
+			context["form"] = form
+			return render(request, self.template_name, context)
+
+		form.save(user=request.user)
+
+		messages.success(request, "Votre activité a bien été enregistrée. Elle sera affichée sur le site après relecture par les admins.")
+		return redirect(self.success_url, permanent=False)
 
 
 # ==============================

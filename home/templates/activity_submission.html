@@ -6,6 +6,8 @@
 {% block "content" %}
 <h2>Proposer une activité</h2>
 
+{{ form.non_field_errors }}
+
 <form method="post" action="{% url 'activity_submission' %}">
 	{% csrf_token %}
 
@@ -35,16 +37,19 @@
 	<table>
 		<tr><td><strong>Nécessite une inscription&nbsp;:</strong></td><td> {{ form.must_subscribe }}</td></tr>
 		<tr><td><strong>Me communiquer la liste des participants à l'avance&nbsp;:</strong></td><td> {{ form.communicate_participants }}</td></tr>
-
 		<tr><td><strong>Nombre max de participants&nbsp;:</strong></td><td> {{ form.max_participants }} (mettez 0 pour illimité)</td></tr>
+		{% if form.max_participants.errors %}<tr><td></td><td>{{ form.max_participants.errors }}</td></tr>{% endif %}
 		<tr><td><strong>Nombre min de participants&nbsp;:</strong></td><td> {{ form.min_participants }}</td></tr>
+		{% if form.min_participants.errors %}<tr><td></td><td>{{ form.min_participants.errors }}</td></tr>{% endif %}
 	</table>
 
 	<h3>Durée et crénaux</h3>
 
 	<table>
 		<tr><td><strong>Durée approximative&nbsp;:</strong></td><td> {{ form.duration }} (format hh:mm:ss)</td></tr>
+		{% if form.duration.errors %}<tr><td></td><td>{{ form.duration.errors }}</td></tr>{% endif %}
 		<tr><td><strong>Nombre de crénaux souhaités&nbsp;:</strong></td><td> {{ form.desired_slot_nb }}</td></tr>
+		{% if form.desired_slot_nb.errors %}<tr><td></td><td>{{ form.desired_slot_nb.errors }}</td></tr>{% endif %}
 		<tr><td><strong>Disponibilités&nbsp;:</strong></td></tr>
 		<tr><td>&nbsp;-&nbsp;Vendredi soir&nbsp;:</td><td>{{ form.available_friday_evening }}</td></tr>
 		<tr><td>&nbsp;-&nbsp;Vendredi nuit&nbsp;:</td><td>{{ form.available_friday_night }}</td></tr>
@@ -80,8 +85,12 @@
 
 	{{ form.comments }}
 
+	<h3>Soumettre</h3>
+
+	<p>L'activité n'est plus modifiable une fois soumise. Les administrateurs la reliront avant de l'afficher sur le site.</p>
+
 	<div class="flex">
-		<input type="submit" value="Valider">
+		<input type="submit" value="Soumettre mon activité">
 		<a class="button" href="{% url 'profile' %}">Annuler</a>
 	</div>
 
