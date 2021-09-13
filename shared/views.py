@@ -19,6 +19,7 @@ class CSVWriteView(View):
 	headers = None
 	model = None
 	exclude_fields = []
+	fields = None
 
 	def get_filename(self):
 		return self.filename
@@ -28,7 +29,7 @@ class CSVWriteView(View):
 		if self.headers:
 			return self.headers
 		if self.model:
-			return [field.name for field in self.get_field_names()]
+			return self.get_field_names()
 		return None
 
 	def get_values(self):
@@ -41,9 +42,13 @@ class CSVWriteView(View):
 
 	def get_field_names(self):
 		"""overload to limit/change field names
-		default to all minus those in exclude_fields"""
+		default to:
+		- the value of self.field if not None
+		- all fields minus those in exclude_fields otherwise"""
+		if self.fields is not None:
+			return self.fields
 		return [
-			field for field in self.model._meta.fields
+			field.name for field in self.model._meta.get_fields()
 			if not field.name in self.exclude_fields
 		]
 
@@ -53,7 +58,7 @@ class CSVWriteView(View):
 		fields = self.get_field_names()
 		table = []
 		for row in queryset:
-			table.append([row[field.name] for field in fields])
+			table.append([row[field] for field in fields])
 		return table
 
 	def get(self, request, *args, **kwargs):

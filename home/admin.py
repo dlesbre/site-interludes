@@ -42,6 +42,19 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"comments",
 	)
 	list_per_page = 100
+	csv_export_fields = [
+		# The key is "host_id" but listed as "host" in auto-found field names
+		# which leads to an error...
+		'id', 'display', 'title', 'act_type', 'game_type', 'description',
+		'desc_as_html', 'host_id', 'host_name', 'host_email', 'host_info',
+		'must_subscribe', 'communicate_participants', 'max_participants',
+		'min_participants', 'duration', 'desired_slot_nb',
+		'available_friday_evening', 'available_friday_night',
+		'available_saturday_morning', 'available_saturday_afternoon',
+		'available_saturday_evening', 'available_saturday_night',
+		'available_sunday_morning', 'available_sunday_afternoon',
+		'constraints', 'status', 'needs', 'comments'
+	]
 
 
 @admin.register(models.SlotModel)

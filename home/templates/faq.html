@@ -12,12 +12,15 @@
 		<li>Pause aération des salles régulières</li>
 	</ul>
 
-{% if settings.activity_submission_form %}
-	<h2>Comment proposer une activité&nbsp;?</h2>
-		<p>Vous pouver proposer une activité en remplissant <a href="{{ settings.activity_submission_form }}">ce formulaire</a>.</p>
-		<p>Il vous faudra renseigner votre nom/mail, le titre, une description, le nombre de places, la durée, les horaires possibles/idéaux, et tout autre besoin particulier...
-		</p>
-{% endif %}
+
+<h2>Comment proposer une activité&nbsp;?</h2>
+	{% if settings.activity_submission_open %}
+	<p>Vous pouver proposer une activité en remplissant <a href="{% url 'activity_submission' %}">ce formulaire</a>.</p>
+	<p>Il vous faudra être connecté et renseigner, le titre, une description, le nombre de places, la durée, les horaires possibles/idéaux, et tout autre besoin particulier...</p>
+	{% else %}
+	<p>L'appel a activités est fermé pour le moment.
+		Contactez nous en cas de besoin urgent ou d'idée trop géniale pour être délaissée.</p>
+	{% endif %}
 
 <h2>Quelles seront les conditions pour dormir/manger&nbsp;?</h2>
 	<p>	Il est possible que nous n'ayons pas le droit de faire dormir les participants et/ou

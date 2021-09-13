@@ -73,6 +73,10 @@ class SiteSettings(SingletonModel):
 
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
 	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
+	activity_submission_open = models.BooleanField(
+		"Ouvrir l'ajout d'activité", default=False,
+		help_text="Permet de proposer une activité via le formulaire dédié"
+	)
 
 	inscriptions_start = models.DateTimeField("Ouverture des inscriptions",
 		blank=True, null=True,
@@ -94,10 +98,7 @@ class SiteSettings(SingletonModel):
 		help_text="Suppose que l'allocation des activités a été effectuée."
 	)
 
-	activity_submission_open = models.BooleanField(
-		"Ouvrir l'ajout d'activité", default=False,
-		help_text="Permet de proposer une activité via le formulaire dédié"
-	)
+
 
 	discord_link = models.CharField(
 		"Lien du serveur discord", max_length=200, blank=True, null=True

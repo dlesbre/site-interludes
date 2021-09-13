@@ -12,6 +12,7 @@ class ExportCsvMixin:
 	filename = None
 
 	csv_export_exclude = []
+	csv_export_fields = None
 
 	def get_filename(self):
 		if self.filename:
@@ -22,7 +23,8 @@ class ExportCsvMixin:
 		"""renvoie un fichier CSV contenant l'information du queryset"""
 		view = CSVWriteViewForAdmin(
 			request=request, queryset=queryset, model=self.model,
-			filename=self.get_filename(), exclude_fields = self.csv_export_exclude,
+			filename=self.get_filename(), exclude_fields=self.csv_export_exclude,
+			fields=self.csv_export_fields,
 		)
 		return view.get(request)
 

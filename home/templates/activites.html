@@ -8,6 +8,14 @@
 {% block nav_activite %}current{% endblock %}
 
 {% block "content" %}
+
+	{% if settings.activity_submission_open %}
+	<ul class="messagelist">
+		<li class="info">
+			Vous pouver proposer une activité en remplissant <a href="{% url 'activity_submission' %}">ce formulaire</a>.
+		</li>
+	</ul>{% endif %}
+
 	{% if settings.display_planning %}
 		<h2>Planning</h2>
 		{% include "_planning.html" %}

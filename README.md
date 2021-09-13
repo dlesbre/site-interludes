@@ -88,12 +88,13 @@ Le site se gère depuis deux pages d'administration:
 	- Utilisateurs - contient tous les utilisateurs et leur permissions. Pour donner les droits d'administrateur à quelqu'un il faut lui donner le statut superutilisateur (accès à l'admin du site) ET le statut équipe (accès à l'admin django)
 	- Paramêtres - les réglages du site, ils permettent:
 		- ouvrir/fermer la création de compte, les inscriptions
+		- ouvrir fermer le formulaire de proposition d'activités
 		- afficher/cacher le planning
 		- renseigner l'email de contact, les dates de l'événement, les dates d'inscription
 		- ajouter un message global au dessus de toutes les pages
 		- bloquer/autoriser l'envoi d'email globaux
 	- Activités - liste des activités prévues. C'est ici que vous pouvez rajouter/modifier les activités qui s'affichent sur la page activité.
-		Pour le moment il n'y a pas de formulaire qui permette aux orga de proposer une activité sur le site (on était passé par un appel à projet externe et on avait rempli les activités nous-même)
+		Un formulaire permet aux utilisateurs de proposer des activités directement. Ils vous faudra les relire et les valider ensuite manuellement pour qu'elles soient affichées sur le site.
 	- Crénaux - place une activité sur le planning. Une activité peut avoir plusieurs crénaux si elle a lieu plusieurs fois. Noter que les inscriptions se font à des crénaux et non a des activités.
 	- Participant - liste des gens inscrits et des informations sur leur inscription (ENS, repas choisi...)
 	- Choix d'activité - Liste de (participant, priorité, activité) indiquant les voeux des participant. Une fois que vous avez fait l'attribution, cocher les case "Obtenues" pour indiquer qui a eu quelle activité.
@@ -105,6 +106,7 @@ Le site se gère depuis deux pages d'administration:
 	- permet d'envoyer deux séries d'emails :
 		- une aux inscrits pour leur communiquer les activités qu'ils ont obtenus
 		- une aux orgas qui ont besoin de connaître la liste des participants à l'avance pour préparer leurs activités.
+	- permet l'écriture d'un mail à tous.
 
 ## En production
 
@@ -126,7 +128,6 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
 
-- Un formulaire pour proposer une activité directement sur le site
 - Intégrer l'[algorithme de répartition](https://github.com/Imakoala/InterludesMatchings) dans le site au lieu de le faire tourner en externe à partir des export CSV et de remplir les résultats à la main
 - Envoyer une concaténation de tous les emails aux admin (pour vérification, et pas juste en copie pour éviter le spam...)
 - Générer la version PDF du planning automatiquement au lieu de la faire à base de captures d'écran

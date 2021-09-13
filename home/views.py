@@ -172,7 +172,25 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 	form_class = ActivitySubmissionForm
 	success_url = reverse_lazy("profile")
 
+	@staticmethod
+	def submission_check():
+		"""Vérifie si le formulaire est ouvert ou non"""
+		settings = SiteSettings.load()
+		return settings.activity_submission_open
+
+	def not_open(self, request):
+		"""Appelé quand le formulaire est désactivé"""
+		messages.error(request, "La soumission d'activité est desactivée")
+		return redirect(self.success_url, permanent=False)
+
+	def get(self, request, *args, **kwargs):
+		if not self.submission_check():
+			return self.not_open(request)
+		return super().get(self, request, *args, **kwargs)
+
 	def post(self, request, *args, **kwargs):
+		if not self.submission_check():
+			return self.not_open(request)
 		form = self.form_class(request.POST)
 		if not form.is_valid():
 			context = self.get_context_data
