@@ -1,5 +1,11 @@
 # Change Log
 
+## Version ??? - Coming soon
+
+- Added a form that allows admins to send emails to all users
+- Added a form for users to submit activities
+- Added a changeable caption for the planning
+
 ## Version 1.2.8 - 2021-05-06
 
 - Added links to FAQ
