@@ -5,7 +5,7 @@ from django.forms import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
-from accounts.models import EmailUser
+from authens.models import User
 from site_settings.models import Colors, SiteSettings
 
 def validate_nonzero(value):
@@ -68,7 +68,7 @@ class ActivityModel(models.Model):
 	)
 
 	host = models.ForeignKey(
-		EmailUser, on_delete=models.SET_NULL, verbose_name="Organisateur",
+		User, on_delete=models.SET_NULL, verbose_name="Organisateur",
 		blank=True, null=True
 	)
 	host_name = models.CharField(
@@ -302,7 +302,7 @@ class ParticipantModel(models.Model):
 	"""un participant"""
 
 
-	user = models.OneToOneField(EmailUser, on_delete=models.CASCADE, related_name="Utilisateur")
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="Utilisateur")
 
 	is_registered = models.BooleanField("est inscrit", default=False)
 
@@ -318,7 +318,7 @@ class ParticipantModel(models.Model):
 	# mug = models.BooleanField("commander une tasse", default=False)
 
 	def __str__(self) -> str:
-		return "{} {}".format(self.user.first_name, self.user.last_name)
+		return "{}".format(self.user.username)
 
 	@property
 	def nb_meals(self) -> int:
@@ -350,4 +350,4 @@ class ActivityChoicesModel(models.Model):
 		verbose_name = "choix d'activités"
 		verbose_name_plural = "choix d'activités"
 
-EmailUser.profile = property(lambda user: ParticipantModel.objects.get_or_create(user=user)[0])
+User.profile = property(lambda user: ParticipantModel.objects.get_or_create(user=user)[0])

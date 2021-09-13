@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView
 
-from accounts.models import EmailUser
+from authens.models import User
 from home import models
 from home.views import get_planning_context
 from site_settings.models import Colors, SiteSettings
@@ -35,7 +35,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		)
 		class metrics:
 			participants = registered.count()
-			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
+			non_registered = User.objects.filter(is_active=True).count() - participants
 			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
 
@@ -266,8 +266,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 			rows.append([
 				profile.user.id,
 				profile.user.email,
-				profile.user.first_name,
-				profile.user.last_name,
+				profile.user.username,
 				profile.sleeps,
 				# profile.mug,
 				profile.meal_friday_evening,
@@ -417,7 +416,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 	def get_emails(self, selection):
 		"""return the list of destination emails"""
 		if selection == Recipients.ALL:
-			users = EmailUser.objects.filter(is_active=True)
+			users = User.objects.filter(is_active=True)
 			return [u.email for u in users]
 		elif selection == Recipients.REGISTERED:
 			participants = models.ParticipantModel.objects.filter(
@@ -472,7 +471,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 		context["registered_nb"] =  models.ParticipantModel.objects.filter(
 			is_registered = True, user__is_active=True
 		).count()
-		context["accounts_nb"] = EmailUser.objects.filter(is_active=True).count()
+		context["accounts_nb"] = User.objects.filter(is_active=True).count()
 		return context
 
 	def get(self, request, *args, **kwargs):

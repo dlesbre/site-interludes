@@ -103,7 +103,7 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 		activity = models.ActivityModel(
 			**self.cleaned_data,
 			host=user, host_email=user.email,
-			host_name=(user.first_name + user.last_name)
+			host_name=(user.username)
 		)
 		if commit:
 			activity.save()

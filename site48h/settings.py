@@ -87,7 +87,7 @@ INSTALLED_APPS = [
 
 	'home.apps.HomeConfig',
 	'admin_pages.apps.AdminPagesConfig',
-	'accounts.apps.AccountsConfig',
+	'authens',
 	'site_settings.apps.SiteSettingsConfig',
 	'shared.apps.SharedConfig',
 ]
@@ -136,14 +136,15 @@ DATABASES = {
 	}
 }
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
+AUTHENTICATION_BACKENDS = [
+	"django.contrib.auth.backends.ModelBackend",
+	"authens.backends.ENSCASBackend",
+]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'accounts.EmailUser'
 AUTH_PROFILE_MODULE = 'home.ParticipantModel'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -179,7 +180,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = 'accounts:login'
+LOGIN_URL = 'authens:login'
 LOGIN_REDIRECT_URL = 'profile'
 
 # Prefix to mails to admins

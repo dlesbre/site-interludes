@@ -22,7 +22,7 @@ urlpatterns = [
 		name='django.contrib.sitemaps.views.sitemap'
 	),
 	path('admin_pages/', include(('admin_pages.urls', 'admin_pages'), namespace="admin_pages")),
-	path('accounts/', include("accounts.urls")),
+	path("authens/", include("authens.urls")),
 ]
 
 if settings.DEBUG:
