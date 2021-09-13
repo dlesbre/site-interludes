@@ -9,10 +9,6 @@
 	<form id="main_form" method="post" action="{% url 'inscription' %}">
 		{% csrf_token %}
 
-		Cette année, l'événement étant en distanciel, il est gratuit.
-
-		<h3>Choix d'activités</h3>
-
 		<p>Saissisez les activités auquelles vous voulez vous inscrire, par ordre de préférence.
 			Vous trouverez une description des activités sur <a href="{% url 'activites' %}">cette page</a>.
 		</p>

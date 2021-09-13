@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -181,7 +183,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'authens:login'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = reverse_lazy('profile')
 
 # Prefix to mails to admins
 EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '
