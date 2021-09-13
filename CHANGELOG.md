@@ -2,6 +2,9 @@
 
 ## Version ??? - Coming soon
 
+- Removed all mention of interludes
+- Removed interludes specific fields in models
+- switched to authens for account management
 - Added a form that allows admins to send emails to all users
 - Added a form for users to submit activities
 - Added a changeable caption for the planning
