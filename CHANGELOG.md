@@ -1,6 +1,6 @@
 # Change Log
 
-## Version ??? - Coming soon
+## Version 2.0.0 - 2021-09-14
 
 - Removed all mention of interludes
 - Removed interludes specific fields in models
