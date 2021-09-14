@@ -2,6 +2,8 @@
 
 Ce répo contient le sites des interludes. Ce site est en ligne à [https://interludes.ens.fr](https://interludes.ens.fr).
 
+Ce répo est une copie du répo initial sur le [git interne de l'ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes).
+
 Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses/mit/).
 
 **Contenu:**
@@ -136,5 +138,7 @@ A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
 ## Liens divers
 
 - [Le site des interludes 2021](https://interludes.ens.fr)
+- [Le répo initial](https://git.eleves.ens.fr/dlesbre/site-interludes) sur le gitlab de l'ENS Ulm
+- [Le fork 48h des jeux](https://git.eleves.ens.fr/dlesbre/48h-des-jeux) également sur le gitlab de l'ENS Ulm, c'est le site d'un événement très similaire.
 - [Le github de l'algorithme de répartition](https://github.com/Imakoala/InterludesMatchings)
 - [Le wiki de Paris-Saclay](https://wiki.crans.org/VieBdl/InterLudes) qui recensent les visuels, sites webs et photos des interludes passées.
