@@ -1,9 +1,9 @@
 :root {
 	--color-bg: #fefefe;
-	--color_bg_2: #575451;
-	--color_bg_1: #171514;
-	--color_bg_3: #42403c;
-	--color_sep: #d13f3f;
+	--color_bg_1: #263c26;
+	--color_bg_2: #4c7c4c;
+	--color_bg_3: #286228;
+	--color_sep: #eb811b;
 	--color_header: var(--color-bg);
 }
 
@@ -189,8 +189,8 @@ main h2 {
 	font-size: 1.5rem;
 	font-weight: bold;
 	text-align: left;
-	border-bottom: 3px solid var(--color_sep);
-	border-image-source: linear-gradient(to right, var(--color_sep) 0%, transparent 75%);
+	border-bottom: 3px solid var(--color_bg_2);
+	border-image-source: linear-gradient(to right, var(--color_bg_2) 0%, transparent 75%);
 	border-image-slice: 1;
 }
 main h3 {
