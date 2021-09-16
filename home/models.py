@@ -167,8 +167,9 @@ class ActivityModel(models.Model):
 
 	@property
 	def pretty_type(self) -> str:
-		type = self.Types(self.act_type).label
-		return type
+		type = self.ActivityTypes(self.act_type).label
+		game = self.GameTypes(self.game_type).label
+		return "{}, {}".format(game, type.lower())
 		# status = self.Status(self.status)
 		# status_repr = "présentiel ou distanciel"
 		# if status == self.Status.DISTANT:

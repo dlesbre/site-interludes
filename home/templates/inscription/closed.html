@@ -4,6 +4,11 @@
 
 {% block "content" %}
 	<h2>Inscriptions</h2>
+
+	<ul class="messagelist"><li class="info">
+		Les inscriptions sont facultatives. Vous pouvez venir même sans être inscrit.
+	</li></ul>
+
 	{% if settings.inscriptions_not_open_yet %}
 		<p>Les inscriptions ne sont pas encores ouvertes.</p>
 		<p>Leur ouverture est prévue le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
@@ -11,7 +16,7 @@
 	{% elif settings.inscriptions_have_closed %}
 		<p>Les inscriptions sont fermées.</p>
 		<p>
-			Les inscriptions cette année sont facultatives,
+			Les inscriptions sont facultatives,
 			tu peux quand même venir à l'événement et participer aux jeux libres et
 			aux activités qui ne nécessitent pas d'inscription.
 		</p>

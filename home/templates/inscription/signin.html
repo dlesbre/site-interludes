@@ -4,9 +4,12 @@
 
 {% block "content" %}
 	<h2>Inscriptions</h2>
+	<ul class="messagelist"><li class="info">
+		Les inscriptions sont facultatives. Vous pouvez venir même sans être inscrit.
+	</li></ul>
 	<p>Vous devez être connecté pour pouvoir vous inscrire à l'événement.</p>
 	<p>Aller à la page de <a href="{% url 'authens:login' %}">connexion</a> pour vous connectez.</p>
 	{% if settings.inscriptions_end %}
-		<p>Les inscriptions seront ouvertes jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }})</p>
+		<p>Les inscriptions seront ouvertes jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}</p>
 	{% endif %}
 {% endblock %}
