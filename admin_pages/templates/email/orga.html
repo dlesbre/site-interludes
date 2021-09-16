@@ -7,7 +7,6 @@ Voici la liste des participant·e·s inscrit·e·s à votre activité {{ activit
 {% for participant in slot.participants %}
 - {{ participant.participant }} {{ participant.participant.user.email }}{% empty %}
 - Aucun participant inscrit.{% endfor %}
-
 {% empty %}- Aucun créneau d'inscription.{% endfor %}
 
 --
