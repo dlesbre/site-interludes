@@ -24,6 +24,12 @@
 
 	<h3>Organisateurs</h3>
 
+	<table>
+		<tr><td><strong>Nom&nbsp;:</strong></td><td> {{ form.host_name }}</td></tr>
+		<tr><td><strong>Email&nbsp;:</strong></td><td> {{ form.host_email }}</td></tr>
+		<tr><td><strong>Compte associé&nbsp;:&nbsp;</strong></td><td> {{ request.user.username }}</td></tr>
+	</table>
+
 	<p>
 		L'email de votre compte sera le principal moyen de contact.
 		Vous pouvez spécifiez d'autre moyen de contact ci-dessous, ainsi que d'autres

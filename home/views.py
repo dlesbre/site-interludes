@@ -185,6 +185,12 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 		messages.error(request, "La soumission d'activité est desactivée")
 		return redirect(self.success_url, permanent=False)
 
+	def get_initial(self):
+		init = super().get_initial()
+		user = self.request.user
+		init.update({"host_name": user.username, "host_email": user.email})
+		return init
+
 	def get(self, request, *args, **kwargs):
 		if not self.submission_check():
 			return self.not_open(request)
@@ -199,7 +205,7 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 			context["form"] = form
 			return render(request, self.template_name, context)
 
-		form.save(user=request.user)
+		form.save()
 
 		messages.success(request, "Votre activité a bien été enregistrée. Elle sera affichée sur le site après relecture par les admins.")
 		return redirect(self.success_url, permanent=False)
