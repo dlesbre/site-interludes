@@ -150,6 +150,10 @@
 
 	<h2>Prévisualisation du planning</h2>
 
+	<ul class="messagelist">
+		{{ planning_validation|safe }}
+	</ul>
+
 	<p>Vous pouver uploader une version PDF dans le réglages (depuis django-admin)</p>
 
 	{% include "_planning.html" %}

@@ -165,6 +165,26 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			)
 		return '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
 
+	def planning_validation(self):
+		"""Vérifie que toutes les activités ont le bon nombre de créneaux
+		dans le planning"""
+		errors = ""
+		activities = models.ActivityModel.objects.all()
+		for activity in activities:
+			nb_wanted = activity.desired_slot_nb
+			nb_got = models.SlotModel.objects.filter(activity=activity).count()
+			if nb_wanted != nb_got:
+				errors += '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
+					activity.title, nb_wanted, nb_got
+				)
+		if errors:
+			return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(
+				errors
+			)
+		return '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
+
+
+
 	def validate_activity_allocation(self):
 		settings = SiteSettings.load()
 		validations = '<ul class="messagelist">'
@@ -195,11 +215,14 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		).count()
 
 		return {
+			"planning_validation": self.planning_validation,
 			"validations": validations,
 			"user_email_nb": user_email_nb,
 			"orga_email_nb": orga_email_nb,
 			"validation_errors": '<li class="error">' in validations
 		}
+
+
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
