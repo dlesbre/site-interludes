@@ -338,6 +338,8 @@ class SendEmailBase(SuperuserRequiredMixin, RedirectView):
 class SendUserEmail(SendEmailBase):
 	"""Envoie aux utilisateurs leur repartition d'activité"""
 
+	failures = 0
+
 	def get_emails(self):
 		"""genere les mails a envoyer"""
 		participants = models.ParticipantModel.objects.filter(
@@ -346,19 +348,22 @@ class SendUserEmail(SendEmailBase):
 		emails = []
 		site_settings = SiteSettings.load()
 		for participant in participants:
-			my_choices = models.ActivityChoicesModel.objects.filter(participant=participant)
-			message = render_to_string("email/user.html", {
-				"user": participant.user,
-				"settings": site_settings,
-				"requested_activities_nb": my_choices.count(),
-				"my_choices": my_choices.filter(accepted=True),
-			})
-			emails.append((
-				settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités", # subject
-				message,
-				self.from_address, # From:
-				[participant.user.email], # To:
-			))
+			if participant.user.email:
+				my_choices = models.ActivityChoicesModel.objects.filter(participant=participant)
+				message = render_to_string("email/user.html", {
+					"user": participant.user,
+					"settings": site_settings,
+					"requested_activities_nb": my_choices.count(),
+					"my_choices": my_choices.filter(accepted=True),
+				})
+				emails.append((
+					settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités", # subject
+					message,
+					self.from_address, # From:
+					[participant.user.email], # To:
+				))
+			else:
+				self.failures += 1
 		return emails
 
 	def send_emails(self):
@@ -374,10 +379,14 @@ class SendUserEmail(SendEmailBase):
 		mail_admins(
 			"Emails de répartition envoyés aux participants",
 			"Les participants ont reçu un mail leur communiquant la répartition des activités\n"
-			"Nombre total de mail envoyés: {}\n\n"
-			"{}".format(nb_sent, settings.EMAIL_SIGNATURE)
+			"Nombre total de mail envoyés: {}\n"
+			"Nombre total d'utilisateurs sans email: {}\n\n"
+			"{}".format(nb_sent, self.failures, settings.EMAIL_SIGNATURE)
 		)
 		messages.success(self.request, "{} mails envoyés aux utilisateurs".format(nb_sent))
+		if self.failures:
+			messages.warning(self.request, "{} utilisateurs n'ont pas d'email renseigné et n'ont donc rien reçu".format(self.failures))
+			self.failures = 0
 
 class SendOrgaEmail(SendEmailBase):
 	"""
