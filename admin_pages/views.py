@@ -172,7 +172,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 		activities = models.ActivityModel.objects.all()
 		for activity in activities:
 			nb_wanted = activity.desired_slot_nb
-			nb_got = models.SlotModel.objects.filter(activity=activity).count()
+			nb_got = activity.slots.count()
 			if nb_wanted != nb_got:
 				errors += '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
 					activity.title, nb_wanted, nb_got
@@ -182,8 +182,6 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 				errors
 			)
 		return '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
-
-
 
 	def validate_activity_allocation(self):
 		settings = SiteSettings.load()
@@ -221,8 +219,6 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			"orga_email_nb": orga_email_nb,
 			"validation_errors": '<li class="error">' in validations
 		}
-
-
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
@@ -345,15 +341,15 @@ class SendUserEmail(SendEmailBase):
 	def get_emails(self):
 		"""genere les mails a envoyer"""
 		participants = models.ParticipantModel.objects.filter(
-			is_registered=True, participant__user__is_active=True
+			is_registered=True, user__is_active=True
 		)
 		emails = []
-		settings = SiteSettings.load()
+		site_settings = SiteSettings.load()
 		for participant in participants:
 			my_choices = models.ActivityChoicesModel.objects.filter(participant=participant)
 			message = render_to_string("email/user.html", {
 				"user": participant.user,
-				"settings": settings,
+				"settings": site_settings,
 				"requested_activities_nb": my_choices.count(),
 				"my_choices": my_choices.filter(accepted=True),
 			})
@@ -366,12 +362,12 @@ class SendUserEmail(SendEmailBase):
 		return emails
 
 	def send_emails(self):
-		settings = SiteSettings.load()
-		if settings.user_notified:
+		site_settings = SiteSettings.load()
+		if site_settings.user_notified:
 			messages.error(self.request, "Les participants ont déjà reçu un mail annonçant la répartition. Modifiez les réglages pour en envoyer un autre")
 			return
-		settings.user_notified = True
-		settings.save()
+		site_settings.user_notified = True
+		site_settings.save()
 		emails = self.get_emails()
 
 		nb_sent = send_mass_mail(emails, fail_silently=False)
@@ -393,12 +389,12 @@ class SendOrgaEmail(SendEmailBase):
 		"""genere les mails a envoyer"""
 		activities = models.ActivityModel.objects.filter(communicate_participants=True)
 		emails = []
-		settings = SiteSettings.load()
+		site_settings = SiteSettings.load()
 		for activity in activities:
 			slots = models.SlotModel.objects.filter(activity=activity)
 			message = render_to_string("email/orga.html", {
 				"activity": activity,
-				"settings": settings,
+				"settings": site_settings,
 				"slots": slots,
 			})
 			emails.append((
@@ -411,12 +407,12 @@ class SendOrgaEmail(SendEmailBase):
 		return emails
 
 	def send_emails(self):
-		settings = SiteSettings.load()
-		if settings.orga_notified:
+		site_settings = SiteSettings.load()
+		if site_settings.orga_notified:
 			messages.error(self.request, "Les orgas ont déjà reçu un mail avec leur listes d'inscrits. Modifiez les réglages pour en envoyer un autre")
 			return
-		settings.orga_notified = True
-		settings.save()
+		site_settings.orga_notified = True
+		site_settings.save()
 		emails = self.get_emails()
 
 		nb_sent = send_mass_mail(emails, fail_silently=False)

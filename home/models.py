@@ -222,7 +222,7 @@ class SlotModel(models.Model):
 		help_text="Si vrai, apparaît dans la liste du formulaire d'inscription"
 	)
 	color = models.CharField(
-		"Couleur", choices=Colors.choices, max_length=1, default=Colors.DARK_BLUE,
+		"Couleur", choices=Colors.choices, max_length=1, default=Colors.RED,
 		help_text="La légende des couleurs est modifiable dans les paramètres"
 	)
 
