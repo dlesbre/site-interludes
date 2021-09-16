@@ -42,6 +42,9 @@ def import_secret(name):
 SECRET_KEY = import_secret("SECRET_KEY")
 
 DB_NAME = import_secret("DB_NAME")
+DB_USER = import_secret("DB_USER")
+DB_PASSWORD = import_secret("DB_PASSWORD")
+
 
 ADMINS = import_secret("ADMINS")
 
@@ -137,6 +140,7 @@ DATABASES = {
 		'NAME': os.path.join(BASE_DIR, DB_NAME),
 	}
 }
+
 
 AUTHENTICATION_BACKENDS = [
 	"django.contrib.auth.backends.ModelBackend",
