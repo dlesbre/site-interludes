@@ -14,7 +14,7 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des activités dans la vue django admin"""
 	filename = "export_activites.csv"
 	list_display = ("title", "host_name", "display", "must_subscribe",)
-	list_filter = ("display", "must_subscribe", "status",)
+	list_filter = ("display", "must_subscribe",)
 	ordering = ("title", "host_name",)
 	list_editable = ("display",)
 	fields = (
@@ -38,7 +38,7 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 			"available_sunday_afternoon"
 		),
 		"constraints",
-		"status", "needs",
+		"needs",
 		"comments",
 	)
 	list_per_page = 100
@@ -53,7 +53,7 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 		'available_saturday_morning', 'available_saturday_afternoon',
 		'available_saturday_evening', 'available_saturday_night',
 		'available_sunday_morning', 'available_sunday_afternoon',
-		'constraints', 'status', 'needs', 'comments'
+		'constraints', 'needs', 'comments'
 	]
 
 

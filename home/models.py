@@ -18,12 +18,6 @@ def validate_nonzero(value):
 class ActivityModel(models.Model):
 	"""une activité (i.e. JDR, murder)..."""
 
-	class Status(models.TextChoices):
-		"""en presentiel ou non"""
-		PRESENT = "P", _("En présentiel uniquement")
-		DISTANT = "D", _("En distanciel uniquement")
-		BOTH = "2", _("Les deux")
-
 	class ActivityTypes(models.TextChoices):
 		"""quantité d'activité"""
 		GAME = "1 partie", _("Une partie")
@@ -138,7 +132,6 @@ class ActivityModel(models.Model):
 		"Contraintes particulières", max_length=2000, blank=True, null=True
 	)
 
-	status = models.CharField("Présentiel/distanciel", choices=Status.choices, max_length=1)
 	needs = models.TextField(
 		"Besoin particuliers", max_length=2000, blank=True, null=True
 	)
@@ -170,13 +163,6 @@ class ActivityModel(models.Model):
 		type = self.ActivityTypes(self.act_type).label
 		game = self.GameTypes(self.game_type).label
 		return "{}, {}".format(game, type.lower())
-		# status = self.Status(self.status)
-		# status_repr = "présentiel ou distanciel"
-		# if status == self.Status.DISTANT:
-		# 	status_repr = "distanciel"
-		# elif status == self.Status.PRESENT:
-		# 	status_repr = "présentiel"
-		# return "{} ({})".format(type, status_repr)
 
 	@property
 	def slug(self) -> str:

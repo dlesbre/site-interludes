@@ -82,7 +82,7 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 			"available_sunday_afternoon",
 			"constraints",
 
-			"status", "needs",
+			"needs",
 
 			"comments",
 		)

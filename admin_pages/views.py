@@ -51,9 +51,6 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			displayed = acts.filter(display=True).count()
 			act_ins = acts.filter(display=True, must_subscribe=True).count()
 			communicate = acts.filter(communicate_participants=True).count()
-			st_present = acts.filter(display=True, status=models.ActivityModel.Status.PRESENT).count()
-			st_distant = acts.filter(display=True, status=models.ActivityModel.Status.DISTANT).count()
-			st_both = acts.filter(display=True, status=models.ActivityModel.Status.BOTH).count()
 
 			slots = slots_in.count()
 			true_ins = slots_in.filter(subscribing_open=True).count()
@@ -247,7 +244,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 		'available_saturday_morning', 'available_saturday_afternoon',
 		'available_saturday_evening', 'available_saturday_night',
 		'available_sunday_morning', 'available_sunday_afternoon',
-		'constraints', 'status', 'needs', 'comments'
+		'constraints', 'needs', 'comments'
 	]
 
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
