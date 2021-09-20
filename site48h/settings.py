@@ -159,7 +159,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Session time in seconds
-SESSION_COOKIE_AGE = 3600
+# 5h because sessions are mainly used to scan QR codes
+# and I don't want them to have to reconnect every damn time
+SESSION_COOKIE_AGE = 18000
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
