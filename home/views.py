@@ -57,7 +57,7 @@ class FAQView(TemplateView):
 	template_name = "faq.html"
 
 
-class TableView(RedirectView, LoginRequiredMixin):
+class TableView(LoginRequiredMixin, RedirectView):
 	url = reverse_lazy("home")
 
 	def get(self, request, id=id, *args, **kwargs):
