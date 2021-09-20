@@ -272,3 +272,20 @@ class SlotModel(models.Model):
 	class Meta:
 		verbose_name = "créneau"
 		verbose_name_plural = "créneaux"
+
+class AdjacencyModel(models.Model):
+	"""Liste de contacts
+	a.k.a. qui a été a quelle table quand"""
+
+	user = models.ForeignKey(
+		User, on_delete=models.CASCADE,
+		verbose_name="Utilisateur",
+	)
+	table = models.PositiveIntegerField(
+		"table"
+	)
+	time = models.DateTimeField("date et heure")
+
+	class Meta:
+		verbose_name = "adjacence"
+		verbose_name_plural = "adjacences"

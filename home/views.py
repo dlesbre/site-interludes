@@ -6,6 +6,7 @@ from django.contrib.sitemaps import Sitemap
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.views.generic import FormView, RedirectView, TemplateView, View
 
 from authens.views import LogoutView as AuthensLogoutView
@@ -55,6 +56,17 @@ class FAQView(TemplateView):
 	"""Vue pour la FAQ"""
 	template_name = "faq.html"
 
+
+class TableView(RedirectView, LoginRequiredMixin):
+	url = reverse_lazy("home")
+
+	def get(self, request, id=id, *args, **kwargs):
+		contact = models.AdjacencyModel(
+			time=timezone.now(), user=request.user, table=id
+		)
+		contact.save()
+		messages.success(request, "Présence à la table {} enregistrée".format(id))
+		return super().get(request, id=id, *args, **kwargs)
 
 # ==============================
 # Activity Submission Form

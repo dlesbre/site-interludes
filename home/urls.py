@@ -13,6 +13,7 @@ urlpatterns = [
 	path('activites/', views.ActivityView.as_view(), name = 'activites'),
 	path('activites/nouvelle/', views.ActivitySubmissionView.as_view(), name = 'activity_submission'),
 	path('faq/', views.FAQView.as_view(), name = 'FAQ'),
+	path('table/<id>', views.TableView.as_view(), name = 'table'),
 	path('favicon.ico', RedirectView.as_view(url='/static/imgs/favicon.ico')),
 	path(
 		'sitemap.xml', sitemap, {'sitemaps': sitemaps},
