@@ -49,6 +49,10 @@
 			{% endif %}
 			<dt>Type :</dt><dd>{{ activity.pretty_type }}</dd>
 			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
+			{% if settings.show_host_emails and activity.must_subscribe %}
+			<dt>Contact :</dt><dd><a href="mailto:{{ activity.host_email }}">{{ activity.host_email }}</a></dd>
+			{% endif %}
+
 			{% if activity.slots %}
 			<dt>Heure<!--/Lieu--> :</dt><dd>{% for slot in activity.slots %}
 				{{ slot.start|date:"l H:i" }}<!-- {{ slot.room }} -->{% if not forloop.last %},<br> {% endif %}

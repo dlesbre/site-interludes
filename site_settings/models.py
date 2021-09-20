@@ -78,7 +78,10 @@ class SiteSettings(SingletonModel):
 		"Ouvrir l'ajout d'activité", default=False,
 		help_text="Permet de proposer une activité via le formulaire dédié"
 	)
-
+	show_host_emails = models.BooleanField(
+		"Afficher les mails des orgas d'activités", default=False,
+		help_text="Ces mail sont affichés sur la page activités pour que les gens puissent les contacter"
+	)
 
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 	planning_file = models.FileField(

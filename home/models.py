@@ -147,7 +147,12 @@ class ActivityModel(models.Model):
 		else:
 			ret = "{} - {}".format(self.min_participants, self.max_participants)
 		if self.must_subscribe:
-			ret += " (sur inscription)"
+
+			settings = SiteSettings.load()
+			if settings.show_host_emails:
+				ret += " (sur inscription)"
+			else:
+				ret += " (sur inscription)"
 		return ret
 
 	@property
@@ -212,12 +217,6 @@ class SlotModel(models.Model):
 		if self.duration:
 			return self.start + self.duration
 		return self.start + self.activity.duration
-
-	def conflicts(self, other: "SlotModel") -> bool:
-		"""Check whether these slots overlap"""
-		if self.start <= other.start:
-			return other.start <= self.end
-		return self.start <= other.end
 
 	@staticmethod
 	def relative_day(date: datetime.datetime) -> int:
