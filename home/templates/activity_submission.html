@@ -41,8 +41,9 @@
 	<h3>Participants et inscription</h3>
 
 	<table>
-		<tr><td><strong>Nécessite une inscription&nbsp;:</strong></td><td> {{ form.must_subscribe }}</td></tr>
-		<tr><td><strong>Me communiquer la liste des participants à l'avance&nbsp;:</strong></td><td> {{ form.communicate_participants }}</td></tr>
+		<tr><td><strong>Nécessite une inscription&nbsp;:</strong></td><td> {{ form.must_subscribe }}
+			(si vrai, votre email sera affiché pour que les intéressés vous contacte)
+		</td></tr>
 		<tr><td><strong>Nombre max de participants&nbsp;:</strong></td><td> {{ form.max_participants }} (mettez 0 pour illimité)</td></tr>
 		{% if form.max_participants.errors %}<tr><td></td><td>{{ form.max_participants.errors }}</td></tr>{% endif %}
 		<tr><td><strong>Nombre min de participants&nbsp;:</strong></td><td> {{ form.min_participants }}</td></tr>
@@ -94,7 +95,7 @@
 
 	<div class="flex">
 		<input type="submit" value="Soumettre mon activité">
-		<a class="button" href="{% url 'profile' %}">Annuler</a>
+		<a class="button" href="{% url 'home' %}">Annuler</a>
 	</div>
 
 </form>

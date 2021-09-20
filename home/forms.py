@@ -5,60 +5,6 @@ from home import models
 from shared.forms import FormRenderMixin
 
 
-class InscriptionForm(FormRenderMixin, forms.ModelForm):
-
-	class Meta:
-		model = models.ParticipantModel
-		fields = (
-			"sleeps", # "mug",
-			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
-			"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
-		)
-
-	field_groups = [["sleeps"], #["mug"],
-		[
-			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
-			"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
-		]
-	]
-
-	def save(self, *args, commit=True, **kwargs):
-		participant = super().save(*args, commit=False, **kwargs)
-		participant.is_registered = True
-		if commit:
-			participant.save()
-		return participant
-
-class ActivityForm(FormRenderMixin, forms.ModelForm):
-	class Meta:
-		model = models.ActivityChoicesModel
-		fields = ("slot",)
-		labels = {"slot":""}
-
-	def __init__(self, *args, **kwargs):
-		super(ActivityForm, self).__init__(*args, **kwargs)
-		slots = models.SlotModel.objects.filter(subscribing_open=True)
-		self.fields['slot'].queryset = slots
-
-class BaseActivityFormSet(forms.BaseFormSet):
-	"""Form set that fails if duplicate activities"""
-	def clean(self):
-		"""Checks for duplicate activities"""
-		if any(self.errors):
-			# Don't bother validating the formset unless each form is valid on its own
-			return
-		activities = []
-		for form in self.forms:
-			if self.can_delete and self._should_delete_form(form):
-				continue
-			activity = form.cleaned_data.get('slot')
-			if activity is None:
-				continue
-			if activity in activities:
-				raise ValidationError("Vous ne pouvez pas sélectionner une même activtté plusieurs fois")
-			activities.append(activity)
-
-
 class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 
 	class Meta:
@@ -68,7 +14,7 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 
 			"host_name", "host_email", "host_info",
 
-			"must_subscribe", "communicate_participants",
+			"must_subscribe",
 			"max_participants",	"min_participants",
 
 			"duration", "desired_slot_nb",

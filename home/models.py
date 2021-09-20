@@ -71,16 +71,14 @@ class ActivityModel(models.Model):
 	)
 	host_email = models.EmailField(
 		"email de l'organisateur",
-		help_text="Utilisé pour communiquer la liste des participants si demandé"
 	)
 	host_info = models.TextField(
 		"Autre orgas/contacts", max_length=1000, blank=True, null=True
 	)
 
 	must_subscribe = models.BooleanField("sur inscription", default=False,
-		help_text="Informatif, il faut utiliser les créneaux pour ajouter dans la liste d'inscription"
+		help_text="Informatif"
 	)
-	communicate_participants = models.BooleanField("communiquer la liste des participants à l'orga avant l'événement")
 	max_participants = models.PositiveIntegerField(
 		"Nombre maximum de participants", help_text="0 pour illimité", default=0
 	)
@@ -183,8 +181,7 @@ class ActivityModel(models.Model):
 
 class SlotModel(models.Model):
 	"""Crénaux indiquant ou une activité se place dans le planning
-	Dans une table à part car un activité peut avoir plusieurs créneaux.
-	Les inscriptions se font à des créneaux et non des activités"""
+	Dans une table à part car un activité peut avoir plusieurs créneaux"""
 
 	TITLE_SPECIFIER = "{act_title}"
 
@@ -204,17 +201,10 @@ class SlotModel(models.Model):
 		"afficher sur le planning", default=False,
 		help_text="Nécessite de salle et heure de début non vide",
 	)
-	subscribing_open = models.BooleanField("ouvert aux inscriptions", default=False,
-		help_text="Si vrai, apparaît dans la liste du formulaire d'inscription"
-	)
 	color = models.CharField(
 		"Couleur", choices=Colors.choices, max_length=1, default=Colors.RED,
 		help_text="La légende des couleurs est modifiable dans les paramètres"
 	)
-
-	@property
-	def participants(self):
-		return ActivityChoicesModel.objects.filter(slot=self, accepted=True)
 
 	@property
 	def end(self):
@@ -283,58 +273,3 @@ class SlotModel(models.Model):
 	class Meta:
 		verbose_name = "créneau"
 		verbose_name_plural = "créneaux"
-
-
-class ParticipantModel(models.Model):
-	"""un participant"""
-
-
-	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="Utilisateur")
-
-	is_registered = models.BooleanField("est inscrit", default=False)
-
-	meal_friday_evening = models.BooleanField("repas de vendredi soir", default=False)
-	meal_saturday_morning = models.BooleanField("repas de samedi matin", default=False)
-	meal_saturday_midday = models.BooleanField("repas de samedi midi", default=False)
-	meal_saturday_evening = models.BooleanField("repas de samedi soir", default=False)
-	meal_sunday_morning = models.BooleanField("repas de dimanche matin", default=False)
-	meal_sunday_midday = models.BooleanField("repas de dimanche soir", default=False)
-
-	sleeps = models.BooleanField("dormir sur place", default=False)
-
-	# mug = models.BooleanField("commander une tasse", default=False)
-
-	def __str__(self) -> str:
-		return "{}".format(self.user.username)
-
-	@property
-	def nb_meals(self) -> int:
-		return (
-			self.meal_friday_evening + self.meal_saturday_evening + self.meal_saturday_midday +
-			self.meal_saturday_morning + self.meal_sunday_midday + self.meal_sunday_morning
-		)
-
-	class Meta:
-		verbose_name = "participant"
-
-
-class ActivityChoicesModel(models.Model):
-	"""liste d'activités souhaitée de chaque participant,
-	avec un order de priorité"""
-	priority = models.PositiveIntegerField("priorité")
-	participant = models.ForeignKey(
-		ParticipantModel, on_delete=models.CASCADE, verbose_name="participant",
-	)
-	slot = models.ForeignKey(
-		SlotModel, on_delete=models.CASCADE, verbose_name="créneau",
-	)
-	accepted = models.BooleanField("Obtenue", default=False)
-
-	class Meta:
-		# couples uniques
-		unique_together = (("priority", "participant"), ("participant", "slot"))
-		ordering = ("participant", "priority")
-		verbose_name = "choix d'activités"
-		verbose_name_plural = "choix d'activités"
-
-User.profile = property(lambda user: ParticipantModel.objects.get_or_create(user=user)[0])

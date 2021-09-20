@@ -10,10 +10,8 @@
 	<h2>Page d'administration</h2>
 	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }}</strong></p>
 	<div class="flex wrap">
-		<a class="button" href="{% url 'admin_pages:participants.csv' %}"><i class="fa fa-download"></i> Participants</a>
 		<a class="button" href="{% url 'admin_pages:activities.csv' %}"><i class="fa fa-download"></i> Activités</a>
 		<a class="button" href="{% url 'admin_pages:slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>
-		<a class="button" href="{% url 'admin_pages:activity_choices.csv' %}"><i class="fa fa-download"></i> Choix d'activités</a>
 	</div>
 	<ul class="messagelist">
 		<li class="info">
@@ -25,12 +23,6 @@
 
 		<ul>
 			<li>La création de compte est {% if settings.registrations_open %}ouverte{% else %}fermée{% endif %}.</li>
-			<li>Les inscriptions sont {% if settings.inscriptions_open %}ouvertes{% else %}fermées{% endif %}. Dates informatives:
-				<ul>
-					<li>Ouverture : {{ settings.inscriptions_start|default:"non fixée" }}</li>
-					<li>Fermeture : {{ settings.inscriptions_end|default:"non fixée" }}</li>
-				</ul>
-			</li>
 			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 			<li>La répartition des activités {% if settings.activities_allocated %}est effectuée et affichée{% else %}n'est pas faite/affichée{% endif %}.</li>
 			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>
@@ -40,51 +32,9 @@
 
 	<div class="flex wrap lines">
 		<div class="stat">
-			<div class="qty">Participants</div>
-			<div class="nb_big">{{ metrics.participants }}</div>
+			<div class="qty">Utilisateurs</div>
+			<div class="nb_big">{{ metrics.users }}</div>
 		</div>
-		<div class="stat">
-			<div class="qty">Non inscrits</div>
-			<div class="nb_small">{{ metrics.non_registered }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Dormeurs</div>
-			<div class="nb_small">{{ metrics.sleeps }}</div>
-		</div>
-	</div>
-<!--
-	<div class="flex wrap lines">
-		<div class="stat">
-			<div class="qty">Repas</div>
-			<div class="nb_big">{{ metrics.meals }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Vendredi</div>
-			<div class="nb_small">{{ metrics.meal1 }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">S matin</div>
-			<div class="nb_small">{{ metrics.meal2 }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">S midi</div>
-			<div class="nb_small">{{ metrics.meal3 }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">S soir</div>
-			<div class="nb_small">{{ metrics.meal4 }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">D matin</div>
-			<div class="nb_small">{{ metrics.meal5 }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">D midi</div>
-			<div class="nb_small">{{ metrics.meal6 }}</div>
-		</div>
-	</div>
--->
-	<div class="flex wrap lines">
 		<div class="stat">
 			<div class="qty">Activités</div>
 			<div class="nb_big">{{ metrics.activites }}</div>
@@ -94,47 +44,15 @@
 			<div class="nb_small">{{ metrics.displayed }}</div>
 		</div>
 		<div class="stat">
-			<div class="qty">Inscription*</div>
+			<div class="qty">sur inscription</div>
 			<div class="nb_small">{{ metrics.act_ins }}</div>
 		</div>
-		<div class="stat">
-			<div class="qty">Mail orga</div>
-			<div class="nb_small">{{ metrics.communicate }}</div>
-		</div>
-	</div>
-
-	<div class="flex wrap lines">
 		<div class="stat">
 			<div class="qty">Planning</div>
 			<div class="nb_big">{{ metrics.slots }}</div>
 		</div>
-		<div class="stat">
-			<div class="qty">Inscription*</div>
-			<div class="nb_small">{{ metrics.true_ins }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Souhaits</div>
-			<div class="nb_small">{{ metrics.wish }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Obtenus</div>
-			<div class="nb_small">{{ metrics.granted }}</div>
-		</div>
-		<div class="stat">
-			<div class="qty">Malformé</div>
-			<div class="nb_small">{{ metrics.malformed }}</div>
-		</div>
+
 	</div>
-
-	<p>*Une activité peut avoir plusieurs créneaux sur le planning. Les inscriptions se font par créneaux donc le nombre
-		d'inscriptions de la catégorie "Activités" est seulement informatif .
-	</p>
-
-	{% if metrics.malformed %}
-	<ul class="messagelist"><li class="error">
-		Des activités non ouvertes aux inscriptions apparaissent dans les listes de souhait.
-	</li></ul>
-	{% endif %}
 
 	<h2>Prévisualisation du planning</h2>
 
@@ -146,75 +64,9 @@
 
 	{% include "_planning.html" %}
 
-	<h2>Répartition des activités</h2>
-
-	<p>La répartition se fait depuis la <a href="{% url 'admin:index' %}">page d'administration de django</a>,
-	dans la rebrique "Choix d'activités" via la colonne "obtenue".</p>
-
-	<p>Une fois la répartition effectuée, vérifiez qu'elle passe les tests avant d'envoyer les mails</p>
-
-	{{ validations|safe }}
-
-	<script type="text/javascript">
-		{% if validation_errors %}
-		  const errors = "!! Cette répartition ne passe PAS tous les tests !!\n\n";
-		{% else %}
-			const errors = "";
-		{% endif %}
-		{% if not settings.user_notified and settings.allow_mass_mail %}
-			function mail_inscrits() {
-				if (confirm(
-					`${errors}Cette action va envoyer {{ user_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
-				))
-					window.location = "{% url 'admin_pages:email_users' %}";
-			}
-		{% endif %}
-		{% if not settings.orga_notified and settings.allow_mass_mail %}
-			function mail_orgas() {
-				if (confirm(
-					`${errors}Cette action va envoyer {{ orga_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
-				))
-					window.location = "{% url 'admin_pages:email_orgas' %}";
-			}
-		{% endif %}
-	</script>
-	<p class="centered"><i class="fas fa-exclamation-triangle"></i> N'ENVOYER LES EMAILS QUE SI VOUS ÊTES SUR DE VOUS ! <i class="fas fa-exclamation-triangle"></i></p>
-	{% if not settings.allow_mass_mail %}
-		<p>L'envoi d'emails collectifs est désactivé dans les réglages. Activez le avant d'envoyer
-			et redésactivez le après.
-		</p>
-	{% endif %}
-	{% if settings.user_notified %}
-		<p>Un email communiquant la répartition aux utilisateurs a déjà été envoyé.
-			(Modifiez les paramètres s'il faut en renvoyer un)
-		</p>
-	{% else %}
-		<p>L'email aux inscrits enverra un email à tous les utilisateurs inscrits.</p>
-	{% endif %}
-	{% if settings.orga_notified %}
-		<p>Un email communiquant les inscrits aux organisateur à déjà été envoyé.
-			(Modifiez les paramètres s'il faut en renvoyer un)
-		</p>
-		{% else %}
-		<p>L'email aux orgas enverra un email uniquement aux orgas des activités qui ont demandé de communiquer la liste de participants.</p>
-	{% endif %}
-
-	<div class="flex wrap">
-		{% if settings.user_notified or not settings.allow_mass_mail %}
-			<button class="button disabled">Email aux inscrits</button>
-		{% else %}
-			<button class="button" onclick="mail_inscrits();">Email aux inscrits</button>
-		{% endif %}
-		{% if settings.orga_notified or not settings.allow_mass_mail %}
-			<button class="button disabled">Email aux orgas</button>
-		{% else %}
-			<button class="button" onclick="mail_orgas();">Email aux orgas</button>
-		{% endif %}
-	</div>
-
 	<h2>Mail aux utilisateurs</h2>
 
-	<p>Écrire un mail aux utilisateurs (tous ou seulement les inscrits)</p>
+	<p>Écrire un mail à tous les utilisateurs</p>
 
 	<p>Évitez de spammer. N'envoyez que si vraiment nécessaire.</p>
 

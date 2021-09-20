@@ -151,8 +151,6 @@ AUTHENTICATION_BACKENDS = [
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
-AUTH_PROFILE_MODULE = 'home.ParticipantModel'
-
 AUTH_PASSWORD_VALIDATORS = [
 	{ 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
 	{ 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
@@ -187,7 +185,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'authens:login'
-LOGIN_REDIRECT_URL = reverse_lazy('profile')
+LOGIN_REDIRECT_URL = reverse_lazy('home')
 
 # Prefix to mails to admins
 EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '

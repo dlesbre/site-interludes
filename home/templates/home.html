@@ -30,27 +30,17 @@
 		Voir la	<a href="{% url 'FAQ' %}">FAQ</a> pour plus de détails.
 	</p>
 
-	<h2>Inscriptions</h2>
-	<ul class="messagelist"><li class="info">
-		Les inscriptions sont facultatives.
-		Elles servent uniquement pour les activités avec préparation/au nombre de place limité.
-	</li></ul>
-	<p>
-		Ce site vous permettra de vous <a href="{% url 'inscription' %}">inscrire à l'événement</a> et
-		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées. L'événement est
-		<strong>gratuit</strong>.
-	</p>
-	{% if settings.inscriptions_start and settings.inscriptions_end %}
-		<p>Les inscriptions seront ouvertes
-			du <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>
-			au <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.
-		</p>
-	{% elif settings.inscriptions_start %}
-		<p>Les inscriptions ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
-	{% elif settings.inscriptions_end %}
-		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
-	{% endif %}
+	<h2>Activités</h2>
 
+	<p>
+		Ce site vous permettra de <a href="{% url 'activites' %}">voir les activités</a>
+		qui seront proposées au 48h des jeux. L'événement est	<strong>gratuit</strong>.
+	</p>
+	<p>
+		Certaines activités nécessitent une inscription
+		(car nombre de places limités ou nécessitant une préparation). Si c'est le cas,
+		vous pouvez contacter l'orga par email pour vous y inscrire.
+	</p>
 
 	<p>Pour plus de détails, consultez la <a href="{% url 'FAQ' %}">FAQ</a>.</p>
 

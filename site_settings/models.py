@@ -73,20 +73,12 @@ class SiteSettings(SingletonModel):
 	date_end = models.DateField("Date de fin", blank=True, null=True)
 
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
-	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
+
 	activity_submission_open = models.BooleanField(
 		"Ouvrir l'ajout d'activité", default=False,
 		help_text="Permet de proposer une activité via le formulaire dédié"
 	)
 
-	inscriptions_start = models.DateTimeField("Ouverture des inscriptions",
-		blank=True, null=True,
-		help_text="Cette date n'est qu'informative. Les inscription s'ouvrent via la checkbox uniquement"
-	)
-	inscriptions_end = models.DateTimeField("Fermeture des inscriptions",
-		blank=True, null=True,
-		help_text="Cette date n'est qu'informative. Les inscription se ferment via la checkbox uniquement"
-	)
 
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 	planning_file = models.FileField(
@@ -94,25 +86,12 @@ class SiteSettings(SingletonModel):
 		storage=OverwriteStorage(),
 	)
 
-	activities_allocated = models.BooleanField(
-		"Afficher les activités obtenues", default=False,
-		help_text="Suppose que l'allocation des activités a été effectuée."
-	)
-
 
 	allow_mass_mail = models.BooleanField(
-		"Permettre l'envoi de mails collectifs (aux utilisateurs et orgas)", default=False,
+		"Permettre l'envoi de mails à tous les utilisateurs", default=False,
 		help_text="Par sécurité, n'activez ceci qu'au moment d'envoyer les emails et désactivez le après"
 	)
 
-	user_notified = models.BooleanField(
-		"L'email de répartition des activités a été envoyé", default=False,
-		help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails"
-	)
-	orga_notified = models.BooleanField(
-		"L'email de liste des participants a été envoyé", default=False,
-		help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails"
-	)
 
 	global_message = models.TextField("Message global", blank=True, null=True,
 		help_text="Message affiché en haut de chaque page (si non vide)"
@@ -152,22 +131,9 @@ class SiteSettings(SingletonModel):
 		blank=True, null=True, max_length=200,
 	)
 
-
 	@property
 	def contact_email_reversed(self) -> str:
 		return self.contact_email[::-1]
-
-	@property
-	def inscriptions_not_open_yet(self) -> bool:
-		if self.inscriptions_start:
-			return now() <= self.inscriptions_start
-		return False
-
-	@property
-	def inscriptions_have_closed(self) -> bool:
-		if self.inscriptions_end:
-			return now() >= self.inscriptions_end
-		return False
 
 	@property
 	def date_2(self):
