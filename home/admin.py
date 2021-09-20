@@ -76,4 +76,5 @@ class AdjacencyModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"user_id", "table", "time",
 	)
 	list_display = ("time", "table", "user",)
+	list_filter = ("table", "user",)
 	ordering = ("time", "table", "user",)

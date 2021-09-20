@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 2.1.0 - 2021-09-20
+
+- Removed inscription from the site, they will be done by email
+- Added links to register users to all tables
+- Update FAQ
+
 ## Version 2.0.0 - 2021-09-14
 
 - Removed all mention of interludes
