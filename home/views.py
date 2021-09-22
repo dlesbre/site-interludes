@@ -106,7 +106,7 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 			return self.not_open(request)
 		form = self.form_class(request.POST)
 		if not form.is_valid():
-			context = self.get_context_data
+			context = self.get_context_data()
 			context["form"] = form
 			return render(request, self.template_name, context)
 
