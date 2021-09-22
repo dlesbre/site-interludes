@@ -1,5 +1,10 @@
 # Change Log
 
+## Version 2.1.1 - 2021-09-22
+
+- Fix bug in activity submission form.
+- Update FAQ
+
 ## Version 2.1.0 - 2021-09-20
 
 - Removed inscription from the site, they will be done by email
