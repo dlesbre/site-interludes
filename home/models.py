@@ -289,5 +289,8 @@ class AdjacencyModel(models.Model):
 	)
 	time = models.DateTimeField("date et heure")
 
+	def __str__(self) -> str:
+		return "{} @ table {} @ {}".format(self.user.username, self.table, self.time)
+
 	class Meta:
 		verbose_name = "présence"
