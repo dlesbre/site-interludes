@@ -1,5 +1,6 @@
 from datetime import timedelta
 from pathlib import Path
+from typing import List
 
 from django.db import models
 from django.core.cache import cache
@@ -157,6 +158,11 @@ class SiteSettings(SingletonModel):
 			or self.caption_blue \
 			or self.caption_dark_blue \
 			or self.caption_black
+
+	@property
+	def tables(self) -> List[int]:
+		"""liste des table pour iteration dans une template"""
+		return [x for x in range(0, self.table_nb)]
 
 	class Meta:
 		verbose_name = "paramètres"

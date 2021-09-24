@@ -58,8 +58,18 @@ class FAQView(TemplateView):
 	template_name = "faq.html"
 
 
+class TablesView(TemplateView):
+	"""Vue pour la liste des tables"""
+	template_name = "tables.html"
+
+	def get(self, request, *args, **kwargs):
+		settings = SiteSettings.load()
+		if settings.table_nb == 0:
+			raise Http404()
+		return super().get(request, *args, **kwargs)
+
 class TableView(LoginRequiredMixin, RedirectView):
-	url = reverse_lazy("home")
+	url = reverse_lazy("tables")
 
 	def get(self, request, id=id, *args, **kwargs):
 		settings = SiteSettings.load()
