@@ -48,6 +48,9 @@ class ActivityModel(models.Model):
 	display = models.BooleanField("afficher dans la liste", default=False,
 		help_text="Si vrai, s'affiche sur la page activités"
 	)
+	show_email = models.BooleanField("afficher l'email de l'orga", default=True,
+		help_text="Si l'affichage d'email global et cette case sont vrai, affiche l'email de l'orga"
+	)
 
 	title = models.CharField("Titre", max_length=200)
 

@@ -22,7 +22,7 @@
 	{% endif %}
 
 	<h2>Activités</h2>
-	<p>Durant tout l'événement, des jeux seront en libre-service et des tables disponibles pour jouer.
+	<p>Durant tout l'événement, des jeux seront en libre-service au Pôt et des tables disponibles pour jouer.
 		Certaines activités ne pourront se faire qu'avec inscription au vue d'une préparation en amont ou
 		un nombre de places limité. Pour cela, contacter directement l'orga concerné.
 	</p>
@@ -49,7 +49,7 @@
 			{% endif %}
 			<dt>Type :</dt><dd>{{ activity.pretty_type }}</dd>
 			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
-			{% if settings.show_host_emails and activity.must_subscribe %}
+			{% if settings.show_host_emails and activity.show_email %}
 			<dt>Contact :</dt><dd><a href="mailto:{{ activity.host_email }}">{{ activity.host_email }}</a></dd>
 			{% endif %}
 
