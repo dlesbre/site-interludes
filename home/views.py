@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
 from django.forms import formset_factory
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
@@ -61,11 +62,16 @@ class TableView(LoginRequiredMixin, RedirectView):
 	url = reverse_lazy("home")
 
 	def get(self, request, id=id, *args, **kwargs):
+		settings = SiteSettings.load()
+		if settings.table_nb <= id:
+			raise Http404()
 		contact = models.AdjacencyModel(
 			time=timezone.now(), user=request.user, table=id
 		)
 		contact.save()
-		messages.success(request, "Présence à la table {} enregistrée".format(id))
+		messages.success(request, "{username}: présence à la table {id} enregistrée".format(
+			id=id, username=request.user.username)
+		)
 		return super().get(request, id=id, *args, **kwargs)
 
 # ==============================

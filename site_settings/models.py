@@ -88,6 +88,9 @@ class SiteSettings(SingletonModel):
 		verbose_name="Version PDF du planning", null=True, blank=True,
 		storage=OverwriteStorage(),
 	)
+	table_nb = models.PositiveIntegerField("Nombre de tables",
+		default=0, help_text="Permet le scan de QR codes pour les urls '/table/0' ... '/table/&lt;n-1&gt;'"
+	)
 
 
 	allow_mass_mail = models.BooleanField(
