@@ -290,5 +290,4 @@ class AdjacencyModel(models.Model):
 	time = models.DateTimeField("date et heure")
 
 	class Meta:
-		verbose_name = "adjacence"
-		verbose_name_plural = "adjacences"
+		verbose_name = "présence"
