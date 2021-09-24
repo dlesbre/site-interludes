@@ -135,7 +135,9 @@ nav a:hover {
 	background-color: var(--color_bg_3);
 	transition-duration: 0.5s;
 }
-
+nav a:focus {
+	background-color: var(--color_bg_3);
+}
 nav a.current {
 	background-color: var(--color_bg_1);
 }
@@ -244,6 +246,43 @@ main a:link {
 .antispam {
 	unicode-bidi: bidi-override;
 	direction: rtl;
+}
+
+.column {
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	text-align: center;
+	flex-direction: column;
+}
+
+.fancybutton {
+	display: block;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 10px;
+	color: var(--color_header);
+  padding: 10px;
+  border: 2px solid var(--color_bg_1);
+  background-color: var(--color_bg_2);
+  font: inherit;
+  margin: 10px 20px;
+}
+.fancybutton:hover {
+	background-color: var(--color_bg_3);
+}
+.fancybutton:focus {
+	background-color: var(--color_bg_3);
+	box-shadow: 0 0 1.5px 1px var(--color_bg_2);
+}
+.fancybutton:link {
+	text-decoration: none;
+	color: var(--color_header)
+}
+.fancybutton:visited {
+	text-decoration: none;
+	color: var(--color_header)
 }
 
 /* ===========================

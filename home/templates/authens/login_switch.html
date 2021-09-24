@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block nav_login %}current{% endblock %}
+
+{% block "content" %}
+
+<h2>Choissisez un mode de connexion</h2>
+
+<div class="column">
+	<a class="fancybutton" href="{% url 'authens:login.cas' %}?next={{ next| urlencode }}">Compte clipper</a>
+	<a class="fancybutton" href="{% url 'authens:login.pwd' %}?next={{ next| urlencode }}">Mot de passe</a>
+	<a class="fancybutton" href="{% url 'authens:login.oldcas' %}?next={{ next| urlencode }}">Vieilleux</a>
+	<p>Si vous n'avez pas de compte clipper, contactez nous. Nous vous créerons un compte.</p>
+	<p>Pour les non-clipper: <a href="{% url 'authens:reset.pwd' %}">mot de passe oublié/changer le mot de passe</a>.</p>
+</div>
+
+{% endblock %}

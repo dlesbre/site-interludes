@@ -72,13 +72,13 @@
 				</a>
 			{% else %}
 				<a href="{% url 'authens:login' %}"
-					class="{% block nav_login %}{% endblock %} ">
+					class="{% block nav_login %}{% endblock %}">
 					Connexion
 				</a>
 			{% endif %}
 			{% if user.is_superuser %}
 			<a href="{% url 'admin_pages:index' %}"
-				class="{% block nav_admin %}{% endblock %} ">
+				class="{% block nav_admin %}{% endblock %}">
 				Administration
 			</a>
 			{% endif %}
