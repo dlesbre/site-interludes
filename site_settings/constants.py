@@ -7,4 +7,4 @@ WEBSITE_FULL_VERSION = "{} - {}".format(
 )
 
 # Update this to force reload of cached css
-CSS_VERSION = "1.1"
+CSS_VERSION = "1.2"

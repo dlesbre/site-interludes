@@ -229,6 +229,10 @@ main a:link {
 	color: rgb(62, 62, 255);
 }
 
+.underline {
+	text-decoration: underline;
+}
+
 .flex {
 	display: flex;
 }
