@@ -252,9 +252,7 @@ main a:link {
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
-	display: flex;
 	text-align: center;
-	flex-direction: column;
 }
 
 .fancybutton {

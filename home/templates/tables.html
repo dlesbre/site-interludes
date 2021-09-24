@@ -27,8 +27,10 @@
 
 <h2>Liste des tables</h2>
 
+<div class="column">
 {% for id in settings.tables %}
-	<a href="{% url 'table' id=id %}" class="button">table {{ id }}</a>
+	<a href="{% url 'table' id=id %}" class="fancybutton">table {{ id }}</a>
 {% endfor %}
+</div>
 
 {% endblock %}
