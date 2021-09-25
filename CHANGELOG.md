@@ -1,5 +1,13 @@
 # Change Log
 
+## Version 2.2.0 - 2021-09-25
+
+- Added custom login choose page to add info
+- Update activity form to distinguish what is public/private
+- Added custom page for non QR-code presence signaling
+- Some changes to home/activity/FAQ texts
+- Small style changes
+
 ## Version 2.1.1 - 2021-09-22
 
 - Fix bug in activity submission form.
