@@ -1,6 +1,6 @@
 # Change Log
 
-## Version 2.2.0 - 2021-09-25
+## Version 2.2.0 - 2021-09-26
 
 - Added custom login choose page to add info
 - Update activity form to distinguish what is public/private

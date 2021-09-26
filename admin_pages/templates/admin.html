@@ -23,9 +23,10 @@
 	<h2>Paramètres du site</h2>
 
 		<ul>
-			<li>La création de compte est {% if settings.registrations_open %}ouverte{% else %}fermée{% endif %}.</li>
+			<li>Les emails des orgas sont {% if settings.show_host_emails %}affichés sur la page activité{% else %}masqués{% endif %}.</li>
+			<li>Nombre de tables: {{ table_nb }} (les urls valides sont [0, n-1])</li>
+			<li>L'envoi d'email en masse est {% if settings.allow_mass_email %}activé{% else %}désactivé{% endif %}</li>
 			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
-			<li>La répartition des activités {% if settings.activities_allocated %}est effectuée et affichée{% else %}n'est pas faite/affichée{% endif %}.</li>
 			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>
 		</ul>
 
@@ -42,11 +43,11 @@
 		</div>
 		<div class="stat">
 			<div class="qty">Affichées</div>
-			<div class="nb_small">{{ metrics.displayed }}</div>
+			<div class="nb_big">{{ metrics.displayed }}</div>
 		</div>
 		<div class="stat">
 			<div class="qty">sur inscription</div>
-			<div class="nb_small">{{ metrics.act_ins }}</div>
+			<div class="nb_big">{{ metrics.act_ins }}</div>
 		</div>
 		<div class="stat">
 			<div class="qty">Planning</div>

@@ -73,8 +73,6 @@ class SiteSettings(SingletonModel):
 	date_start = models.DateField("Date de début", blank=True, null=True)
 	date_end = models.DateField("Date de fin", blank=True, null=True)
 
-	registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
-
 	activity_submission_open = models.BooleanField(
 		"Ouvrir l'ajout d'activité", default=False,
 		help_text="Permet de proposer une activité via le formulaire dédié"
