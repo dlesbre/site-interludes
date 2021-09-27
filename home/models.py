@@ -178,7 +178,7 @@ class ActivityModel(models.Model):
 	@property
 	def slots(self):
 		"""Returns a list of slots related to self"""
-		return SlotModel.objects.filter(activity=self, on_planning=True).order_by("start")
+		return SlotModel.objects.filter(activity=self, on_activity=True).order_by("start")
 
 	def __str__(self):
 		return self.title
@@ -206,8 +206,10 @@ class SlotModel(models.Model):
 	)
 	room = models.CharField("salle", max_length=100, null=True, blank=True)
 	on_planning = models.BooleanField(
-		"afficher sur le planning", default=False,
-		help_text="Nécessite de salle et heure de début non vide",
+		"afficher sur le planning", default=True,
+	)
+	on_activity = models.BooleanField(
+		"afficher dans la description de l'activité", default=True,
 	)
 	color = models.CharField(
 		"Couleur", choices=Colors.choices, max_length=1, default=Colors.RED,

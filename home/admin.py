@@ -63,11 +63,12 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	filename = "export_slots.csv"
 	csv_export_fields = (
 		"activity_id", "title",
-		"start", "duration", "room", "on_planning", "color",
+		"start", "duration", "room",
+		"on_planning", "on_activity", "color",
 	)
-	list_display = ("__str__", "start", "room", "on_planning",)
+	list_display = ("__str__", "start", "room", "on_planning", "on_activity")
 	list_filter = ("on_planning", "activity__display",)
-	list_editable = ("on_planning",)
+	list_editable = ("on_planning", "on_activity",)
 	ordering = ("activity", "title", "start",)
 
 @admin.register(models.AdjacencyModel)

@@ -90,7 +90,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 	filename = "créneaux_48h"
 	headers = [
 		"Titre", "Début", "Salle",
-		"Affichée sur le planning",
+		"Affiché sur le planning", "Affiché sur l'activité"
 		"Couleur", "Durée", "Durée activité",
 	]
 
@@ -99,8 +99,8 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 		rows = []
 		for slot in slots:
 			rows.append([
-				str(slot), slot.start, slot.room, slot.on_planning,
-				Colors(slot.color).name, slot.duration, slot.activity.duration	,
+				str(slot), slot.start, slot.room, slot.on_planning, slot.on_activity,
+				Colors(slot.color).name, slot.duration, slot.activity.duration,
 			])
 		return rows
 

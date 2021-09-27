@@ -55,7 +55,7 @@
 
 			{% if activity.slots and settings.display_planning %}
 			<dt>Heure/Lieu :</dt><dd>{% for slot in activity.slots %}
-				{{ slot.start|date:"l H:i" }} {{ slot.room }}{% if not forloop.last %},<br> {% endif %}
+				{{ slot.start|date:"l H:i" }}{% if slot.room %} {{ slot.room }}{% endif %}{% if not forloop.last %},<br> {% endif %}
 				{% endfor %}
 			</dd>
 			{% endif %}
