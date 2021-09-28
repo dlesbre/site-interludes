@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block nav_home %}current{% endblock %}
 
 {% block "content" %}
 
 	<h2>Présentation</h2>
+
+	<img width=100% src="{% static 'imgs/affiche.png' %}" alt="affiche">
 
 	<p>
 		Pendant les 48h des jeux, les clubs jeux (de sociéte, de carte, de rôle, vidéo, DDR...)
