@@ -75,8 +75,8 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 class AdjacencyModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	filename = "export_slots.csv"
 	csv_export_fields = (
-		"user_id", "table", "time",
+		"user_id", "table", "time", "type",
 	)
-	list_display = ("time", "table", "user",)
-	list_filter = ("table", "user",)
+	list_display = ("time", "table", "user", "type",)
+	list_filter = ("table", "user", "type",)
 	ordering = ("time", "table", "user",)

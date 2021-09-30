@@ -282,6 +282,12 @@ class AdjacencyModel(models.Model):
 	"""Liste de contacts
 	a.k.a. qui a été a quelle table quand"""
 
+	class Type(models.TextChoices):
+		"""Diponibilité à un moment donné"""
+		UNSPECIFIED = "0", _("Non-spécifié")
+		START = "1", _("Début de partie")
+		MIDDLE = "2", _("Rejoins une partie")
+
 	user = models.ForeignKey(
 		User, on_delete=models.CASCADE,
 		verbose_name="Utilisateur",
@@ -290,6 +296,10 @@ class AdjacencyModel(models.Model):
 		"table"
 	)
 	time = models.DateTimeField("date et heure")
+	type = models.CharField(
+		"type", choices=Type.choices, max_length=1,
+		default=Type.UNSPECIFIED,
+	)
 
 	def __str__(self) -> str:
 		return "{} @ table {} @ {}".format(self.user.username, self.table, self.time)
