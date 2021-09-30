@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block nav_tables %}current{% endblock %}
+
+{% block "content" %}
+<h2>Je suis à la table {{ id }}</h2>
+
+<p>Merci de précisez si vous rejoignez une table vide ou s'il y a déjà des personnes présentes.</p>
+
+<div class="column">
+	<a href="{% url 'table_new' id=id %}" class="fancybutton">Je commence une partie</a>
+	<a href="{% url 'table_join' id=id %}" class="fancybutton">Je rejoins une partie en cours</a>
+</div>
+
+<p>
+	Cette précision nous permet de mieux suivre les cas contacts.
+	Dans le premier cas nous ne considérons que les gens qui ont scanné au même moment que vous,
+	dans le second nous regarderons qui était à la table avant également.
+</p>
+
+<p>
+	Ces données serviront uniquement au traçage de cas de COVID (s'il y en a).
+	Elles seront supprimés deux semaines après l'événement.
+</p>
+
+{% endblock %}

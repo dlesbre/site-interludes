@@ -68,21 +68,29 @@ class TablesView(TemplateView):
 			raise Http404()
 		return super().get(request, *args, **kwargs)
 
-class TableView(LoginRequiredMixin, RedirectView):
+class TableView(LoginRequiredMixin, TemplateView):
 	url = reverse_lazy("tables")
+	template_name = "table_switch.html"
+	UNSPECIFIED = models.AdjacencyModel.Type.UNSPECIFIED
+	style = UNSPECIFIED
 
 	def get(self, request, id=id, *args, **kwargs):
 		settings = SiteSettings.load()
 		if settings.table_nb <= id:
 			raise Http404()
 		contact = models.AdjacencyModel(
-			time=timezone.now(), user=request.user, table=id
+			time=timezone.now(), user=request.user, table=id, type=self.style
 		)
 		contact.save()
+		if self.style == self.UNSPECIFIED:
+			# select entry to save
+			context = self.get_context_data()
+			context["id"] = id
+			return render(request, self.template_name, context)
 		messages.success(request, "{username}: présence à la table {id} enregistrée".format(
 			id=id, username=request.user.username)
 		)
-		return super().get(request, id=id, *args, **kwargs)
+		return redirect(self.url)
 
 # ==============================
 # Activity Submission Form
