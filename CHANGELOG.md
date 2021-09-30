@@ -1,5 +1,12 @@
 # Change Log
 
+
+## Version 2.3.0 - 2021-09-30
+
+- Some display fixes
+- Added table selector for more precision when scanning QR codes
+- Added poster
+
 ## Version 2.2.0 - 2021-09-26
 
 - Added custom login choose page to add info
