@@ -5,7 +5,7 @@
 {% block "content" %}
 <h2>Je suis à la table {{ id }}</h2>
 
-<p>Merci de précisez si vous rejoignez une table vide ou s'il y a déjà des personnes présentes.</p>
+<p>Merci de préciser si vous rejoignez une table vide ou s'il y a déjà des personnes présentes.</p>
 
 <div class="column">
 	<a href="{% url 'table_new' id=id %}" class="fancybutton">Je commence une partie</a>
@@ -14,7 +14,7 @@
 
 <p>
 	Cette précision nous permet de mieux suivre les cas contacts.
-	Dans le premier cas nous ne considérons que les gens qui ont scanné au même moment que vous,
+	Dans le premier cas nous ne considérerons que les gens qui ont scanné au même moment que vous,
 	dans le second nous regarderons qui était à la table avant également.
 </p>
 
