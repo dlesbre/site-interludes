@@ -23,7 +23,7 @@
 
 	<h2>Activités</h2>
 	<p>Durant tout l'événement, des jeux seront en libre-service et des tables disponibles pour jouer.
-		Certaines activités ne pourront se faire qu'avec inscription au vue d'un nombre de places limité.
+		Certaines activités ne pourront se faire qu'avec inscription au vue d'une préparation en amont ou d'un nombre de places limité.
 	</p>
 	{% if settings.activity_submission_form %}
 	<p>Vous pouver proposer une activité en remplissant <a href="{{ settings.activity_submission_form }}">ce formulaire</a>.</p>
@@ -46,11 +46,14 @@
 			{% if activity.host_name %}
 			<dt>Orga :</dt><dd>{{ activity.host_name }}</dd>
 			{% endif %}
+			{% if settings.show_host_emails and activity.show_email %}
+			<dt>Contact :</dt><dd><a href="mailto:{{ activity.host_email }}">{{ activity.host_email }}</a></dd>
+			{% endif %}
 			<dt>Type :</dt><dd>{{ activity.pretty_type }}</dd>
 			<dt>Places :</dt><dd>{{ activity.nb_participants }}</dd>
-			{% if activity.slots %}
-			<dt>Heure<!--/Lieu--> :</dt><dd>{% for slot in activity.slots %}
-				{{ slot.start|date:"l H:i" }}<!-- {{ slot.room }} -->{% if not forloop.last %},<br> {% endif %}
+			{% if activity.slots and settings.display_planning %}
+			<dt>Heure/Lieu :</dt><dd>{% for slot in activity.slots %}
+				{{ slot.start|date:"l H:i" }}{% if slot.room %} {{ slot.room }}{% endif %}{% if not forloop.last %},<br> {% endif %}
 				{% endfor %}
 			</dd>
 			{% endif %}

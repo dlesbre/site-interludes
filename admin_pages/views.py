@@ -169,6 +169,24 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			)
 		return '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
 
+	def planning_validation(self):
+		"""Vérifie que toutes les activités ont le bon nombre de créneaux
+		dans le planning"""
+		errors = ""
+		activities = models.ActivityModel.objects.all()
+		for activity in activities:
+			nb_wanted = activity.desired_slot_nb
+			nb_got = activity.slots.count()
+			if nb_wanted != nb_got:
+				errors += '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
+					activity.title, nb_wanted, nb_got
+				)
+		if errors:
+			return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(
+				errors
+			)
+		return '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
+
 	def validate_activity_allocation(self):
 		settings = SiteSettings.load()
 		validations = '<ul class="messagelist">'
@@ -207,7 +225,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			"validations": validations,
 			"user_email_nb": user_email_nb,
 			"orga_email_nb": orga_email_nb,
-			"validation_errors": '<li class="error">' in validations
+			"validation_errors": '<li class="error">' in validations,
+			"planning_validation": self.planning_validation(),
 		}
 
 	def get_context_data(self, *args, **kwargs):
@@ -230,7 +249,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 		# The key is "host_id" but listed as "host" in auto-found field names
 		# which leads to an error...
 		'id', 'display', 'title', 'act_type', 'game_type', 'description',
-		'desc_as_html', 'host_id', 'host_name', 'host_email', 'host_info',
+		'desc_as_html', 'host_id', 'host_name', 'host_email', 'host_info', 'show_email',
 		'must_subscribe', 'communicate_participants', 'max_participants',
 		'min_participants', 'duration', 'desired_slot_nb',
 		'available_friday_evening', 'available_friday_night',
@@ -244,7 +263,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 	filename = "créneaux_interludes"
 	headers = [
 		"Titre", "Début", "Salle",
-		"Ouverte aux inscriptions", "Affichée sur le planning",
+		"Ouverte aux inscriptions", "Affiché sur le planning", "Affiché sur l'activité",
 		"Couleur", "Durée", "Durée activité",
 	]
 
@@ -254,8 +273,8 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 		for slot in slots:
 			rows.append([
 				str(slot), slot.start, slot.room,
-				slot.subscribing_open, slot.on_planning,
-				Colors(slot.color).name, slot.duration, slot.activity.duration	,
+				slot.subscribing_open, slot.on_planning, slot.on_activity,
+				Colors(slot.color).name, slot.duration, slot.activity.duration,
 			])
 		return rows
 

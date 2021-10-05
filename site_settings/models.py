@@ -77,6 +77,11 @@ class SiteSettings(SingletonModel):
 		"Ouvrir l'ajout d'activité", default=False,
 		help_text="Permet de proposer une activité via le formulaire dédié"
 	)
+	show_host_emails = models.BooleanField(
+		"Afficher les mails des orgas d'activités", default=False,
+		help_text="Ces mail sont affichés sur la page activités pour que les gens puissent les contacter",
+	)
+
 
 	inscriptions_start = models.DateTimeField("Ouverture des inscriptions",
 		blank=True, null=True,
@@ -97,8 +102,6 @@ class SiteSettings(SingletonModel):
 		"Afficher les activités obtenues", default=False,
 		help_text="Suppose que l'allocation des activités a été effectuée."
 	)
-
-
 
 	discord_link = models.CharField(
 		"Lien du serveur discord", max_length=200, blank=True, null=True

@@ -15,14 +15,14 @@ urlpatterns = [
 	path('activites/', views.ActivityView.as_view(), name = 'activites'),
 	path('activites/nouvelle/', views.ActivitySubmissionView.as_view(), name = 'activity_submission'),
 	path('faq/', views.FAQView.as_view(), name = 'FAQ'),
-	path("profile/", views.ProfileView.as_view(), name="profile"),
+	path("profil/", views.ProfileView.as_view(), name="profile"),
 	path('favicon.ico', RedirectView.as_view(url='/static/imgs/favicon.ico')),
 	path(
 		'sitemap.xml', sitemap, {'sitemaps': sitemaps},
 		name='django.contrib.sitemaps.views.sitemap'
 	),
 	path('admin_pages/', include(('admin_pages.urls', 'admin_pages'), namespace="admin_pages")),
-	path('accounts/', include("accounts.urls")),
+	path('comptes/', include("accounts.urls")),
 ]
 
 if settings.DEBUG:

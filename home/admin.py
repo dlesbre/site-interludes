@@ -19,7 +19,7 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	list_editable = ("display",)
 	fields = (
 		"title", "display",
-		("host_name", "host_email"),
+		("host_name", "host_email"), "show_email",
 		"host_info",
 		"act_type", "game_type",
 		"description", "desc_as_html",
@@ -46,7 +46,7 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 		# The key is "host_id" but listed as "host" in auto-found field names
 		# which leads to an error...
 		'id', 'display', 'title', 'act_type', 'game_type', 'description',
-		'desc_as_html', 'host_id', 'host_name', 'host_email', 'host_info',
+		'desc_as_html', 'host_id', 'host_name', 'host_email', 'show_email', 'host_info',
 		'must_subscribe', 'communicate_participants', 'max_participants',
 		'min_participants', 'duration', 'desired_slot_nb',
 		'available_friday_evening', 'available_friday_night',
@@ -61,9 +61,14 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des créneaux dans la vue d'admin"""
 	filename = "export_slots.csv"
-	list_display = ("__str__", "start", "room", "subscribing_open", "on_planning",)
-	list_filter = ("subscribing_open", "on_planning", "activity__display",)
-	list_editable = ("subscribing_open", "on_planning",)
+	csv_export_fields = (
+		"activity_id", "title",
+		"start", "duration", "room",
+		"on_planning", "on_activity", "color",
+	)
+	list_display = ("__str__", "start", "room", "subscribing_open", "on_planning", "on_activity",)
+	list_filter = ("subscribing_open", "on_planning", "on_activity", "activity__display",)
+	list_editable = ("subscribing_open", "on_planning", "on_activity",)
 	ordering = ("activity", "title", "start",)
 
 

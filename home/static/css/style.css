@@ -98,7 +98,7 @@ header #head_main_infos {
 div.easter_egg {
 	display: inline-block;
   }
-  
+
 #circle {
 	-webkit-clip-path: circle(50% at 50% 50%);
 	clip-path: circle(50% at 50% 50%)
@@ -135,6 +135,10 @@ nav a:hover {
 	background-color: var(--color_bg_3);
 	transition-duration: 0.5s;
 }
+nav a:focus {
+	background-color: var(--color_bg_3);
+}
+
 
 nav a.current {
 	background-color: var(--color_bg_1);
@@ -224,6 +228,10 @@ main p {
 strong {
 	font-weight: bold;
 }
+.underline {
+	text-decoration: underline;
+}
+
 
 main a:link {
 	text-decoration: underline;

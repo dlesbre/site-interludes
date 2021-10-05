@@ -51,7 +51,7 @@ class ActivityView(TemplateView):
 
 class FAQView(TemplateView):
 	"""Vue pour la FAQ"""
-	template_name = "faq-distanciel.html"
+	template_name = "faq.html"
 
 
 # ==============================
@@ -92,7 +92,7 @@ class RegisterSignIn(TemplateView):
 
 class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 	"""Vue pour s'inscrire et modifier son inscription"""
-	template_name = "inscription/form-distanciel.html"
+	template_name = "inscription/form.html"
 	form_class = InscriptionForm
 	formset_class = formset_factory(form=ActivityForm, extra=3, formset=BaseActivityFormSet)
 	success_url = reverse_lazy("profile")
@@ -178,6 +178,15 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 		settings = SiteSettings.load()
 		return settings.activity_submission_open
 
+	def get_initial(self):
+		init = super().get_initial()
+		user = self.request.user
+		init.update({
+			"host_name": "{} {}".format(user.first_name, user.last_name),
+			"host_email": user.email,
+		})
+		return init
+
 	def not_open(self, request):
 		"""Appelé quand le formulaire est désactivé"""
 		messages.error(request, "La soumission d'activité est desactivée")
@@ -193,11 +202,11 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 			return self.not_open(request)
 		form = self.form_class(request.POST)
 		if not form.is_valid():
-			context = self.get_context_data
+			context = self.get_context_data()
 			context["form"] = form
 			return render(request, self.template_name, context)
 
-		form.save(user=request.user)
+		form.save()
 
 		messages.success(request, "Votre activité a bien été enregistrée. Elle sera affichée sur le site après relecture par les admins.")
 		return redirect(self.success_url, permanent=False)

@@ -54,6 +54,10 @@ class ActivityModel(models.Model):
 	display = models.BooleanField("afficher dans la liste", default=False,
 		help_text="Si vrai, s'affiche sur la page activités"
 	)
+	show_email = models.BooleanField("afficher l'email de l'orga", default=True,
+		help_text="Si l'affichage d'email global et cette case sont vrai, affiche l'email de l'orga"
+	)
+
 
 	title = models.CharField("Titre", max_length=200)
 
@@ -167,15 +171,9 @@ class ActivityModel(models.Model):
 
 	@property
 	def pretty_type(self) -> str:
-		type = self.Types(self.act_type).label
-		return type
-		# status = self.Status(self.status)
-		# status_repr = "présentiel ou distanciel"
-		# if status == self.Status.DISTANT:
-		# 	status_repr = "distanciel"
-		# elif status == self.Status.PRESENT:
-		# 	status_repr = "présentiel"
-		# return "{} ({})".format(type, status_repr)
+		type = self.ActivityTypes(self.act_type).label
+		game = self.GameTypes(self.game_type).label
+		return "{}, {}".format(game, type.lower())
 
 	@property
 	def slug(self) -> str:
@@ -185,7 +183,7 @@ class ActivityModel(models.Model):
 	@property
 	def slots(self):
 		"""Returns a list of slots related to self"""
-		return SlotModel.objects.filter(activity=self, on_planning=True).order_by("start")
+		return SlotModel.objects.filter(activity=self, on_activity=True).order_by("start")
 
 	def __str__(self):
 		return self.title
@@ -214,14 +212,16 @@ class SlotModel(models.Model):
 	)
 	room = models.CharField("salle", max_length=100, null=True, blank=True)
 	on_planning = models.BooleanField(
-		"afficher sur le planning", default=False,
-		help_text="Nécessite de salle et heure de début non vide",
+		"afficher sur le planning", default=True,
+	)
+	on_activity = models.BooleanField(
+		"afficher dans la description de l'activité", default=True,
 	)
 	subscribing_open = models.BooleanField("ouvert aux inscriptions", default=False,
 		help_text="Si vrai, apparaît dans la liste du formulaire d'inscription"
 	)
 	color = models.CharField(
-		"Couleur", choices=Colors.choices, max_length=1, default=Colors.DARK_BLUE,
+		"Couleur", choices=Colors.choices, max_length=1, default=Colors.RED,
 		help_text="La légende des couleurs est modifiable dans les paramètres"
 	)
 

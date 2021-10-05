@@ -1,10 +1,17 @@
 # Change Log
 
-## Version ??? - Coming soon
+## Version 2.0.0-beta - Coming soon
 
 - Added a form that allows admins to send emails to all users
 - Added a form for users to submit activities
 - Added a changeable caption for the planning
+- Added fixes/improvement from 48h des jeux:
+	- bug fixed in activity submission form
+	- new validator that checks the number of slots for each activity in the planning
+	- fixed room display on activity page
+	- fixed planning info displayed on activity even when planning hidden
+	- added boolean field to show host email on activity
+	- added boolean field to separate showing slot on planning and next to activity
 
 ## Version 1.2.8 - 2021-05-06
 

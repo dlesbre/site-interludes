@@ -31,10 +31,12 @@
 					<li>Fermeture : {{ settings.inscriptions_end|default:"non fixée" }}</li>
 				</ul>
 			</li>
+			<li>Les emails des orgas sont {% if settings.show_host_emails %}affichés sur la page activité{% else %}masqués{% endif %}.</li>
 			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 			<li>La répartition des activités {% if settings.activities_allocated %}est effectuée et affichée{% else %}n'est pas faite/affichée{% endif %}.</li>
 			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>
 			<li>Le lien du serveur discord {% if settings.discord_link %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
+			<li>L'envoi d'email en masse est {% if settings.allow_mass_email %}activé{% else %}désactivé{% endif %}</li>
 		</ul>
 
 	<h2>Métriques</h2>
@@ -69,7 +71,7 @@
 			<div class="nb_small">{{ metrics.sleeps }}</div>
 		</div>
 	</div>
-<!--
+
 	<div class="flex wrap lines">
 		<div class="stat">
 			<div class="qty">Repas</div>
@@ -100,7 +102,7 @@
 			<div class="nb_small">{{ metrics.meal6 }}</div>
 		</div>
 	</div>
--->
+
 	<div class="flex wrap lines">
 		<div class="stat">
 			<div class="qty">Activités</div>
@@ -166,6 +168,10 @@
 	{% endif %}
 
 	<h2>Prévisualisation du planning</h2>
+
+	<ul class="messagelist">
+		{{ planning_validation|safe }}
+	</ul>
 
 	<p>Vous pouver uploader une version PDF dans le réglages (depuis django-admin)</p>
 

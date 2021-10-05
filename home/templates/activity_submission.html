@@ -11,23 +11,38 @@
 <form method="post" action="{% url 'activity_submission' %}">
 	{% csrf_token %}
 
+	<ul class="messagelist">
+		<li class="info">
+			Les informations publiques (qui apparaîtrons sur la page <a href="{% url 'activites' %}">activites</a>) sont
+			celles <span class="underline">soulignées</span>.<br>
+			Les autres ne serons vues que par les orgas.
+		</li>
+	</ul>
+
 	<table>
-		<tr><td><strong>Titre&nbsp;:</strong></td><td> {{ form.title }}</td></tr>
-		<tr><td><strong>Type d'activité&nbsp;:</strong></td><td> {{ form.act_type }}</td></tr>
-		<tr><td><strong>Type de jeu&nbsp;:</strong></td><td> {{ form.game_type }}</td></tr>
+		<tr><td><strong class="underline">Titre&nbsp;:</strong></td><td> {{ form.title }}</td></tr>
+		<tr><td><strong class="underline">Type d'activité&nbsp;:</strong></td><td> {{ form.act_type }}</td></tr>
+		<tr><td><strong class="underline">Type de jeu&nbsp;:</strong></td><td> {{ form.game_type }}</td></tr>
 	</table>
 
-	<p><strong>Description&nbsp;:</strong> ce texte sera affiché sur la page
+	<p><strong class="underline">Description&nbsp;:</strong> ce texte sera affiché sur la page
 		<a href="{% url 'activites' %}">activités</a> pour présenter votre activité.
 	</p>
 		{{ form.description }}
 
 	<h3>Organisateurs</h3>
 
+	<table>
+		<tr><td><strong class="underline">Nom&nbsp;:</strong></td><td> {{ form.host_name }}</td></tr>
+		<tr><td><strong class="underline">Email&nbsp;:</strong></td><td> {{ form.host_email }}</td></tr>
+		<tr><td><strong>Compte associé&nbsp;:&nbsp;</strong></td><td> {{ request.user.email }}</td></tr>
+	</table>
+
 	<p>
 		L'email de votre compte sera le principal moyen de contact.
-		Vous pouvez spécifiez d'autre moyen de contact ci-dessous, ainsi que d'autres
-		organisateurs si vous êtes plusieurs
+		Si vous ne souhaitez pas qu'il soit affiché, précisez le ci-dessous.
+		Vous pouvez également spécifier d'autres moyens de contact, ainsi que d'autres
+		organisateurs si vous êtes plusieurs.
 	</p>
 
 		{{ form.host_info }}
@@ -35,18 +50,18 @@
 	<h3>Participants et inscription</h3>
 
 	<table>
-		<tr><td><strong>Nécessite une inscription&nbsp;:</strong></td><td> {{ form.must_subscribe }}</td></tr>
+		<tr><td><strong class="underline">Nécessite une inscription&nbsp;:</strong></td><td> {{ form.must_subscribe }}</td></tr>
 		<tr><td><strong>Me communiquer la liste des participants à l'avance&nbsp;:</strong></td><td> {{ form.communicate_participants }}</td></tr>
-		<tr><td><strong>Nombre max de participants&nbsp;:</strong></td><td> {{ form.max_participants }} (mettez 0 pour illimité)</td></tr>
+		<tr><td><strong class="underline">Nombre max de participants&nbsp;:</strong></td><td> {{ form.max_participants }} (mettez 0 pour illimité)</td></tr>
 		{% if form.max_participants.errors %}<tr><td></td><td>{{ form.max_participants.errors }}</td></tr>{% endif %}
-		<tr><td><strong>Nombre min de participants&nbsp;:</strong></td><td> {{ form.min_participants }}</td></tr>
+		<tr><td><strong class="underline">Nombre min de participants&nbsp;:</strong></td><td> {{ form.min_participants }}</td></tr>
 		{% if form.min_participants.errors %}<tr><td></td><td>{{ form.min_participants.errors }}</td></tr>{% endif %}
 	</table>
 
 	<h3>Durée et crénaux</h3>
 
 	<table>
-		<tr><td><strong>Durée approximative&nbsp;:</strong></td><td> {{ form.duration }} (format hh:mm:ss)</td></tr>
+		<tr><td><strong class="underline">Durée approximative&nbsp;:</strong></td><td> {{ form.duration }} (format hh:mm:ss)</td></tr>
 		{% if form.duration.errors %}<tr><td></td><td>{{ form.duration.errors }}</td></tr>{% endif %}
 		<tr><td><strong>Nombre de crénaux souhaités&nbsp;:</strong></td><td> {{ form.desired_slot_nb }}</td></tr>
 		{% if form.desired_slot_nb.errors %}<tr><td></td><td>{{ form.desired_slot_nb.errors }}</td></tr>{% endif %}

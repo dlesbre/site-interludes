@@ -66,7 +66,7 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 		fields = (
 			"title", "act_type", "game_type", "description",
 
-			"host_info",
+			"host_name", "host_email", "host_info",
 
 			"must_subscribe", "communicate_participants",
 			"max_participants",	"min_participants",
@@ -98,12 +98,10 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 			)
 		return cleaned_data
 
-	def save(self, user, *args, commit=True, **kwargs):
+	def save(self, *args, commit=True, **kwargs):
 		"""Enregistre l'activité dans la base de données"""
 		activity = models.ActivityModel(
 			**self.cleaned_data,
-			host=user, host_email=user.email,
-			host_name=(user.first_name + user.last_name)
 		)
 		if commit:
 			activity.save()
