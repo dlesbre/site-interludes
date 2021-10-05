@@ -1,6 +1,6 @@
 # Site des 48h des jeux
 
-Ce répo contient le sites des 48h des jeux. Ce site n'est pas encore en ligne.
+Ce répo contient le sites des 48h des jeux. Ce site est en ligne à l'adresse [https://48hdesjeux.cof.ens.fr/](https://48hdesjeux.cof.ens.fr/).
 
 Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses/mit/).
 
@@ -103,9 +103,6 @@ Le site se gère depuis deux pages d'administration:
 	- permet d'exporter les différentes tables au format CSV
 	- affiche l'état du site (version, réglages actuels, différentes métriques)
 	- une prévisualisation du planning
-	- permet d'envoyer deux séries d'emails :
-		- une aux inscrits pour leur communiquer les activités qu'ils ont obtenus
-		- une aux orgas qui ont besoin de connaître la liste des participants à l'avance pour préparer leurs activités.
 	- permet l'écriture d'un mail à tous.
 
 ## En production
@@ -128,11 +125,15 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
 
-- Intégrer l'[algorithme de répartition](https://github.com/Imakoala/InterludesMatchings) dans le site au lieu de le faire tourner en externe à partir des export CSV et de remplir les résultats à la main
 - Envoyer une concaténation de tous les emails aux admin (pour vérification, et pas juste en copie pour éviter le spam...)
 - Générer la version PDF du planning automatiquement au lieu de la faire à base de captures d'écran
 - Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)
 
 ## Liens divers
 
+- [Le site des 48h des jeux](https://48hdesjeux.cof.ens.fr/)
 - [Le github de l'algorithme de répartition](https://github.com/Imakoala/InterludesMatchings)
+- [Le site du club jeu](https://jeux.cof.ens.fr/)
+- [le site des interludes](https://interludes.ens.fr/) dont ce site est une variant allégée
+- [Le gitlab du site des interludes](https://git.eleves.ens.fr/dlesbre/site-interludes), origine de ce fork
+- [Le github du site des interludes](https://github.com/dlesbre/site-interludes) la même chose, mais sur github

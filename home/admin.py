@@ -66,7 +66,7 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"start", "duration", "room",
 		"on_planning", "on_activity", "color",
 	)
-	list_display = ("__str__", "start", "room", "on_planning", "on_activity")
+	list_display = ("__str__", "start", "room", "on_planning", "on_activity",)
 	list_filter = ("on_planning", "activity__display",)
 	list_editable = ("on_planning", "on_activity",)
 	ordering = ("activity", "title", "start",)

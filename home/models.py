@@ -150,12 +150,7 @@ class ActivityModel(models.Model):
 		else:
 			ret = "{} - {}".format(self.min_participants, self.max_participants)
 		if self.must_subscribe:
-
-			settings = SiteSettings.load()
-			if settings.show_host_emails:
-				ret += " (sur inscription)"
-			else:
-				ret += " (sur inscription)"
+			ret += " (sur inscription)"
 		return ret
 
 	@property
