@@ -19,7 +19,7 @@ Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses
 
 Pour installer toutes les dépendances et lancer le serveur :
 
-		git clone https://git.eleves.ens.fr/dlesbre/site-interludes.git &&
+		git clone https://github.com/dlesbre/site-interludes.git &&
 		cd site-interlude &&
 		python3 -m venv venv &&
 		source venv/bin/activate &&
