@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 2.3.1 - 2021-10-28
+
+- Fix error when building sitemap
+- Added robots.txt
 
 ## Version 2.3.0 - 2021-09-30
 
