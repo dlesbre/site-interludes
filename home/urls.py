@@ -25,6 +25,10 @@ urlpatterns = [
 		'sitemap.xml', sitemap, {'sitemaps': sitemaps},
 		name='django.contrib.sitemaps.views.sitemap'
 	),
+	path("robots.txt", views.TemplateView.as_view(
+		template_name="robots.txt",
+		content_type="text/plain"
+	)),
 	path('admin_pages/', include(('admin_pages.urls', 'admin_pages'), namespace="admin_pages")),
 	path("authens/logout", views.LogoutView.as_view(), name="logout"),
 	path("authens/", include("authens.urls")),

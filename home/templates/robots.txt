@@ -1,0 +1,5 @@
+User-Agent: *
+
+Disallow: {% url "authens:login" %}
+
+Sitemap: {{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url "django.contrib.sitemaps.views.sitemap" %}

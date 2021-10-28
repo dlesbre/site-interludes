@@ -151,7 +151,7 @@ class StaticViewSitemap(Sitemap):
 
 	def items(self):
 		"""list of pages to appear in sitemap"""
-		return ["home", "inscription", "activites", "FAQ"]
+		return ["home", "activites", "FAQ"]
 
 	def location(self, item):
 		"""real url of an item"""
