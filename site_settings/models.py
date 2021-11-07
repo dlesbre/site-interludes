@@ -9,7 +9,8 @@ from django.utils.timezone import now
 
 class Colors(models.TextChoices):
 	"""Couleur d'affichage dans le planning
-	Leur code HTML est hardcodé dans la template "_planning.html"."""
+	Leur code HTML est hardcodé dans la template '_planning.html'."""
+
 	RED = "a", "Rouge"
 	ORANGE = "b", "Orange"
 	YELLOW = "c", "Jaune"
@@ -67,10 +68,15 @@ class SingletonModel(models.Model):
 
 class SiteSettings(SingletonModel):
 	"""Réglages globaux du site"""
+
 	contact_email = models.EmailField("Email contact", blank=True, null=True)
+	hosting_school = models.CharField(
+		"École hébergeant l'événement", max_length=50, blank=True, null=True
+	)
+	
 	date_start = models.DateField("Date de début", blank=True, null=True)
 	date_end = models.DateField("Date de fin", blank=True, null=True)
-
+	
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
 	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
 	activity_submission_open = models.BooleanField(

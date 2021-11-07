@@ -2,10 +2,11 @@
 {% load static %}
 <!doctype html>
 <html lang="fr">
-	<head>
-		<!-- WEBSITE VERSION {{ constants.WEBSITE_FULL_VERSION }} -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+	<!-- WEBSITE VERSION {{ constants.WEBSITE_FULL_VERSION }} -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>{% block title %}Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}{% endblock %}</title>
 		<meta name="description" content="Inscriptions et infos sur les interENS ludiques{% if settings.date_start %}, édition {{ settings.date_start.year }}{% endif %}">
@@ -16,14 +17,15 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-all.min.css' %}">
 		{% block head %}{% endblock %}
 	</head>
+
 	<body>
 		<header>
 			<div id="header_logo"  class="easter_egg">
 				<h1><a href="/"><img id="circle" src="{% static 'imgs/logo_easter_egg.png' %}">&nbsp;Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}&nbsp;</a></h1>
 			</div>
 			<div id="head_main_infos">
-				<div id="location">ENS Ulm</div>
-				<div id="date">{% if settings.date_start %}
+			<div id="location">{{ settings.hosting_school }}</div>
+			<div id="date">{% if settings.date_start %}
 				{% if settings.date_end %}
 				{{ settings.date_start.day }}-{{ settings.date_end }}
 				{% else %}
@@ -105,26 +107,24 @@
 			{% endblock %}
 		</main>
 
-		<footer>
-			<div id="sponsors">
-				<a class="external" href="https://www.ens.psl.eu/">
-					<img src="{% static "imgs/ens_psl.png" %}"
-						alt="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"
-						title="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"
-					/>
-				</a>
-				<a class="external" href="https://cof.ens.fr/">
-					<img src="{% static "imgs/cof.svg" %}"
-						alt="COF de l'ENS"
-						title="COF de l'ENS"
-					/>
-				</a>
-			</div>
-			{% if settings.contact_email %}
-			<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span></p>
-			{% endif %}
-		</footer>
+	<footer>
+		<div id="sponsors">
+			<a class="external" href="https://www.ens-lyon.fr/">
+				<img src="{% static " imgs/ens_lyon.svg" %}" alt="École Normale Supérieure de Lyon"
+					title="École Normale Supérieure de Lyon" />
+			</a>
+			<a class="external" href="https://cof.ens.fr/">
+				<img src="{% static " imgs/bul.png" %}" alt="Bureau Ludique de l'ENS de Lyon"
+					title="Bureau Ludique de l'ENS de Lyon" />
+			</a>
+		</div>
+		{% if settings.contact_email %}
+		<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span>
+		</p>
+		{% endif %}
+	</footer>
 
 	</body>
+
 </html>
 {% endspaceless %}

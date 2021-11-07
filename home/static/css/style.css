@@ -451,40 +451,54 @@ ul.messagelist li.info:before {
 	height: 35px;
 	margin: 0 5px 0 0;
 }
-#transport-metro-icon,
-#transport-metro-stop,
-#transport-bus-1-icon,
-#transport-bus-1-stop {
+#transport-ratp-metro-icon,
+#transport-ratp-metro-stop,
+#transport-ratp-bus-1-icon,
+#transport-ratp-bus-1-stop,
+#transport-tcl-metro,
+#transport-tcl-bus-1 {
 	grid-row: 1;
 }
-#transport-rer-icon,
-#transport-rer-stop,
-#transport-bus-2-icon,
-#transport-bus-2-stop {
+#transport-ratp-rer-icon,
+#transport-ratp-rer-stop,
+#transport-ratp-bus-2-icon,
+#transport-ratp-bus-2-stop,
+#transport-tcl-tram-1,
+#transport-tcl-bus-2,
+#transport-tcl-stop {
 	grid-row: 2;
 }
-#transport-noctilien-icon,
-#transport-noctilien-stop {
+#transport-ratp-noctilien-icon,
+#transport-ratp-noctilien-stop,
+#transport-tcl-tram-2,
+#transport-tcl-bus-3 {
 	grid-row: 3;
 }
-#transport-metro-icon,
-#transport-rer-icon {
+#transport-ratp-metro-icon,
+#transport-ratp-rer-icon,
+#transport-tcl-metro,
+#transport-tcl-tram-1,
+#transport-tcl-tram-2 {
 	grid-column: 1;
 	justify-self: end;
 }
-#transport-metro-stop,
-#transport-rer-stop {
+#transport-ratp-metro-stop,
+#transport-ratp-rer-stop,
+#transport-tcl-bus-1,
+#transport-tcl-bus-2,
+#transport-tcl-bus-3 {
 	grid-column: 2;
 }
-#transport-bus-1-icon,
-#transport-bus-2-icon,
-#transport-noctilien-icon {
+#transport-ratp-bus-1-icon,
+#transport-ratp-bus-2-icon,
+#transport-ratp-noctilien-icon,
+#transport-tcl-stop {
 	grid-column: 3;
 	justify-self: end;
 }
-#transport-bus-1-stop,
-#transport-bus-2-stop,
-#transport-noctilien-stop {
+#transport-ratp-bus-1-stop,
+#transport-ratp-bus-2-stop,
+#transport-ratp-noctilien-stop {
 	grid-column: 4;
 }
 
@@ -497,39 +511,39 @@ ul.messagelist li.info:before {
 		grid-template-rows: auto auto auto auto auto;
 		align-items: center;
 	}
-	#transport-metro-icon,
-	#transport-metro-stop {
+	#transport-ratp-metro-icon,
+	#transport-ratp-metro-stop {
 		grid-row: 1;
 	}
-	#transport-rer-icon,
-	#transport-rer-stop {
+	#transport-ratp-rer-icon,
+	#transport-ratp-rer-stop {
 		grid-row: 2;
 	}
-	#transport-bus-1-icon,
-	#transport-bus-1-stop {
+	#transport-ratp-bus-1-icon,
+	#transport-ratp-bus-1-stop {
 		grid-row: 3;
 	}
-	#transport-bus-2-icon,
-	#transport-bus-2-stop {
+	#transport-ratp-bus-2-icon,
+	#transport-ratp-bus-2-stop {
 		grid-row: 4;
 	}
-	#transport-noctilien-icon,
-	#transport-noctilien-stop {
+	#transport-ratp-noctilien-icon,
+	#transport-ratp-noctilien-stop {
 		grid-row: 5;
 	}
-	#transport-metro-icon,
-	#transport-rer-icon,
-	#transport-bus-1-icon,
-	#transport-bus-2-icon,
-	#transport-noctilien-icon  {
+	#transport-ratp-metro-icon,
+	#transport-ratp-rer-icon,
+	#transport-ratp-bus-1-icon,
+	#transport-ratp-bus-2-icon,
+	#transport-ratp-noctilien-icon  {
 		grid-column: 1;
 		justify-self: end;
 	}
-	#transport-metro-stop,
-	#transport-rer-stop,
-	#transport-bus-1-stop,
-	#transport-bus-2-stop,
-	#transport-noctilien-stop  {
+	#transport-ratp-metro-stop,
+	#transport-ratp-rer-stop,
+	#transport-ratp-bus-1-stop,
+	#transport-ratp-bus-2-stop,
+	#transport-ratp-noctilien-stop  {
 		grid-column: 2;
 	}
 }

@@ -17,33 +17,22 @@
 		à l'honneur durant ce week-end de trois jours.
 	</p>
 	<p>
-		Cette année, c'est au tour de l'ENS Ulm d'organiser les interludes.
-		L'événement a habituellement lieu en février mais à cause du COVID,
-		il a été retardé. Cette année il est prévu
-		{% if settings.date_start %}{% if settings.date_end %}
-			le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
-		{% else %}
-			le week-end du <strong>{{ settings.date_start }}</strong>.
-		{% endif %}
-		{% else %}
-			à une date non-fixée.
-		{% endif %}
-	</p>
-	<p>
-		La situation actuelle ne se prête malheureusement pas à un tel événement. Nous ne pouvons donc
-		que proposer un événement à distance, qui passera principalement par un serveur discord.
-		Vous trouverez une liste de sites utiles pour jouer en ligne dans la
-		<a href="{% url 'FAQ' %}">FAQ</a> et sur le serveur discord.
-	</p>
+	Cette année, c'est au tour de l'{{ settings.hosting_school }} d'organiser les interludes.
+	Elles auront lieu
+	{% if settings.date_start %}{% if settings.date_end %}
+	le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
+	{% else %}
+	le week-end du <strong>{{ settings.date_start }}</strong>.
+	{% endif %}
+	{% else %}
+	à une date non-fixée.
+	{% endif %}
+</p>
 
-	<h2>Inscriptions</h2>
-	<ul class="messagelist"><li class="info">
-		Les interlude étant à distance cette année, les inscriptions sont facultatives.
-	</li></ul>
+<h2>Inscriptions</h2>
 	<p>
 		Ce site vous permettra de vous <a href="{% url 'inscription' %}">inscrire à l'événement</a> et
-		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées. L'événement est
-		<strong>gratuit</strong>.
+		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées.
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
 		<p>Les inscriptions seront ouvertes
@@ -56,16 +45,21 @@
 		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
 	{% endif %}
 
+<h2>Tarifs</h2>
+<p>
+	Les tarifs pour l'événement, les repas et le logement sont en cours d'élaboration. Ils seront renseignés ici sous
+	peu.
+</p>
 
 	<p>Pour plus de détails, consultez la <a href="{% url 'FAQ' %}">FAQ</a>.</p>
 
 	<h2>Liens divers</h2>
 
-	<ul>
-		<li>Le <a href="https://jeux.cof.ens.fr/">site du club jeux</a></li>
-		<li>Le <a href="https://cof.ens.fr">site du COF</a>.</li>
-		<li>Le <a href="https://wiki.crans.org/VieBdl/InterLudes">Le wiki de Paris-Saclay</a> qui recense les visuels, sites webs et photos des interludes passées.</li>
-		<li>Le code source de ce site est sur <a href="https://git.eleves.ens.fr/dlesbre/site-interludes">gitlab</a> et <a href="https://github.com/dlesbre/site-interludes">github</a>.</li>
-		<li>Un historique des interludes avec leurs visuels, site webs et photos est sur le <a href="https://wiki.crans.org/VieBdl/InterLudes">wiki de Paris-Saclay</a>.</li>
-	</ul>
+<ul>
+	<li>Le <a href="https://wiki.crans.org/VieBdl/InterLudes">Le wiki de Paris-Saclay</a> qui recense les visuels, sites
+		webs et photos des interludes passées.</li>
+	<li>Le code source de ce site est sur<a href="https://github.com/Pantoofle/site-interludes">github</a>.</li>
+	<li>Un historique des interludes avec leurs visuels, site webs et photos est sur le <a
+			href="https://wiki.crans.org/VieBdl/InterLudes">wiki de Paris-Saclay</a>.</li>
+</ul>
 {% endblock %}
