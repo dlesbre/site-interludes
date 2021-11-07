@@ -110,13 +110,11 @@
 	<footer>
 		<div id="sponsors">
 			<a class="external" href="https://www.ens-lyon.fr/">
-				<img src="{% static " imgs/ens_lyon.svg" %}" alt="École Normale Supérieure de Lyon"
+				<img src="{% static "imgs/ens_lyon.svg" %}" alt="École Normale Supérieure de Lyon"
 					title="École Normale Supérieure de Lyon" />
 			</a>
-			<a class="external" href="https://cof.ens.fr/">
-				<img src="{% static " imgs/bul.png" %}" alt="Bureau Ludique de l'ENS de Lyon"
-					title="Bureau Ludique de l'ENS de Lyon" />
-			</a>
+			<img src="{% static "imgs/bul.png" %}" alt="Bureau Ludique de l'ENS de Lyon"
+				title="Bureau Ludique de l'ENS de Lyon" />
 		</div>
 		{% if settings.contact_email %}
 		<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span>
