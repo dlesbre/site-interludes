@@ -475,30 +475,30 @@ ul.messagelist li.info:before {
 	grid-row: 3;
 }
 #transport-ratp-metro-icon,
-#transport-ratp-rer-icon,
-#transport-tcl-metro,
-#transport-tcl-tram-1,
-#transport-tcl-tram-2 {
+#transport-ratp-rer-icon{
 	grid-column: 1;
 	justify-self: end;
 }
 #transport-ratp-metro-stop,
 #transport-ratp-rer-stop,
-#transport-tcl-bus-1,
-#transport-tcl-bus-2,
-#transport-tcl-bus-3 {
+#transport-tcl-stop {
 	grid-column: 2;
 }
 #transport-ratp-bus-1-icon,
 #transport-ratp-bus-2-icon,
 #transport-ratp-noctilien-icon,
-#transport-tcl-stop {
+#transport-tcl-metro,
+#transport-tcl-tram-1,
+#transport-tcl-tram-2 {
 	grid-column: 3;
 	justify-self: end;
 }
 #transport-ratp-bus-1-stop,
 #transport-ratp-bus-2-stop,
-#transport-ratp-noctilien-stop {
+#transport-ratp-noctilien-stop,
+#transport-tcl-bus-1,
+#transport-tcl-bus-2,
+#transport-tcl-bus-3  {
 	grid-column: 4;
 }
 
