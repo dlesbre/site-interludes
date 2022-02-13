@@ -4,36 +4,23 @@
 {% block nav_inscription %}current{% endblock %}
 
 {% block "content" %}
-	<h2>Inscriptions</h2>
+    <h2>Inscription à l'événement</h2>
+        L'inscription à l'événement,
+        à l'hébergement et aux repas se fait sur <a
+        href="https://www.helloasso.com/associations/bureau-ludique-de-l-ens-de-lyon/evenements/interludes-ens-de-lyon">le
+        formulaire HelloAsso</a>
 
-	<ul class="messagelist">
-		<li class="info">
-			Il est possible que nous n'ayons pas le droit de faire dormir les participants et/ou
-			de distribuer des repas pendant l'événement pour des raisons sanitaires.<br>
-
-			Nous communiquerons les mesures exactes quelques jours avant l'événement.
-		</li>
-	</ul>
+	<h2>Inscription aux activités</h2>
+        Une fois votre inscription à l'événement effectuée, vous pourrez
+        vous inscrire à certaines activités sur cette page. La plupart des
+        activités ne demandent pas d'inscription et seront en libre accès
+        durant tout l'événement, mais certaines demandent une inscription à
+        l'avance.
 
 	<form id="main_form" method="post" action="{% url 'inscription' %}">
 		{% csrf_token %}
-		Cette année, l'événement est entièrement subventionné par le <a class="external" href="https://cof.ens.fr/">COF</a>. L'inscription est gratuite
-		(mais n'inclut pas les frais de transport jusqu'à Paris).
-
-
 
 		<p>{{ form.school.label_tag }} {{ form.school }}</p>
-		<p>{{ form.sleeps.label_tag }} {{ form.sleeps }}</p>
-
-		<h3>Repas</h3>
-		<table>
-			<tr><td>Vendredi soir&nbsp;:</td><td>{{ form.meal_friday_evening }}</td></tr>
-			<tr><td>Samedi matin&nbsp;:</td><td>{{ form.meal_saturday_morning }}</td></tr>
-			<tr><td>Samedi midi&nbsp;:</td><td>{{ form.meal_saturday_midday }}</td></tr>
-			<tr><td>Samedi soir&nbsp;:</td><td>{{ form.meal_saturday_evening }}</td></tr>
-			<tr><td>Dimanche matin&nbsp;:</td><td>{{ form.meal_sunday_morning }}</td></tr>
-			<tr><td>Dimanche midi&nbsp;:</td><td>{{ form.meal_sunday_midday }}</td></tr>
-		</table>
 
 		<h3>Choix d'activités</h3>
 

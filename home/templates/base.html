@@ -10,8 +10,8 @@
 
 		<title>{% block title %}Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}{% endblock %}</title>
 		<meta name="description" content="Inscriptions et infos sur les interENS ludiques{% if settings.date_start %}, édition {{ settings.date_start.year }}{% endif %}">
-		<meta name="keywords" content="Interludes ENS événement COF {% if settings.date_start %}{{ settings.date_start.year }} {% endif %}InterENS">
-		<link rel="icon" type="image/png" href="{% static 'imgs/favicon.ico' %}">
+		<meta name="keywords" content="Interludes ENS {% if settings.date_start %}{{ settings.date_start.year }} {% endif %}InterENS">
+		<link rel="icon" type="image/png" href="{% static 'imgs/2022/favicon.ico' %}">
 
 		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v={{ constants.CSS_VERSION }}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-all.min.css' %}">
@@ -110,10 +110,10 @@
 	<footer>
 		<div id="sponsors">
 			<a class="external" href="https://www.ens-lyon.fr/">
-				<img src="{% static "imgs/ens_lyon.svg" %}" alt="École Normale Supérieure de Lyon"
+				<img src="{% static "imgs/2022/ens_lyon.svg" %}" alt="École Normale Supérieure de Lyon"
 					title="École Normale Supérieure de Lyon" />
 			</a>
-			<img src="{% static "imgs/bul.png" %}" alt="Bureau Ludique de l'ENS de Lyon"
+			<img src="{% static "imgs/2022/bul.png" %}" alt="Bureau Ludique de l'ENS de Lyon"
 				title="Bureau Ludique de l'ENS de Lyon" />
 		</div>
 		{% if settings.contact_email %}

@@ -31,8 +31,10 @@
 
 <h2>Inscriptions</h2>
 	<p>
-		Ce site vous permettra de vous <a href="{% url 'inscription' %}">inscrire à l'événement</a> et
-		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées.
+		Ce site vous permettra de vous <a href="{% url 'inscription'
+		%}">inscrire à l'événement et aux activités</a> et de <a
+		href="{% url 'activites' %}">voir les activités</a> qui y
+		seront proposées.
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
 		<p>Les inscriptions seront ouvertes
@@ -47,11 +49,24 @@
 
 <h2>Tarifs</h2>
 <p>
-	Les tarifs pour l'événement, les repas et le logement sont en cours d'élaboration. Ils seront renseignés ici sous
-	peu.
+    Les tarifs sont différenciés entre salarié·es et non-salarié·es.
+    <ul>
+        <li><strong>Participation à l'événement :</strong> 6€/4€</li>
+        <li><strong>Repas (du vendredi soir au dimanche midi) :</strong> 10€/6€</li>
+        <li><strong>Logement en tente :</strong> 3€</li>
+    </ul>
 </p>
 
-	<p>Pour plus de détails, consultez la <a href="{% url 'FAQ' %}">FAQ</a>.</p>
+<h2>Menu des repas</h2>
+<p>
+    Cette année, le menu sera entièrement végétarien, avec options végan et/ou sans gluten possibles.
+    <ul>
+        <li><strong>Vendredi soir :</strong> Chili sin carne, riz & compote</li>
+        <li><strong>Samedi midi :</strong> Brunch (Salade bar, Croques pesto-mozza, Houmous, Gâteaux)</li>
+        <li><strong>Samedi soir :</strong> Soupe de saison & Tartiflette (option vegan : gratin de pommes de terre aux champignons)</li>
+        <li><strong>Dimanche midi :</strong> Sandwich au choix</li>
+    </ul>
+
 
 	<h2>Liens divers</h2>
 
