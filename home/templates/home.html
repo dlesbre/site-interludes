@@ -30,10 +30,18 @@
 </p>
 
 <h2>Inscriptions</h2>
+
+    <h3>Inscription à l'événement</h3>
 	<p>
-		Ce site vous permettra de vous <a href="{% url 'inscription'%}">inscrire à l'événement et aux activités</a> et de <a
-		href="{% url 'activites' %}">voir les activités</a> qui y
-		seront proposées.
+        L'inscription à l'événement,
+        à l'hébergement et aux repas se fait sur <a
+        href="https://www.helloasso.com/associations/bureau-ludique-de-l-ens-de-lyon/evenements/interludes-ens-de-lyon">le
+        formulaire HelloAsso</a>
+	</p>
+
+	<h3>Inscription aux activités</h3>
+	<p>
+        Une fois votre inscription à l'événement effectuée, vous pourrez vous <a href="{% url 'inscription'%}">inscrire aux activités</a>
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
 		<p>Les inscriptions seront ouvertes
