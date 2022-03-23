@@ -65,18 +65,18 @@
 		{% endif %}
 	</ul>
 {% else %}
-	<strong>Vous n'êtes pas incrit à l'événement.</strong>
+	<strong>Vous n'avez pas encore renseigné vos choix d'activités.</strong>
 
 	{% if not settings.inscriptions_open %}
 		{% if settings.inscriptions_not_open_yet %}
-			<p>Les inscriptions ne sont pas encores ouvertes. Elles ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+			<p>Les inscriptions aux activités ne sont pas encores ouvertes. Elles ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
 		{% elif settings.inscriptions_have_closed %}
-			<p>Les inscriptions sont fermées.</p>
+			<p>Les inscriptions aux activités sont fermées.</p>
 		{% else %}
-			<p>Les inscriptions ne sont pas encores ouvertes ou ont été fermées.</p>
+			<p>Les inscriptions aux activités ne sont pas encores ouvertes ou ont été fermées.</p>
 		{% endif %}
 	{% elif settings.inscriptions_end %}
-		<p>les inscriptions sont ouvertes jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}).</p>
+		<p>les inscriptions aux activités sont ouvertes jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}).</p>
 	{% endif %}
 	<br><br>
 {% endif %}
