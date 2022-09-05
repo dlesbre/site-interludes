@@ -59,12 +59,6 @@
 				class="{% block nav_faq %}{% endblock %}">
 				FAQ
 			</a>
-			{% if settings.table_nb %}
-			<a href="{% url 'tables' %}" rel="text/html"
-				class="{% block nav_tables %}{% endblock %}">
-				Présences
-			</a>
-			{% endif %}
 			{% if request.user.is_authenticated %}
 				<a href="{% url 'authens:logout' %}"
 					class="{% block nav_profile %}{% endblock %}">
