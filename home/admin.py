@@ -70,13 +70,3 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	list_filter = ("on_planning", "activity__display",)
 	list_editable = ("on_planning", "on_activity",)
 	ordering = ("activity", "title", "start",)
-
-@admin.register(models.AdjacencyModel)
-class AdjacencyModelAdmin(ExportCsvMixin, admin.ModelAdmin):
-	filename = "export_slots.csv"
-	csv_export_fields = (
-		"user_id", "table", "time", "type",
-	)
-	list_display = ("time", "table", "user", "type",)
-	list_filter = ("table", "user", "type",)
-	ordering = ("time", "table", "user",)

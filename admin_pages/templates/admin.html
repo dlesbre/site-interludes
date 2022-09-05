@@ -12,7 +12,6 @@
 	<div class="flex wrap">
 		<a class="button" href="{% url 'admin_pages:activities.csv' %}"><i class="fa fa-download"></i> Activités</a>
 		<a class="button" href="{% url 'admin_pages:slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>
-		<a class="button" href="{% url 'admin_pages:presences.csv' %}"><i class="fa fa-download"></i> Présences</a>
 	</div>
 	<ul class="messagelist">
 		<li class="info">
@@ -24,7 +23,6 @@
 
 		<ul>
 			<li>Les emails des orgas sont {% if settings.show_host_emails %}affichés sur la page activité{% else %}masqués{% endif %}.</li>
-			<li>Nombre de tables: {{ settings.table_nb }} (les urls valides sont [0, n-1])</li>
 			<li>L'envoi d'email en masse est {% if settings.allow_mass_email %}activé{% else %}désactivé{% endif %}</li>
 			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>

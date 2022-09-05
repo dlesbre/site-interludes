@@ -87,9 +87,6 @@ class SiteSettings(SingletonModel):
 		verbose_name="Version PDF du planning", null=True, blank=True,
 		storage=OverwriteStorage(),
 	)
-	table_nb = models.PositiveIntegerField("Nombre de tables",
-		default=0, help_text="Permet le scan de QR codes pour les urls '/table/0' ... '/table/&lt;n-1&gt;'"
-	)
 
 
 	allow_mass_mail = models.BooleanField(
@@ -156,11 +153,6 @@ class SiteSettings(SingletonModel):
 			or self.caption_blue \
 			or self.caption_dark_blue \
 			or self.caption_black
-
-	@property
-	def tables(self) -> List[int]:
-		"""liste des table pour iteration dans une template"""
-		return [x for x in range(0, self.table_nb)]
 
 	class Meta:
 		verbose_name = "paramètres"

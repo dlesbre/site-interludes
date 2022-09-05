@@ -104,22 +104,6 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 			])
 		return rows
 
-class ExportAdjacencies(SuperuserRequiredMixin, CSVWriteView):
-	filename = "présences_48h"
-	headers = [
-		"username", "email", "date et heure", "numéro de table", "type",
-	]
-
-	def get_rows(self):
-		adjacencies = models.AdjacencyModel.objects.all()
-		rows = []
-		for adj in adjacencies:
-			rows.append([
-				adj.user.username, adj.user.email,
-				adj.time, adj.table, adj.Type(adj.type).label,
-			])
-		return rows
-
 # ==============================
 # Send email views
 # ==============================
