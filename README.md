@@ -1,10 +1,10 @@
 # Site des 48h des jeux
 
-Ce répo contient le sites des 48h des jeux. Ce site est en ligne à l'adresse [https://48hdesjeux.cof.ens.fr/](https://48hdesjeux.cof.ens.fr/).
+Ce répo contient le site des 48h des jeux. Ce site est en ligne à l'adresse [https://48hdesjeux.cof.ens.fr/](https://48hdesjeux.cof.ens.fr/).
 
 Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses/mit/).
 
-**Contenu:**
+**Contenu :**
 - [Lancement rapide](#lancement-rapide)
 - [Installation](#installation)
 - [Lancer le serveur](#lancer-le-serveur)
@@ -25,7 +25,7 @@ Pour installer toutes les dépendances et lancer le serveur :
 
 Le site devrait être accessible à [http://localhost:8000](http://localhost:8000).
 
-Par la suite vous pouver relancer le site simplement avec `make serve`.
+Par la suite vous pouvez relancer le site simplement avec `make serve`.
 
 ## Installation
 
@@ -55,7 +55,7 @@ Pour tester et modifier le repo, après l'avoir cloné :
 
 		ln -s site48h/secret_example.py site48h/secret.py
 
-6. Faire les les migrations
+6. Faire les migrations
 
 		make migrate
 
@@ -82,22 +82,22 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 
 ## Guide de l'administrateur
 
-Le site se gère depuis deux pages d'administration:
+Le site se gère depuis deux pages d'administration :
 
 - celle de django [http://localhost:8000/admin](http://localhost:8000/admin) permet de modifier directement la base de donnée. Celle ci contient six tables intéressantes :
-	- Utilisateurs - contient tous les utilisateurs et leur permissions. Pour donner les droits d'administrateur à quelqu'un il faut lui donner le statut superutilisateur (accès à l'admin du site) ET le statut équipe (accès à l'admin django)
-	- Paramêtres - les réglages du site, ils permettent:
+	- Utilisateurs - contient tous les utilisateurs et leurs permissions. Pour donner les droits d'administrateur à quelqu'un il faut lui donner le statut superutilisateur (accès à l'admin du site) ET le statut équipe (accès à l'admin django)
+	- Paramètres - les réglages du site, ils permettent :
 		- ouvrir/fermer la création de compte, les inscriptions
-		- ouvrir fermer le formulaire de proposition d'activités
+		- ouvrir/fermer le formulaire de proposition d'activités
 		- afficher/cacher le planning
 		- renseigner l'email de contact, les dates de l'événement, les dates d'inscription
-		- ajouter un message global au dessus de toutes les pages
+		- ajouter un message global au-dessus de toutes les pages
 		- bloquer/autoriser l'envoi d'email globaux
 	- Activités - liste des activités prévues. C'est ici que vous pouvez rajouter/modifier les activités qui s'affichent sur la page activité.
 		Un formulaire permet aux utilisateurs de proposer des activités directement. Ils vous faudra les relire et les valider ensuite manuellement pour qu'elles soient affichées sur le site.
-	- Crénaux - place une activité sur le planning. Une activité peut avoir plusieurs crénaux si elle a lieu plusieurs fois. Noter que les inscriptions se font à des crénaux et non a des activités.
+	- Créneaux - place une activité sur le planning. Une activité peut avoir plusieurs créneaux si elle a lieu plusieurs fois. Noter que les inscriptions se font à des créneaux et non a des activités.
 	- Participant - liste des gens inscrits et des informations sur leur inscription (ENS, repas choisi...)
-	- Choix d'activité - Liste de (participant, priorité, activité) indiquant les voeux des participant. Une fois que vous avez fait l'attribution, cocher les case "Obtenues" pour indiquer qui a eu quelle activité.
+	- Choix d'activité - Liste de (participant, priorité, activité) indiquant les vœux des participants. Une fois que vous avez fait l'attribution, cocher les case "Obtenues" pour indiquer qui a eu quelle activité.
 
 - celle du site [http://localhost:8000/admin_pages/](http://localhost:8000/admin_pages/)
 	- permet d'exporter les différentes tables au format CSV
@@ -117,15 +117,15 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 		python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
 
-4. Faire les migration `make migrate`
+4. Faire les migrations `make migrate`
 
 5. Faire un `make preprod` pour générer les fichiers statiques et vérifier les réglages
 
 ## Idées de développement
 
-A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
+A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter
 
-- Envoyer une concaténation de tous les emails aux admin (pour vérification, et pas juste en copie pour éviter le spam...)
+- Envoyer une concaténation de tous les emails aux admins (pour vérification, et pas juste en copie pour éviter le spam...)
 - Générer la version PDF du planning automatiquement au lieu de la faire à base de captures d'écran
 - Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)
 
