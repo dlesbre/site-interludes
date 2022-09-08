@@ -1,0 +1,107 @@
+{% load static %}
+
+<h2>Quelles seront les mesures de protection sanitaire&nbsp;?</h2>
+<p>Les mesures définitives vous seront communiquées à l'arrivée à l'événement. Elles incluront probablement&nbsp;:</p>
+<ul>
+	<li>Contrôle des passes sanitaires chaque jour</li>
+	<li>Port du masque obligatoire en permanence</li>
+	<li>Lavage de main entre chaque jeu/activité conseillé</li>
+	<li>Salles aérées en permanence et joueur&middot;ses invité&middot;es à se rendre dehors si le taux de CO2 devient
+		trop élevé</li>
+</ul>
+
+
+<h2>Comment proposer une activité&nbsp;?</h2>
+{% if settings.activity_submission_open %}
+<p>Vous pouver proposer une activité en remplissant <a href="{% url 'activity_submission' %}">ce formulaire</a>.</p>
+<p>Il vous faudra être connecté et renseigner, le titre, une description, le nombre de places, la durée, les horaires
+	possibles/idéaux, et tout autre besoin particulier...</p>
+{% else %}
+<p>L'appel a activités est fermé pour le moment.
+	Contactez nous en cas de besoin urgent ou d'idée trop géniale pour être délaissée.</p>
+{% endif %}
+
+<h2>Dois-je être inscrit&middot;e pour participer&nbsp;?</h2>
+
+<p>
+	Non. L'événement est gratuit et vous pouvez aller et venir à votre guise.
+	Un pass sanitaire vous sera juste demandé à l'entrée. Pour les activité sur inscriptions
+	(qui nécessitent une préparation en amont ou qui ont un nombre de places limité), vous pouvez
+	contacter directement l'orga par email.
+</p>
+
+<h2>Je n'ai pas de compte clipper/vieilleux, comment me connecter&nbsp;?</h2>
+
+<p>Envoie nous un mail et on t'en créera un.</p>
+
+<h2>Quels jeux seront disponibles&nbsp;?</h2>
+
+<p>
+	Il y en aura beaucoup !
+	À priori presque tous ceux du club jeu (voir <a href="https://jeux.cof.ens.fr/inventory/">l'inventaire</a>),
+	mais aussi des jeux amenés par des particuliers.
+	N'hésite pas à apporter des jeux si nous ne les avons pas et tu veux nous les faire découvrir.
+</p>
+
+<h2>Pourra-t-on boire/manger sur place&nbsp;?</h2>
+<p>
+	Nous devrions pouvoir servir des boissons (non-alcoolisées) et de la nourriture.
+	Vous pouvez également apporter la vôtre.
+	Il faudra manger dans une salle à part, probablement en extérieur si le temps le permet.
+</p>
+
+<h2>Où aura lieu l'événement&nbsp;?</h2>
+<p>
+	L'événement se déroule principalement dans <strong>le Pôt</strong> (le restaurant).
+	Vous y trouverez plein de jeux en libre service et des tables pour jouer.
+	Les activités nécessitant un salle à part se dérouleront probablement
+	dans les salles du passage rouge (salles de cours du DMA), situées au deuxième sous-sol du bâtiment Rataud.
+</p>
+
+<h2>Je peux aider pour l'organisation&nbsp;?</h2>
+<p>
+	Oui&nbsp;! Il nous faut principalement des volontaires pour aider à
+	l'installation et aux rangement, ainsi que pour faire des perms pendant l'événement.
+	Si tu es motivé&middot;e, inscris toi sur <a href="https://lite.framacalc.org/9puj-kcb1ao2mpl">ce calc</a>.
+</p>
+
+<h2>Comment se rendre à l'ENS Ulm&nbsp;?</h2>
+<div>
+	<p class="centered">
+		<i class="fas fa-map-marker-alt"></i>
+		45 rue d'Ulm, 75005 Paris
+	</p>
+
+	<iframe id="interactive-map" width="750" height="400"
+		src="https://www.openstreetmap.org/export/embed.html?bbox=2.334809303283692%2C48.8368567401711%2C2.3548936843872075%2C48.84636099015179&amp;layer=hot&amp;marker=48.841602029496684%2C2.344851493835449"></iframe>
+</div>
+
+<div id="public-transport-info">
+	<div id="transport-metro-icon">
+		<img src="{% static 'imgs/ratp/metro-7.svg' %}" alt="Métro 7">
+	</div>
+	<span id="transport-metro-stop">Censier Daubenton</span>
+
+	<div id="transport-rer-icon">
+		<img src="{% static 'imgs/ratp/rer-B.svg' %}" alt="RER B">
+	</div>
+	<span id="transport-rer-stop">Luxembourg</span>
+
+	<div id="transport-bus-1-icon">
+		<img src="{% static 'imgs/ratp/bus-24.svg' %}" alt="Bus 24">
+	</div>
+	<span id="transport-bus-1-stop">École Normale Supérieure</span>
+
+	<div id="transport-bus-2-icon">
+		<img src="{% static 'imgs/ratp/bus-21.svg' %}" alt="Bus 21">
+		<img src="{% static 'imgs/ratp/bus-27.svg' %}" alt="Bus 27">
+	</div>
+	<span id="transport-bus-2-stop">Feuillantines</span>
+
+	<div id="transport-noctilien-icon">
+		<img src="{% static 'imgs/ratp/noctilien-14.svg' %}" alt="Noctilien 14">
+		<img src="{% static 'imgs/ratp/noctilien-21.svg' %}" alt="Noctilien 21">
+		<img src="{% static 'imgs/ratp/noctilien-122.svg' %}" alt="Noctilien 122">
+	</div>
+	<span id="transport-noctilien-stop">Auguste Comte</span>
+</div>

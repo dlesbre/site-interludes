@@ -94,7 +94,7 @@ INSTALLED_APPS = [
 	'admin_pages.apps.AdminPagesConfig',
 	'authens',
 	'site_settings.apps.SiteSettingsConfig',
-	'shared.apps.SharedConfig',
+	'pages.apps.PagesConfig',
 ]
 
 MIDDLEWARE = [

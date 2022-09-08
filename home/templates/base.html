@@ -19,7 +19,7 @@
 	<body>
 		<header>
 			<div class="logo">
-				<h1><a href="{% url 'home' %}"><img src="{% static 'imgs/logo.svg' %}" alt="logo">&nbsp;48h des jeux&nbsp;</a></h1>
+				<h1><a href="{% url 'pages:home' %}"><img src="{% static 'imgs/logo.svg' %}" alt="logo">&nbsp;48h des jeux&nbsp;</a></h1>
 			</div>
 			<div id="head_main_infos">
 				<div id="location">ENS Ulm</div>
@@ -47,7 +47,7 @@
 		</script>
 
 		<nav id="nav">
-			<a href="{% url 'home' %}" rel="text/html"
+			<a href="{% url 'pages:home' %}" rel="text/html"
 				class="{% block nav_home %}{% endblock %}">
 				Accueil
 			</a>
@@ -55,7 +55,7 @@
 				class="{% block nav_activite %}{% endblock %}">
 				Activités
 			</a>
-			<a href="{% url 'FAQ' %}" rel="text/html"
+			<a href="{% url 'pages:html_page' slug='faq' %}" rel="text/html"
 				class="{% block nav_faq %}{% endblock %}">
 				FAQ
 			</a>

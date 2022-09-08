@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_home %}{% if slug == "" %}current{% endif %}{% endblock %}
+{% block nav_faq %}{% if slug == "faq" %}current{% endif %}{% endblock %}
+
+{% block "content" %}
+{{ html_body|safe }}
+{% endblock %}

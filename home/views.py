@@ -3,17 +3,15 @@ from datetime import timedelta
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
-from django.forms import formset_factory
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.utils import timezone
-from django.views.generic import FormView, RedirectView, TemplateView, View
+from django.views.generic import FormView, DetailView, TemplateView
 
 from authens.views import LogoutView as AuthensLogoutView
 
-from home import models
-from home.forms import ActivitySubmissionForm
+from .models import ActivityModel, SlotModel
+from .forms import ActivitySubmissionForm
 from site_settings.models import SiteSettings
 
 
@@ -30,7 +28,7 @@ def get_planning_context():
 	"""Returns the context dict needed to display the planning"""
 	settings = SiteSettings.load()
 	context = dict()
-	context['planning'] = models.SlotModel.objects.filter(on_planning=True).order_by("title")
+	context['planning'] = SlotModel.objects.filter(on_planning=True).order_by("title")
 	if settings.date_start is not None:
 		context['friday'] = settings.date_start.day
 		context['saturday'] = (settings.date_start + timedelta(days=1)).day
@@ -48,7 +46,7 @@ class ActivityView(TemplateView):
 	def get_context_data(self, **kwargs):
 		"""ajoute la liste des activités au contexte"""
 		context = super(ActivityView, self).get_context_data(**kwargs)
-		context['activities'] = models.ActivityModel.objects.filter(display=True).order_by("title")
+		context['activities'] = ActivityModel.objects.filter(display=True).order_by("title")
 		context.update(get_planning_context())
 		return context
 
@@ -56,6 +54,7 @@ class ActivityView(TemplateView):
 class FAQView(TemplateView):
 	"""Vue pour la FAQ"""
 	template_name = "faq.html"
+
 
 
 # ==============================
