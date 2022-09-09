@@ -187,7 +187,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'authens:login'
-LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_REDIRECT_URL = reverse_lazy('pages:home')
 
 # Prefix to mails to admins
 EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '

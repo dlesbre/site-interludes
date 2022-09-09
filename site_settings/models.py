@@ -23,7 +23,12 @@ class Colors(models.TextChoices):
 class OverwriteStorage(FileSystemStorage):
 	"""used to enforcing a fixed filename to upload file
 	This allow for a constant link to a changeable file"""
-	filename = "Planning48hDesJeux"
+	filename: str
+
+	def __init__(self, filename="file"):
+		"""Filename without extension"""
+		super().__init__()
+		self.filename = filename
 
 	def get_available_name(self, name, **kwargs):
 		"""
@@ -85,9 +90,13 @@ class SiteSettings(SingletonModel):
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 	planning_file = models.FileField(
 		verbose_name="Version PDF du planning", null=True, blank=True,
-		storage=OverwriteStorage(),
+		storage=OverwriteStorage("Planning48hDesJeux"),
+		help_text="Pour affichage sur mobile"
 	)
-
+	affiche = models.FileField(
+		verbose_name="Affiche", null=True, blank=True,
+		storage=OverwriteStorage("Affiche48hDesJeux"),
+	)
 
 	allow_mass_mail = models.BooleanField(
 		"Permettre l'envoi de mails à tous les utilisateurs", default=False,

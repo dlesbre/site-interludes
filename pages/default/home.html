@@ -2,7 +2,9 @@
 
 <h2>Présentation</h2>
 
-<img width=100% src="{% static 'imgs/affiche.png' %}" alt="affiche">
+{% if settings.affiche %}
+<img width=100% src="{{ settings.affiche.file }}" alt="affiche">
+{% endif %}
 
 <p>
 	Pendant les 48h des jeux, les clubs jeux (de société, de carte, de rôle, vidéo, DDR...)
