@@ -17,33 +17,31 @@
 		à l'honneur durant ce week-end de trois jours.
 	</p>
 	<p>
-		Cette année, c'est au tour de l'ENS Ulm d'organiser les interludes.
-		L'événement a habituellement lieu en février mais à cause du COVID,
-		il a été retardé. Cette année il est prévu
-		{% if settings.date_start %}{% if settings.date_end %}
-			le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
-		{% else %}
-			le week-end du <strong>{{ settings.date_start }}</strong>.
-		{% endif %}
-		{% else %}
-			à une date non-fixée.
-		{% endif %}
-	</p>
+	Cette année, c'est au tour de l'{{ settings.hosting_school }} d'organiser les interludes.
+	Elles auront lieu
+	{% if settings.date_start %}{% if settings.date_end %}
+	le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
+	{% else %}
+	le week-end du <strong>{{ settings.date_start }}</strong>.
+	{% endif %}
+	{% else %}
+	à une date non-fixée.
+	{% endif %}
+</p>
+
+<h2>Inscriptions</h2>
+
+    <h3>Inscription à l'événement</h3>
 	<p>
-		La situation actuelle ne se prête malheureusement pas à un tel événement. Nous ne pouvons donc
-		que proposer un événement à distance, qui passera principalement par un serveur discord.
-		Vous trouverez une liste de sites utiles pour jouer en ligne dans la
-		<a href="{% url 'FAQ' %}">FAQ</a> et sur le serveur discord.
+        L'inscription à l'événement,
+        à l'hébergement et aux repas se fait sur <a
+        href="https://www.helloasso.com/associations/bureau-ludique-de-l-ens-de-lyon/evenements/interludes-ens-de-lyon">le
+        formulaire HelloAsso</a>
 	</p>
 
-	<h2>Inscriptions</h2>
-	<ul class="messagelist"><li class="info">
-		Les interlude étant à distance cette année, les inscriptions sont facultatives.
-	</li></ul>
+	<h3>Inscription aux activités</h3>
 	<p>
-		Ce site vous permettra de vous <a href="{% url 'inscription' %}">inscrire à l'événement</a> et
-		de <a href="{% url 'activites' %}">voir les activités</a> qui y seront proposées. L'événement est
-		<strong>gratuit</strong>.
+        Une fois votre inscription à l'événement effectuée, vous pourrez vous <a href="{% url 'inscription'%}">inscrire aux activités</a>
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
 		<p>Les inscriptions seront ouvertes
@@ -56,16 +54,32 @@
 		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
 	{% endif %}
 
+<h2>Tarifs</h2>
+<p>
+    Les tarifs sont différenciés entre salarié·es et non-salarié·es.
+    <ul>
+        <li><strong>Participation à l'événement :</strong> 6€/4€</li>
+        <li><strong>Repas (du vendredi soir au dimanche midi) :</strong> 10€/6€</li>
+        <li><strong>Logement en tente :</strong> 3€</li>
+    </ul>
+</p>
 
-	<p>Pour plus de détails, consultez la <a href="{% url 'FAQ' %}">FAQ</a>.</p>
+<h2>Menu des repas</h2>
+<p>
+    Cette année, le menu sera entièrement végétarien, avec options végan et/ou sans gluten possibles.
+    <ul>
+        <li><strong>Vendredi soir :</strong> Chili sin carne, riz & compote</li>
+        <li><strong>Samedi midi :</strong> Brunch (Salade bar, Croques pesto-mozza, Houmous, Gâteaux)</li>
+        <li><strong>Samedi soir :</strong> Soupe de saison & Tartiflette (option vegan : gratin de pommes de terre aux champignons)</li>
+        <li><strong>Dimanche midi :</strong> Sandwich au choix</li>
+    </ul>
+
 
 	<h2>Liens divers</h2>
 
-	<ul>
-		<li>Le <a href="https://jeux.cof.ens.fr/">site du club jeux</a></li>
-		<li>Le <a href="https://cof.ens.fr">site du COF</a>.</li>
-		<li>Le <a href="https://wiki.crans.org/VieBdl/InterLudes">Le wiki de Paris-Saclay</a> qui recense les visuels, sites webs et photos des interludes passées.</li>
-		<li>Le code source de ce site est sur <a href="https://git.eleves.ens.fr/dlesbre/site-interludes">gitlab</a> et <a href="https://github.com/dlesbre/site-interludes">github</a>.</li>
-		<li>Un historique des interludes avec leurs visuels, site webs et photos est sur le <a href="https://wiki.crans.org/VieBdl/InterLudes">wiki de Paris-Saclay</a>.</li>
-	</ul>
+<ul>
+	<li>Le code source de ce site est sur <a href="https://github.com/Pantoofle/site-interludes">github</a>.</li>
+	<li>Un historique des interludes avec leurs visuels, site webs et photos est sur le <a
+			href="https://wiki.crans.org/VieBdl/InterLudes">wiki de Paris-Saclay</a>.</li>
+</ul>
 {% endblock %}
