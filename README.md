@@ -176,7 +176,7 @@ Le site se gère depuis deux pages d'administration :
 
 ## En production
 
-Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour livrer directement les fichiers situés des `/static/`.
+Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour livrer directement les fichiers situés dans `/static/` et `/media/`.
 
 1. Installer les dépendances `make install`
 

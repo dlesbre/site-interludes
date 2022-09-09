@@ -10,6 +10,8 @@ from django.views.generic import FormView, DetailView, TemplateView
 
 from authens.views import LogoutView as AuthensLogoutView
 
+from pages.models import HTMLPageModel
+
 from .models import ActivityModel, SlotModel
 from .forms import ActivitySubmissionForm
 from site_settings.models import SiteSettings
@@ -116,11 +118,18 @@ class StaticViewSitemap(Sitemap):
 
 	def items(self):
 		"""list of pages to appear in sitemap"""
-		return ["home", "activites", "FAQ"]
+		return [
+			("pages:home", {}),
+			("activites", {}),
+		] + [
+			("pages:html_page", {"slug":obj.slug})
+			for obj in HTMLPageModel.objects.all() if obj.slug
+		]
 
 	def location(self, item):
 		"""real url of an item"""
-		return reverse(item)
+		name, kwargs = item
+		return reverse(name, kwargs=kwargs)
 
 	def priority(self, obj):
 		"""priority to appear in sitemap"""
@@ -134,4 +143,4 @@ class StaticViewSitemap(Sitemap):
 class LogoutView(AuthensLogoutView):
 	def get_next_page(self):
 		messages.success(self.request, "Vous avez bien été déconnecté.")
-		return reverse("home")
+		return reverse("pages:home")
