@@ -1,5 +1,12 @@
 # Change Log
 
+## Version 3.0.0 - 2022-09-09
+
+- Moved home and FAQ templates to DB to allow for smoother editing
+- Moved poster from static images to a media file for smoother editing
+- Removed COVID Tracker
+- Update Makefile
+
 ## Version 2.3.1 - 2021-10-28
 
 - Fix error when building sitemap
