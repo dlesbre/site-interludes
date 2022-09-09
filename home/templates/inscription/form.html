@@ -4,28 +4,42 @@
 {% block nav_inscription %}current{% endblock %}
 
 {% block "content" %}
-    <h2>Inscription à l'événement</h2>
-        L'inscription à l'événement,
-        à l'hébergement et aux repas se fait sur <a
-        href="https://www.helloasso.com/associations/bureau-ludique-de-l-ens-de-lyon/evenements/interludes-ens-de-lyon">le
-        formulaire HelloAsso</a>
+	<h2>Inscription à l'événement</h2>
+		L'inscription à l'événement, à l'hébergement et aux repas se fait sur 
+		<a href="https://www.helloasso.com/associations/bureau-ludique-de-l-ens-de-lyon/evenements/interludes-ens-de-lyon">
+			le formulaire HelloAsso
+		</a>
 
 	<h2>Inscription aux activités</h2>
-        Une fois votre inscription à l'événement effectuée, vous pourrez
-        vous inscrire à certaines activités sur cette page. La plupart des
-        activités ne demandent pas d'inscription et seront en libre accès
-        durant tout l'événement, mais certaines demandent une inscription à
-        l'avance.
+		Une fois votre inscription à l'événement effectuée, vous pourrez
+		vous inscrire à certaines activités sur cette page. La plupart des
+		activités ne demandent pas d'inscription et seront en libre accès
+		durant tout l'événement, mais certaines demandent une inscription à
+		l'avance.
 
 	<form id="main_form" method="post" action="{% url 'inscription' %}">
 		{% csrf_token %}
 
 		<p>{{ form.school.label_tag }} {{ form.school }}</p>
+		<p>{{ form.sleeps.label_tag }} {{ form.sleeps }}</p>
+
+		<h3>Repas</h3>
+
+		<table>
+			<tr><td>Vendredi soir&nbsp;:</td><td>{{ form.meal_friday_evening }}</td></tr>
+			<tr><td>Samedi matin&nbsp;:</td><td>{{ form.meal_saturday_morning }}</td></tr>
+			<tr><td>Samedi midi&nbsp;:</td><td>{{ form.meal_saturday_midday }}</td></tr>
+			<tr><td>Samedi soir&nbsp;:</td><td>{{ form.meal_saturday_evening }}</td></tr>
+			<tr><td>Dimanche matin&nbsp;:</td><td>{{ form.meal_sunday_morning }}</td></tr>
+			<tr><td>Dimanche midi&nbsp;:</td><td>{{ form.meal_sunday_midday }}</td></tr>
+		</table>
 
 		<h3>Choix d'activités</h3>
 
-		<p>Saissisez les activités auquelles vous voulez vous inscrire, par ordre de préférence.
-			Vous trouverez une description des activités sur <a href="{% url 'activites' %}">cette page</a>.
+		<p>
+			Saisissez les activités auxquelles vous voulez vous inscrire, par ordre
+			de préférence. Vous trouverez une description des activités sur 
+			<a href="{%	url 'activites' %}">cette page</a>.
 		</p>
 		<p>
 			Vous pouvez revenir modifier votre choix jusqu'à la fermeture des
