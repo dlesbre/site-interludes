@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 3.0.1 - 2022-09-09
+
+- Fix submission form and sitemap
+
 ## Version 3.0.0 - 2022-09-09
 
 - Moved home and FAQ templates to DB to allow for smoother editing
