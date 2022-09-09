@@ -13,7 +13,7 @@
 	{% csrf_token %}
 	<table>
 		<tr><td><strong>De :</strong></td><td>{{ from_email }}</td></tr>
-		<tr><td><strong>Envoyer à : <strong></td><td>tous les inscrits ({{ accounts_nb }})</td></tr>
+		<tr><td><strong>Envoyer à : <strong></td><td>tous les inscrits ({{ accounts_nb }} personnes)</td></tr>
 		<tr><td><strong>Sujet : <strong></td><td>{{ form.subject }}</td></tr>
 	</table>
 	{{ form.text }}

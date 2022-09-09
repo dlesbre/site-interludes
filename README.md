@@ -5,6 +5,7 @@ Ce répo contient le site des 48h des jeux. Ce site est en ligne à l'adresse [h
 Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses/mit/).
 
 **Contenu :**
+- [Description](#description)
 - [Lancement rapide](#lancement-rapide)
 - [Installation](#installation)
 - [Lancer le serveur](#lancer-le-serveur)
@@ -13,15 +14,27 @@ Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses
 - [Idées de développement](#idées-de-développement)
 - [Liens divers](#liens-divers)
 
+## Description
+
+Ce site sert à organiser les 48h des jeux (ou les interludes). Il dispose des fonctionnalités suivantes :
+
+- Formulaire de soumission d'activité pour l'appel à projet
+- Système pour afficher le planning
+- ~~Système d'inscription des participants avec souhaits (triés) des différentes
+  activités~~ (Retirer, on demande aux participants d'envoyer des mails aux orgas)
+
+
 ## Lancement rapide
 
 Pour installer toutes les dépendances et lancer le serveur :
 
-		git clone https://git.eleves.ens.fr/dlesbre/48h-des-jeux.git &&
-		cd site-interlude &&
-		python3 -m venv venv &&
-		source venv/bin/activate &&
-		make start
+	```console
+	git clone https://git.eleves.ens.fr/dlesbre/48h-des-jeux.git &&
+	cd site-interlude &&
+	python3 -m venv venv &&
+	source venv/bin/activate &&
+	make start
+	```
 
 Le site devrait être accessible à [http://localhost:8000](http://localhost:8000).
 
@@ -32,32 +45,45 @@ Par la suite vous pouvez relancer le site simplement avec `make serve`.
 Pour tester et modifier le repo, après l'avoir cloné :
 
 1. Créer un [environement
-   virtuel](https://docs.python.org/3/tutorial/venv.html) (`python3-venv`)
+	virtuel](https://docs.python.org/3/tutorial/venv.html) (`python3-venv`)
 
-		python3 -m venv venv
+
+	```console
+	python3 -m venv venv
+	```
 
 	(si vous le nommez autre chose que venv, ajouter le dossier correspondant
     au `.gitignore`)
 
 2. Lancer l'environnement virtuel
 
-		source venv/bin/activate
+	```console
+	source venv/bin/activate
+	```
 
 3. Installer la dernière version de pip
 
-		python3 -m pip install --upgrade pip
+	```console
+	python3 -m pip install --upgrade pip
+	```
 
 4. Installer les requirements
 
-		pip3 install -r requirements.txt
+	```console
+	pip3 install -r requirements.txt
+	```
 
 5. Copier/linker le fichier `site48h/secret_example.py` dans `site48h/secret.py`
 
-		ln -s site48h/secret_example.py site48h/secret.py
+	```console
+	ln -s site48h/secret_example.py site48h/secret.py
+	```
 
 6. Faire les migrations
 
-		make migrate
+	```console
+	make migrate
+	```
 
 ## Lancer le serveur
 
@@ -66,11 +92,15 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 1. Lancer l'environnement virtuel si ce n'est pas déjà fait (si le prompt du
    terminal ne commence pas par `(venv)`)
 
-		source venv/bin/activate
+	```console
+	source venv/bin/activate
+	```
 
 2. Lancer le serveur avec `make serve` ou
 
-		make serve
+	```console
+	make serve
+	```
 
 	Cette commande bloque le terminal, le serveur tourne tant qu'elle n'est pas
 	interrompue (par `Ctrl+C` ou autre).
@@ -84,26 +114,65 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 
 Le site se gère depuis deux pages d'administration :
 
-- celle de django [http://localhost:8000/admin](http://localhost:8000/admin) permet de modifier directement la base de donnée. Celle ci contient six tables intéressantes :
-	- Utilisateurs - contient tous les utilisateurs et leurs permissions. Pour donner les droits d'administrateur à quelqu'un il faut lui donner le statut superutilisateur (accès à l'admin du site) ET le statut équipe (accès à l'admin django)
-	- Paramètres - les réglages du site, ils permettent :
-		- ouvrir/fermer la création de compte, les inscriptions
-		- ouvrir/fermer le formulaire de proposition d'activités
-		- afficher/cacher le planning
-		- renseigner l'email de contact, les dates de l'événement, les dates d'inscription
-		- ajouter un message global au-dessus de toutes les pages
-		- bloquer/autoriser l'envoi d'email globaux
-	- Activités - liste des activités prévues. C'est ici que vous pouvez rajouter/modifier les activités qui s'affichent sur la page activité.
-		Un formulaire permet aux utilisateurs de proposer des activités directement. Ils vous faudra les relire et les valider ensuite manuellement pour qu'elles soient affichées sur le site.
-	- Créneaux - place une activité sur le planning. Une activité peut avoir plusieurs créneaux si elle a lieu plusieurs fois. Noter que les inscriptions se font à des créneaux et non a des activités.
-	- Participant - liste des gens inscrits et des informations sur leur inscription (ENS, repas choisi...)
-	- Choix d'activité - Liste de (participant, priorité, activité) indiquant les vœux des participants. Une fois que vous avez fait l'attribution, cocher les case "Obtenues" pour indiquer qui a eu quelle activité.
+**Page d'administration Django :** [http://localhost:8000/admin](http://localhost:8000/admin) permet de modifier directement la base de donnée. Descriptif rapide des tables intéressantes :
 
-- celle du site [http://localhost:8000/admin_pages/](http://localhost:8000/admin_pages/)
-	- permet d'exporter les différentes tables au format CSV
-	- affiche l'état du site (version, réglages actuels, différentes métriques)
-	- une prévisualisation du planning
-	- permet l'écriture d'un mail à tous.
+- Utilisateurs - contient tous les utilisateurs et leurs permissions. Pour
+  donner les droits d'administrateur à quelqu'un il faut lui donner le statut
+  superuser (accès à l'admin du site) ET le statut équipe (accès à l'admin
+  django).
+
+	Pour ajouter un compte non-clipper vous pouvez le créer ici (avec un
+  mot de passe bidon), y rajouter un email, et ensuite demander à la personne
+  concernée d'utilisé le formulaire de changement de mot de passe pour en créer un.
+
+- Pages HTML - contient les pages d'informations (notamment home et FAQ). Cela
+  permet de modifier leur contenu facilement (sans faire de pull). Ces pages ont
+  un nom (uniquement visible dans l'admin), un URL d'accès et un contenu (format
+  HTML avec tag de templates django).
+
+	Les pages `home` (url vide) et `faq` (url `faq`) sont spéciales. Elles
+  apparaissent sur la barre de navigation et sont régénérées à partir de
+  fichiers de base dans [pages/default/](./pages/default/) si quelqu'un tente
+  d'y accéder après leur suppression.
+
+- Paramètres - les réglages du site, ils permettent :
+	- ~~ouvrir/fermer la création de compte, les inscriptions~~ (uniquement sur la version Interludes)
+	- ouvrir/fermer le formulaire de proposition d'activités
+	- afficher/cacher le planning
+	- renseigner l'email de contact, les dates de l'événement, les dates d'inscription
+	- ajouter un message global au-dessus de toutes les pages
+	- bloquer/autoriser l'envoi d'email globaux
+	- Ajouter une version PDF du planning (pour mobiles)
+	- Ajouter l'affiche (visible sur la page d'accueil)
+
+- Activités - liste des activités prévues. C'est ici que vous pouvez
+	rajouter/modifier les activités qui s'affichent sur la page activité. Un
+	formulaire permet aux utilisateurs de proposer des activités directement. Il
+	vous faudra les relire et les valider ensuite manuellement pour qu'elles
+	soient affichées sur le site.
+
+- Créneaux - place une activité sur le planning. Une activité peut avoir
+  plusieurs créneaux si elle a lieu plusieurs fois. Noter que les inscriptions
+  se font à des créneaux et non a des activités.
+
+	Note : le planning généré par le site (en JS) est difficilement lisible sur
+	mobile. Le site permet d'uploader une version PDF propre pour mobiles.
+	Personnellement je faisais une capture d'écran du planning (vu sur un grand
+	écran) que j'exportais en PDF.
+
+- ~~Participant - liste des gens inscrits et des informations sur leur inscription
+  (ENS, repas choisi...)~~
+
+- ~~Choix d'activité - Liste de (participant, priorité, activité) indiquant les
+  vœux des participants. Une fois que vous avez fait l'attribution, cocher les
+  case "Obtenues" pour indiquer qui a eu quelle activité.~~
+
+
+**Page d'administration du site :** [http://localhost:8000/admin_pages/](http://localhost:8000/admin_pages/)
+- permet d'exporter les différentes tables au format CSV
+- affiche l'état du site (version, réglages actuels, différentes métriques)
+- une prévisualisation du planning
+- permet l'écriture d'un mail à tous.
 
 ## En production
 
@@ -115,7 +184,9 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 3. Créer ou remplacer le fichier `site48h/secret.py` pour qu'il ait les mots de passe et un nouveau secret. Vous pouvez générer un secret django avec
 
-		python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
+	```console
+	python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
+	```
 
 4. Faire les migrations `make migrate`
 
@@ -127,7 +198,6 @@ A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter
 
 - Envoyer une concaténation de tous les emails aux admins (pour vérification, et pas juste en copie pour éviter le spam...)
 - Générer la version PDF du planning automatiquement au lieu de la faire à base de captures d'écran
-- Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)
 
 ## Liens divers
 
