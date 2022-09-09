@@ -85,6 +85,10 @@
 	</ol>
 	<p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, il ne marche pas encore parfaitement, et on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers (conflits d'horaires, activité présente plusieurs fois...).
 
+{% if settings.contact_email %}
 <h2>J'ai encore une question, je fais quoi ?</h2>
-<p> Hésite pas à nous passer un mail à <span class="antispam">{{ settings.contact_email_reversed }}</span> pour nous poser tes questions !</p>
+<p> Hésites pas à nous passer un mail à 
+	<span class="antispam">{{ settings.contact_email_reversed }}</span>
+	pour nous poser tes questions !</p>
+{% endif %}
 {% endblock %}

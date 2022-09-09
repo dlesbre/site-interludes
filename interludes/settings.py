@@ -90,7 +90,6 @@ INSTALLED_APPS = [
 	'accounts.apps.AccountsConfig',
 	'site_settings.apps.SiteSettingsConfig',
 	'shared.apps.SharedConfig',
-	'cas_server',
 ]
 
 MIDDLEWARE = [
@@ -191,7 +190,3 @@ EMAIL_SIGNATURE = '-- Site Interludes (mail généré automatiquement)'
 
 # Prefix to mails to users
 USER_EMAIL_SUBJECT_PREFIX = "[interludes] "
-
-
-# CAS SERVER
-CAS_AUTH_CLASS = "interludes.cas_model.InterLudesAuthUser"
