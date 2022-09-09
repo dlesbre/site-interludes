@@ -21,11 +21,6 @@ from site_settings.models import SiteSettings
 # Site static pages
 # ==============================
 
-
-class HomeView(TemplateView):
-	"""Vue pour la page d'acceuil"""
-	template_name = "home.html"
-
 def get_planning_context():
 	"""Returns the context dict needed to display the planning"""
 	settings = SiteSettings.load()
@@ -51,13 +46,6 @@ class ActivityView(TemplateView):
 		context['activities'] = ActivityModel.objects.filter(display=True).order_by("title")
 		context.update(get_planning_context())
 		return context
-
-
-class FAQView(TemplateView):
-	"""Vue pour la FAQ"""
-	template_name = "faq.html"
-
-
 
 # ==============================
 # Activity Submission Form
