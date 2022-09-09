@@ -55,7 +55,7 @@ class BaseActivityFormSet(forms.BaseFormSet):
 			if activity is None:
 				continue
 			if activity in activities:
-				raise ValidationError("Vous ne pouvez pas sélectionner une même activtté plusieurs fois")
+				raise ValidationError("Vous ne pouvez pas sélectionner une même activité plusieurs fois")
 			activities.append(activity)
 
 

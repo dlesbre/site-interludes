@@ -378,7 +378,7 @@ div.error {
 
 ul.messagelist {
 	padding: 0;
-	margin-top: 20px;
+	margin: 0 20px 20px;
 }
 
 ul.messagelist li {

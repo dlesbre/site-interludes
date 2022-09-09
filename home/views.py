@@ -19,7 +19,7 @@ from site_settings.models import SiteSettings
 
 
 class HomeView(TemplateView):
-	"""Vue pour la page d'acceuil"""
+	"""Vue pour la page d'accueil"""
 	template_name = "home.html"
 
 def get_planning_context():
@@ -104,7 +104,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 
 	@staticmethod
 	def set_activities(participant, formset):
-		# delete old activites
+		# delete old activities
 		models.ActivityChoicesModel.objects.filter(participant=participant).delete()
 
 		priority = 0
@@ -231,7 +231,7 @@ class StaticViewSitemap(Sitemap):
 
 	def priority(self, obj):
 		"""priority to appear in sitemap"""
-		# Priorize home page over the rest in search results
+		# Prioritize home page over the rest in search results
 		if obj == "home" or obj == "":
 				return 0.8
 		else:
