@@ -1,6 +1,19 @@
 # Change Log
 
-## Version 2.0.0-beta - Coming soon
+## Version 2.2.0 - 2022-09-09 - Changes from 48h des jeux
+
+- Merge Lyon's fork
+- Added dynamic (in DB) templates for info pages (home and faq)
+- Restore meals to inscription form (as they can be easily removed if irrelevent
+- Spelling fixes
+
+## Version 2.1.0 - 2022-03-24 - Interludes 2022 Lyon
+
+- Update website for Lyon 2022
+- Made hosting school a parameter
+- Added distinction between this website and the HelloAsso ticket website
+
+## Version 2.0.0 - 2021-10-05 - Changes from 48h des jeux website
 
 - Added a form that allows admins to send emails to all users
 - Added a form for users to submit activities
@@ -13,7 +26,7 @@
 	- added boolean field to show host email on activity
 	- added boolean field to separate showing slot on planning and next to activity
 
-## Version 1.2.8 - 2021-05-06
+## Version 1.2.8 - 2021-05-06 - Interludes 2021 Ulm
 
 - Added links to FAQ
 - Added django-admin link to admin profile page

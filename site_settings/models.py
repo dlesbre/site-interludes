@@ -50,7 +50,7 @@ class SingletonModel(models.Model):
 
 	def delete(self, *args, **kwargs):
 		"""can't delete the unique element"""
-		pass
+		raise ValueError("Attempting to delete unique element")
 
 	@classmethod
 	def load(cls):
@@ -73,10 +73,10 @@ class SiteSettings(SingletonModel):
 	hosting_school = models.CharField(
 		"École hébergeant l'événement", max_length=50, blank=True, null=True
 	)
-	
+
 	date_start = models.DateField("Date de début", blank=True, null=True)
 	date_end = models.DateField("Date de fin", blank=True, null=True)
-	
+
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
 	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
 	activity_submission_open = models.BooleanField(
@@ -168,7 +168,9 @@ class SiteSettings(SingletonModel):
 
 	@property
 	def contact_email_reversed(self) -> str:
-		return self.contact_email[::-1]
+		if self.contact_email:
+			return self.contact_email[::-1]
+		return ""
 
 	@property
 	def inscriptions_not_open_yet(self) -> bool:
@@ -191,13 +193,13 @@ class SiteSettings(SingletonModel):
 	@property
 	def has_caption(self) -> bool:
 		"""Vérifie si l'une des légende est non-nulle"""
-		return self.caption_red \
+		return bool(self.caption_red \
 			or self.caption_orange \
 			or self.caption_yellow \
 			or self.caption_green \
 			or self.caption_blue \
 			or self.caption_dark_blue \
-			or self.caption_black
+			or self.caption_black)
 
 	class Meta:
 		verbose_name = "paramètres"
