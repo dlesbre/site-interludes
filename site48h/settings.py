@@ -190,7 +190,7 @@ LOGIN_URL = 'authens:login'
 LOGIN_REDIRECT_URL = reverse_lazy('pages:home')
 
 # Prefix to mails to admins
-EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '
+EMAIL_SUBJECT_PREFIX = '[DJANGO 48hDesJeux] '
 
 # Signature to mails to admins
 EMAIL_SIGNATURE = '-- Site 48h des Jeux (mail généré automatiquement)'
