@@ -1,63 +1,132 @@
+# This makefile wraps around django commands
+# for faster integrations
+
+# See 'make help' for a list of useful targets
+
+# ==================================================
+# Constants
+# ===================================================
+
 SHELL := /bin/bash
 PYTHON := python3
+PIP := pip3
 MANAGER := manage.py
 DB := db.sqlite3
 SECRET := interludes/secret.py
 
+# set to ON/OFF to toggle ANSI escape sequences
+COLOR := ON
+
+HELP_PADDING := 15
+
+# Uncomment to show commands
+# VERBOSE = TRUE
+
+# ==================================================
+# Make code and variable setting
+# ==================================================
+
+ifeq ($(COLOR),ON)
+	color_yellow = \033[93;1m
+	color_orange = \033[33m
+	color_red    = \033[31m
+	color_green  = \033[32m
+	color_blue   = \033[34;1m
+	color_reset  = \033[0m
+endif
+
+define print
+	@echo -e "$(color_yellow)$(1)$(color_reset)"
+endef
+
+# =================================================
+# Default target
+# =================================================
+
+default: serve
+.PHONY: default
+
+# =================================================
+# Special Targets
+# =================================================
+
+# No display of executed commands
+# Unless VERBOSE is set
+$(VERBOSE).SILENT:
+
 .PHONY: help
 help: ## Show this help
-	@echo "make: list of useful targets :"
-	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
-
-.PHONY: install
-install: ## Install requirements
-	$(PYTHON) -m pip install --upgrade pip
-	pip install -r requirements.txt
+	@echo -e "$(color_yellow)make:$(color_reset) list of useful targets:"
+	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(color_blue)%-$(HELP_PADDING)s$(color_reset) %s\n", $$1, $$2}'
 
 .PHONY: secret
 secret: ## Link the secret_example.py to secret.py (only in dev mode)
 
 secret $(SECRET):
+	$(call print,Creating interludes/secret.py from interludes/secret_example.py)
 	ln -s "$(PWD)/interludes/secret_example.py" interludes/secret.py
 
 .PHONY: migrate
 migrate: $(SECRET) ## Make and run migrations
+	$(call print,Migrating database)
 	$(PYTHON) $(MANAGER) makemigrations
 	$(PYTHON) $(MANAGER) migrate
 
 .PHONY: serve
-serve: $(SECRET) ## Run the django server
+serve: $(SECRET) ## Run the django server (blocking)
+	$(call print,Running server (accessible from http://localhost:8000))
 	$(PYTHON) $(MANAGER) runserver
 
 .PHONY: host
-host: $(SECRET) ## Host localy to access from same netword (make sure to add IP to ALLOWED_HOSTS)
+host: $(SECRET) ## Host locally to access from same network (make sure to add IP to ALLOWED_HOSTS)
+	$(call print,Hosting server locally (accessible from http://localhost:8000))
 	$(PYTHON) $(MANAGER) runserver 0.0.0.0:8000
 
-.PHONY: start
-start: install $(SECRET) migrate serve ## Install requirements, apply migrations, then start development server
-
 .PHONY: clean
-clean: ## Remove migrations and delete database
-	find . -path "*/migrations/*.py" -not -name "__init__.py" -not -path "*/venv/*" -delete
-	find . -path "*/migrations/*.pyc" -not -path "*/venv/*" -delete
+clean: ## Delete database
+	$(call print,Removing database)
 	rm $(DB)
-
-.PHONY:	test
-test: $(SECRET) ## Tests all the apps
-	$(PYTHON) $(MANAGER) test
 
 .PHONY: adduser
 adduser: $(SECRET) ## Create a new superuser
+	$(call print,Creating a new superuser)
 	$(PYTHON) $(MANAGER) createsuperuser
 
 .PHONY: shell
 shell: $(SECRET) ## Run django's shell
+	$(call print,Starting django's shell)
 	$(PYTHON) $(MANAGER) shell
 
+# =================================================
+# Tests and checks
+# =================================================
+
 .PHONY: static
-static: $(SECRET) ## collect static files
+static: $(SECRET) compressed ## collect static files
+	$(call print,Collecting static files)
 	$(PYTHON) $(MANAGER) collectstatic
+
+.PHONY: test
+test: $(SECRET) ## Tests all the apps with django's tests
+	$(call print,Running django tests)
+	$(PYTHON) -Wa $(MANAGER) test --noinput
 
 .PHONY: preprod
 preprod: test static ## Prepare and check production
 	$(PYTHON) $(MANAGER) check --deploy
+
+# =================================================
+# Installation
+# =================================================
+
+.PHONY: install
+install:
+	$(call print,Installing dependencies)
+	$(PIP) install --upgrade pip
+	$(PIP) install -r requirements.txt
+
+.PHONY: setup
+setup: install $(SECRET) migrate ## Install dependencies and make migrations
+
+.PHONY: start
+start: setup serve ## Install requirements, apply migrations, then start development server
