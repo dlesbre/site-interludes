@@ -34,7 +34,7 @@
 			<li>Inscrit&middot;e à {{ my_choices|length }} activités&nbsp;:
 				<ul>
 					{% for choice in my_choices %}
-					<li><a href="{% url 'activites' %}#{{ choice.slot.activity.slug }}">{{ choice.slot }}</a>
+					<li><a href="{% url 'html_page' slug='activites' %}#{{ choice.slot.activity.slug }}">{{ choice.slot }}</a>
 						{% if choice.slot.on_planning %}
 							(le {{ choice.slot.start|date:"l à H:i" }}<!--  en {{ choice.slot.room }} -->)
 						{% endif %}
@@ -50,7 +50,7 @@
 			<li>{{ my_choices|length }} activités souhaitées&nbsp;:
 				<ol>
 					{% for choice in my_choices %}
-					<li><a href="{% url 'activites' %}#{{ choice.slot.activity.slug }}">{{ choice.slot }}</a>
+					<li><a href="{% url 'html_page' slug='activites' %}#{{ choice.slot.activity.slug }}">{{ choice.slot }}</a>
 						{% if choice.slot.on_planning %}
 							(le {{ choice.slot.start|date:"l à H:i" }}<!--  en {{ choice.slot.room }} -->)
 						{% endif %}

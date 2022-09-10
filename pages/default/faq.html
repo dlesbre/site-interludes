@@ -1,109 +1,212 @@
 {% load static %}
 
-<!-- <h2>Quelles seront les mesures de protection sanitaire&nbsp;?</h2>
+<h2>Quelle différence entre l'inscription sur HelloAsso et sur le site&nbsp;?</h2>
+<p>
+	L'inscription HelloAsso vous inscrit à l'événement, au logement et aux repas
+	(selon l'option que vous prenez). Sur le site internet, vous pouvez créer un
+	compte pour vous inscrire aux différentes activités qui seront proposées lors
+	de l'événement.
+</p>
+
+<!--<h2>Quelles seront les mesures de protection sanitaire&nbsp;?</h2>
+
 <p>Les mesures définitives vous seront communiquées à l'arrivée à l'événement. Elles incluront probablement&nbsp;:</p>
 <ul>
 	<li>Contrôle des passes sanitaires chaque jour</li>
 	<li>Port du masque obligatoire en permanence</li>
 	<li>Lavage de main entre chaque jeu/activité conseillé</li>
-	<li>Salles aérées en permanence et joueur&middot;ses invité&middot;es à se rendre dehors si le taux de CO2 devient
-		trop élevé</li>
+	<li>Des QR Codes à scanner sur chaque table (pour garder trace des cas contacts si une personne est déclarée positive)</li>
+	<li>Salles aérées en permanence et joueur&middot;ses invité&middot;es à se rendre dehors si le taux de CO2 devient trop élevé</li>
 </ul> -->
 
 
 <h2>Comment proposer une activité&nbsp;?</h2>
-{% if settings.activity_submission_open %}
-<p>Vous pouver proposer une activité en remplissant <a href="{% url 'activity_submission' %}">ce formulaire</a>.</p>
-<p>Il vous faudra être connecté et renseigner, le titre, une description, le nombre de places, la durée, les horaires
-	possibles/idéaux, et tout autre besoin particulier...</p>
-{% else %}
-<p>L'appel à activités est fermé pour le moment.
-	Contactez nous en cas de besoin urgent ou d'idée trop géniale pour être délaissée.</p>
-{% endif %}
+	{% if settings.activity_submission_open %}
+	<p>
+		Vous pouvez proposer une activité en remplissant 
+		<a href="{% url	'activity_submission' %}">ce formulaire</a>.
+	</p>
+	<p>
+		Il vous faudra être connecté et renseigner le titre, une description, le
+		nombre de places, la durée, les horaires possibles/idéaux et tout autre
+		besoin particulier...
+	</p>
+	{% else %}
+	<p>
+		L'appel à activités est fermé pour le moment. 
+		Contactez nous en cas de besoin urgent ou d'idée trop géniale pour être 
+		délaissée.
+	</p>
+	{% endif %}
 
-<h2>Dois-je être inscrit&middot;e pour participer&nbsp;?</h2>
+<h2>Quelles seront les conditions pour dormir/manger&nbsp;?</h2>
+<p> Nous proposerons un logement en tente, pour celleux qui le souhaitent</p>
+<p> Les repas seront préparés et servis sur place. Le menu sera entièrement
+	végétarien, avec options végan et sans gluten possibles.
+	<ul>
+		<li><strong>Vendredi soir :</strong> Chili sin carne, riz et compote</li>
+		<li><strong>Samedi midi :</strong> Brunch (Salade bar, Croques pesto-mozza, Houmous, Gâteaux)</li>
+		<li><strong>Samedi soir :</strong> Soupe de saison et Tartiflette (option végan : gratin de pommes de terre aux champignons)</li>
+		<li><strong>Dimanche midi :</strong> Sandwich au choix</li>
+	</ul></p>
+<p>	Si vous dormez dans les tentes, pensez à prendre un tapis de sol et duvet.</p>
 
-<p>
-	Non. L'événement est gratuit et vous pouvez aller et venir à votre guise.
-	Pour les activités sur inscriptions
-	(qui nécessitent une préparation en amont ou qui ont un nombre de places limité), vous pouvez
-	contacter directement l'orga par email.
-</p>
-
-<h2>Je n'ai pas de compte clipper/vieilleux, comment me connecter&nbsp;?</h2>
-
-<p>Envoie nous un mail et on t'en créera un.</p>
-
-<h2>Quels jeux seront disponibles&nbsp;?</h2>
-
-<p>
-	Il y en aura beaucoup !
-	À priori presque tous ceux du club jeu (voir <a href="https://jeux.cof.ens.fr/inventory/">l'inventaire</a>),
-	mais aussi des jeux amenés par des particuliers.
-	N'hésite pas à apporter des jeux si nous ne les avons pas et tu veux nous les faire découvrir.
-</p>
-
-<h2>Pourra-t-on boire/manger sur place&nbsp;?</h2>
-<p>
-	Nous devrions pouvoir servir des boissons (non-alcoolisées) et de la nourriture.
-	Vous pouvez également apporter la vôtre.
-	Il faudra manger dans une salle à part, probablement en extérieur si le temps le permet.
-</p>
-
-<h2>Où aura lieu l'événement&nbsp;?</h2>
-<p>
-	L'événement se déroule principalement dans <strong>le Pôt</strong> (le restaurant).
-	Vous y trouverez plein de jeux en libre-service et des tables pour jouer.
-	Les activités nécessitant une salle à part se dérouleront probablement
-	dans les salles du passage rouge (salles de cours du DMA), situées au deuxième sous-sol du bâtiment Rataud.
-</p>
-
-<h2>Je peux aider pour l'organisation&nbsp;?</h2>
-<p>
-	Oui&nbsp;! Il nous faut principalement des volontaires pour aider à
-	l'installation et au rangement, ainsi que pour faire des perms pendant l'événement.
-	Si tu es motivé&middot;e, n'hésites pas à te signaler sur le
-	<a href="https://discord.gg/a4TmtrshZa">discord du club jeux</a>
-	ou inscris-toi sur <a href="https://lite.framacalc.org/9puj-kcb1ao2mpl">le calc des perms</a>.
-</p>
-
-<h2>Comment se rendre à l'ENS Ulm&nbsp;?</h2>
+<h2>Comment se rendre à l'événement&nbsp;?</h2>
+<!-- ENS ULM
 <div>
 	<p class="centered">
 		<i class="fas fa-map-marker-alt"></i>
 		45 rue d'Ulm, 75005 Paris
 	</p>
 
-	<iframe id="interactive-map" width="750" height="400"
-		src="https://www.openstreetmap.org/export/embed.html?bbox=2.334809303283692%2C48.8368567401711%2C2.3548936843872075%2C48.84636099015179&amp;layer=hot&amp;marker=48.841602029496684%2C2.344851493835449"></iframe>
+	<iframe id="interactive-map" width="750" height="400" src="https://www.openstreetmap.org/export/embed.html?bbox=2.334809303283692%2C48.8368567401711%2C2.3548936843872075%2C48.84636099015179&amp;layer=hot&amp;marker=48.841602029496684%2C2.344851493835449"></iframe>
 </div>
 
 <div id="public-transport-info">
-	<div id="transport-metro-icon">
+	<div id="transport-ratp-metro-icon">
 		<img src="{% static 'imgs/ratp/metro-7.svg' %}" alt="Métro 7">
 	</div>
-	<span id="transport-metro-stop">Censier Daubenton</span>
+	<span id="transport-ratp-metro-stop">Censier Daubenton</span>
 
-	<div id="transport-rer-icon">
+	<div id="transport-ratp-rer-icon">
 		<img src="{% static 'imgs/ratp/rer-B.svg' %}" alt="RER B">
 	</div>
-	<span id="transport-rer-stop">Luxembourg</span>
+	<span id="transport-ratp-rer-stop">Luxembourg</span>
 
-	<div id="transport-bus-1-icon">
+	<div id="transport-ratp-bus-1-icon">
 		<img src="{% static 'imgs/ratp/bus-24.svg' %}" alt="Bus 24">
 	</div>
-	<span id="transport-bus-1-stop">École Normale Supérieure</span>
+	<span id="transport-ratp-bus-1-stop">École Normale Supérieure</span>
 
-	<div id="transport-bus-2-icon">
+	<div id="transport-ratp-bus-2-icon">
 		<img src="{% static 'imgs/ratp/bus-21.svg' %}" alt="Bus 21">
 		<img src="{% static 'imgs/ratp/bus-27.svg' %}" alt="Bus 27">
 	</div>
-	<span id="transport-bus-2-stop">Feuillantines</span>
+	<span id="transport-ratp-bus-2-stop">Feuillantines</span>
 
-	<div id="transport-noctilien-icon">
+	<div id="transport-ratp-noctilien-icon">
 		<img src="{% static 'imgs/ratp/noctilien-14.svg' %}" alt="Noctilien 14">
 		<img src="{% static 'imgs/ratp/noctilien-21.svg' %}" alt="Noctilien 21">
 		<img src="{% static 'imgs/ratp/noctilien-122.svg' %}" alt="Noctilien 122">
 	</div>
-	<span id="transport-noctilien-stop">Auguste Comte</span>
+	<span id="transport-ratp-noctilien-stop">Auguste Comte</span>
+</div> -->
+
+<div>
+	<p class="centered">
+		<i class="fas fa-map-marker-alt"></i>
+		15 Parvis René Descartes, 69007 Lyon
+	</p>
+
+	<iframe id="interactive-map" width="750" height="400"
+		src="https://www.openstreetmap.org/export/embed.html?bbox=4.82691%2C45.73663%2C4.84084%2C45.72936&amp;layer=hot&amp;marker=45.73298%2C4.83397"></iframe>
 </div>
+
+<div id="public-transport-info">
+	<div id="transport-tcl-metro">
+		<img src="{% static 'imgs/tcl/B.svg' %}" alt="Métro B">
+	</div>
+	<div id="transport-tcl-tram-1">
+		<img src="{% static 'imgs/tcl/T1.svg' %}" alt="Tram T1">
+	</div>
+	<div id="transport-tcl-tram-2">
+		<img src="{% static 'imgs/tcl/T6.svg' %}" alt="Tram T6">
+	</div>
+	<div id="transport-tcl-bus-1">
+		<img src="{% static 'imgs/tcl/34.svg' %}" alt="Bus 34">
+	</div>
+	<div id="transport-tcl-bus-2">
+		<img src="{% static 'imgs/tcl/60.svg' %}" alt="Bus 60">
+	</div>
+	<div id="transport-tcl-bus-3">
+		<img src="{% static 'imgs/tcl/64.svg' %}" alt="Bus 64">
+	</div>
+	<span id="transport-tcl-stop">Arrêt : Debourg</span>
+</div>
+
+<h2>Comment sont réparties les activités&nbsp;?</h2>
+	<p>
+		La répartition est faite par un algorithme puis vérifiée à la main. Dans la
+		mesure du possible, l'algorithme essaie d'attribuer au moins une activité par
+		personne. Par conséquent, si vous ne mettez qu'une seule activité, vous avez
+		plus de chance de l'avoir.
+	</p>
+	<p>
+		Les activités qui n'ont pas de limite de place (et toutes les activités avec
+		moins de demande que de places) ne comptent pas pour ce système, donc vous
+		pouvez les mettre et vous ne serez pas pénalisés.
+	</p>
+	<p>
+		Vous ne pourrez pas avoir deux activités qui se déroulent en même temps. Si
+		l'une vous est attribué l'autre souhait sera ignoré.
+	</p>
+	<p>
+		On n'a pas trouvé le code des années précédentes, mais je suspecte fortement
+		que ce soit un algo similaire en départageant les égalités aléatoirement
+		plutôt qu'au shotgun.
+	</p>
+	<p>Plus précisément : l'algorithme se base sur le problème hôpital-résident&nbsp;:</p>
+	<ol>
+		<li>
+			Il commence par essayer d'attribuer une activité à chaque participant.es
+			au mieux possible, en utilisant la librairie matching de python. Les
+			égalités sont départagées aléatoirement. Plus un choix est haut dans votre
+			liste de souhait, plus vous avez de chance de vous le voir attribuer. Si
+			vous n'avez qu'un seul choix, vous avez plus de chance de vous le voir
+			attribuer. (les participant.es avec un seul choix sont automatiquement
+			placé.es avant ceux qui en ont plusieurs)
+		</li>
+		<li>
+			Toutes les activités attribuées sont supprimées, ainsi que les v&oelig;ux
+			résolus des joueurs.
+		</li>
+		<li>
+			Tant qu'il reste des places dans des activités et des participant.es qui
+			veulent y participer, on recommence à l'étape 1.
+		</li>
+	</ol>
+	<p>
+		Le code est sur <a
+		href="https://github.com/Imakoala/InterludesMatchings">github</a>, il ne
+		marche pas encore parfaitement, et on risque de devoir bidouiller à la main
+		en plus pour résoudre tous les cas particuliers (conflits d'horaires,
+		activité présente plusieurs fois...).
+	</p>
+
+<h2>Comment rejoindre le serveur discord&nbsp;?</h2>
+	{% if settings.discord_link %}
+		<p>Suivez <a href="{{ settings.discord_link }}">ce lien</a>.</p>
+	{% else %}
+		<p>Le lien vous sera communiqué par mail peu avant l'événement. Il apparaîtra également sur ce site.</p>
+	{% endif %}
+	<p>
+		Vous pouvez utiliser Discord sur navigateur sans créer de compte (mais se
+		connecter sans compte pose parfois des problèmes). Sinon il existe une
+		application mobile (Android et iOS) et un programme (Linux/Windows/Mac)
+		permettant d'y accéder via un compte.
+	</p>
+
+<!--<h2>Où jouer en ligne&nbsp;?</h2>
+
+<p>Voici une liste (non-exhaustive) des plateformes de jeu en ligne&nbsp;:
+	<ul>
+		<li><a href="https://fr.boardgamearena.com/">Board Game Arena</a> (site gratuit nécessitant un compte)</li>
+		<li><a href="https://store.steampowered.com/app/286160/Tabletop_Simulator/">Tabletop Simulator</a> (jeu vendu 20€ sur steam)</li>
+		<li>Des sites spécialisés (gratuits)&nbsp;<ul>
+			<li>Pour Codenames : <a href="https://codenames.game/">codenames.game</a> ou <a href="https://www.horsepaste.com/">horsepaste.com</a>.</li>
+			<li>Pour Hanabi : <a href="https://hanab.live/">hanab.live</a> (nécessite un compte).</li>
+			<li>Pour Catan : <a href="https://colonist.io/">colonist.io</a>.</li>
+			<li>Pour Shadow-Hunter : <a href="http://shadowhunters.live/">shadowhunters.live</a>.</li>
+			<li>Pour Diplomacy : <a href="https://vdiplomacy.com/">vdiplomacy.com</a> (nécessite un compte).</li>
+		</ul></li>
+		<li>N'importe quel jeu vidéo multijoueur</li>
+	</ul>
+	Vous trouverez une liste plus fournie sur le discord interludes.
+</p>-->
+
+{% if settings.contact_email %}
+<h2>J'ai encore une question, je fais quoi ?</h2>
+<p> Hésites pas à nous passer un mail à 
+	<span class="antispam">{{ settings.contact_email_reversed }}</span>
+	pour nous poser tes questions !</p>
+{% endif %}

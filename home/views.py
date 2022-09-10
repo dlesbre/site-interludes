@@ -16,11 +16,7 @@ from site_settings.models import SiteSettings
 # ==============================
 # Site static pages
 # ==============================
-
-
-class HomeView(TemplateView):
-	"""Vue pour la page d'accueil"""
-	template_name = "home.html"
+# Moved to pages/views.py
 
 def get_planning_context():
 	"""Returns the context dict needed to display the planning"""
@@ -36,22 +32,6 @@ def get_planning_context():
 		context['saturday'] = 2
 		context['sunday'] = 3
 	return context
-
-class ActivityView(TemplateView):
-	"""Vue pour la liste des activités"""
-	template_name = "activites.html"
-
-	def get_context_data(self, **kwargs):
-		"""ajoute la liste des activités au contexte"""
-		context = super(ActivityView, self).get_context_data(**kwargs)
-		context['activities'] = models.ActivityModel.objects.filter(display=True).order_by("title")
-		context.update(get_planning_context())
-		return context
-
-
-class FAQView(TemplateView):
-	"""Vue pour la FAQ"""
-	template_name = "faq.html"
 
 
 # ==============================

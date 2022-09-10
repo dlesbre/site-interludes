@@ -13,11 +13,17 @@
 		{% endif %}
 
 	<h2>Inscription aux activités</h2>
-		Une fois votre inscription à l'événement effectuée, vous pourrez
-		vous inscrire à certaines activités sur cette page. La plupart des
-		activités ne demandent pas d'inscription et seront en libre accès
-		durant tout l'événement, mais certaines demandent une inscription à
-		l'avance.
+	{% if form.errors or formset.errors %}
+	<ul class="messagelist">
+		<li class="error">Ce formulaire contient des erreurs.</li>
+	</ul>
+	{% endif %}
+		<p>
+			Une fois votre inscription à l'événement effectuée, vous pourrez vous
+			inscrire à certaines activités sur cette page. La plupart des activités ne
+			demandent pas d'inscription et seront en libre accès durant tout
+			l'événement, mais certaines demandent une inscription à l'avance.
+		</p>
 
 	<form id="main_form" method="post" action="{% url 'inscription' %}">
 		{% csrf_token %}
@@ -41,7 +47,7 @@
 		<p>
 			Saisissez les activités auxquelles vous voulez vous inscrire, par ordre
 			de préférence. Vous trouverez une description des activités sur 
-			<a href="{%	url 'activites' %}">cette page</a>.
+			<a href="{%	url 'html_page' slug='activites' %}">cette page</a>.
 		</p>
 		<p>
 			Vous pouvez revenir modifier votre choix jusqu'à la fermeture des

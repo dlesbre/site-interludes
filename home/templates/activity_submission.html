@@ -6,7 +6,7 @@
 {% block "content" %}
 <h2>Proposer une activité</h2>
 
-{% if form.errors or form.non_field_errors %}
+{% if form.errors %}
 <ul class="messagelist">
 	<li class="error">Ce formulaire contient des erreurs.</li>
 </ul>
@@ -19,7 +19,8 @@
 
 	<ul class="messagelist">
 		<li class="info">
-			Les informations publiques (qui apparaîtrons sur la page <a href="{% url 'activites' %}">activites</a>) sont
+			Les informations publiques (qui apparaîtrons sur la page
+			<a href="{% url 'html_page' slug='activites' %}">activités</a>) sont
 			celles <span class="underline">soulignées</span>.<br>
 			Les autres ne serons vues que par les orgas.
 		</li>
@@ -32,7 +33,7 @@
 	</table>
 
 	<p><strong class="underline">Description&nbsp;:</strong> ce texte sera affiché sur la page
-		<a href="{% url 'activites' %}">activités</a> pour présenter votre activité.
+		<a href="{% url 'html_page' slug='activites' %}">activités</a> pour présenter votre activité.
 	</p>
 		{{ form.description }}
 
