@@ -113,6 +113,4 @@ class StaticViewSitemap(Sitemap):
 
 
 class LogoutView(AuthensLogoutView):
-	def get_next_page(self):
-		messages.success(self.request, "Vous avez bien été déconnecté.")
-		return reverse("pages:home")
+	next_page = reverse_lazy("pages:home")

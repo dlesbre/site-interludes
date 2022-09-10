@@ -125,10 +125,10 @@ Le site se gère depuis deux pages d'administration :
   mot de passe bidon), y rajouter un email, et ensuite demander à la personne
   concernée d'utilisé le formulaire de changement de mot de passe pour en créer un.
 
-- Pages HTML - contient les pages d'informations (notamment home et FAQ). Cela
-  permet de modifier leur contenu facilement (sans faire de pull). Ces pages ont
-  un nom (uniquement visible dans l'admin), un URL d'accès et un contenu (format
-  HTML avec tag de templates django).
+- Pages HTML - contient les pages d'informations (notamment home, activités et
+  FAQ). Cela permet de modifier leur contenu facilement (sans faire de pull).
+  Ces pages ont un nom (uniquement visible dans l'admin), un URL d'accès et un
+  contenu (format HTML avec tags de templates django).
 
 	Les pages `home` (url vide) `activites` et `faq` sont spéciales. Elles
   apparaissent sur la barre de navigation et sont régénérées à partir de
