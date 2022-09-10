@@ -2,7 +2,7 @@ from django.db import models
 
 class HTMLPageModel(models.Model):
 	"""modèle pour contenu de pages dynamiques
-	(notamment home et faq)"""
+	(notamment home, activites et faq)"""
 	name = models.CharField(
 		verbose_name="nom",
 		unique=True,

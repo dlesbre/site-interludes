@@ -1,14 +1,35 @@
 # Site des interludes
 
-Ce répo contient le sites des interludes. Ce site est en ligne à [https://interludes.ens.fr](https://interludes.ens.fr).
+Ce répo contient le sites des interludes. La version 2021 est en ligne à
+[https://interludes.ens.fr](https://interludes.ens.fr). Il est disponible sur le
+[git interne de l'ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) et
+sur [github](https://github.com/dlesbre/site-interludes). Il est diffusé sous
+une [license MIT](https://choosealicense.com/licenses/mit/).
 
-Ce répo est une copie du répo initial sur le [git interne de l'ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes).
+**Ce site permet de :**
+- Afficher de l'information sur l'événement (page d'accueil et FAQ, modifiable
+  directement depuis l'admin du site)
+- Recenser es activités proposées (page activités)
+- Un formulaire pour permettre aux gens de proposer des activités
+- Un formulaire d'inscription ou chaque inscrit peut renseigner des infos
+  personnelles (repas/dormir) et les activités qu'il souhaite
+- Afficher un planning dynamique des différentes activités
+- Une fois la répartition faite, envoyer un mail à tous les inscrits pour leur
+  communiquer les activités obtenu et un mail aux orgas pour leur communiquer la
+  liste des participants
+- Un formulaire pour envoyer un mail à tous (à utiliser avec modération)
 
-Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses/mit/).
+
+**Il n'est PAS capable de :**
+- vendre des tickets - pour le faire il faut soit utiliser une billetterie
+  externe (ex [HelloAsso](https://www.helloasso.com/)) ou de recruter les
+  BdE/BdL des autres écoles pour qu'ils inscrivent les participants
+- répartir les activités - nous faisons un premier jet avec le [ce
+  code](https://github.com/Lamakaio/InterludesMatchings), puis l'adaptons à la main et le renseignons dans ce site.
 
 **Contenu:**
 - [Lancement rapide](#lancement-rapide)
-- [Installation](#installation)
+- [Installation manuelle](#installation-manuelle)
 - [Lancer le serveur](#lancer-le-serveur)
 - [Guide de l'administrateur](#guide-de-ladministrateur)
 - [En production](#en-production)
@@ -19,47 +40,62 @@ Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses
 
 Pour installer toutes les dépendances et lancer le serveur :
 
-		git clone https://github.com/dlesbre/site-interludes.git &&
-		cd site-interlude &&
-		python3 -m venv venv &&
-		source venv/bin/activate &&
-		make start
+	```console
+	git clone https://github.com/dlesbre/site-interludes.git &&
+	cd site-interlude &&
+	python3 -m venv venv &&
+	source venv/bin/activate &&
+	make start
+	```
 
 Le site devrait être accessible à [http://localhost:8000](http://localhost:8000).
 
-Par la suite vous pouver relancer le site simplement avec `make serve`.
+Par la suite vous z relancer le site simplement avec `make serve`.
 
-## Installation
+## Installation manuelle
 
-Pour tester et modifier le repo, après l'avoir cloné :
+Pour tester et modifier le répo, après l'avoir cloné :
 
 1. Créer un [environement
    virtuel](https://docs.python.org/3/tutorial/venv.html) (`python3-venv`)
 
-		python3 -m venv venv
+	```console
+	python3 -m venv venv
+	```
 
 	(si vous le nommez autre chose que venv, ajouter le dossier correspondant
     au `.gitignore`)
 
 2. Lancer l'environnement virtuel
 
-		source venv/bin/activate
+	```console
+	source venv/bin/activate
+	```
 
 3. Installer la dernière version de pip
 
-		python3 -m pip install --upgrade pip
+	```console
+	python3 -m pip install --upgrade pip
+	```
 
-4. Installer les requirements
+4. Installer les dépendances
 
-		pip3 install -r requirements.txt
+	```console
+	pip3 install -r requirements.txt
+	```
 
 5. Copier/linker le fichier `interludes/secret_example.py` dans `interludes/secret.py`
 
-		ln -s interludes/secret_example.py interludes/secret.py
+	```console
+	ln -s interludes/secret_example.py interludes/secret.py
+	```
 
-6. Faire les les migrations
+6. Faire les migrations
 
-		make migrate
+	```console
+	python3 manage.py makemigrations
+	python3 manage.py migrate
+	```
 
 ## Lancer le serveur
 
@@ -68,11 +104,15 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 1. Lancer l'environnement virtuel si ce n'est pas déjà fait (si le prompt du
    terminal ne commence pas par `(venv)`)
 
-		source venv/bin/activate
+	```console
+	source venv/bin/activate
+	```
 
 2. Lancer le serveur avec `make serve` ou
 
-		make serve
+	```console
+	python3 manage.py runserver
+	```
 
 	Cette commande bloque le terminal, le serveur tourne tant qu'elle n'est pas
 	interrompue (par `Ctrl+C` ou autre).
@@ -84,31 +124,75 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 
 ## Guide de l'administrateur
 
-Le site se gère depuis deux pages d'administration:
+Le site se gère depuis deux pages d'administration :
 
-- celle de django [http://localhost:8000/admin](http://localhost:8000/admin) permet de modifier directement la base de donnée. Celle ci contient six tables intéressantes :
-	- Utilisateurs - contient tous les utilisateurs et leur permissions. Pour donner les droits d'administrateur à quelqu'un il faut lui donner le statut superutilisateur (accès à l'admin du site) ET le statut équipe (accès à l'admin django)
-	- Paramêtres - les réglages du site, ils permettent:
-		- ouvrir/fermer la création de compte, les inscriptions
-		- ouvrir fermer le formulaire de proposition d'activités
-		- afficher/cacher le planning
-		- renseigner l'email de contact, les dates de l'événement, les dates d'inscription
-		- ajouter un message global au dessus de toutes les pages
-		- bloquer/autoriser l'envoi d'email globaux
-	- Activités - liste des activités prévues. C'est ici que vous pouvez rajouter/modifier les activités qui s'affichent sur la page activité.
-		Un formulaire permet aux utilisateurs de proposer des activités directement. Ils vous faudra les relire et les valider ensuite manuellement pour qu'elles soient affichées sur le site.
-	- Crénaux - place une activité sur le planning. Une activité peut avoir plusieurs crénaux si elle a lieu plusieurs fois. Noter que les inscriptions se font à des crénaux et non a des activités.
-	- Participant - liste des gens inscrits et des informations sur leur inscription (ENS, repas choisi...)
-	- Choix d'activité - Liste de (participant, priorité, activité) indiquant les voeux des participant. Une fois que vous avez fait l'attribution, cocher les case "Obtenues" pour indiquer qui a eu quelle activité.
+**Page d'administration Django :**
+[http://localhost:8000/admin](http://localhost:8000/admin) permet de modifier
+directement la base de donnée. Descriptif rapide des tables intéressantes :
 
-- celle du site [http://localhost:8000/admin_pages/](http://localhost:8000/admin_pages/)
-	- permet d'exporter les différentes tables au format CSV
-	- affiche l'état du site (version, réglages actuels, différentes métriques)
-	- une prévisualisation du planning
-	- permet d'envoyer deux séries d'emails :
-		- une aux inscrits pour leur communiquer les activités qu'ils ont obtenus
-		- une aux orgas qui ont besoin de connaître la liste des participants à l'avance pour préparer leurs activités.
-	- permet l'écriture d'un mail à tous.
+- Utilisateurs - contient tous les utilisateurs et leurs permissions. Pour
+  donner les droits d'administrateur à quelqu'un il faut lui donner le statut
+  superuser (accès à l'admin du site) ET le statut équipe (accès à l'admin
+  django).
+
+- Pages HTML - contient les pages d'informations (notamment home, activités et
+  FAQ). Cela permet de modifier leur contenu facilement (sans faire de pull).
+  Ces pages ont un nom (uniquement visible dans l'admin), un URL d'accès et un
+  contenu (format HTML avec tags de templates django).
+
+	Les pages `home` (url vide) `activites` et `faq` sont spéciales. Elles
+  apparaissent sur la barre de navigation et sont régénérées à partir de
+  fichiers de base dans [pages/default/](./pages/default/) si quelqu'un tente
+  d'y accéder après leur suppression.
+
+	Les autres pages du site (formulaires, pages de connexion...) sont des
+	templates django plus classique et ne peuvent être modifié que depuis le code
+	source.
+
+- Paramètres - les réglages du site, ils permettent :
+	- ouvrir/fermer la création de compte, les inscriptions
+	- renseigner l'ENS d'accueil
+	- renseigner un lien de la billetterie et de serveur discord
+	- ouvrir/fermer le formulaire de proposition d'activités
+	- afficher/cacher le planning
+	- renseigner l'email de contact, les dates de l'événement, les dates d'inscription
+	- ajouter un message global au-dessus de toutes les pages
+	- bloquer/autoriser l'envoi d'email globaux
+	- Ajouter une version PDF du planning (pour mobiles)
+	- Ajouter l'affiche (visible sur la page d'accueil)
+
+- Activités - liste des activités prévues. C'est ici que vous pouvez
+	rajouter/modifier les activités qui s'affichent sur la page activité. Un
+	formulaire permet aux utilisateurs de proposer des activités directement. Il
+	vous faudra les relire et les valider ensuite manuellement pour qu'elles
+	soient affichées sur le site.
+
+- Créneaux - place une activité sur le planning. Une activité peut avoir
+  plusieurs créneaux si elle a lieu plusieurs fois. Noter que les inscriptions
+  se font à des créneaux et non a des activités.
+
+	Note : le planning généré par le site (en JS) est difficilement lisible sur
+	mobile. Le site permet d'uploader une version PDF propre pour mobiles.
+	Personnellement je faisais une capture d'écran du planning (vu sur un grand
+	écran) que j'exportais en PDF.
+
+- Participant - liste des gens inscrits et des informations sur leur inscription
+  (ENS, repas choisi...)
+
+- Choix d'activité - Liste de (participant, priorité, activité) indiquant les
+  vœux des participants. Une fois que vous avez fait l'attribution, cocher les
+  case "Obtenues" pour indiquer qui a eu quelle activité.
+
+
+**Page d'administration du site :** [http://localhost:8000/admin_pages/](http://localhost:8000/admin_pages/)
+- permet d'exporter les différentes tables au format CSV
+- affiche l'état du site (version, réglages actuels, différentes métriques)
+- une prévisualisation du planning
+- permet l'écriture d'un mail à tous
+- permet d'envoyer deux séries d'emails :
+	- une aux inscrits pour leur communiquer les activités qu'ils ont obtenus
+	- une aux orgas qui ont besoin de connaître la liste des participants à
+		l'avance pour préparer leurs activités.
 
 ## En production
 
@@ -128,12 +212,16 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 ## Idées de développement
 
-A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
+A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter :
 
-- Intégrer l'[algorithme de répartition](https://github.com/Imakoala/InterludesMatchings) dans le site au lieu de le faire tourner en externe à partir des export CSV et de remplir les résultats à la main
-- Envoyer une concaténation de tous les emails aux admin (pour vérification, et pas juste en copie pour éviter le spam...)
+- Intégrer l'[algorithme de répartition](https://github.com/Imakoala/InterludesMatchings) dans le site au lieu de le faire tourner en externe à partir des exports CSV et de remplir les résultats à la main
+- Envoyer une concaténation de tous les emails aux admins (pour vérification, et pas juste en copie pour éviter le spam...)
 - Générer la version PDF du planning automatiquement au lieu de la faire à base de captures d'écran
-- Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)
+- ~~Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)~~ fait
+- Réutiliser les comptes élèves pour éviter aux gens de devoir créer des
+  comptes. À Ulm, nous avons un système de compte clipper fourni par l'admin
+  qu'on réutilise dans quasi tous les sites étudiants. Je peux facilement le
+  rajouter à ce site, mais je ne sais pas comment faire pour les autres écoles.
 
 ## Liens divers
 

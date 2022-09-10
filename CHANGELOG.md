@@ -1,6 +1,6 @@
 # Change Log
 
-## Version 2.2.0 - 2022-09-09 - Changes from 48h des jeux
+## Version 2.2.0 - 2022-09-10 - Changes from 48h des jeux
 
 - Merge Lyon's fork
 - Added dynamic (in DB) templates for info pages (home and faq)
