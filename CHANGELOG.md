@@ -1,8 +1,10 @@
 # Change Log
 
-## Version 3.0.1 - 2022-09-09
+## Version 3.0.1 - 2022-09-10
 
 - Fix submission form and sitemap
+- Made activity page dynamic
+- Add year field to activity page
 
 ## Version 3.0.0 - 2022-09-09
 

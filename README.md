@@ -130,10 +130,14 @@ Le site se gère depuis deux pages d'administration :
   un nom (uniquement visible dans l'admin), un URL d'accès et un contenu (format
   HTML avec tag de templates django).
 
-	Les pages `home` (url vide) et `faq` (url `faq`) sont spéciales. Elles
+	Les pages `home` (url vide) `activites` et `faq` sont spéciales. Elles
   apparaissent sur la barre de navigation et sont régénérées à partir de
   fichiers de base dans [pages/default/](./pages/default/) si quelqu'un tente
   d'y accéder après leur suppression.
+
+	Les autres pages du site (formulaires, pages de connexion...) sont des
+	templates django plus classique et ne peuvent être modifié que depuis le code
+	source.
 
 - Paramètres - les réglages du site, ils permettent :
 	- ~~ouvrir/fermer la création de compte, les inscriptions~~ (uniquement sur la version Interludes)
