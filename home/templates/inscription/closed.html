@@ -3,29 +3,42 @@
 {% block nav_inscription %}current{% endblock %}
 
 {% block "content" %}
-	<h2>Inscriptions à l'événement</h2>
-    <p>L'inscription à l'événement,
-        l'hébergement et aux repas se fait sur <a
-        href="https://www.helloasso.com/associations/bureau-ludique-de-l-ens-de-lyon/evenements/interludes-ens-de-lyon">le
-        formulaire HelloAsso</a>.</p>
 
-	<h2>Inscriptions aux activités</h2>
-	{% if settings.inscriptions_not_open_yet %}
-		<p>Les inscriptions aux activités ne sont pas encores ouvertes.</p>
-		<p>Leur ouverture est prévue le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
-		<p>Nous communiquerons par mail via les BDE des différentes écoles pour leur ouverture.</p>
-	{% elif settings.inscriptions_have_closed %}
-		<p>Les inscriptions aux activités sont fermées.</p>
-		<p>
-			Les inscriptions cette année sont facultatives,
-			tu peux quand même rejoindre le {% if settings.discord_link %}<a href="{{ settings.discord_link }}">serveur discord</a>{% else %}serveur discord{% endif %} et participer aux jeux libres et
-			aux activités qui ne nécessitent pas d'inscription.
-		</p>
-		{% if settings.contact_email %}
-			<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span></p>
+<h2>Inscriptions à l'événement</h2>
+	<p>
+		L'inscription à l'événement,
+		l'hébergement et aux repas se fait sur
+		{% if settings.ticket_url %}
+			<a href="{{ settings.ticket_url }}">le formulaire HelloAsso</a>.
+		{% else %}
+		 	le formulaire HelloAsso.
 		{% endif %}
-	{% else %}
-		<p>Les inscriptions aux activités ne sont pas encores ouvertes ou ont été fermées.</p>
-		<p>Nous communiquerons par mail via les BDE des différentes écoles pour leur ouverture.</p>
+	</p>
+
+<h2>Inscriptions aux activités</h2>
+
+{% if settings.inscriptions_not_open_yet %}
+	<p>Les inscriptions aux activités ne sont pas encores ouvertes.</p>
+	<p>Leur ouverture est prévue le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+	<p>Nous communiquerons par mail via les BDE des différentes écoles pour leur ouverture.</p>
+{% elif settings.inscriptions_have_closed %}
+	<p>Les inscriptions aux activités sont fermées.</p>
+	<p>
+		Les inscriptions cette année sont facultatives,
+		tu peux quand même rejoindre le 
+		{% if settings.discord_link %}
+			<a href="{{ settings.discord_link }}">serveur discord</a>
+		{% else %}
+			serveur discord
+		{% endif %}
+		et participer aux jeux libres et
+		aux activités qui ne nécessitent pas d'inscription.
+	</p>
+	{% if settings.contact_email %}
+		<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span></p>
 	{% endif %}
+{% else %}
+	<p>Les inscriptions aux activités ne sont pas encore ouvertes ou ont été fermées.</p>
+	<p>Nous communiquerons par mail via les BDE des différentes écoles pour leur ouverture.</p>
+{% endif %}
 {% endblock %}

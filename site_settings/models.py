@@ -23,7 +23,13 @@ class Colors(models.TextChoices):
 class OverwriteStorage(FileSystemStorage):
 	"""used to enforcing a fixed filename to upload file
 	This allow for a constant link to a changeable file"""
-	filename = "PlanningInterludes"
+	filename: str
+
+	def __init__(self, filename="file"):
+		"""Filename without extension"""
+		super().__init__()
+		self.filename = filename
+
 	def get_available_name(self, name, **kwargs):
 		"""
 		Returns a filename that's free on the target storage system, and
@@ -71,7 +77,10 @@ class SiteSettings(SingletonModel):
 
 	contact_email = models.EmailField("Email contact", blank=True, null=True)
 	hosting_school = models.CharField(
-		"École hébergeant l'événement", max_length=50, blank=True, null=True
+		"École hébergeant l'événement", max_length=50, blank=True, null=True,
+	)
+	ticket_url = models.CharField(
+		"Lien billeterie", max_length=300, blank=True, null=True,
 	)
 
 	date_start = models.DateField("Date de début", blank=True, null=True)
@@ -101,7 +110,11 @@ class SiteSettings(SingletonModel):
 	display_planning = models.BooleanField("Afficher le planning", default=False)
 	planning_file = models.FileField(
 		verbose_name="Version PDF du planning", null=True, blank=True,
-		storage=OverwriteStorage(),
+		storage=OverwriteStorage("PlanningInterludes"),
+	)
+	affiche = models.FileField(
+		verbose_name="Affiche", null=True, blank=True,
+		storage=OverwriteStorage("AfficheInterludes"),
 	)
 
 	activities_allocated = models.BooleanField(
