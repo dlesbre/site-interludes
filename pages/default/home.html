@@ -1,0 +1,52 @@
+{% load static %}
+
+<h2>Présentation</h2>
+
+{% if settings.affiche %}
+<img width=100% src="{{ settings.affiche.file }}" alt="affiche">
+{% endif %}
+
+<p>
+	Pendant les 48h des jeux, les clubs jeux (de société, de carte, de rôle, vidéo, DDR...)
+	de l'ENS Ulm se retrouvent pour un week-end ludique.
+	Elles se déroulent chaque année fin septembre/début octobre.
+	Rejoins-nous au Pôt pendant ces deux jours magiques où le jeu sous toutes ses formes
+	est à l'honneur !
+</p>
+<p>
+	Cette année, elles sont prévues
+	{% if settings.date_start %}{% if settings.date_end %}
+	le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
+	{% else %}
+	le week-end du <strong>{{ settings.date_start }}</strong>.
+	{% endif %}
+	{% else %}
+	à une date non-fixée.
+	{% endif %}
+</p>
+<p>
+	L'événement est entièrement gratuit et se déroule principalement <strong>au Pôt</strong> (restaurant).
+	Voir la <a href="{% url 'pages:html_page' slug='faq' %}">FAQ</a> pour plus de détails.
+</p>
+
+<h2>Activités</h2>
+
+<p>
+	En plus des jeux disponibles en continu au Pôt, vous pouvez trouver sur ce
+	site les <a href="{% url 'pages:html_page' slug='activites' %}">activités</a>
+	plus spécifiques proposées lors des 48h des jeux. Certaines nécessitent une
+	inscription (car nombre de places limitées ou nécessitant une préparation). Si
+	c'est le cas, vous pouvez contacter l'orga par email pour vous y inscrire.
+</p>
+
+<p>Pour plus de détails, consultez la <a href="{% url 'pages:html_page' slug='faq' %}">FAQ</a>.</p>
+
+<h2>Liens divers</h2>
+
+<ul>
+	<li>Le <a href="https://jeux.cof.ens.fr/">site du club jeux</a></li>
+	<li>Le <a href="https://discord.gg/a4TmtrshZa">discord du club jeux</a></li>
+	<li>Le <a href="https://lite.framacalc.org/9puj-kcb1ao2mpl">calc des perms</a>.</li>
+	<li>Le <a href="https://cof.ens.fr">site du COF</a>.</li>
+	<li>Le code source de ce site est sur <a href="https://git.eleves.ens.fr/dlesbre/48h-des-jeux">gitlab</a>.</li>
+</ul>
