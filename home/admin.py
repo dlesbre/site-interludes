@@ -14,7 +14,7 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 	"""option d'affichage des activités dans la vue django admin"""
 	filename = "export_activites.csv"
 	list_display = ("title", "host_name", "display", "must_subscribe",)
-	list_filter = ("display", "must_subscribe",)
+	list_filter = ("display", "must_subscribe", "year",)
 	ordering = ("title", "host_name",)
 	list_editable = ("display",)
 	fields = (
@@ -40,12 +40,13 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"constraints",
 		"needs",
 		"comments",
+		"year",
 	)
 	list_per_page = 100
 	csv_export_fields = [
 		# The key is "host_id" but listed as "host" in auto-found field names
 		# which leads to an error...
-		'id', 'display', 'title', 'act_type', 'game_type', 'description',
+		'id', 'year', 'display', 'title', 'act_type', 'game_type', 'description',
 		'desc_as_html', 'host_id', 'host_name', 'host_email', 'show_email', 'host_info',
 		'must_subscribe', 'max_participants',
 		'min_participants', 'duration', 'desired_slot_nb',

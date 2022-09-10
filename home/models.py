@@ -8,12 +8,15 @@ from django.utils import timezone
 from authens.models import User
 from site_settings.models import Colors, SiteSettings
 
-def validate_nonzero(value):
+def validate_nonzero(value) -> None:
 	"""Make a positive integer field non-zero"""
 	if value == 0:
 		raise ValidationError(
 			_('Cette valeur doit-être non-nulle'),
 		)
+
+def get_year() -> int:
+	return timezone.now().year
 
 class ActivityModel(models.Model):
 	"""une activité (i.e. JDR, murder)..."""
@@ -139,6 +142,11 @@ class ActivityModel(models.Model):
 
 	comments = models.TextField(
 		"Commentaires", max_length=2000, blank=True, null=True
+	)
+
+	year = models.IntegerField(
+		verbose_name="année", default=get_year,
+		help_text="Année des 48h des jeux cette activité (purement informatif)",
 	)
 
 	@property
