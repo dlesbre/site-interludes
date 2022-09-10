@@ -14,8 +14,8 @@
 	Vous avez les droits d'administrateurs.
 	<br>Aller à la <a href="{% url 'admin_pages:index' %}">page d'administration du site</a>
 	{% if user.is_staff %}
-	<br>Aller à la <a href="{% url 'admin:index' %}">page d'administration de django</a>
-	(N'y modifier rien sy vous n'êtes pas sûrs de vous)
+	<br>Aller à la <a href="{% url 'admin:index' %}">page d'administration de Django</a>
+	(N'y modifier rien si vous n'êtes pas sûrs de vous)
 	{% endif %}
 </li>
 </ul>{% endif %}
@@ -31,7 +31,7 @@
 		<!-- <li>Inscrit à {{ user.profile.nb_meals }} repas.</li> -->
 		{% if settings.activities_allocated %}
 			{% if my_choices %}
-			<li>Inscrit à {{ my_choices|length }} activités&nbsp;:
+			<li>Inscrit&middot;e à {{ my_choices|length }} activités&nbsp;:
 				<ul>
 					{% for choice in my_choices %}
 					<li><a href="{% url 'activites' %}#{{ choice.slot.activity.slug }}">{{ choice.slot }}</a>
@@ -43,7 +43,7 @@
 				</ul>
 			</li>
 			{% else %}
-			<li>Inscrit à aucune activité</li>
+			<li>Inscrit&middot;e à aucune activité</li>
 			{% endif %}
 		{% else %}
 			{% if my_choices %}
@@ -69,11 +69,11 @@
 
 	{% if not settings.inscriptions_open %}
 		{% if settings.inscriptions_not_open_yet %}
-			<p>Les inscriptions aux activités ne sont pas encores ouvertes. Elles ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+			<p>Les inscriptions aux activités ne sont pas encore ouvertes. Elles ouvriront le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
 		{% elif settings.inscriptions_have_closed %}
 			<p>Les inscriptions aux activités sont fermées.</p>
 		{% else %}
-			<p>Les inscriptions aux activités ne sont pas encores ouvertes ou ont été fermées.</p>
+			<p>Les inscriptions aux activités ne sont pas encore ouvertes ou ont été fermées.</p>
 		{% endif %}
 	{% elif settings.inscriptions_end %}
 		<p>les inscriptions aux activités sont ouvertes jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}).</p>

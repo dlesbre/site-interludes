@@ -142,7 +142,10 @@ class ActivityModel(models.Model):
 		"Contraintes particulières", max_length=2000, blank=True, null=True
 	)
 
-	status = models.CharField("Présentiel/distanciel", choices=Status.choices, max_length=1)
+	status = models.CharField(
+		"Présentiel/distanciel", choices=Status.choices, max_length=1,
+		default=Status.PRESENT
+	)
 	needs = models.TextField(
 		"Besoin particuliers", max_length=2000, blank=True, null=True
 	)
