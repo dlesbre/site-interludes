@@ -56,7 +56,7 @@ class SingletonModel(models.Model):
 
 	def delete(self, *args, **kwargs):
 		"""can't delete the unique element"""
-		pass
+		raise ValueError("Attempting to delete unique element")
 
 	@classmethod
 	def load(cls):
@@ -144,7 +144,9 @@ class SiteSettings(SingletonModel):
 
 	@property
 	def contact_email_reversed(self) -> str:
-		return self.contact_email[::-1]
+		if self.contact_email is not None:
+			return self.contact_email[::-1]
+		return ""
 
 	@property
 	def date_2(self):
@@ -155,13 +157,13 @@ class SiteSettings(SingletonModel):
 	@property
 	def has_caption(self) -> bool:
 		"""Vérifie si l'une des légende est non-nulle"""
-		return self.caption_red \
+		return bool(self.caption_red \
 			or self.caption_orange \
 			or self.caption_yellow \
 			or self.caption_green \
 			or self.caption_blue \
 			or self.caption_dark_blue \
-			or self.caption_black
+			or self.caption_black)
 
 	class Meta:
 		verbose_name = "paramètres"
