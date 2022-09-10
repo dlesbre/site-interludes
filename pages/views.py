@@ -6,11 +6,14 @@ from django.template import Context, Template
 from os.path import join
 
 from site_settings.models import SiteSettings
+from home.models import ActivityModel
+from home.views import get_planning_context
 
 from .models import HTMLPageModel
 
 PREBUILT_PAGES = [
 	{"name":"home", "slug":"", "file":"home.html"},
+	{"name":"activites", "slug":"activites", "file": "activites.html"},
 	{"name":"faq", "slug":"faq", "file": "faq.html"},
 ]
 
@@ -27,6 +30,8 @@ class HTMLPageView(DetailView):
 		context = super().get_context_data(**kwargs)
 		context["slug"] = self.object.slug
 		context["settings"] = SiteSettings.load()
+		context['activities'] = ActivityModel.objects.filter(display=True).order_by("title")
+		context.update(get_planning_context())
 		template = Template(self.object.content)
 		context["html_body"] = template.render(context=Context(context))
 		return context
@@ -46,4 +51,6 @@ class HTMLPageView(DetailView):
 					obj.save()
 					return obj
 			raise err
+		if not obj.visible:
+			raise Http404()
 		return obj

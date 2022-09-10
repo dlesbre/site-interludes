@@ -9,7 +9,6 @@ from home import views
 sitemaps = {"static_pages": views.StaticViewSitemap}
 
 urlpatterns = [
-	path('activites/', views.ActivityView.as_view(), name = 'activites'),
 	path('activites/nouvelle/', views.ActivitySubmissionView.as_view(), name = 'activity_submission'),
 	path('favicon.ico', RedirectView.as_view(url='/static/imgs/favicon.ico')),
 	path(

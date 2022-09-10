@@ -12,14 +12,9 @@ from authens.views import LogoutView as AuthensLogoutView
 
 from pages.models import HTMLPageModel
 
-from .models import ActivityModel, SlotModel
+from .models import SlotModel
 from .forms import ActivitySubmissionForm
 from site_settings.models import SiteSettings
-
-
-# ==============================
-# Site static pages
-# ==============================
 
 def get_planning_context():
 	"""Returns the context dict needed to display the planning"""
@@ -36,17 +31,6 @@ def get_planning_context():
 		context['sunday'] = 3
 	return context
 
-class ActivityView(TemplateView):
-	"""Vue pour la liste des activités"""
-	template_name = "activites.html"
-
-	def get_context_data(self, **kwargs):
-		"""ajoute la liste des activités au contexte"""
-		context = super(ActivityView, self).get_context_data(**kwargs)
-		context['activities'] = ActivityModel.objects.filter(display=True).order_by("title")
-		context.update(get_planning_context())
-		return context
-
 # ==============================
 # Activity Submission Form
 # ==============================
@@ -56,7 +40,7 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 	"""Vue pour proposer une activité"""
 	template_name = "activity_submission.html"
 	form_class = ActivitySubmissionForm
-	success_url = reverse_lazy("activites")
+	success_url = reverse_lazy("pages:html_page", kwargs={"slug":"activites"})
 
 	@staticmethod
 	def submission_check():
