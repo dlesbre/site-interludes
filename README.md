@@ -18,6 +18,7 @@ une [license MIT](https://choosealicense.com/licenses/mit/).
   communiquer les activités obtenu et un mail aux orgas pour leur communiquer la
   liste des participants
 - Un formulaire pour envoyer un mail à tous (à utiliser avec modération)
+- Exporter les tables intéressantes au format CSV
 
 
 **Il n'est PAS capable de :**
@@ -25,7 +26,9 @@ une [license MIT](https://choosealicense.com/licenses/mit/).
   externe (ex [HelloAsso](https://www.helloasso.com/)) ou de recruter les
   BdE/BdL des autres écoles pour qu'ils inscrivent les participants
 - répartir les activités - nous faisons un premier jet avec le [ce
-  code](https://github.com/Lamakaio/InterludesMatchings), puis l'adaptons à la main et le renseignons dans ce site.
+  code](https://github.com/Lamakaio/InterludesMatchings) (en prenant l'export
+  CSV de la table de choix d'activités), puis l'adaptons à la main et le
+  renseignons dans ce site.
 
 **Contenu:**
 - [Lancement rapide](#lancement-rapide)
@@ -226,9 +229,8 @@ A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter :
 ## Liens divers
 
 - [Le site des interludes 2021](https://interludes.ens.fr)
-- [Le répo initial](https://git.eleves.ens.fr/dlesbre/site-interludes) sur le gitlab de l'ENS Ulm
+- [Le site des interludes 2022](https://interludes.assos-ensl.fr/)
 - [Le github de l'algorithme de répartition](https://github.com/Imakoala/InterludesMatchings)
 - [Le wiki de Paris-Saclay](https://wiki.crans.org/VieBdl/InterLudes) qui recense les visuels, sites webs et photos des interludes passées.
 - [Le gitlab du site des 48h des jeux](https://git.eleves.ens.fr/dlesbre/48h-des-jeux) un événement très similaire intra-ENS Ulm, c'est fork de ce répo.
 - [Le site des 48h des jeux](https://48hdesjeux.cof.ens.fr/)
-- [Le site du club jeu d'Ulm](https://jeux.cof.ens.fr/)
