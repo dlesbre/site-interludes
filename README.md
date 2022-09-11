@@ -232,5 +232,5 @@ A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter :
 - [Le site des interludes 2022](https://interludes.assos-ensl.fr/)
 - [Le github de l'algorithme de répartition](https://github.com/Imakoala/InterludesMatchings)
 - [Le wiki de Paris-Saclay](https://wiki.crans.org/VieBdl/InterLudes) qui recense les visuels, sites webs et photos des interludes passées.
-- [Le gitlab du site des 48h des jeux](https://git.eleves.ens.fr/dlesbre/48h-des-jeux) un événement très similaire intra-ENS Ulm, c'est fork de ce répo.
-- [Le site des 48h des jeux](https://48hdesjeux.cof.ens.fr/)
+- [Le site des 48h des jeux](https://48hdesjeux.cof.ens.fr/) et son [gitlab](https://git.eleves.ens.fr/dlesbre/48h-des-jeux), un événement très similaire intra-ENS Ulm, c'est fork de ce répo.
+- [Le site du KWEI](https://kwei.crans.org/) et son [gitlab](https://gitlab.crans.org/mediatek/site-kwei), un événement similaire intra-ENS Paris-Saclay
