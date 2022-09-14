@@ -92,7 +92,6 @@ class StaticViewSitemap(Sitemap):
 		"""list of pages to appear in sitemap"""
 		return [
 			("pages:home", {}),
-			("activites", {}),
 		] + [
 			("pages:html_page", {"slug":obj.slug})
 			for obj in HTMLPageModel.objects.all() if obj.slug
