@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView, View
 
+from pages.models import HTMLPageModel
 from home import models
 from home.forms import ActivityForm, ActivitySubmissionForm, BaseActivityFormSet, InscriptionForm
 from site_settings.models import SiteSettings
@@ -203,11 +204,18 @@ class StaticViewSitemap(Sitemap):
 
 	def items(self):
 		"""list of pages to appear in sitemap"""
-		return ["home", "inscription", "activites", "FAQ"]
+		return [
+			("home", {}),
+			("inscription", {})
+		] + [
+			("html_page", {"slug":obj.slug})
+			for obj in HTMLPageModel.objects.all() if obj.slug
+		]
 
 	def location(self, item):
 		"""real url of an item"""
-		return reverse(item)
+		name, kwargs = item
+		return reverse(name, kwargs=kwargs)
 
 	def priority(self, obj):
 		"""priority to appear in sitemap"""

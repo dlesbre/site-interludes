@@ -205,11 +205,13 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 2. S'assurer que `DEBUG = False` et que `ALLOWED_HOSTS` contient les adresses des hôtes dans [settings.py](./interludes/settings.py)
 
-3. Créer ou remplacer le fichier `interludes/secret.py` pour qu'il ait les mots de passe et un nouveau secret. Vous pouvez générer un secret django avec
+3. Créer ou remplacer le fichier `interludes/secret.py` pour qu'il ait les mots de passe et un nouveau secret. Vous pouvez générer un secret Django avec
 
-		python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
+	```console
+	python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
+	```
 
-4. Faire les migration `make migrate`
+4. Faire les migrations `make migrate`
 
 5. Faire un `make preprod` pour générer les fichiers statiques et vérifier les réglages
 
