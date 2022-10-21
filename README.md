@@ -1,5 +1,8 @@
 # Site des interludes
 
+[![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2F)](https://interludes.ens.fr)
+[![forks](https://img.shields.io/badge/forks-4-blue)](#forks)
+
 Ce répo contient le sites des interludes. La version 2021 est en ligne à
 [https://interludes.ens.fr](https://interludes.ens.fr). Il est disponible sur le
 [git interne de l'ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) et
@@ -28,9 +31,11 @@ une [license MIT](https://choosealicense.com/licenses/mit/).
 - répartir les activités - nous faisons un premier jet avec le [ce
   code](https://github.com/Lamakaio/InterludesMatchings) (en prenant l'export
   CSV de la table de choix d'activités), puis l'adaptons à la main et le
+- [Forks](#forks)
   renseignons dans ce site.
 
 **Contenu:**
+- [Forks](#forks)
 - [Lancement rapide](#lancement-rapide)
 - [Installation manuelle](#installation-manuelle)
 - [Lancer le serveur](#lancer-le-serveur)
@@ -39,17 +44,30 @@ une [license MIT](https://choosealicense.com/licenses/mit/).
 - [Idées de développement](#idées-de-développement)
 - [Liens divers](#liens-divers)
 
+## Forks
+
+Ce serveur a été repris pour plusieurs événements similaires :
+
+| Site Web                                                  | Code source                                                                                                                  | Notes                                                |
+| :-------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- |
+| [Interludes 2021 Ulm](https://interludes.ens.fr/)         | [github](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | Version initiale, tag v1.2.8                         |
+| [48h des jeux](https://48hdesjeux.cof.ens.fr/)            | [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/48h-des-jeux)                                                             | Rentrée ludique d'Ulm 2021 (v2.3.1) et 2022 (v3.0.1) |
+| [Interludes 2022 Lyon](https://interludes.assos-ensl.fr/) | [github](https://github.com/Pantoofle/site-interludes)                                                                       | Branche Lyon-2022, tag v2.1.0                        |
+| [KWEI 2022](https://kwei.crans.org/)                      | [gitlab Paris Saclay](https://gitlab.crans.org/aeltheos/site-kwei)                                                           | Rentrée ludique Paris-Saclay 2022                    |
+
+Le code de l'algorithme de répartition est aussi disponible [sur github](https://github.com/Imakoala/InterludesMatchings).
+
 ## Lancement rapide
 
 Pour installer toutes les dépendances et lancer le serveur :
 
-	```console
-	git clone https://github.com/dlesbre/site-interludes.git &&
-	cd site-interlude &&
-	python3 -m venv venv &&
-	source venv/bin/activate &&
-	make start
-	```
+```console
+git clone https://github.com/dlesbre/site-interludes.git &&
+cd site-interlude &&
+python3 -m venv venv &&
+source venv/bin/activate &&
+make start
+```
 
 Le site devrait être accessible à [http://localhost:8000](http://localhost:8000).
 
@@ -212,6 +230,7 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 	```
 
 4. Faire les migrations `make migrate`
+- Rajouter des tests unitaires...
 
 5. Faire un `make preprod` pour générer les fichiers statiques et vérifier les réglages
 
@@ -227,6 +246,7 @@ A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter :
   comptes. À Ulm, nous avons un système de compte clipper fourni par l'admin
   qu'on réutilise dans quasi tous les sites étudiants. Je peux facilement le
   rajouter à ce site, mais je ne sais pas comment faire pour les autres écoles.
+- Rajouter des tests unitaires...
 
 ## Liens divers
 
