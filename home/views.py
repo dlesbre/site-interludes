@@ -126,14 +126,24 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 		return render(request, self.template_name, context)
 
 	def post(self, request, *args, **kwargs):
+		settings = SiteSettings.load()
 		form = self.form_class(request.POST, instance=request.user.profile)
-		formset = self.formset_class(request.POST)
-		if not (form.is_valid() and formset.is_valid()):
-			context = {"form": form, "formset": formset}
-			return render(request, self.template_name, context)
+		if settings.activity_inscriptions_open : # meal + sleep + activities open
+			formset = self.formset_class(request.POST)
+			if not (form.is_valid() and formset.is_valid()):
+				context = {"form": form, "formset": formset}
+				return render(request, self.template_name, context)
+			self.set_activities(request.user.profile, formset)
 
+		else: # only meal and sleep open
+			if not form.is_valid():
+				participant = request.user.profile
+				slots = self.get_slots(participant)
+				formset = self.formset_class(initial=slots)
+				context = {"form": form, "formset": formset}
+				return render(request, self.template_name, context)
+		
 		form.save()
-		self.set_activities(request.user.profile, formset)
 
 		messages.success(request, "Votre inscription a bien été enregistrée")
 		return redirect(self.success_url, permanent=False)
