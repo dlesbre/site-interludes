@@ -21,7 +21,7 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
 			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
 			"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
 		],
-		["nb_murder"],["comment"]
+		["nb_murder"], ["comment"]
 	]
 
 	def save(self, *args, commit=True, **kwargs):
