@@ -11,7 +11,7 @@
 		<title>{% block title %}Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}{% endblock %}</title>
 		<meta name="description" content="Inscriptions et infos sur les interENS ludiques{% if settings.date_start %}, édition {{ settings.date_start.year }}{% endif %}">
 		<meta name="keywords" content="Interludes ENS {% if settings.date_start %}{{ settings.date_start.year }} {% endif %}InterENS">
-		<link rel="icon" type="image/png" href="{% static 'imgs/2022/favicon.ico' %}">
+		<link rel="icon" type="image/png" href="{% static 'imgs/2023/favicon.ico' %}">
 
 		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v={{ constants.CSS_VERSION }}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-all.min.css' %}">
@@ -21,7 +21,7 @@
 	<body>
 		<header>
 			<div id="header_logo"  class="easter_egg">
-				<h1><a href="/"><img id="circle" src="{% static 'imgs/2022/logo.png' %}">&nbsp;Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}&nbsp;</a></h1>
+				<h1><a href="/"><img src="{% static 'imgs/2023/logo.png' %}">&nbsp;Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}&nbsp;</a></h1>
 			</div>
 			<div id="head_main_infos">
 			<div id="location">{{ settings.hosting_school }}</div>
@@ -109,21 +109,13 @@
 
 	<footer>
 		<div id="sponsors">
-			<a class="external" href="https://www.ens-lyon.fr/">
-				<img src="{% static "imgs/2022/ens_lyon.svg" %}" alt="École Normale Supérieure de Lyon"
-					title="École Normale Supérieure de Lyon" />
+			<a class="external" href="https://www.ens-paris-saclay.fr/">
+				<img src="{% static "imgs/2023/ens_ps.png" %}" alt="École Normale Supérieure Paris-Saclay"
+					title="École Normale Supérieure Paris-Saclay" />
 			</a>
-			<a class="external" href="https://discord.gg/27QWSDUNgM">
-    			<img src="{% static "imgs/2022/bul.png" %}" alt="Bureau Ludique de l'ENS de Lyon"
-    				title="Bureau Ludique de l'ENS de Lyon" />
-			</a>
-			<a class="external" href="https://www.trollune.fr/">
-    			<img src="{% static "imgs/2022/trollune.png" %}" alt="Trollune"
-    				title="Trollune" />
-			</a>
-			<a class="external" href="https://www.3ptitspois.fr/">
-    			<img src="{% static "imgs/2022/trois_ptits_pois.png" %}" alt="Trois Ptits Pois"
-    				title="Trois Ptits Pois" />
+			<a class="external" href="https://wiki.crans.org/VieBdl">
+    			<img src="{% static "imgs/2023/bdl.png" %}" alt="Bureau des Loisirs de l'ENS de Paris-Saclay"
+    				title="Bureau des Loisirs de l'ENS Paris-Saclay" />
 			</a>
 		</div>
 		{% if settings.contact_email %}
