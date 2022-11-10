@@ -33,23 +33,16 @@
 
     <h3>Inscription à l'événement</h3>
 	<p>
-        L'inscription à l'événement,
-        à l'hébergement et aux repas se fait sur <a
-        href="https://www.helloasso.com/associations/bureau-ludique-de-l-ens-de-lyon/evenements/interludes-ens-de-lyon">le
-        formulaire HelloAsso</a>
+	L'inscription à l'événement, aux repas, à l'hebergement et aux activités se fait dans <a href="{% url 'inscription'%}">l'onglet inscription</a>
 	</p>
-
-	<h3>Inscription aux activités</h3>
-	<p>
-        Une fois votre inscription à l'événement effectuée, vous pourrez vous <a href="{% url 'inscription'%}">inscrire aux activités</a>
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
-		<p>Les inscriptions seront ouvertes
+		<p>Les inscriptions aux activités seront ouvertes
 			du <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>
 			au <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.
 		</p>
 	{% elif settings.inscriptions_start %}
-		<p>Les inscriptions ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+		<p>Les inscriptions aux activités ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
 	{% elif settings.inscriptions_end %}
 		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
 	{% endif %}
@@ -59,27 +52,29 @@
     Les tarifs sont différenciés entre salarié·es et non-salarié·es.
     <ul>
         <li><strong>Participation à l'événement :</strong> 6€/4€</li>
-        <li><strong>Repas (du vendredi soir au dimanche midi) :</strong> 10€/6€</li>
-        <li><strong>Logement en tente :</strong> 3€</li>
+        <li><strong>Repas (du vendredi soir au dimanche midi) :</strong> 3€/2€ par repas</li>
+        <li><strong>Logement en tente :</strong> inconnu</li>
     </ul>
 </p>
 
 <h2>Menu des repas</h2>
 <p>
-    Cette année, le menu sera entièrement végétarien, avec options végan et/ou sans gluten possibles.
+    Cette année, le menu sera entièrement végétarien. Il sera annoncé bientôt.
     <ul>
-        <li><strong>Vendredi soir :</strong> Chili sin carne, riz & compote</li>
-        <li><strong>Samedi midi :</strong> Brunch (Salade bar, Croques pesto-mozza, Houmous, Gâteaux)</li>
-        <li><strong>Samedi soir :</strong> Soupe de saison & Tartiflette (option vegan : gratin de pommes de terre aux champignons)</li>
-        <li><strong>Dimanche midi :</strong> Sandwich au choix</li>
+        <li><strong>Vendredi soir :</strong> </li>
+        <li><strong>Samedi matin :</strong> </li>
+        <li><strong>Samedi midi :</strong> </li>
+        <li><strong>Samedi soir :</strong> </li>
+        <li><strong>Dimanche matin :</strong> </li>
+        <li><strong>Dimanche midi :</strong> </li>
     </ul>
 
 
 	<h2>Liens divers</h2>
 
 <ul>
-	<li>Le code source de ce site est sur <a href="https://github.com/Pantoofle/site-interludes">github</a>.</li>
+	<li>Le code source de ce site est sur <a href="https://gitlab.crans.org/mediatek/site-kwei">gitlab</a>.</li>
 	<li>Un historique des interludes avec leurs visuels, site webs et photos est sur le <a
-			href="https://wiki.crans.org/VieBdl/InterLudes">wiki de Paris-Saclay</a>.</li>
+			href="https://wiki.crans.org/VieBdl/InterLudes">wiki Crans de Paris-Saclay</a>.</li>
 </ul>
 {% endblock %}
