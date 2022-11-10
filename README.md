@@ -19,7 +19,7 @@ Ce répo est diffusé sous une [license MIT](https://choosealicense.com/licenses
 
 Pour installer toutes les dépendances et lancer le serveur :
 
-		git clone https://github.com/dlesbre/site-interludes.git &&
+		git clone https://gitlab.crans.org/mediatek/site-interludes.git &&
 		cd site-interlude &&
 		python3 -m venv venv &&
 		source venv/bin/activate &&
@@ -144,3 +144,4 @@ A.K.A. la liste des trucs utiles que j'ai pas eu le temps d'ajouter
 - [Le gitlab du site des 48h des jeux](https://git.eleves.ens.fr/dlesbre/48h-des-jeux) un événement très similaire intra-ENS Ulm, c'est fork de ce répo.
 - [Le site des 48h des jeux](https://48hdesjeux.cof.ens.fr/)
 - [Le site du club jeu d'Ulm](https://jeux.cof.ens.fr/)
+- [le site des interludes 2023](https://interludes.crans.org/)
