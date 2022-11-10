@@ -4,19 +4,21 @@
 
 {% block "content" %}
 
-<h2>Quelle différence entre l'inscription sur HelloAsso et sur le site&nbsp;?</h2>
-<p>L'inscription HelloAsso vous inscrit à l'événement, au logement et aux repas (selon l'option que vous prenez). Sur le site internet, vous pouvez créer un compte pour vous inscrire aux différentes activités qui seront proposées lors de l'événement. </p>
+<h2>Comment s'incrire ?</h2>
+{% if settings.inscriptions_open %}
+<p> Les <a href="{% url 'inscription' %}">inscriptions</a> sont ouvertes. Vous pouvez vous inscrire aux repas et à l'hébergment.
+{% if settings.activity_inscriptions_open %}
+Vous pouvez aussi vous inscrire aux activités.
+{% else %}
+L'inscription aux activités aura lieu plupart.
+{% endif %}
+</p>
+{% else %}
+<p> Les inscriptions ne sont pas ouvertes. </p>
+{% endif %}
 
-<h2>Quelles seront les mesures de protection sanitaire&nbsp;?</h2>
-	<p>Les mesures définitives vous seront communiquées à l'arrivée à l'événement. Elles incluront probablement&nbsp;:</p>
-	<ul>
-		<li>Contrôle des passes sanitaires chaque jour</li>
-		<li>Port du masque obligatoire en permanence</li>
-		<li>Lavage de main entre chaque jeu/activité conseillé</li>
-		<li>Des QR Codes à scanner sur chaque table (pour garder trace des cas contacts si une personne est déclarée positive)</li>
-		<li>Salles aérées en permanence et joueur&middot;ses invité&middot;es à se rendre dehors si le taux de CO2 devient trop élevé</li>
-	</ul>
-
+<h2>Comment payer ?</h2>
+De préférence par l'associations qui gèrent les Interludes dans votre ENS (Bureau des Loisirs, Bul...). Sinon par espèce, chèque, carte sur place.
 
 <h2>Comment proposer une activité&nbsp;?</h2>
 	{% if settings.activity_submission_open %}
@@ -28,41 +30,32 @@
 	{% endif %}
 
 <h2>Quelles seront les conditions pour dormir/manger&nbsp;?</h2>
-<p> Nous proposerons un logement en tente, pour celleux qui le souhaitent</p>
+<p> Nous proposerons un logement indéterminé, pour celleux qui le souhaitent</p>
 <p> Les repas seront préparés et servis sur place.</p>
-<p>	Si vous dormez dans les tentes, pensez à prendre un tapis de sol et duvet.</p>
 
 <h2>Comment se rendre à l'événement&nbsp;?</h2>
+	<p>Les Interludes se déroule à l'ENS Paris-Saclay : 4 avenue des Sciences, 91190 Gif-sur-Yvette. L'accueil se fait par l'entrée principale.</p>
 <div>
 	<p class="centered">
-		<i class="fas fa-map-marker-alt"></i>
-
+	
+	<iframe width="750" height="400" 
+		frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=2.1628072857856755%2C48.71179934847555%2C2.1672758460044865%2C48.71333201299027&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/>
+		<small><a href="https://www.openstreetmap.org/#map=19/48.71257/2.16504">View Larger Map</a></small>
 	</p>
 
-	<iframe id="interactive-map" width="750" height="400"
-		src="https://www.openstreetmap.org/export/embed.html?bbox=4.82691%2C45.73663%2C4.84084%2C45.72936&amp;layer=hot&amp;marker=45.73298%2C4.83397"></iframe>
 </div>
 
 <div id="public-transport-info">
-	<div id="transport-tcl-metro">
-		<img src="{% static 'imgs/tcl/B.svg' %}" alt="Métro B">
-	</div>
-	<div id="transport-tcl-tram-1">
-		<img src="{% static 'imgs/tcl/T1.svg' %}" alt="Tram T1">
-	</div>
-	<div id="transport-tcl-tram-2">
-		<img src="{% static 'imgs/tcl/T6.svg' %}" alt="Tram T6">
-	</div>
 	<div id="transport-tcl-bus-1">
-		<img src="{% static 'imgs/tcl/34.svg' %}" alt="Bus 34">
+		Bus 9
 	</div>
 	<div id="transport-tcl-bus-2">
-		<img src="{% static 'imgs/tcl/60.svg' %}" alt="Bus 60">
+		Bus 91.06
 	</div>
 	<div id="transport-tcl-bus-3">
-		<img src="{% static 'imgs/tcl/64.svg' %}" alt="Bus 64">
+		Bus 91.10
 	</div>
-	<span id="transport-tcl-stop">Arrêt : Debourg</span>
+	<span id="transport-tcl-stop">Arrêt : Moulon</span>
 </div>
 
 <h2>Comment sont réparties les activités&nbsp;?</h2>
@@ -85,6 +78,8 @@
 	</ol>
 	<p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, il ne marche pas encore parfaitement, et on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers (conflits d'horaires, activité présente plusieurs fois...).
 
+{% if settings.contact_email_reversed %}
 <h2>J'ai encore une question, je fais quoi ?</h2>
 <p> Hésite pas à nous passer un mail à <span class="antispam">{{ settings.contact_email_reversed }}</span> pour nous poser tes questions !</p>
+{% endif %}
 {% endblock %}
