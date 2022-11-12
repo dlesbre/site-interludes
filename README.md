@@ -35,25 +35,26 @@ une [license MIT](https://choosealicense.com/licenses/mit/).
   renseignons dans ce site.
 
 **Contenu:**
-- [Forks](#forks)
-- [Lancement rapide](#lancement-rapide)
-- [Installation manuelle](#installation-manuelle)
-- [Lancer le serveur](#lancer-le-serveur)
-- [Guide de l'administrateur](#guide-de-ladministrateur)
-- [En production](#en-production)
-- [Idées de développement](#idées-de-développement)
-- [Liens divers](#liens-divers)
+- [Site des interludes](#site-des-interludes)
+	- [Forks](#forks)
+	- [Lancement rapide](#lancement-rapide)
+	- [Installation manuelle](#installation-manuelle)
+	- [Lancer le serveur](#lancer-le-serveur)
+	- [Guide de l'administrateur](#guide-de-ladministrateur)
+	- [En production](#en-production)
+	- [Idées de développement](#idées-de-développement)
+	- [Liens divers](#liens-divers)
 
 ## Forks
 
 Ce serveur a été repris pour plusieurs événements similaires :
 
-| Site Web                                                  | Code source                                                                                                                  | Notes                                                |
-| :-------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- |
-| [Interludes 2021 Ulm](https://interludes.ens.fr/)         | [github](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | Version initiale, tag v1.2.8                         |
-| [48h des jeux](https://48hdesjeux.cof.ens.fr/)            | [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/48h-des-jeux)                                                             | Rentrée ludique d'Ulm 2021 (v2.3.1) et 2022 (v3.0.1) |
-| [Interludes 2022 Lyon](https://interludes.assos-ensl.fr/) | [github](https://github.com/Pantoofle/site-interludes)                                                                       | Branche Lyon-2022, tag v2.1.0                        |
-| [KWEI 2022](https://kwei.crans.org/)                      | [gitlab Paris Saclay](https://gitlab.crans.org/aeltheos/site-kwei)                                                           | Rentrée ludique Paris-Saclay 2022                    |
+| Site Web                                                  | Code source                                                                                                                | Notes                                                | État                                                                                                                                           |
+| :-------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Interludes 2021 Ulm](https://interludes.ens.fr/)         | ithub](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | Version initiale, tag v1.2.8                         | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)        |
+| [48h des jeux](https://48hdesjeux.cof.ens.fr/)            | [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/48h-des-jeux)                                                           | Rentrée ludique d'Ulm 2021 (v2.3.1) et 2022 (v3.0.1) | ![website](https://img.shields.io/website?url=https%3A%2F%2F48hdesjeux.cof.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)    |
+| [Interludes 2022 Lyon](https://interludes.assos-ensl.fr/) | [github](https://github.com/Pantoofle/site-interludes)                                                                     | Branche Lyon-2022, tag v2.1.0                        | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.assos-ensl.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne) |
+| [KWEI 2022](https://kwei.crans.org/)                      | [gitlab Paris Saclay](https://gitlab.crans.org/aeltheos/site-kwei)                                                         | Rentrée ludique Paris-Saclay 2022                    | ![website](https://img.shields.io/website?url=https%3A%2F%2Fkwei.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)           |
 
 Le code de l'algorithme de répartition est aussi disponible [sur github](https://github.com/Imakoala/InterludesMatchings).
 
@@ -71,7 +72,7 @@ make start
 
 Le site devrait être accessible à [http://localhost:8000](http://localhost:8000).
 
-Par la suite vous z relancer le site simplement avec `make serve`.
+Par la suite vous pouvez relancer le site simplement avec `make serve`.
 
 ## Installation manuelle
 
