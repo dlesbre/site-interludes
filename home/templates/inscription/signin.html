@@ -4,7 +4,7 @@
 
 {% block "content" %}
 	<h2>Inscriptions</h2>
-	<p>Vous devez être connecté pour pouvoir vous inscrire à des activités. Pour vous inscrire à l'événement en lui même, suivez le lien HelloAsso sur la <a href="{% url 'home' %}">page d'accueil</a></p>
+	<p>Vous devez être connecté pour pouvoir vous inscrire</p>
 	<p>Aller à la page de <a href="{% url 'accounts:login' %}">connexion</a> pour vous connecter
 	ou à celle de <a href="{% url 'accounts:create' %}">création de compte</a> si vous n'avez pas de compte.</p>
 	{% if settings.inscriptions_end %}
