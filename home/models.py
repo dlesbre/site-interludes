@@ -325,8 +325,10 @@ class ParticipantModel(models.Model):
 
 	sleeps = models.BooleanField("dormir sur place", default=False)
 
+	paid = models.BooleanField("payé(e)", default=False)
+
 	# mug = models.BooleanField("commander une tasse", default=False)
-	
+
 	nb_murder = models.PositiveIntegerField("Nombre de murder réalisées", default=0)
 
 	comment = models.TextField("Commentaire", max_length=2000, blank=True, null=True)

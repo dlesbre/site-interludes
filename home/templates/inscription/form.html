@@ -29,6 +29,9 @@
 	    <h3>Hébergement</h3>
 	    <p>Les solutions d'hébergement ne sont pas encore clairement définie. Si vous souhaitez un hébergement, cochez la case suivante : {{ form.sleeps }} </p>
 
+            <h3>Tarif</h3>
+            <p>Le tarif est différent selon si vous percevez un salaire ou non. Êtes-vous payé⋅e : {{ form.paid }}</p>
+
 	<h2>Inscription aux activités</h2>
 		
 		{% if formset.non_form_errors %}
