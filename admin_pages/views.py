@@ -282,7 +282,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 	filename = "participants_interludes"
 	headers = [
 		"id", "mail", "prénom", "nom", "ENS", "Salarié", "Dors sur place", #"Tasse",
-		"Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
+		"Nombre de repas", "Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
 		"Repas D matin", "Repas D soir", "Nombre murders", "Commentaires"
 	]
 	def get_rows(self):
@@ -300,6 +300,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 				profile.paid,
 				profile.sleeps,
 				# profile.mug,
+				profile.nb_meals,
 				profile.meal_friday_evening,
 				profile.meal_saturday_morning,
 				profile.meal_saturday_midday,
