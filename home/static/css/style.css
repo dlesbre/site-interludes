@@ -330,7 +330,7 @@ div.desc p.indent {
 .button:hover, input[type=submit]:hover {
 	background-color: var(--color_bg_2);
 }
-.disabled, .disabled:hover {
+.disabled, .disabled:hover, .disabled:visited {
 	color: black;
 	background-color: #888;
 	cursor: not-allowed;
