@@ -85,7 +85,13 @@ host: $(SECRET) ## Host locally to access from same network (make sure to add IP
 .PHONY: clean
 clean: ## Delete database
 	$(call print,Removing database)
-	rm $(DB)
+	rm -f $(DB)
+
+.PHONY: clean-all
+clean-all: clean ## Delete database and migration files
+	$(call print,Removing migration files)
+	find . -path "*/migrations/*.py" -not -name "__init__.py" -not -path "*/venv/*" -delete
+	find . -path "*/migrations/*.pyc" -not -path "*/venv/*" -delete
 
 .PHONY: adduser
 adduser: $(SECRET) ## Create a new superuser
