@@ -1,10 +1,20 @@
+<!-- LTeX: language=en -->
+
 # Change Log
+
+## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
+
+- Merge saclay's fork
+- Add a salaried/unsalaried field to separate prices
+- Add a nb_murder fields to have info on personal experience with murders
+- Add a comment field for participant to indicate extra data
+- Separate activity inscription open from inscription open settings
 
 ## Version 2.2.0 - 2022-09-10 - Changes from 48h des jeux
 
 - Merge Lyon's fork
 - Added dynamic (in DB) templates for info pages (home and faq)
-- Restore meals to inscription form (as they can be easily removed if irrelevent
+- Restore meals to inscription form (as they can be easily removed if irrelevent)
 - Spelling fixes
 
 ## Version 2.1.0 - 2022-03-24 - Interludes 2022 Lyon
