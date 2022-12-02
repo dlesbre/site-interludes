@@ -24,7 +24,13 @@
 				<h1><a href="/"><img src="{% static 'imgs/2023/logo.png' %}">&nbsp;Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}&nbsp;</a></h1>
 			</div>
 			<div id="head_main_infos">
-			<div id="location">{{ settings.hosting_school }}</div>
+			<div id="location">
+				{% if settings.hosting_school %}
+				{{ settings.hosting_school }}
+				{% else %}
+					École non-fixée
+				{% endif %}
+			</div>
 			<div id="date">{% if settings.date_start %}
 				{% if settings.date_end %}
 				{{ settings.date_start.day }}-{{ settings.date_end }}
