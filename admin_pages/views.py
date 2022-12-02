@@ -281,9 +281,9 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 	filename = "participants_interludes"
 	headers = [
-		"id", "mail", "prénom", "nom", "ENS", "Dors sur place", #"Tasse",
+		"id", "mail", "prénom", "nom", "ENS", "Salarié", "Dors sur place", #"Tasse",
 		"Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
-		"Repas D matin", "Repas D soir"
+		"Repas D matin", "Repas D soir", "Nombre murders", "Commentaires"
 	]
 	def get_rows(self):
 		profiles = models.ParticipantModel.objects.filter(
@@ -297,6 +297,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 				profile.user.first_name,
 				profile.user.last_name,
 				profile.school,
+				profile.paid,
 				profile.sleeps,
 				# profile.mug,
 				profile.meal_friday_evening,
@@ -305,6 +306,8 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 				profile.meal_saturday_evening,
 				profile.meal_sunday_morning,
 				profile.meal_sunday_midday,
+				profile.nb_murder,
+				profile.comment,
 			])
 		return rows
 
