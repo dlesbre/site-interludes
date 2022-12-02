@@ -89,13 +89,12 @@
 
 	<h3>Modalités pratiques</h3>
 
-	<p><strong>Présentiel/distanciel&nbsp;:</strong> &nbsp;{{ form.status }}</p>
+	{% comment "En présentiel" %}<p><strong>Présentiel/distanciel&nbsp;:</strong> &nbsp;{{ form.status }}</p>{% endcomment %}
 
 	<p><strong>Besoins spécifiques&nbsp;:</strong></p>
 	<ul>
 		<li>Vous faut-il une ou plusieurs salles&nbsp;?</li>
 		<li>Vous faut-il du matériel spécial&nbsp;?</li>
-		<li>Si possible en distanciel, quel outils faut-il pour participer&nbsp;?</li>
 		<li>Et tout autre besoin de ce type...</li>
 	</ul>
 

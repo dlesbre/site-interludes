@@ -1,12 +1,27 @@
 {% load static %}
 
-<h2>Quelle différence entre l'inscription sur HelloAsso et sur le site&nbsp;?</h2>
+<!-- <h2>Quelle différence entre l'inscription sur HelloAsso et sur le site&nbsp;?</h2>
 <p>
 	L'inscription HelloAsso vous inscrit à l'événement, au logement et aux repas
 	(selon l'option que vous prenez). Sur le site internet, vous pouvez créer un
 	compte pour vous inscrire aux différentes activités qui seront proposées lors
 	de l'événement.
+</p> -->
+
+<h2>Comment s'incrire ?</h2>
+{% if settings.inscriptions_open %}
+<p> 
+	Les <a href="{% url 'inscription' %}">inscriptions</a> sont ouvertes. 
+	Vous pouvez vous inscrire aux repas et à l'hébergement.
+	{% if settings.activity_inscriptions_open %}
+		Vous pouvez aussi vous inscrire aux activités.
+	{% else %}
+		L'inscription aux activités aura lieu plus tard.
+	{% endif %}
 </p>
+{% else %}
+<p> Les inscriptions ne sont pas ouvertes. </p>
+{% endif %}
 
 <!--<h2>Quelles seront les mesures de protection sanitaire&nbsp;?</h2>
 
@@ -51,6 +66,12 @@
 	</ul></p>
 <p>	Si vous dormez dans les tentes, pensez à prendre un tapis de sol et duvet.</p>
 
+<h2>Comment payer ?</h2>
+<p>
+	De préférence par l'association qui gère les Interludes dans votre ENS
+	(Bureau des Loisirs, Bul...). Sinon par espèce, chèque, carte sur place.
+</p>
+
 <h2>Comment se rendre à l'événement&nbsp;?</h2>
 <!-- ENS ULM
 <div>
@@ -92,6 +113,7 @@
 	<span id="transport-ratp-noctilien-stop">Auguste Comte</span>
 </div> -->
 
+<!-- ENS Lyon
 <div>
 	<p class="centered">
 		<i class="fas fa-map-marker-alt"></i>
@@ -122,6 +144,34 @@
 		<img src="{% static 'imgs/tcl/64.svg' %}" alt="Bus 64">
 	</div>
 	<span id="transport-tcl-stop">Arrêt : Debourg</span>
+</div> -->
+
+<p>Les Interludes se déroule à l'ENS Paris-Saclay : 4 avenue des Sciences, 91190 Gif-sur-Yvette. L'accueil se fait par l'entrée principale.</p>
+<p class="centered">
+	<i class="fas fa-map-marker-alt"></i>
+	4 avenue des Sciences, 91190 Gif-sur-Yvette
+</p>
+<div>
+	<p class="centered">
+	
+	<iframe width="750" height="400" 
+		frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=2.1628072857856755%2C48.71179934847555%2C2.1672758460044865%2C48.71333201299027&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/>
+		<small><a href="https://www.openstreetmap.org/#map=19/48.71257/2.16504">View Larger Map</a></small>
+	</p>
+
+</div>
+
+<div id="public-transport-info">
+	<div id="transport-tcl-bus-1">
+		Bus 9
+	</div>
+	<div id="transport-tcl-bus-2">
+		Bus 91.06
+	</div>
+	<div id="transport-tcl-bus-3">
+		Bus 91.10
+	</div>
+	<span id="transport-tcl-stop">Arrêt : Moulon</span>
 </div>
 
 <h2>Comment sont réparties les activités&nbsp;?</h2>

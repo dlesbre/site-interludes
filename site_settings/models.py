@@ -87,7 +87,8 @@ class SiteSettings(SingletonModel):
 	date_end = models.DateField("Date de fin", blank=True, null=True)
 
 	registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
-	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False)
+	inscriptions_open = models.BooleanField("Ouvrir les inscriptions", default=False, help_text="Permet d'ouvrir le formulaire d'inscription (repas et dodo; l'inscription aux activité est ouvrable en plus)")
+	activity_inscriptions_open = models.BooleanField("Ouvrir l'inscription aux activitées", default=False, help_text="Permet d'ouvrir la partie du formulaire d'inscription pour les activités (nécessite l'ouverture des inscriptions)")
 	activity_submission_open = models.BooleanField(
 		"Ouvrir l'ajout d'activité", default=False,
 		help_text="Permet de proposer une activité via le formulaire dédié"

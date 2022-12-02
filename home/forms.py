@@ -13,13 +13,15 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
 			"school", "sleeps", # "mug",
 			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
 			"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
+			"paid", "nb_murder", "comment"
 		)
 
 	field_groups = [["school"], ["sleeps"], #["mug"],
 		[
 			"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
 			"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
-		]
+		],
+		["paid"], ["nb_murder"], ["comment"]
 	]
 
 	def save(self, *args, commit=True, **kwargs):
@@ -82,7 +84,8 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 			"available_sunday_afternoon",
 			"constraints",
 
-			"status", "needs",
+			#"status",
+			"needs",
 
 			"comments",
 		)

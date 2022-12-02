@@ -4,35 +4,18 @@
 {% block nav_inscription %}current{% endblock %}
 
 {% block "content" %}
-	<h2>Inscription à l'événement</h2>
-		L'inscription à l'événement, à l'hébergement et aux repas se fait sur 
-		{% if settings.ticket_url %}
-			<a href="{{ settings.ticket_url }}">le formulaire HelloAsso</a>.
-		{% else %}
-		 	le formulaire HelloAsso.
-		{% endif %}
-
-	<h2>Inscription aux activités</h2>
-	{% if form.errors or formset.errors %}
-	<ul class="messagelist">
-		<li class="error">Ce formulaire contient des erreurs.</li>
-	</ul>
-	{% endif %}
-		<p>
-			Une fois votre inscription à l'événement effectuée, vous pourrez vous
-			inscrire à certaines activités sur cette page. La plupart des activités ne
-			demandent pas d'inscription et seront en libre accès durant tout
-			l'événement, mais certaines demandent une inscription à l'avance.
-		</p>
-
 	<form id="main_form" method="post" action="{% url 'inscription' %}">
-		{% csrf_token %}
+	{% csrf_token %}
 
+	<h2>Inscription à l'événement</h2>
+		<p>L'inscription à l'événement, à l'hébergement et aux repas se fait sur cette page.</p>
+
+		<h3>École</h3>
 		<p>{{ form.school.label_tag }} {{ form.school }}</p>
-		<p>{{ form.sleeps.label_tag }} {{ form.sleeps }}</p>
 
 		<h3>Repas</h3>
 
+		<p>Vous pouvez vous inscrire aux repas ci-dessous&nbsp;:</p>
 		<table>
 			<tr><td>Vendredi soir&nbsp;:</td><td>{{ form.meal_friday_evening }}</td></tr>
 			<tr><td>Samedi matin&nbsp;:</td><td>{{ form.meal_saturday_morning }}</td></tr>
@@ -42,28 +25,58 @@
 			<tr><td>Dimanche midi&nbsp;:</td><td>{{ form.meal_sunday_midday }}</td></tr>
 		</table>
 
-		<h3>Choix d'activités</h3>
+		<p>Les menus sont disponibles sur la <a href="{% url 'home' %}">page d'accueil</a>
+
+		<h3>Hébergement</h3>
 
 		<p>
-			Saisissez les activités auxquelles vous voulez vous inscrire, par ordre
-			de préférence. Vous trouverez une description des activités sur 
-			<a href="{%	url 'html_page' slug='activites' %}">cette page</a>.
+			Pour l'hébergement, nous proposons le logement chez les Saclaysien⋅nes
+			(comme aux InterQ). Si vous souhaitez un hébergement, cochez la case
+			suivante : {{ form.sleeps }}
 		</p>
 		<p>
-			Vous pouvez revenir modifier votre choix jusqu'à la fermeture des
-			inscriptions{% if settings.inscriptions_end %} (le {{ settings.inscriptions_end|date:"l d F Y à H:i" }}){% endif %}.
-		</p>
-		<p>Si vous vous inscrivez à une activité qui nécessite préparation, nous communiquerons
-			votre email aux orgas pour qu'iels puissent vous contacter.
+			L'idée est de proposer aux normalien⋅nes de Saclay de loger celleux des
+			autres écoles. Si vous avez besoin d'un hébergement vous pouvez compléter
+			<a href="https://framaforms.org/logement-interludes-2023-extes-1668450149">ce questionnaire</a>. 
+
+			Si vous voulez loger quelqu'un <a	href="https://framaforms.org/logement-interludes-2023-cote-hebergement-1668438253">c'est
+			ici</a>. Merci à ceux qui veulent bien accueillir !</p>
+
+		<h3>Tarif</h3>
+		<p>
+			Le tarif est différent selon si vous percevez un salaire ou non. Êtes-vous
+			salarié⋅e : {{ form.paid }}
 		</p>
 
-
+	<h2>Inscription aux activités</h2>
+		
 		{% if formset.non_form_errors %}
 		{{ formset.non_form_errors }}
 		{% endif %}
 
 		{{ formset.management_data }}
 		{{ formset.management_form }}
+
+		{% if settings.activity_inscriptions_open %}
+
+	  <p>
+			Vous pouvez vous inscrire à certaines activités sur cette page. La plupart
+			des activités ne demandent pas d'inscription et seront en libre accès
+			durant tout l'événement, mais certaines demandent une inscription à
+			l'avance.
+		</p>
+
+		<p>
+			Saisissez les activités auxquelles vous voulez vous inscrire, 
+			<strong>par ordre de préférence</strong>. Vous trouverez une description
+			des activités sur <a href="{% url 'activites' %}">la page activités</a>.
+		</p>
+
+		<p>
+			Si vous vous inscrivez à une activité qui nécessite préparation, nous communiquerons
+			votre email aux orgas pour qu'iels puissent vous contacter.
+		</p>
+
 		{% for form in formset %}
 		<div class="activity-form flex">
 			{{ form.as_p }}
@@ -71,6 +84,41 @@
 		</div>
 		{% endfor %}
 		<button class="button" id="add-activity">Ajouter une activité</button>
+		
+	{% else %}
+	
+		<p>
+			Vous pourrez vous inscrire à certaines activités sur cette page. La
+			plupart des activités ne demandent pas d'inscription et seront en libre
+			accès durant tout l'événement, mais certaines demandent une inscription à
+			l'avance.
+			{% if settings.inscriptions_start %} 
+				Les inscriptions aux activités ouvrirons le 
+				{{ settings.inscriptions_start|date:"l d F Y à H:i" }})
+			{% endif %}.
+		</p>
+	
+	{% endif %}
+	
+	<h3>Expérience</h3>
+		<p>
+			Pour vous attribuer au mieux les activités, nous aimerions connaître votre
+			exprérience en murder (jeux de rôles grandeurs nature). Si vous avez
+			perdu le compte, 42 conviendra très bien ;) </p>
+
+		<p>Nombre de murder déjà jouées : {{ form.nb_murder }}</p>
+		
+	<h2>Commentaire</h2>
+		<p>
+			Pour préciser toutes les informations qui vous semblent utiles comme les allergies alimentaires.
+		</p>
+		{{ form.comment }}
+	
+		<p>
+			Vous pouvez revenir modifier vos choix jusqu'à la fermeture des
+			inscriptions{% if settings.inscriptions_end %} (le {{ settings.inscriptions_end|date:"l d F Y à H:i" }}){% endif %}.
+		</p>
+
 		<div class="flex">
 			<input type="submit" value="Valider">
 

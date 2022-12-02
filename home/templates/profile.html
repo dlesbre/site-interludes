@@ -26,9 +26,21 @@
 	  modifiable jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}
 	{% endif %}
 	<ul>
-		<!-- <li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Ne dors pas sur place{% endif %}</li> -->
-		<!-- <li>{% if user.profile.mug %}Commandse une tasse{% else %}Ne commande pas de tasse{% endif %}</li> -->
-		<!-- <li>Inscrit à {{ user.profile.nb_meals }} repas.</li> -->
+		<li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Non inscrit pour dormir sur place{% endif %}</li>
+		{% comment "pas de tasse" %}<li>{% if user.profile.mug %}Commandse une tasse{% else %}Ne commande pas de tasse{% endif %}</li>{% endcomment%}
+		{% if user.profile.nb_meals != 0 %}
+		<li>Inscrit à {{ user.profile.nb_meals }} repas :</li>
+			<ul>
+				{% if user.profile.meal_friday_evening == True %}<li>Vendredi soir</li>{% endif %}
+				{% if user.profile.meal_saturday_morning == True %}<li>Petit dej' du samedi</li>{% endif %}
+				{% if user.profile.meal_saturday_midday == True %}<li>Samedi midi</li>{% endif %}
+				{% if user.profile.meal_saturday_evening == True %}<li>Samedi soir</li>{% endif %}
+				{% if user.profile.meal_sunday_morning == True %}<li>Petit dej' du dimanche</li>{% endif %}
+				{% if user.profile.meal_sunday_midday == True %}<li>Dimanche midi</li>{% endif %}
+			</ul>
+		{% else %}
+		<li>Inscrit à aucun repas</li>
+		{% endif %}
 		{% if settings.activities_allocated %}
 			{% if my_choices %}
 			<li>Inscrit&middot;e à {{ my_choices|length }} activités&nbsp;:

@@ -3,22 +3,13 @@
 {% block nav_inscription %}current{% endblock %}
 
 {% block "content" %}
-
 <h2>Inscriptions à l'événement</h2>
-	<p>
-		L'inscription à l'événement,
-		l'hébergement et aux repas se fait sur
-		{% if settings.ticket_url %}
-			<a href="{{ settings.ticket_url }}">le formulaire HelloAsso</a>.
-		{% else %}
-		 	le formulaire HelloAsso.
-		{% endif %}
-	</p>
+	<p> L'inscription est fermée </p>
 
 <h2>Inscriptions aux activités</h2>
 
 {% if settings.inscriptions_not_open_yet %}
-	<p>Les inscriptions aux activités ne sont pas encores ouvertes.</p>
+	<p>Les inscriptions aux activités ne sont pas encore ouvertes.</p>
 	<p>Leur ouverture est prévue le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
 	<p>Nous communiquerons par mail via les BDE des différentes écoles pour leur ouverture.</p>
 {% elif settings.inscriptions_have_closed %}

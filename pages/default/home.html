@@ -6,7 +6,7 @@
 
 {% if settings.discord_link %}
 	<ul class="messagelist"><li class="info">
-		Rejoins notre <a href="{{ settings.discord_link }}">serveur discord</a> pour participer à l'événement.{{ settings.global_message }}
+		Rejoins notre <a href="{{ settings.discord_link }}">serveur discord</a> pour participer à l'événement.
 	</li></ul>
 {% endif %}
 
@@ -31,28 +31,18 @@
 
 <h2>Inscriptions</h2>
 
-	<h3>Inscription à l'événement</h3>
 	<p>
-		L'inscription à l'événement,
-		à l'hébergement et aux repas se fait sur 
-		{% if settings.ticket_url %}
-			<a href="{{ settings.ticket_url }}">le formulaire HelloAsso</a>.
-		{% else %}
-		 	le formulaire HelloAsso.
-		{% endif %}
+		L'inscription à l'événement, aux repas, à l'hébergement et aux activités se fait dans 
+		<a href="{% url 'inscription'%}">l'onglet inscription</a>
 	</p>
-
-	<h3>Inscription aux activités</h3>
-	<p>
-		Une fois votre inscription à l'événement effectuée, vous pourrez vous <a href="{% url 'inscription'%}">inscrire aux activités</a>
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
-		<p>Les inscriptions seront ouvertes
+		<p>Les inscriptions aux activités seront ouvertes
 			du <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>
 			au <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.
 		</p>
 	{% elif settings.inscriptions_start %}
-		<p>Les inscriptions ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
+		<p>Les inscriptions aux activités ouvrirons le <strong>{{ settings.inscriptions_start|date:"l d F Y à H:i" }}</strong>.</p>
 	{% elif settings.inscriptions_end %}
 		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
 	{% endif %}
