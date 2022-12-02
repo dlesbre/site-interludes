@@ -43,10 +43,8 @@
 			ici</a>. Merci à ceux qui veulent bien accueillir !</p>
 
 		<h3>Tarif</h3>
-		<p>
-			Le tarif est différent selon si vous percevez un salaire ou non. Êtes-vous
-			salarié⋅e : {{ form.paid }}
-		</p>
+		<p>Le tarif est différent selon si vous percevez un salaire ou non.</p>
+		<p>Êtes-vous salarié⋅e : {{ form.paid }}</p>
 
 	<h2>Inscription aux activités</h2>
 		
@@ -69,7 +67,7 @@
 		<p>
 			Saisissez les activités auxquelles vous voulez vous inscrire, 
 			<strong>par ordre de préférence</strong>. Vous trouverez une description
-			des activités sur <a href="{% url 'activites' %}">la page activités</a>.
+			des activités sur <a href="{% url 'html_page' slug='activites' %}">la page activités</a>.
 		</p>
 
 		<p>
