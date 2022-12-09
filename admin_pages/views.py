@@ -285,7 +285,8 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 	headers = [
 		"id", "mail", "prénom", "nom", "ENS", "Dors sur place", #"Tasse",
 		"Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
-		"Repas D matin", "Repas D soir"
+		"Repas D matin", "Repas D midi", "Reaps D soir", "Payé⋅e", "Prix",
+		"Montant payé"
 	]
 	def get_rows(self):
 		profiles = models.ParticipantModel.objects.filter(
@@ -307,6 +308,10 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 				profile.meal_saturday_evening,
 				profile.meal_sunday_morning,
 				profile.meal_sunday_midday,
+				profile.meal_sunday_evening,
+				profile.paid,
+				profile.cost,
+				profile.amount_paid
 			])
 		return rows
 

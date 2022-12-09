@@ -334,15 +334,23 @@ class ParticipantModel(models.Model):
 
 	comment = models.TextField("Commentaire", max_length=2000, blank=True, null=True)
 
+	amount_paid = models.PositiveIntegerField("Montant payé", default=0)
+
 	def __str__(self) -> str:
 		school = self.ENS(self.school).label.replace("ENS ", "") if self.school else ""
 		return "{} {} ({})".format(self.user.first_name, self.user.last_name, school)
 
 	@property
 	def nb_meals(self) -> int:
+		# nb meals not including take away (sunday evening)
 		return (
 			self.meal_friday_evening + self.meal_saturday_evening + self.meal_saturday_midday +
-			self.meal_saturday_morning + self.meal_sunday_evening + self.meal_sunday_midday + self.meal_sunday_morning
+			self.meal_saturday_morning + self.meal_sunday_midday + self.meal_sunday_morning
+		)
+	@property
+	def cost(self) -> int:
+		return (
+			(self.is_registered*2 + self.nb_meals) * (2+self.paid) + self.meal_sunday_evening*2
 		)
 
 	class Meta:
