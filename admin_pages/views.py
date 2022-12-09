@@ -42,6 +42,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
 			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
+			paid = registered.filter(paid=True).count()
 
 			meal1 = registered.filter(meal_friday_evening=True).count()
 			meal2 = registered.filter(meal_saturday_morning=True).count()
@@ -49,6 +50,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			meal4 = registered.filter(meal_saturday_evening=True).count()
 			meal5 = registered.filter(meal_sunday_morning=True).count()
 			meal6 = registered.filter(meal_sunday_midday=True).count()
+			meal7 = registered.filter(meal_sunday_evening=True).count()
 			meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
 
 			activites = acts.count()

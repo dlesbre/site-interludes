@@ -321,7 +321,8 @@ class ParticipantModel(models.Model):
 	meal_saturday_midday = models.BooleanField("repas de samedi midi", default=False)
 	meal_saturday_evening = models.BooleanField("repas de samedi soir", default=False)
 	meal_sunday_morning = models.BooleanField("repas de dimanche matin", default=False)
-	meal_sunday_midday = models.BooleanField("repas de dimanche soir", default=False)
+	meal_sunday_midday = models.BooleanField("repas de dimanche midi", default=False)
+	meal_sunday_evening = models.BooleanField("repas de dimanche soir", default=False)
 
 	sleeps = models.BooleanField("dormir sur place", default=False)
 
@@ -341,7 +342,7 @@ class ParticipantModel(models.Model):
 	def nb_meals(self) -> int:
 		return (
 			self.meal_friday_evening + self.meal_saturday_evening + self.meal_saturday_midday +
-			self.meal_saturday_morning + self.meal_sunday_midday + self.meal_sunday_morning
+			self.meal_saturday_morning + self.meal_sunday_evening + self.meal_sunday_midday + self.meal_sunday_morning
 		)
 
 	class Meta:

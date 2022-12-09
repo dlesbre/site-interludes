@@ -81,7 +81,7 @@ class ParticipantModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 		"school", "is_registered", "sleeps",
 		"meal_friday_evening", "meal_saturday_morning", "meal_saturday_midday",
 		"meal_saturday_evening", "meal_sunday_morning", "meal_sunday_midday",
-		"nb_murder"
+		"meal_sunday_evening", "nb_murder", "paid"
 	)
 	ordering = ("user",)
 	list_per_page = 200
