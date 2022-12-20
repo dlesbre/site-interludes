@@ -342,15 +342,15 @@ class ParticipantModel(models.Model):
 
 	@property
 	def nb_meals(self) -> int:
-		# nb meals not including take away (sunday evening)
 		return (
 			self.meal_friday_evening + self.meal_saturday_evening + self.meal_saturday_midday +
-			self.meal_saturday_morning + self.meal_sunday_midday + self.meal_sunday_morning
+			self.meal_saturday_morning + self.meal_sunday_midday + self.meal_sunday_morning +
+			self.meal_sunday_evening
 		)
 	@property
 	def cost(self) -> int:
 		return (
-			(self.is_registered*2 + self.nb_meals) * (2+self.paid) + self.meal_sunday_evening*2
+			(self.is_registered*2 + self.nb_meals) * (2+self.paid) - (self.paid*self.meal_sunday_evening)
 		)
 
 	class Meta:
