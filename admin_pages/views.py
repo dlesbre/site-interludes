@@ -13,6 +13,7 @@ from home import models
 from home.views import get_planning_context
 from site_settings.models import Colors, SiteSettings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
+from interludes import settings as site_settings
 
 from admin_pages.forms import Recipients, SendEmailForm
 
@@ -359,7 +360,7 @@ class SendUserEmail(SendEmailBase):
 	def get_emails(self):
 		"""genere les mails a envoyer"""
 		participants = models.ParticipantModel.objects.filter(
-			is_registered=True, participant__user__is_active=True
+			is_registered=True, user__is_active=True
 		)
 		emails = []
 		settings = SiteSettings.load()
@@ -372,7 +373,7 @@ class SendUserEmail(SendEmailBase):
 				"my_choices": my_choices.filter(accepted=True),
 			})
 			emails.append((
-				settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités", # subject
+				site_settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités", # subject
 				message,
 				self.from_address, # From:
 				[participant.user.email], # To:
@@ -393,7 +394,7 @@ class SendUserEmail(SendEmailBase):
 			"Emails de répartition envoyés aux participants",
 			"Les participants ont reçu un mail leur communiquant la répartition des activités\n"
 			"Nombre total de mail envoyés: {}\n\n"
-			"{}".format(nb_sent, settings.EMAIL_SIGNATURE)
+			"{}".format(nb_sent, site_settings.EMAIL_SIGNATURE)
 		)
 		messages.success(self.request, "{} mails envoyés aux utilisateurs".format(nb_sent))
 
@@ -416,7 +417,7 @@ class SendOrgaEmail(SendEmailBase):
 				"slots": slots,
 			})
 			emails.append((
-				settings.USER_EMAIL_SUBJECT_PREFIX +
+				site_settings.USER_EMAIL_SUBJECT_PREFIX +
 				"Liste d'inscrits à votre activité {}".format(activity.title), # subject
 				message,
 				self.from_address, # From:
@@ -438,7 +439,7 @@ class SendOrgaEmail(SendEmailBase):
 			"Listes d'inscrits envoyés aux orgas",
 			"Les mails communiquant aux organisateurs leur listes d'inscrit ont été envoyés\n"
 			"Nombre total de mail envoyés: {}\n\n"
-			"{}".format(nb_sent, settings.EMAIL_SIGNATURE)
+			"{}".format(nb_sent, site_settings.EMAIL_SIGNATURE)
 		)
 		messages.success(self.request, "{} mails envoyés aux orgas".format(nb_sent))
 
@@ -495,7 +496,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 				"{}\n\n"
 				"{}".format(
 					Recipients(dest).label, nb_sent, subject, text,
-					settings.EMAIL_SIGNATURE
+					site_settings.EMAIL_SIGNATURE
 				)
 			)
 			messages.success(self.request, "{} mails envoyés".format(nb_sent))
