@@ -13,6 +13,7 @@ from home import models
 from home.views import get_planning_context
 from site_settings.models import Colors, SiteSettings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
+from interludes import settings as site_settings
 
 from admin_pages.forms import Recipients, SendEmailForm
 
@@ -42,6 +43,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			non_registered = EmailUser.objects.filter(is_active=True).count() - participants
 			# mugs = registered.filter(mug=True).count()
 			sleeps = registered.filter(sleeps=True).count()
+			paid = registered.filter(paid=True).count()
 
 			meal1 = registered.filter(meal_friday_evening=True).count()
 			meal2 = registered.filter(meal_saturday_morning=True).count()
@@ -49,6 +51,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 			meal4 = registered.filter(meal_saturday_evening=True).count()
 			meal5 = registered.filter(meal_sunday_morning=True).count()
 			meal6 = registered.filter(meal_sunday_midday=True).count()
+			meal7 = registered.filter(meal_sunday_evening=True).count()
 			meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
 
 			activites = acts.count()
@@ -281,9 +284,10 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 	filename = "participants_interludes"
 	headers = [
-		"id", "mail", "prénom", "nom", "ENS", "Salarié", "Dors sur place", #"Tasse",
-		"Nombre de repas", "Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
-		"Repas D matin", "Repas D soir", "Nombre murders", "Commentaires"
+		"id", "mail", "prénom", "nom", "ENS", "Dors sur place", #"Tasse",
+		"Repas vendredi", "Repas S matin", "Repas S midi", "Repas S soir",
+		"Repas D matin", "Repas D midi", "Reaps D soir", "Payé⋅e", "Prix",
+		"Montant payé", "Nombre murders", "Commentaires"
 	]
 	def get_rows(self):
 		profiles = models.ParticipantModel.objects.filter(
@@ -307,6 +311,10 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
 				profile.meal_saturday_evening,
 				profile.meal_sunday_morning,
 				profile.meal_sunday_midday,
+				profile.meal_sunday_evening,
+				profile.paid,
+				profile.cost,
+				profile.amount_paid,
 				profile.nb_murder,
 				profile.comment,
 			])
@@ -356,7 +364,7 @@ class SendUserEmail(SendEmailBase):
 	def get_emails(self):
 		"""genere les mails a envoyer"""
 		participants = models.ParticipantModel.objects.filter(
-			is_registered=True, participant__user__is_active=True
+			is_registered=True, user__is_active=True
 		)
 		emails = []
 		settings = SiteSettings.load()
@@ -369,7 +377,7 @@ class SendUserEmail(SendEmailBase):
 				"my_choices": my_choices.filter(accepted=True),
 			})
 			emails.append((
-				settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités", # subject
+				site_settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités", # subject
 				message,
 				self.from_address, # From:
 				[participant.user.email], # To:
@@ -390,7 +398,7 @@ class SendUserEmail(SendEmailBase):
 			"Emails de répartition envoyés aux participants",
 			"Les participants ont reçu un mail leur communiquant la répartition des activités\n"
 			"Nombre total de mail envoyés: {}\n\n"
-			"{}".format(nb_sent, settings.EMAIL_SIGNATURE)
+			"{}".format(nb_sent, site_settings.EMAIL_SIGNATURE)
 		)
 		messages.success(self.request, "{} mails envoyés aux utilisateurs".format(nb_sent))
 
@@ -413,7 +421,7 @@ class SendOrgaEmail(SendEmailBase):
 				"slots": slots,
 			})
 			emails.append((
-				settings.USER_EMAIL_SUBJECT_PREFIX +
+				site_settings.USER_EMAIL_SUBJECT_PREFIX +
 				"Liste d'inscrits à votre activité {}".format(activity.title), # subject
 				message,
 				self.from_address, # From:
@@ -435,7 +443,7 @@ class SendOrgaEmail(SendEmailBase):
 			"Listes d'inscrits envoyés aux orgas",
 			"Les mails communiquant aux organisateurs leur listes d'inscrit ont été envoyés\n"
 			"Nombre total de mail envoyés: {}\n\n"
-			"{}".format(nb_sent, settings.EMAIL_SIGNATURE)
+			"{}".format(nb_sent, site_settings.EMAIL_SIGNATURE)
 		)
 		messages.success(self.request, "{} mails envoyés aux orgas".format(nb_sent))
 
@@ -470,7 +478,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 		# This method is called when valid form data has been POSTed.
 		# It should return an HttpResponse.
 		if not self.sending_allowed():
-			messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")
+			messages.error(self.request, "L'envoi de mail de masse est désactivé dans les réglages")
 		else:
 			dest = form.cleaned_data["dest"]
 			subject = form.cleaned_data["subject"]
@@ -492,7 +500,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
 				"{}\n\n"
 				"{}".format(
 					Recipients(dest).label, nb_sent, subject, text,
-					settings.EMAIL_SIGNATURE
+					site_settings.EMAIL_SIGNATURE
 				)
 			)
 			messages.success(self.request, "{} mails envoyés".format(nb_sent))
