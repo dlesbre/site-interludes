@@ -12,14 +12,14 @@ une [licence MIT](https://choosealicense.com/licenses/mit/).
 **Ce site permet de :**
 - Afficher de l'information sur l'événement (page d'accueil et FAQ, modifiable
   directement depuis l'admin du site)
-- Recenser es activités proposées (page activités)
+- Recenser les activités proposées (page activités)
 - Un formulaire pour permettre aux gens de proposer des activités
 - Un formulaire d'inscription ou chaque inscrit peut renseigner des infos
   personnelles (repas/dormir) et les activités qu'il souhaite
 - Afficher un planning dynamique des différentes activités
 - Une fois la répartition faite, envoyer un mail à tous les inscrits pour leur
-  communiquer les activités obtenu et un mail aux orgas pour leur communiquer la
-  liste des participants
+  communiquer les activités obtenues et un mail aux orgas pour leur communiquer
+  la liste des participants
 - Un formulaire pour envoyer un mail à tous (à utiliser avec modération)
 - Exporter les tables intéressantes au format CSV
 
@@ -35,15 +35,14 @@ une [licence MIT](https://choosealicense.com/licenses/mit/).
   renseignons dans ce site.
 
 **Contenu:**
-- [Site des interludes](#site-des-interludes)
-	- [Forks](#forks)
-	- [Lancement rapide](#lancement-rapide)
-	- [Installation manuelle](#installation-manuelle)
-	- [Lancer le serveur](#lancer-le-serveur)
-	- [Guide de l'administrateur](#guide-de-ladministrateur)
-	- [En production](#en-production)
-	- [Idées de développement](#idées-de-développement)
-	- [Liens divers](#liens-divers)
+- [Forks](#forks)
+- [Lancement rapide](#lancement-rapide)
+- [Installation pas à pas](#installation-pas-à-pas)
+- [Lancer le serveur](#lancer-le-serveur)
+- [Guide de l'administrateur](#guide-de-ladministrateur)
+- [En production](#en-production)
+- [Idées de développement](#idées-de-développement)
+- [Liens divers](#liens-divers)
 
 ## Forks
 
@@ -55,7 +54,7 @@ Ce serveur a été repris pour plusieurs événements similaires :
 | [48h des jeux](https://48hdesjeux.cof.ens.fr/)                | [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/48h-des-jeux)                                                             | Rentrée ludique d'Ulm 2021 (48h-v2.3.1) et 2022 (48h-v3.0.1) | ![website](https://img.shields.io/website?url=https%3A%2F%2F48hdesjeux.cof.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)    |
 | [Interludes 2022 Lyon](https://interludes.assos-ensl.fr/)     | [github](https://github.com/Pantoofle/site-interludes)                                                                       | Branche Lyon-2022, tag v2.1.0                                | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.assos-ensl.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne) |
 | [KWEI 2022](https://kwei.crans.org/)                          | [gitlab Paris Saclay](https://gitlab.crans.org/aeltheos/site-kwei)                                                           | Rentrée ludique Paris-Saclay 2022                            | ![website](https://img.shields.io/website?url=https%3A%2F%2Fkwei.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)           |
-| [Interludes 2023 Paris-Saclay](https://interludes.crans.org/) | [gitlab Paris Saclay](https://gitlab.crans.org/mediatek/site-interludes/)                                                    | Branche Saclay-2023                                                             | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)     |
+| [Interludes 2023 Paris-Saclay](https://interludes.crans.org/) | [gitlab Paris Saclay](https://gitlab.crans.org/mediatek/site-interludes/)                                                    | Branche Saclay-2023                                          | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)     |
 
 Le code de l'algorithme de répartition est aussi disponible [sur github](https://github.com/Imakoala/InterludesMatchings).
 
@@ -75,7 +74,7 @@ Le site devrait être accessible à [http://localhost:8000](http://localhost:800
 
 Par la suite vous pouvez relancer le site simplement avec `make serve`.
 
-## Installation manuelle
+## Installation pas à pas
 
 Pour tester et modifier le répo, après l'avoir cloné :
 
@@ -159,17 +158,20 @@ directement la base de donnée. Descriptif rapide des tables intéressantes :
   django).
 
 - Pages HTML - contient les pages d'informations (notamment home, activités et
-  FAQ). Cela permet de modifier leur contenu facilement (sans faire de pull).
-  Ces pages ont un nom (uniquement visible dans l'admin), un URL d'accès et un
-  contenu (format HTML avec tags de templates django).
+  FAQ). Cela permet aux administrateurs de modifier leur contenu facilement
+  depuis le site en ligne, sans avoir à accéder au serveur. Ces pages ont un nom
+  (uniquement visible dans l'admin), un URL d'accès et un contenu (format HTML
+  avec tags de templates django).
 
 	Les pages `home` (url vide) `activites` et `faq` sont spéciales. Elles
   apparaissent sur la barre de navigation et sont régénérées à partir de
   fichiers de base dans [pages/default/](./pages/default/) si quelqu'un tente
   d'y accéder après leur suppression.
 
+	Vous pouvez créer d'autres pages sur des URL libres si ça vous semble pertinent.
+
 	Les autres pages du site (formulaires, pages de connexion...) sont des
-	templates django plus classique et ne peuvent être modifié que depuis le code
+	templates django plus classiques et ne peuvent être modifié que depuis le code
 	source.
 
 - Paramètres - les réglages du site, ils permettent :
@@ -243,7 +245,9 @@ A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter :
 - Intégrer l'[algorithme de répartition](https://github.com/Imakoala/InterludesMatchings) dans le site au lieu de le faire tourner en externe à partir des exports CSV et de remplir les résultats à la main
 - Envoyer une concaténation de tous les emails aux admins (pour vérification, et pas juste en copie pour éviter le spam...)
 - Générer la version PDF du planning automatiquement au lieu de la faire à base de captures d'écran
-- ~~Remplacer les templates HTML statiques par du rendu de fichier markdown éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à chaque petit changement)~~ fait
+- ~~Remplacer les templates HTML statiques par du rendu de fichier markdown
+  éditable depuis la page d'admin (afin d'éviter de devoir refaire un pull à
+  chaque petit changement)~~ fait
 - Réutiliser les comptes élèves pour éviter aux gens de devoir créer des
   comptes. À Ulm, nous avons un système de compte clipper fourni par l'admin
   qu'on réutilise dans quasi tous les sites étudiants. Je peux facilement le
