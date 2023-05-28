@@ -1,8 +1,10 @@
+from typing import Any, Dict, List, Optional, Tuple
+
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
 from django.db.models import Count
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
@@ -24,7 +26,8 @@ from site_settings.models import Colors, SiteSettings
 class AdminView(SuperuserRequiredMixin, TemplateView):
     template_name = "admin.html"
 
-    def get_metrics(self):
+    def get_metrics(self) -> Any:
+        """Various metrics, return as a class"""
         registered = models.ParticipantModel.objects.filter(
             is_registered=True, user__is_active=True
         )
@@ -86,7 +89,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         return metrics
 
-    def validate_activity_participant_nb(self):
+    def validate_activity_participant_nb(self) -> str:
         """Vérifie que le nombre de participant inscrit
         à chaque activité est compris entre le min et le max"""
         slots = models.SlotModel.objects.filter(subscribing_open=True)
@@ -124,7 +127,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             message += '<li class="success">Aucune activité en sur-effectif</li>'
         return message
 
-    def validate_activity_conflicts(self):
+    def validate_activity_conflicts(self) -> str:
         """Vérifie que personne n'est inscrit à des activités simultanées"""
         slots = models.SlotModel.objects.filter(subscribing_open=True)
         conflicts = []
@@ -155,7 +158,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             '<li class="success">Aucun inscrit à plusieurs activités simultanées</li>'
         )
 
-    def validate_slot_less(self):
+    def validate_slot_less(self) -> str:
         """verifie que toutes les activité demandant une liste de participant ont un créneaux"""
         activities = models.ActivityModel.objects.filter(communicate_participants=True)
         errors = ""
@@ -169,7 +172,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             )
         return '<li class="success">Toutes les activités demandant une liste de participants ont au moins un créneau</li>'
 
-    def validate_multiple_similar_inscription(self):
+    def validate_multiple_similar_inscription(self) -> str:
         """verifie que personne n'est inscrit à la même activité plusieurs fois"""
         slots = models.SlotModel.objects.filter(subscribing_open=True)
         conflicts = []
@@ -203,7 +206,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
         )
 
-    def planning_validation(self):
+    def planning_validation(self) -> str:
         """Vérifie que toutes les activités ont le bon nombre de créneaux
         dans le planning"""
         errors = ""
@@ -225,7 +228,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
         )
 
-    def validate_activity_allocation(self):
+    def validate_activity_allocation(self) -> Dict[str, Any]:
         settings = SiteSettings.load()
         validations = '<ul class="messagelist">'
 
@@ -457,9 +460,9 @@ class SendEmailBase(SuperuserRequiredMixin, RedirectView):
     """Classe abstraite pour l'envoie d'un groupe d'emails"""
 
     pattern_name = "admin_pages:index"
-    from_address = None
+    from_address: Optional[str] = None  # defaults to DEFAULT_FROM_EMAIL setting
 
-    def send_emails(self):
+    def send_emails(self) -> None:
         raise NotImplementedError(
             "{}.send_emails isn't implemented".format(self.__class__.__name__)
         )
@@ -475,10 +478,14 @@ class SendEmailBase(SuperuserRequiredMixin, RedirectView):
         return reverse(self.pattern_name)
 
 
+# Subject, Message, From, To
+EMAIL = Tuple[str, str, Optional[str], List[str]]
+
+
 class SendUserEmail(SendEmailBase):
     """Envoie aux utilisateurs leur repartition d'activité"""
 
-    def get_emails(self):
+    def get_emails(self) -> List[EMAIL]:
         """genere les mails a envoyer"""
         participants = models.ParticipantModel.objects.filter(
             is_registered=True, user__is_active=True
@@ -489,7 +496,7 @@ class SendUserEmail(SendEmailBase):
             my_choices = models.ActivityChoicesModel.objects.filter(
                 participant=participant
             )
-            message = render_to_string(
+            message: str = render_to_string(
                 "email/user.html",
                 {
                     "user": participant.user,
@@ -509,7 +516,7 @@ class SendUserEmail(SendEmailBase):
             )
         return emails
 
-    def send_emails(self):
+    def send_emails(self) -> None:
         settings = SiteSettings.load()
         if settings.user_notified:
             messages.error(
@@ -539,14 +546,14 @@ class SendOrgaEmail(SendEmailBase):
     à leurs activités
     """
 
-    def get_emails(self):
+    def get_emails(self) -> List[EMAIL]:
         """genere les mails a envoyer"""
         activities = models.ActivityModel.objects.filter(communicate_participants=True)
         emails = []
         settings = SiteSettings.load()
         for activity in activities:
             slots = models.SlotModel.objects.filter(activity=activity)
-            message = render_to_string(
+            message: str = render_to_string(
                 "email/orga.html",
                 {
                     "activity": activity,
@@ -567,7 +574,7 @@ class SendOrgaEmail(SendEmailBase):
             )
         return emails
 
-    def send_emails(self):
+    def send_emails(self) -> None:
         settings = SiteSettings.load()
         if settings.orga_notified:
             messages.error(
@@ -595,9 +602,9 @@ class NewEmail(SuperuserRequiredMixin, FormView):
     template_name = "send_email.html"
     form_class = SendEmailForm
     success_url = reverse_lazy("admin_pages:index")
-    from_address = None
+    from_address: Optional[str] = None
 
-    def get_emails(self, selection):
+    def get_emails(self, selection) -> List[str]:
         """return the list of destination emails"""
         if selection == Recipients.ALL:
             users = EmailUser.objects.filter(is_active=True)
@@ -611,7 +618,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             raise ValueError("Invalid selection specifier\n")
 
     @staticmethod
-    def sending_allowed():
+    def sending_allowed() -> bool:
         """Checks if sending mass emails is allowed"""
         settings = SiteSettings.load()
         return settings.allow_mass_mail
@@ -648,7 +655,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             messages.success(self.request, "{} mails envoyés".format(nb_sent))
         return super().form_valid(form)
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, *args, **kwargs) -> Dict[str, Any]:
         """ajoute l'email d'envoie aux données contextuelles"""
         context = super().get_context_data(*args, **kwargs)
         context["from_email"] = (
@@ -660,7 +667,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
         context["accounts_nb"] = EmailUser.objects.filter(is_active=True).count()
         return context
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if self.sending_allowed():
             return super().get(request, *args, **kwargs)
         messages.error(

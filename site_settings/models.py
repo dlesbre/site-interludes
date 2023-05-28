@@ -54,7 +54,7 @@ class SingletonModel(models.Model):
     class Meta:
         abstract = True
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         """save the unique element"""
         self.pk = 1  # set private key to one
         super(SingletonModel, self).save(*args, **kwargs)
