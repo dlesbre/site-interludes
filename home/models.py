@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime, timedelta, time
+from typing import Optional
 
 from django.db import models
 from django.forms import ValidationError
@@ -196,7 +197,6 @@ class ActivityModel(models.Model):
 
     comments = models.TextField("Commentaires", max_length=2000, blank=True, null=True)
 
-    @property
     def nb_participants(self) -> str:
         if self.max_participants == 0:
             ret = "Illimités"
@@ -208,25 +208,21 @@ class ActivityModel(models.Model):
             ret += " (sur inscription)"
         return ret
 
-    @property
     def pretty_duration(self) -> str:
         hours, rem = divmod(self.duration.seconds, 3600)
         minutes = "{:02}".format(rem // 60) if rem // 60 else ""
         return "{}h{}".format(hours, minutes)
 
-    @property
     def pretty_type(self) -> str:
         type = self.ActivityTypes(self.act_type).label
         game = self.GameTypes(self.game_type).label
         return "{}, {}".format(game, type.lower())
 
-    @property
     def slug(self) -> str:
         """Returns the planning/display slug for this activity"""
         return "act-{}".format(self.id)
 
-    @property
-    def slots(self):
+    def slots(self) -> models.QuerySet["SlotModel"]:
         """Returns a list of slots related to self"""
         return SlotModel.objects.filter(activity=self, on_activity=True).order_by(
             "start"
@@ -286,12 +282,10 @@ class SlotModel(models.Model):
         help_text="La légende des couleurs est modifiable dans les paramètres",
     )
 
-    @property
-    def participants(self):
+    def participants(self) -> models.QuerySet["ActivityChoicesModel"]:
         return ActivityChoicesModel.objects.filter(slot=self, accepted=True)
 
-    @property
-    def end(self):
+    def end(self) -> datetime:
         """Heure de fin du créneau"""
         if self.duration:
             return self.start + self.duration
@@ -300,11 +294,11 @@ class SlotModel(models.Model):
     def conflicts(self, other: "SlotModel") -> bool:
         """Check whether these slots overlap"""
         if self.start <= other.start:
-            return other.start <= self.end
-        return self.start <= other.end
+            return other.start <= self.end()
+        return self.start <= other.end()
 
     @staticmethod
-    def relative_day(date: datetime.datetime) -> int:
+    def relative_day(date: datetime) -> int:
         """Relative day to start.
         - friday   04:00 -> 03:59 = day 0
         - saturday 04:00 -> 03:59 = day 1
@@ -314,9 +308,9 @@ class SlotModel(models.Model):
         if settings.date_start:
             return (
                 date
-                - timezone.datetime.combine(
+                - datetime.combine(
                     settings.date_start,
-                    datetime.time(hour=4),
+                    time(hour=4),
                     timezone.get_current_timezone(),
                 )
             ).days
@@ -324,36 +318,30 @@ class SlotModel(models.Model):
             return 0
 
     @staticmethod
-    def fake_date(date: datetime.datetime):
+    def fake_date(date: datetime) -> Optional[datetime]:
         """Fake day for display on the (single day planning)"""
         settings = SiteSettings.load()
         if settings.date_start:
             time = date.timetz()
-            offset = datetime.timedelta(0)
+            offset = timedelta(0)
             if time.hour < 4:
-                offset = datetime.timedelta(days=1)
-            return timezone.datetime.combine(
-                settings.date_start + offset, date.timetz()
-            )
+                offset = timedelta(days=1)
+            return datetime.combine(settings.date_start + offset, date.timetz())
         return None
 
-    @property
     def start_day(self) -> int:
         """returns a day (0-2)"""
         return self.relative_day(self.start)
 
-    @property
     def end_day(self) -> int:
         """returns a day (0-2)"""
-        return self.relative_day(self.end)
+        return self.relative_day(self.end())
 
-    @property
-    def planning_start(self) -> int:
+    def planning_start(self) -> Optional[datetime]:
         return self.fake_date(self.start)
 
-    @property
-    def planning_end(self) -> int:
-        return self.fake_date(self.end)
+    def planning_end(self) -> Optional[datetime]:
+        return self.fake_date(self.end())
 
     def __str__(self) -> str:
         return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)
@@ -405,7 +393,6 @@ class ParticipantModel(models.Model):
         school = self.ENS(self.school).label.replace("ENS ", "") if self.school else ""
         return "{} {} ({})".format(self.user.first_name, self.user.last_name, school)
 
-    @property
     def nb_meals(self) -> int:
         return (
             self.meal_friday_evening
@@ -417,9 +404,8 @@ class ParticipantModel(models.Model):
             + self.meal_sunday_evening
         )
 
-    @property
     def cost(self) -> int:
-        return (self.is_registered * 2 + self.nb_meals) * (2 + self.paid) - (
+        return (self.is_registered * 2 + self.nb_meals()) * (2 + self.paid) - (
             self.paid * self.meal_sunday_evening
         )
 
@@ -454,4 +440,4 @@ class ActivityChoicesModel(models.Model):
 
 EmailUser.profile = property(
     lambda user: ParticipantModel.objects.get_or_create(user=user)[0]
-)
+)  # type: ignore

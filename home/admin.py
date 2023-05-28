@@ -10,7 +10,7 @@ admin.site.site_title = "Admin Interludes"
 
 
 @admin.register(models.ActivityModel)
-class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
+class ActivityModelAdmin(ExportCsvMixin):
     """option d'affichage des activités dans la vue django admin"""
 
     filename = "export_activites.csv"
@@ -97,11 +97,11 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 
 
 @admin.register(models.SlotModel)
-class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
+class SlotModelAdmin(ExportCsvMixin):
     """option d'affichage des créneaux dans la vue d'admin"""
 
     filename = "export_slots.csv"
-    csv_export_fields = (
+    csv_export_fields = [
         "activity_id",
         "title",
         "start",
@@ -110,7 +110,7 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
         "on_planning",
         "on_activity",
         "color",
-    )
+    ]
     list_display = (
         "__str__",
         "start",
@@ -138,7 +138,7 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 
 
 @admin.register(models.ParticipantModel)
-class ParticipantModelAdmin(ExportCsvMixin, admin.ModelAdmin):
+class ParticipantModelAdmin(ExportCsvMixin):
     """option d'affichage des participant dans la vue django admin"""
 
     filename = "export_participants.csv"
@@ -181,7 +181,7 @@ class ParticipantModelAdmin(ExportCsvMixin, admin.ModelAdmin):
 
 
 @admin.register(models.ActivityChoicesModel)
-class ActivityListAdmin(ExportCsvMixin, admin.ModelAdmin):
+class ActivityListAdmin(ExportCsvMixin):
     """option d'affichage des choix d'activités dans la vue django admin"""
 
     filename = "export_choix_activite.csv"

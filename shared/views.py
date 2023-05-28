@@ -13,8 +13,10 @@ class SuperuserRequiredMixin(UserPassesTestMixin):
     raise_exception = True
     permission_denied_message = "Seul les superutilisateurs ont accès à cette page"
 
+    request: HttpRequest
+
     def test_func(self):
-        user = self.request.user  # type: ignore
+        user = self.request.user
         return user.is_authenticated and user.is_superuser
 
 

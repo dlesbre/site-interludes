@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView
@@ -213,7 +212,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         activities = models.ActivityModel.objects.all()
         for activity in activities:
             nb_wanted = activity.desired_slot_nb
-            nb_got = activity.slots.count()
+            nb_got = activity.slots().count()
             if nb_wanted != nb_got:
                 errors += (
                     '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
@@ -401,7 +400,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
                     profile.paid,
                     profile.sleeps,
                     # profile.mug,
-                    profile.nb_meals,
+                    profile.nb_meals(),
                     profile.meal_friday_evening,
                     profile.meal_saturday_morning,
                     profile.meal_saturday_midday,
@@ -410,7 +409,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
                     profile.meal_sunday_midday,
                     profile.meal_sunday_evening,
                     profile.paid,
-                    profile.cost,
+                    profile.cost(),
                     profile.amount_paid,
                     profile.nb_murder,
                     profile.comment,
@@ -528,7 +527,7 @@ class SendUserEmail(SendEmailBase):
         settings.save()
         emails = self.get_emails()
 
-        nb_sent = send_mass_mail(emails, fail_silently=False)
+        nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
         mail_admins(
             "Emails de répartition envoyés aux participants",
             "Les participants ont reçu un mail leur communiquant la répartition des activités\n"
@@ -586,7 +585,7 @@ class SendOrgaEmail(SendEmailBase):
         settings.save()
         emails = self.get_emails()
 
-        nb_sent = send_mass_mail(emails, fail_silently=False)
+        nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
         mail_admins(
             "Listes d'inscrits envoyés aux orgas",
             "Les mails communiquant aux organisateurs leur listes d'inscrit ont été envoyés\n"
@@ -637,7 +636,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             emails = []
             for to_addr in self.get_emails(dest):
                 emails.append([subject, text, self.from_address, [to_addr]])
-            nb_sent = send_mass_mail(emails, fail_silently=False)
+            nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
             mail_admins(
                 "Email envoyé",
                 "Un email a été envoyé à {}.\n"

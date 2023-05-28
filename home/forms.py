@@ -57,7 +57,7 @@ class ActivityForm(FormRenderMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ActivityForm, self).__init__(*args, **kwargs)
         slots = models.SlotModel.objects.filter(subscribing_open=True)
-        self.fields["slot"].queryset = slots
+        self.fields["slot"].queryset = slots  # type: ignore
 
 
 class BaseActivityFormSet(forms.BaseFormSet):
@@ -65,13 +65,12 @@ class BaseActivityFormSet(forms.BaseFormSet):
 
     def clean(self):
         """Checks for duplicate activities"""
+        super().clean()
         if any(self.errors):
             # Don't bother validating the formset unless each form is valid on its own
             return
         activities = []
         for form in self.forms:
-            if self.can_delete and self._should_delete_form(form):
-                continue
             activity = form.cleaned_data.get("slot")
             if activity is None:
                 continue

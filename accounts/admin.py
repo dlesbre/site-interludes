@@ -9,7 +9,7 @@ admin.site.unregister(Group)
 
 
 @admin.register(EmailUser)
-class EmailUserAdmin(ExportCsvMixin, admin.ModelAdmin):
+class EmailUserAdmin(ExportCsvMixin):
     """option d'affichage des activités dans la vue django admin"""
 
     filename = "export_utilisateurs.csv"

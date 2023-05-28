@@ -37,7 +37,8 @@ class LoginView(auth_views.LoginView):
     """Vue pour se connecter"""
 
     template_name = "login.html"
-    redirect_authenticated_user = "profile"
+    redirect_authenticated_user = True
+    redirect_url = reverse("profile")
     form_class = forms.LoginForm
 
 
@@ -164,6 +165,7 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
         return context
 
     def get_success_url(self):
+        assert isinstance(self.request.user, EmailUser)
         if not self.request.user.email_confirmed:
             send_validation_email(
                 self.request,
@@ -203,6 +205,7 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
         return kwargs
 
     def form_valid(self, form):
+        assert isinstance(self.request.user, EmailUser)
         form.apply()
         messages.success(self.request, "Mot de passe mis à jour")
         login(self.request, self.request.user)

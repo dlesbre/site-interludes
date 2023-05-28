@@ -1,38 +1,44 @@
-from typing import Generic, List, Optional, TypeVar
+from typing import Generic, List, Optional, TypeVar, Type
 
 from django.http import HttpRequest, HttpResponse
+from django.db.models import Model, QuerySet
+from django.contrib.admin import ModelAdmin
 
 from shared.views import CSVWriteView
 
 
-class CSVWriteViewForAdmin(CSVWriteView):
+T = TypeVar("T", bound=Model)
+
+
+class CSVWriteViewForAdmin(CSVWriteView, Generic[T]):
+    queryset: QuerySet[T]
+
     def get_values(self):
         return self.queryset.values()
 
 
-T = TypeVar("T")
-
-
-class ExportCsvMixin(Generic[T]):
+class ExportCsvMixin(ModelAdmin, Generic[T]):
     """
     class abstraite pour permettre l'export CSV rapide d'un modele
     utiliser csv_export_exclude pour exclure des colonnes du fichier généré
     """
 
     filename: Optional[str] = None
-    model: T
+    model: Type[T]
 
     csv_export_exclude: List[str] = []
-    csv_export_fields = None
+    csv_export_fields: Optional[List[str]] = None
 
     def get_filename(self) -> str:
         if self.filename is not None:
             return self.filename
-        return str(self.model._meta)  # type: ignore
+        return str(self.model._meta)
 
-    def export_as_csv(self, request: HttpRequest, queryset) -> HttpResponse:
+    def export_as_csv(
+        self, request: HttpRequest, queryset: QuerySet[T]
+    ) -> HttpResponse:
         """renvoie un fichier CSV contenant l'information du queryset"""
-        view = CSVWriteViewForAdmin(
+        view = CSVWriteViewForAdmin[T](
             request=request,
             queryset=queryset,
             model=self.model,

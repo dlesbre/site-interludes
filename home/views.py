@@ -60,13 +60,15 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         settings = SiteSettings.load()
+        user = self.request.user
+        assert isinstance(user, EmailUser)
         if settings.activities_allocated:
             my_choices = models.ActivityChoicesModel.objects.filter(
-                participant=self.request.user.profile, accepted=True
+                participant=user.profile, accepted=True
             )
         else:
             my_choices = models.ActivityChoicesModel.objects.filter(
-                participant=self.request.user.profile
+                participant=user.profile
             )
 
         context["my_choices"] = my_choices
@@ -121,6 +123,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
                 priority += 1
 
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        assert isinstance(request.user, EmailUser)
         participant = request.user.profile
         slots = self.get_slots(participant)
         form = self.form_class(instance=participant)
@@ -129,6 +132,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        assert isinstance(request.user, EmailUser)
         settings = SiteSettings.load()
         form = self.form_class(request.POST, instance=request.user.profile)
         if settings.activity_inscriptions_open:  # meal + sleep + activities open
@@ -169,6 +173,7 @@ class UnregisterView(LoginRequiredMixin, RedirectView):
     pattern_name = "profile"
 
     def get_redirect_url(self, *args, **kwargs) -> str:
+        assert isinstance(self.request.user, EmailUser)
         participant = self.request.user.profile
         participant.is_registered = False
         participant.save()
@@ -196,7 +201,8 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 
     def get_initial(self) -> Dict[str, str]:
         init = super().get_initial()
-        user: EmailUser = self.request.user  # type: ignore
+        user = self.request.user
+        assert isinstance(user, EmailUser)
         init.update(
             {
                 "host_name": "{} {}".format(user.first_name, user.last_name),
@@ -248,7 +254,9 @@ class StaticViewSitemap(Sitemap):
 
     def items(self) -> List[ITEM]:
         """list of pages to appear in sitemap"""
-        return [("home", {}), ("inscription", {})] + [
+        home: ITEM = "home", dict()
+        inscription: ITEM = "inscription", dict()
+        return [home, inscription] + [
             ("html_page", {"slug": obj.slug})
             for obj in HTMLPageModel.objects.all()
             if obj.slug

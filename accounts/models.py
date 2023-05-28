@@ -1,16 +1,21 @@
-from typing import Type
+from typing import TYPE_CHECKING
 
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
 from shared.models import normalize_email
 
 
-class EmailUserManager(BaseUserManager["EmailUser"]):
+if TYPE_CHECKING:
+    # Only import when type-checking to avoid circular dependency
+    from home.models import ParticipantModel
+
+
+class EmailUserManager(UserManager["AbstractUser"]):
     """User model manager that replaces username with email"""
 
-    def create_user(self, email: str, password: str, **extra_fields):
+    def create_user(self, email: str, password: str, **extra_fields):  # type: ignore
         """Create and save a User with the given email and password."""
         if not email:
             raise ValueError("Creating user with no email")
@@ -37,6 +42,8 @@ class EmailUser(AbstractUser):
     """Utilisateur identifié par son email et non
     un nom d'utilisateur"""
 
+    profile: "ParticipantModel"
+
     username = None  # type: ignore
     email = models.EmailField("adresse email", unique=True)
     first_name = models.CharField("prénom", max_length=100)
@@ -46,7 +53,7 @@ class EmailUser(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["last_name", "first_name"]
 
-    objects = EmailUserManager()  # type: ignore
+    objects: UserManager["EmailUser"] = EmailUserManager()  # type: ignore
 
     def __str__(self):
         return self.email
