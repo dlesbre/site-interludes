@@ -6,35 +6,41 @@ from shared.views import CSVWriteView
 
 
 class CSVWriteViewForAdmin(CSVWriteView):
-	def get_values(self):
-		return self.queryset.values()
+    def get_values(self):
+        return self.queryset.values()
+
 
 T = TypeVar("T")
 
+
 class ExportCsvMixin(Generic[T]):
-	"""
-	class abstraite pour permettre l'export CSV rapide d'un modele
-	utiliser csv_export_exclude pour exclure des colonnes du fichier généré
-	"""
-	filename : Optional[str] = None
-	model : T
+    """
+    class abstraite pour permettre l'export CSV rapide d'un modele
+    utiliser csv_export_exclude pour exclure des colonnes du fichier généré
+    """
 
-	csv_export_exclude : List[str] = []
-	csv_export_fields = None
+    filename: Optional[str] = None
+    model: T
 
-	def get_filename(self) -> str:
-		if self.filename is not None:
-			return self.filename
-		return str(self.model._meta) # type: ignore
+    csv_export_exclude: List[str] = []
+    csv_export_fields = None
 
-	def export_as_csv(self, request: HttpRequest, queryset) -> HttpResponse:
-		"""renvoie un fichier CSV contenant l'information du queryset"""
-		view = CSVWriteViewForAdmin(
-			request=request, queryset=queryset, model=self.model,
-			filename=self.get_filename(), exclude_fields=self.csv_export_exclude,
-			fields=self.csv_export_fields,
-		)
-		return view.get(request)
+    def get_filename(self) -> str:
+        if self.filename is not None:
+            return self.filename
+        return str(self.model._meta)  # type: ignore
 
-	export_as_csv.short_description = "Exporter au format CSV" # type: ignore
-	actions = ["export_as_csv"]
+    def export_as_csv(self, request: HttpRequest, queryset) -> HttpResponse:
+        """renvoie un fichier CSV contenant l'information du queryset"""
+        view = CSVWriteViewForAdmin(
+            request=request,
+            queryset=queryset,
+            model=self.model,
+            filename=self.get_filename(),
+            exclude_fields=self.csv_export_exclude,
+            fields=self.csv_export_fields,
+        )
+        return view.get(request)
+
+    export_as_csv.short_description = "Exporter au format CSV"  # type: ignore
+    actions = ["export_as_csv"]

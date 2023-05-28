@@ -21,22 +21,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 try:
-	from . import secret
+    from . import secret
 except ImportError:
-	raise ImportError(
-		"The interludes/secret.py file is missing.\n"
-		"Run 'make secret' to generate a secret."
-	)
+    raise ImportError(
+        "The interludes/secret.py file is missing.\n"
+        "Run 'make secret' to generate a secret."
+    )
 
-def import_secret(name : str) -> Any:
-	"""
-	Shorthand for importing a value from the secret module and raising an
-	informative exception if a secret is missing.
-	"""
-	try:
-		return getattr(secret, name)
-	except AttributeError:
-		raise RuntimeError("Secret missing: {}".format(name))
+
+def import_secret(name: str) -> Any:
+    """
+    Shorthand for importing a value from the secret module and raising an
+    informative exception if a secret is missing.
+    """
+    try:
+        return getattr(secret, name)
+    except AttributeError:
+        raise RuntimeError("Secret missing: {}".format(name))
+
 
 SECRET_KEY = import_secret("SECRET_KEY")
 
@@ -57,101 +59,106 @@ EMAIL_USE_SSL = True
 DEBUG = True
 
 # FIXME - set hosts in production
-ALLOWED_HOSTS : List[str] = []
+ALLOWED_HOSTS: List[str] = []
 
 if DEBUG:
-	# This will display emails in Console.
-	EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    # This will display emails in Console.
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
-	EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-	SECURE_SSL_REDIRECT = True
-	CSRF_COOKIE_SECURE = True
-	SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
-	SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-	SECURE_HSTS_SECONDS = 3600
-	SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_PRELOAD = True
 
-	SECURE_REFERRER_POLICY = "same-origin"
+    SECURE_REFERRER_POLICY = "same-origin"
 
 # Application definition
 
 INSTALLED_APPS = [
-	'django.contrib.admin',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.sessions',
-	'django.contrib.messages',
-	'django.contrib.staticfiles',
-	'django.contrib.sitemaps',
-
-	'home.apps.HomeConfig',
-	'admin_pages.apps.AdminPagesConfig',
-	'accounts.apps.AccountsConfig',
-	'site_settings.apps.SiteSettingsConfig',
-	'pages.apps.PagesConfig',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
+    "home.apps.HomeConfig",
+    "admin_pages.apps.AdminPagesConfig",
+    "accounts.apps.AccountsConfig",
+    "site_settings.apps.SiteSettingsConfig",
+    "pages.apps.PagesConfig",
 ]
 
 MIDDLEWARE = [
-	'django.middleware.security.SecurityMiddleware',
-	'django.contrib.sessions.middleware.SessionMiddleware',
-	'django.middleware.common.CommonMiddleware',
-	'django.middleware.csrf.CsrfViewMiddleware',
-	'django.contrib.auth.middleware.AuthenticationMiddleware',
-	'django.contrib.messages.middleware.MessageMiddleware',
-	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'interludes.urls'
+ROOT_URLCONF = "interludes.urls"
 
 TEMPLATES = [
-	{
-		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [os.path.join(BASE_DIR, 'interludes', 'templates')],
-		'APP_DIRS': True,
-		'OPTIONS': {
-			'context_processors': [
-				'django.template.context_processors.debug',
-				'django.template.context_processors.request',
-				'django.contrib.auth.context_processors.auth',
-				'django.contrib.messages.context_processors.messages',
-				'site_settings.context_processors.settings'
-			],
-		},
-	},
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "interludes", "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "site_settings.context_processors.settings",
+            ],
+        },
+    },
 ]
 
-WSGI_APPLICATION = 'interludes.wsgi.application'
+WSGI_APPLICATION = "interludes.wsgi.application"
 
 # Auto primary key type
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, DB_NAME),
-	}
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, DB_NAME),
+    }
 }
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'accounts.EmailUser'
-AUTH_PROFILE_MODULE = 'home.ParticipantModel'
+AUTH_USER_MODEL = "accounts.EmailUser"
+AUTH_PROFILE_MODULE = "home.ParticipantModel"
 
 AUTH_PASSWORD_VALIDATORS = [
-	{ 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
-	{ 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
-	{ 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
-	{ 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 # Session time in seconds
@@ -160,9 +167,9 @@ SESSION_COOKIE_AGE = 3600
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = "fr-fr"
 
-TIME_ZONE = 'CET'
+TIME_ZONE = "CET"
 
 USE_I18N = True
 
@@ -174,20 +181,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "profile"
 
 # Prefix to mails to admins
-EMAIL_SUBJECT_PREFIX = '[DJANGO WEBLUDES] '
+EMAIL_SUBJECT_PREFIX = "[DJANGO WEBLUDES] "
 
 # Signature to mails to admins
-EMAIL_SIGNATURE = '-- Site Interludes (mail généré automatiquement)'
+EMAIL_SIGNATURE = "-- Site Interludes (mail généré automatiquement)"
 
 # Prefix to mails to users
 USER_EMAIL_SUBJECT_PREFIX = "[interludes] "

@@ -7,17 +7,43 @@ from shared.admin import ExportCsvMixin
 # no need for groups - we only have regular users and superusers
 admin.site.unregister(Group)
 
+
 @admin.register(EmailUser)
 class EmailUserAdmin(ExportCsvMixin, admin.ModelAdmin):
-	"""option d'affichage des activités dans la vue django admin"""
-	filename = "export_utilisateurs.csv"
-	list_display = ("email", "last_name", "first_name", "is_superuser", "is_active", "email_confirmed",)
-	list_filter = ("is_superuser","is_active", "email_confirmed",)
-	fields = ("email", "last_name", "first_name", "is_superuser", "is_staff", "is_active", "email_confirmed",
-		("date_joined", "last_login",),
-	)
-	ordering = ("last_name", "first_name")
-	readonly_fields = ("date_joined", "last_login",)
-	list_per_page = 200
+    """option d'affichage des activités dans la vue django admin"""
 
-	csv_export_exclude = ["password"]
+    filename = "export_utilisateurs.csv"
+    list_display = (
+        "email",
+        "last_name",
+        "first_name",
+        "is_superuser",
+        "is_active",
+        "email_confirmed",
+    )
+    list_filter = (
+        "is_superuser",
+        "is_active",
+        "email_confirmed",
+    )
+    fields = (
+        "email",
+        "last_name",
+        "first_name",
+        "is_superuser",
+        "is_staff",
+        "is_active",
+        "email_confirmed",
+        (
+            "date_joined",
+            "last_login",
+        ),
+    )
+    ordering = ("last_name", "first_name")
+    readonly_fields = (
+        "date_joined",
+        "last_login",
+    )
+    list_per_page = 200
+
+    csv_export_exclude = ["password"]

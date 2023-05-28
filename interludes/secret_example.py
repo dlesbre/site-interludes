@@ -2,7 +2,9 @@
 
 SECRET_KEY = "i*4$=*fa(644(*!9m2)0-*&sows2uz$b^brb(=)elfn3+y6#1n"
 
-ADMINS = [("superuser", "superuser@admin.fr"),]
+ADMINS = [
+    ("superuser", "superuser@admin.fr"),
+]
 
 DB_NAME = "db.sqlite3"
 

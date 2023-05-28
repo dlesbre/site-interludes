@@ -2,6 +2,6 @@ from django.apps import AppConfig
 
 
 class PagesConfig(AppConfig):
-	default_auto_field = 'django.db.models.BigAutoField'
-	name = 'pages'
-	verbose_name = "Pages d'information"
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "pages"
+    verbose_name = "Pages d'information"
