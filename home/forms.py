@@ -24,8 +24,8 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
 		["paid"], ["nb_murder"], ["comment"]
 	]
 
-	def save(self, *args, commit=True, **kwargs):
-		participant = super().save(*args, commit=False, **kwargs)
+	def save(self, commit=True) -> models.ParticipantModel:
+		participant: models.ParticipantModel = super().save(commit=False)
 		participant.is_registered = True
 		if commit:
 			participant.save()
@@ -92,16 +92,19 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 
 	def clean(self):
 		cleaned_data = super().clean()
-		maxi = cleaned_data.get("max_participants")
-		mini = cleaned_data.get("min_participants")
-		if maxi != 0 and mini > maxi:
+		maxi = None
+		mini = None
+		if cleaned_data is not None:
+			maxi = cleaned_data.get("max_participants")
+			mini = cleaned_data.get("min_participants")
+		if maxi is not None and mini is not None and maxi != 0 and mini > maxi:
 			raise forms.ValidationError(
 				"Le nombre minimal de participants est supérieur au nombre maximal",
 				code="invalid_order"
 			)
 		return cleaned_data
 
-	def save(self, *args, commit=True, **kwargs):
+	def save(self, commit=True) -> models.ActivityModel:
 		"""Enregistre l'activité dans la base de données"""
 		activity = models.ActivityModel(
 			**self.cleaned_data,

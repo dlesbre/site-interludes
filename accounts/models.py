@@ -1,12 +1,15 @@
+from typing import Type
+
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 
 from shared.models import normalize_email
 
-class EmailUserManager(BaseUserManager):
+class EmailUserManager(BaseUserManager["EmailUser"]):
 	"""User model manager that replaces username with email"""
-	def create_user(self, email, password, **extra_fields):
+
+	def create_user(self, email:str, password:str, **extra_fields):
 		"""Create and save a User with the given email and password."""
 		if not email:
 			raise ValueError("Creating user with no email")
@@ -31,16 +34,16 @@ class EmailUserManager(BaseUserManager):
 class EmailUser(AbstractUser):
 	"""Utilisateur identifié par son email et non
 	un nom d'utilisateur"""
-	username = None
+	username = None # type: ignore
 	email = models.EmailField('adresse email', unique=True)
 	first_name = models.CharField('prénom', max_length=100)
 	last_name = models.CharField("nom", max_length=100)
 	email_confirmed = models.BooleanField("email vérifié", default=False)
 
 	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = ("last_name", "first_name",)
+	REQUIRED_FIELDS = ["last_name", "first_name"]
 
-	objects = EmailUserManager()
+	objects = EmailUserManager() # type: ignore
 
 	def __str__(self):
 		return self.email

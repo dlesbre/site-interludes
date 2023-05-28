@@ -1,3 +1,4 @@
+from typing import List, Optional
 from django.utils.safestring import mark_safe
 
 class FormRenderMixin:
@@ -17,7 +18,7 @@ class FormRenderMixin:
 	"""
 
 	tooltip_helptexts = []
-	field_groups = None
+	field_groups : Optional[List[List[str]]] = None
 
 	class BadFieldGroups(Exception):
 		pass

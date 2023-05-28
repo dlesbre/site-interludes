@@ -14,6 +14,12 @@ MANAGER := manage.py
 DB := db.sqlite3
 SECRET := interludes/secret.py
 
+PRECOMMIT = pre-commit
+MYPY = mypy
+
+DJANGO_PROJECT = interludes
+COVERAGE_OMIT = --omit=**/__init__.py,**/migrations/*,manage.py,$(DJANGO_PROJECT)/asgi.py,$(DJANGO_PROJECT)/wsgi.py
+
 # set to ON/OFF to toggle ANSI escape sequences
 COLOR := ON
 
@@ -107,6 +113,16 @@ shell: $(SECRET) ## Run django's shell
 # Tests and checks
 # =================================================
 
+.PHONY: precommit
+precommit: ## run precommit
+	$(call print,Running precommit)
+	$(PRECOMMIT) run
+
+.PHONY: precommit-all
+precommit-all: ## run precommit on all files
+	$(call print,Running precommit on all files)
+	$(PRECOMMIT) run --all-files
+
 .PHONY: static
 static: $(SECRET) compressed ## collect static files
 	$(call print,Collecting static files)
@@ -115,11 +131,39 @@ static: $(SECRET) compressed ## collect static files
 .PHONY: test
 test: $(SECRET) ## Tests all the apps with django's tests
 	$(call print,Running django tests)
-	$(PYTHON) -Wa $(MANAGER) test --noinput
+	$(PYTHON) -Wa -m coverage run --source='.' $(MANAGER) test --noinput
+	$(call print,Coverage report)
+	rm -rf htmlcov
+	coverage report $(COVERAGE_OMIT)
+	coverage html $(COVERAGE_OMIT)
 
 .PHONY: preprod
 preprod: test static ## Prepare and check production
 	$(PYTHON) $(MANAGER) check --deploy
+
+.PHONY: mypy
+mypy: $(SETTINGS) ## Typecheck all python files
+	$(call print,Typechecking python with mypy)
+	$(MYPY) . --exclude /migrations/
+
+.PHONY: format
+format: ## Run formatters
+	$(call print,Running black)
+	black . --exclude "/(\.git|\.mypy_cache|\.venv|venv|migrations)/"
+	$(call print,Running isort)
+	isort . --gitignore --sg "*migrations*"
+
+.PHONY: check-format
+check-format: ## Run formatters, doesn't modify the files
+	$(call print,Running black)
+	black . --exclude "/(\.git|\.mypy_cache|\.venv|venv|migrations)/" --check
+	$(call print,Running isort)
+	isort . --gitignore --sg "*migrations*" --check
+
+.PHONY: lint
+lint: ## Run flake8 linter
+	$(call print,Running flake8)
+	flake8 . --exclude .git,.mypy_cache,.venv,venv,migrations
 
 # =================================================
 # Installation

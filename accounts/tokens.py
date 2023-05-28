@@ -5,7 +5,7 @@ from datetime import date
 from django.conf import settings
 from django.utils.crypto import constant_time_compare, salted_hmac
 from django.utils.http import base36_to_int, int_to_base36
-
+from .models import EmailUser
 
 class EmailVerificationTokenGenerator:
 	"""
@@ -15,14 +15,14 @@ class EmailVerificationTokenGenerator:
 	key_salt = "accounts.EmailVerificationTokenGenerator"
 	secret = settings.SECRET_KEY
 
-	def make_token(self, user):
+	def make_token(self, user: EmailUser) -> str:
 		"""
 		Return a token that can be used once to do a password reset
 		for the given user.
 		"""
 		return self._make_token_with_timestamp(user, self._num_days(self._today()))
 
-	def check_token(self, user, token):
+	def check_token(self, user: EmailUser, token: str) -> bool:
 		"""
 		Check that a password reset token is correct for a given user.
 		"""
@@ -45,7 +45,7 @@ class EmailVerificationTokenGenerator:
 
 		return True
 
-	def _make_token_with_timestamp(self, user, timestamp):
+	def _make_token_with_timestamp(self, user:EmailUser, timestamp: int) -> str:
 		# timestamp is number of days since 2001-1-1.  Converted to
 		# base 36, this gives us a 3 digit string until about 2121
 		ts_b36 = int_to_base36(timestamp)
@@ -56,7 +56,7 @@ class EmailVerificationTokenGenerator:
 		).hexdigest()[::2]  # Limit to 20 characters to shorten the URL.
 		return "%s-%s" % (ts_b36, hash_string)
 
-	def _make_hash_value(self, user, timestamp):
+	def _make_hash_value(self, user: EmailUser, timestamp: int) -> str:
 		"""
 		Hash the user's primary key and its email to make sure that the token
 		is invalidated after email change.
@@ -69,10 +69,10 @@ class EmailVerificationTokenGenerator:
 		login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
 		return str(user.pk) + user.email + str(timestamp) + str(login_timestamp)
 
-	def _num_days(self, dt):
+	def _num_days(self, dt : date) -> int:
 		return (dt - date(2001, 1, 1)).days
 
-	def _today(self):
+	def _today(self) -> date:
 		# Used for mocking in tests
 		return date.today()
 

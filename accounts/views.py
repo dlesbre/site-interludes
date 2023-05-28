@@ -16,7 +16,7 @@ from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
 
-def send_validation_email(request, user, subject, template):
+def send_validation_email(request, user: EmailUser, subject: str, template: str) -> None:
 	"""Send a validation email to user"""
 	current_site = get_current_site(request)
 	message = render_to_string(template, {
@@ -60,7 +60,7 @@ class CreateAccountView(View):
 	email_template = 'email/activation.html'
 
 	@staticmethod
-	def check_creation_allowed():
+	def check_creation_allowed() -> None:
 		"""Vérifie que la création de compte est authorisée
 		Renvoie un 404 si ce n'est pas le cas"""
 		settings = SiteSettings.load()

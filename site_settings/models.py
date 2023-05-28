@@ -1,5 +1,6 @@
 from datetime import timedelta
 from pathlib import Path
+from typing import Optional, Type, TypeVar
 
 from django.db import models
 from django.core.cache import cache
@@ -25,12 +26,12 @@ class OverwriteStorage(FileSystemStorage):
 	This allow for a constant link to a changeable file"""
 	filename: str
 
-	def __init__(self, filename="file"):
+	def __init__(self, filename: str = "file") -> None:
 		"""Filename without extension"""
 		super().__init__()
 		self.filename = filename
 
-	def get_available_name(self, name, **kwargs):
+	def get_available_name(self, name:str, max_length: Optional[int] = None) -> str:
 		"""
 		Returns a filename that's free on the target storage system, and
 		available for new content to be written to.
@@ -40,8 +41,10 @@ class OverwriteStorage(FileSystemStorage):
 		new_name = self.filename + extension
 		if self.exists(new_name):
 			self.delete(new_name)
-		return super(FileSystemStorage, self).get_available_name(new_name, **kwargs)
+		return super(FileSystemStorage, self).get_available_name(new_name, max_length)
 
+
+T = TypeVar("T", bound="SingletonModel")
 
 class SingletonModel(models.Model):
 	"""Table de la BDD qui ne possède qu'un seul élément"""
@@ -59,15 +62,15 @@ class SingletonModel(models.Model):
 		raise ValueError("Attempting to delete unique element")
 
 	@classmethod
-	def load(cls):
+	def load(cls : Type[T]) -> T:
 		"""load and return the unique element"""
 		if cache.get(cls.__name__) is None:
 			obj, created = cls.objects.get_or_create(pk=1)
 			if not created:
 				obj.set_cache()
-		return cache.get(cls.__name__)
+		return cache.get(cls.__name__) # type: ignore
 
-	def set_cache(self):
+	def set_cache(self) -> None:
 		"""save in cache to limit db requests"""
 		cache.set(self.__class__.__name__, self)
 

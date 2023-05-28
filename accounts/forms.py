@@ -1,3 +1,5 @@
+from typing import Optional, Any
+
 from django import forms
 from django.contrib.auth import authenticate, password_validation
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm
@@ -7,9 +9,9 @@ from accounts.models import EmailUser
 from shared.forms import FormRenderMixin
 from shared.models import normalize_email
 
-def password_criterions_html():
+def password_criterions_html() -> str:
 	"""Wraps password criterions into nice html used by other forms"""
-	def wrap_str(s, tagopen, tagclose=None):
+	def wrap_str(s, tagopen:str, tagclose:Optional[str]=None) -> str:
 		if not tagclose:
 			tagclose = tagopen
 		return "<{}>{}</{}>".format(tagopen, s, tagclose)
@@ -26,7 +28,7 @@ def password_criterions_html():
 class LoginForm(AuthenticationForm):
 	"""Form used when loging in"""
 	def clean(self, *args, **kwargs):
-		self.cleaned_data["username"] = normalize_email(self.cleaned_data.get("username"))
+		self.cleaned_data["username"] = normalize_email(self.cleaned_data.get("username")) # type: ignore
 		return super().clean(*args, **kwargs)
 
 
@@ -44,11 +46,11 @@ class UpdateAccountForm(FormRenderMixin, forms.ModelForm):
 		fields = ('email', 'first_name', 'last_name')
 		help_texts = {"email": "Si vous la changez, il faudra confirmer la nouvelle adresse",}
 
-	def clean_email(self):
+	def clean_email(self) -> str:
 		""" Check email uniqueness """
 		email = self.cleaned_data["email"]
 		if email == self.instance.email:
-				return email
+			return email # type: ignore
 		norm_email = normalize_email(email)
 		if EmailUser.objects.filter(email=norm_email).count() > 0:
 			raise forms.ValidationError(
@@ -56,9 +58,9 @@ class UpdateAccountForm(FormRenderMixin, forms.ModelForm):
 			)
 		return norm_email
 
-	def save(self, *args, commit=True, **kwargs):
+	def save(self, commit=True) -> Any:
 		email_changed = "email" in self.changed_data
-		user = super().save(*args, commit=False, **kwargs)
+		user = super().save(commit=False)
 		if email_changed:
 			user.email_confirmed = False
 			user.is_active = False
@@ -81,7 +83,7 @@ class UpdatePasswordForm(FormRenderMixin, forms.Form):
 		widget=forms.PasswordInput, label="Nouveau mot de passe (confirmation)",
 	)
 
-	def __init__(self, *args, **kwargs):
+	def __init__(self, *args, **kwargs) -> None:
 		self.user = kwargs.pop("user", None)
 		super().__init__(*args, **kwargs)
 
@@ -101,6 +103,7 @@ class UpdatePasswordForm(FormRenderMixin, forms.Form):
 	def clean_password_confirm(self):
 		""" Check that both passwords match """
 		cleaned_data = super().clean()
+		if not cleaned_data: return
 		password = cleaned_data.get("password")
 		password_confirm = cleaned_data.get("password_confirm")
 		if not password:
@@ -120,5 +123,5 @@ class UpdatePasswordForm(FormRenderMixin, forms.Form):
 class PasswordResetEmailForm(PasswordResetForm):
 	"""Form used when asking email to send password reset linkk"""
 	def clean(self, *args, **kwargs):
-		self.cleaned_data["email"] = normalize_email(self.cleaned_data.get("email"))
+		self.cleaned_data["email"] = normalize_email(self.cleaned_data.get("email")) # type: ignore
 		return super().clean(*args, **kwargs)

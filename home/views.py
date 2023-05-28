@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import Dict, Any, List, Optional, Tuple
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,7 +8,10 @@ from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView, View
+from django.http import HttpRequest, HttpResponse
+from django.http.response import HttpResponseBase
 
+from accounts.models import EmailUser
 from pages.models import HTMLPageModel
 from home import models
 from home.forms import ActivityForm, ActivitySubmissionForm, BaseActivityFormSet, InscriptionForm
@@ -19,10 +23,10 @@ from site_settings.models import SiteSettings
 # ==============================
 # Moved to pages/views.py
 
-def get_planning_context():
+def get_planning_context() -> Dict[str, Any]:
 	"""Returns the context dict needed to display the planning"""
 	settings = SiteSettings.load()
-	context = dict()
+	context: Dict[str, Any] = dict()
 	context['planning'] = models.SlotModel.objects.filter(on_planning=True).order_by("title")
 	if settings.date_start is not None:
 		context['friday'] = settings.date_start.day
@@ -79,12 +83,12 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 	success_url = reverse_lazy("profile")
 
 	@staticmethod
-	def get_slots(participant):
+	def get_slots(participant : models.ParticipantModel) -> List[Dict[str, models.SlotModel]]:
 		activities = models.ActivityChoicesModel.objects.filter(participant=participant).order_by("priority")
 		return [{"slot": act.slot} for act in activities]
 
 	@staticmethod
-	def set_activities(participant, formset):
+	def set_activities(participant: models.ParticipantModel, formset):
 		# delete old activities
 		models.ActivityChoicesModel.objects.filter(participant=participant).delete()
 
@@ -98,7 +102,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 				).save()
 				priority += 1
 
-	def get(self, request, *args, **kwargs):
+	def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
 		participant = request.user.profile
 		slots = self.get_slots(participant)
 		form = self.form_class(instance=participant)
@@ -106,7 +110,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 		context = {"form": form, "formset": formset}
 		return render(request, self.template_name, context)
 
-	def post(self, request, *args, **kwargs):
+	def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
 		settings = SiteSettings.load()
 		form = self.form_class(request.POST, instance=request.user.profile)
 		if settings.activity_inscriptions_open : # meal + sleep + activities open
@@ -123,7 +127,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 				formset = self.formset_class(initial=slots)
 				context = {"form": form, "formset": formset}
 				return render(request, self.template_name, context)
-		
+
 		form.save()
 
 		messages.success(request, "Votre inscription a bien été enregistrée")
@@ -132,7 +136,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 class RegisterView(View):
 	"""Vue pour l'inscription
 	repartie sur les vue RegisterClosed, RegisterSignIn et RegisterUpdateView"""
-	def dispatch(self, request, *args, **kwargs):
+	def dispatch(self, request: HttpRequest, *args, **kwargs) -> HttpResponseBase:
 		settings = SiteSettings.load()
 		if not settings.inscriptions_open:
 			return RegisterClosed.as_view()(request)
@@ -144,7 +148,7 @@ class RegisterView(View):
 class UnregisterView(LoginRequiredMixin, RedirectView):
 	pattern_name = "profile"
 
-	def get_redirect_url(self, *args, **kwargs):
+	def get_redirect_url(self, *args, **kwargs) -> str:
 		participant = self.request.user.profile
 		participant.is_registered = False
 		participant.save()
@@ -164,31 +168,31 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 	success_url = reverse_lazy("profile")
 
 	@staticmethod
-	def submission_check():
+	def submission_check() -> bool:
 		"""Vérifie si le formulaire est ouvert ou non"""
 		settings = SiteSettings.load()
 		return settings.activity_submission_open
 
-	def get_initial(self):
+	def get_initial(self) -> Dict[str, str]:
 		init = super().get_initial()
-		user = self.request.user
+		user: EmailUser = self.request.user # type: ignore
 		init.update({
 			"host_name": "{} {}".format(user.first_name, user.last_name),
 			"host_email": user.email,
 		})
 		return init
 
-	def not_open(self, request):
+	def not_open(self, request: HttpRequest) -> HttpResponse:
 		"""Appelé quand le formulaire est désactivé"""
 		messages.error(request, "La soumission d'activité est desactivée")
 		return redirect(self.success_url, permanent=False)
 
-	def get(self, request, *args, **kwargs):
+	def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
 		if not self.submission_check():
 			return self.not_open(request)
-		return super().get(self, request, *args, **kwargs)
+		return super().get(request, *args, **kwargs)
 
-	def post(self, request, *args, **kwargs):
+	def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
 		if not self.submission_check():
 			return self.not_open(request)
 		form = self.form_class(request.POST)
@@ -208,11 +212,13 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 # ==============================
 
 
+ITEM = Tuple[str, Dict[str, str]]
+
 class StaticViewSitemap(Sitemap):
 	"""Vue générant la sitemap.xml du site"""
 	changefreq = 'monthly'
 
-	def items(self):
+	def items(self) -> List[ITEM]:
 		"""list of pages to appear in sitemap"""
 		return [
 			("home", {}),
@@ -222,12 +228,12 @@ class StaticViewSitemap(Sitemap):
 			for obj in HTMLPageModel.objects.all() if obj.slug
 		]
 
-	def location(self, item):
+	def location(self, item: ITEM) -> str:
 		"""real url of an item"""
 		name, kwargs = item
 		return reverse(name, kwargs=kwargs)
 
-	def priority(self, obj):
+	def priority(self, obj: str) -> Optional[float]:
 		"""priority to appear in sitemap"""
 		# Prioritize home page over the rest in search results
 		if obj == "home" or obj == "":

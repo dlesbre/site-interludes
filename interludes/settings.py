@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from typing import Any, List
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,7 +28,7 @@ except ImportError:
 		"Run 'make secret' to generate a secret."
 	)
 
-def import_secret(name):
+def import_secret(name : str) -> Any:
 	"""
 	Shorthand for importing a value from the secret module and raising an
 	informative exception if a secret is missing.
@@ -56,7 +57,7 @@ EMAIL_USE_SSL = True
 DEBUG = True
 
 # FIXME - set hosts in production
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS : List[str] = []
 
 if DEBUG:
 	# This will display emails in Console.
