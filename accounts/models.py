@@ -6,7 +6,6 @@ from django.db import models
 
 from shared.models import normalize_email
 
-
 if TYPE_CHECKING:
     # Only import when type-checking to avoid circular dependency
     from home.models import ParticipantModel

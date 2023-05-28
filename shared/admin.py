@@ -1,11 +1,10 @@
-from typing import Generic, List, Optional, TypeVar, Type
+from typing import Generic, List, Optional, Type, TypeVar
 
-from django.http import HttpRequest, HttpResponse
-from django.db.models import Model, QuerySet
 from django.contrib.admin import ModelAdmin
+from django.db.models import Model, QuerySet
+from django.http import HttpRequest, HttpResponse
 
 from shared.views import CSVWriteView
-
 
 T = TypeVar("T", bound=Model)
 

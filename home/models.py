@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, time
+from datetime import datetime, time, timedelta
 from typing import Optional
 
 from django.db import models
