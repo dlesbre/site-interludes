@@ -38,7 +38,7 @@ class LoginView(auth_views.LoginView):
 
     template_name = "login.html"
     redirect_authenticated_user = True
-    redirect_url = reverse("profile")
+    redirect_url = reverse_lazy("profile")
     form_class = forms.LoginForm
 
 
