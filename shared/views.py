@@ -61,7 +61,7 @@ class CSVWriteView(View, Generic[M]):
         return [
             field.name
             for field in self.model._meta.get_fields()
-            if not field.name in self.exclude_fields
+            if field.name not in self.exclude_fields
         ]
 
     def get_rows(self) -> List[List[str]]:

@@ -125,7 +125,7 @@ class ActivityModel(models.Model):
         "Nombre minimum de participants", default=0
     )
 
-    ## Information fournies par le respo
+    # Information fournies par le respo
     duration = models.DurationField("Durée", help_text="format hh:mm:ss")
     desired_slot_nb = models.PositiveIntegerField(
         "Nombre de créneaux souhaités", default=1, validators=[validate_nonzero]

@@ -2,8 +2,6 @@ from django import forms
 from django.conf import settings
 from django.db.models import TextChoices
 
-from shared.forms import FormRenderMixin
-
 
 class Recipients(TextChoices):
     ALL = ("a", "tous les utilisateurs")
