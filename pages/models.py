@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class HTMLPageModel(models.Model):
 	"""modèle pour contenu de pages dynamiques
 	(notamment home, activites et faq)"""

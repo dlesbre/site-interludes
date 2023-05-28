@@ -9,13 +9,12 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView
 
 from accounts.models import EmailUser
+from admin_pages.forms import Recipients, SendEmailForm
 from home import models
 from home.views import get_planning_context
-from site_settings.models import Colors, SiteSettings
-from shared.views import CSVWriteView, SuperuserRequiredMixin
 from interludes import settings as site_settings
-
-from admin_pages.forms import Recipients, SendEmailForm
+from shared.views import CSVWriteView, SuperuserRequiredMixin
+from site_settings.models import Colors, SiteSettings
 
 # ==============================
 # Main Admin views

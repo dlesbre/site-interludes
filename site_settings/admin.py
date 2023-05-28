@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from site_settings.models import SiteSettings
 
+
 class SingletonModelAdmin(admin.ModelAdmin):
 	"""Prevent deletion or adding rows"""
 	actions = None

@@ -1,13 +1,13 @@
-from django.http import Http404
-from django.views.generic import DetailView
-from django.conf import settings
-from django.template import Context, Template
-
 from os.path import join
 
-from site_settings.models import SiteSettings
+from django.conf import settings
+from django.http import Http404
+from django.template import Context, Template
+from django.views.generic import DetailView
+
 from home.models import ActivityModel
 from home.views import get_planning_context
+from site_settings.models import SiteSettings
 
 from .models import HTMLPageModel
 

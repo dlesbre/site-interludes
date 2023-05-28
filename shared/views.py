@@ -1,10 +1,11 @@
 import csv
-from typing import List, Optional, Type, TypeVar, Generic
+from typing import Generic, List, Optional, Type, TypeVar
 
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.views import View
 from django.db.models import Model, QuerySet
 from django.http import HttpRequest, HttpResponse
+from django.views import View
+
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
 	"""Classe restreignant l'accès d'une vue aux superusers"""

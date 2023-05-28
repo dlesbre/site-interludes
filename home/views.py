@@ -1,22 +1,26 @@
 from datetime import timedelta
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
 from django.forms import formset_factory
+from django.http import HttpRequest, HttpResponse
+from django.http.response import HttpResponseBase
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView, View
-from django.http import HttpRequest, HttpResponse
-from django.http.response import HttpResponseBase
 
 from accounts.models import EmailUser
-from pages.models import HTMLPageModel
 from home import models
-from home.forms import ActivityForm, ActivitySubmissionForm, BaseActivityFormSet, InscriptionForm
+from home.forms import (
+    ActivityForm,
+    ActivitySubmissionForm,
+    BaseActivityFormSet,
+    InscriptionForm,
+)
+from pages.models import HTMLPageModel
 from site_settings.models import SiteSettings
-
 
 # ==============================
 # Site static pages

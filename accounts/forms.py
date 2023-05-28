@@ -1,13 +1,18 @@
-from typing import Optional, Any
+from typing import Any, Optional
 
 from django import forms
 from django.contrib.auth import authenticate, password_validation
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordResetForm,
+    UserCreationForm,
+)
 from django.utils.safestring import mark_safe
 
 from accounts.models import EmailUser
 from shared.forms import FormRenderMixin
 from shared.models import normalize_email
+
 
 def password_criterions_html() -> str:
 	"""Wraps password criterions into nice html used by other forms"""

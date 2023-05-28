@@ -1,6 +1,9 @@
-from typing import List, Optional, TypeVar, Generic
-from shared.views import CSVWriteView
+from typing import Generic, List, Optional, TypeVar
+
 from django.http import HttpRequest, HttpResponse
+
+from shared.views import CSVWriteView
+
 
 class CSVWriteViewForAdmin(CSVWriteView):
 	def get_values(self):

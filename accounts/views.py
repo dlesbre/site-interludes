@@ -1,20 +1,20 @@
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import views as auth_views
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
+from django.urls import reverse, reverse_lazy
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.generic import FormView, RedirectView, UpdateView, View
-from django.shortcuts import render, redirect
 
 from accounts import forms
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
+
 
 def send_validation_email(request, user: EmailUser, subject: str, template: str) -> None:
 	"""Send a validation email to user"""
