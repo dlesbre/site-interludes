@@ -25,7 +25,11 @@
 				<div id="location">ENS Ulm</div>
 				<div id="date">{% if settings.date_start %}
 				{% if settings.date_end %}
+				{% if settings.date_end.month != settings.date_start.month %}
+				{{ settings.date_start|date:"j N" }}-{{ settings.date_end|date:"j N Y" }}
+				{% else %}
 				{{ settings.date_start.day }}-{{ settings.date_end }}
+				{% endif %}
 				{% else %}
 				{{ settings.date_start }}
 				{% endif %}

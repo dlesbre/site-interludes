@@ -16,7 +16,11 @@
 <p>
 	Cette année, elles sont prévues
 	{% if settings.date_start %}{% if settings.date_end %}
+	{% if settings.date_end.month != settings.date_start.month %}
+	le week-end du <strong>{{ settings.date_start|date:"j F" }}-{{ settings.date_end|date:"j F Y" }}</strong>.
+	{% else %}
 	le week-end du <strong>{{ settings.date_start.day }}-{{ settings.date_end }}</strong>.
+	{% endif %}
 	{% else %}
 	le week-end du <strong>{{ settings.date_start }}</strong>.
 	{% endif %}
