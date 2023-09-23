@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Optional, Type, TypeVar
 
@@ -239,31 +239,27 @@ class SiteSettings(SingletonModel):
         max_length=200,
     )
 
-    @property
     def contact_email_reversed(self) -> str:
         if self.contact_email:
             return self.contact_email[::-1]
         return ""
 
-    @property
     def inscriptions_not_open_yet(self) -> bool:
         if self.inscriptions_start:
             return now() <= self.inscriptions_start
         return False
 
-    @property
     def inscriptions_have_closed(self) -> bool:
         if self.inscriptions_end:
             return now() >= self.inscriptions_end
         return False
 
-    @property
-    def date_2(self):
+    def date_2(self) -> date | None:
         """The date of the second day"""
         if self.date_start:
             return self.date_start + timedelta(days=1)
+        return None
 
-    @property
     def has_caption(self) -> bool:
         """Vérifie si l'une des légende est non-nulle"""
         return bool(
