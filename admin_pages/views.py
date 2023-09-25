@@ -55,14 +55,14 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             sleeps = registered.filter(sleeps=True).count()
             paid = registered.filter(paid=True).count()
 
-            meal1 = registered.filter(meal_friday_evening=True).count()
-            meal2 = registered.filter(meal_saturday_morning=True).count()
-            meal3 = registered.filter(meal_saturday_midday=True).count()
-            meal4 = registered.filter(meal_saturday_evening=True).count()
-            meal5 = registered.filter(meal_sunday_morning=True).count()
-            meal6 = registered.filter(meal_sunday_midday=True).count()
-            meal7 = registered.filter(meal_sunday_evening=True).count()
-            meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
+            # meal1 = registered.filter(meal_friday_evening=True).count()
+            # meal2 = registered.filter(meal_saturday_morning=True).count()
+            # meal3 = registered.filter(meal_saturday_midday=True).count()
+            # meal4 = registered.filter(meal_saturday_evening=True).count()
+            # meal5 = registered.filter(meal_sunday_morning=True).count()
+            # meal6 = registered.filter(meal_sunday_midday=True).count()
+            # meal7 = registered.filter(meal_sunday_evening=True).count()
+            # meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
 
             activites = acts.count()
             displayed = acts.filter(display=True).count()
@@ -370,13 +370,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
         "nom",
         "ENS",
         "Dors sur place",  # "Tasse",
-        "Repas vendredi",
-        "Repas S matin",
-        "Repas S midi",
-        "Repas S soir",
-        "Repas D matin",
-        "Repas D midi",
-        "Reaps D soir",
+        "Repas",
         "Payé⋅e",
         "Prix",
         "Montant payé",
@@ -401,13 +395,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
                     profile.sleeps,
                     # profile.mug,
                     profile.nb_meals(),
-                    profile.meal_friday_evening,
-                    profile.meal_saturday_morning,
-                    profile.meal_saturday_midday,
-                    profile.meal_saturday_evening,
-                    profile.meal_sunday_morning,
-                    profile.meal_sunday_midday,
-                    profile.meal_sunday_evening,
+                    profile.meals,
                     profile.paid,
                     profile.cost(),
                     profile.amount_paid,

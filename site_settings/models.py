@@ -98,6 +98,13 @@ class SiteSettings(SingletonModel):
     date_start = models.DateField("Date de début", blank=True, null=True)
     date_end = models.DateField("Date de fin", blank=True, null=True)
 
+    price_unpaid = models.DecimalField(
+        verbose_name="prix (non-salarié)", decimal_places=2, max_digits=5, default=0
+    )
+    price_paid = models.DecimalField(
+        verbose_name="prix (salarié)", decimal_places=2, max_digits=5, default=0
+    )
+
     registrations_open = models.BooleanField(
         "Ouvrir la création de compte", default=True
     )

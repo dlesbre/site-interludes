@@ -31,7 +31,7 @@
 		{% comment "pas de tasse" %}<li>{% if user.profile.mug %}Commandse une tasse{% else %}Ne commande pas de tasse{% endif %}</li>{% endcomment%}
 		{% if user.profile.nb_meals != 0 %}
 		<li>Inscrit à {{ user.profile.nb_meals }} repas :</li>
-			<ul>
+			<!-- <ul>
 				{% if user.profile.meal_friday_evening == True %}<li>Vendredi soir</li>{% endif %}
 				{% if user.profile.meal_saturday_morning == True %}<li>Petit dej' du samedi</li>{% endif %}
 				{% if user.profile.meal_saturday_midday == True %}<li>Samedi midi</li>{% endif %}
@@ -39,7 +39,7 @@
 				{% if user.profile.meal_sunday_morning == True %}<li>Petit dej' du dimanche</li>{% endif %}
 				{% if user.profile.meal_sunday_midday == True %}<li>Dimanche midi</li>{% endif %}
 				{% if user.profile.meal_sunday_evening == True %}<li>Dimanche soir (à emporter)</li>{% endif %}
-			</ul>
+			</ul> -->
 		{% else %}
 		<li>Inscrit à aucun repas</li>
 		{% endif %}

@@ -1,4 +1,5 @@
 from datetime import datetime, time, timedelta
+from decimal import Decimal
 from typing import Optional
 
 from django.db import models
@@ -351,6 +352,33 @@ class SlotModel(models.Model):
         verbose_name_plural = "créneaux"
 
 
+class MealModel(models.Model):
+    """Un repas aux interludes"""
+
+    name = models.CharField(
+        verbose_name="nom", help_text="ex: Vendredi soir", max_length=200
+    )
+    time = models.DateTimeField(
+        verbose_name="date et heure", help_text="Sert surtout à trier les repas"
+    )
+
+    menu = models.TextField(verbose_name="menu", blank=True, null=True)
+
+    price_unpaid = models.DecimalField(
+        verbose_name="prix (non-salarié)", decimal_places=2, max_digits=4, default=0
+    )
+    price_paid = models.DecimalField(
+        verbose_name="prix (salarié)", decimal_places=2, max_digits=4, default=0
+    )
+
+    def nb(self) -> int:
+        return self.participantmodel_set.count()
+
+    class Meta:
+        verbose_name = "repas"
+        verbose_name_plural = "repas"
+
+
 class ParticipantModel(models.Model):
     """un participant aux interludes"""
 
@@ -369,13 +397,15 @@ class ParticipantModel(models.Model):
 
     is_registered = models.BooleanField("est inscrit", default=False)
 
-    meal_friday_evening = models.BooleanField("repas de vendredi soir", default=False)
-    meal_saturday_morning = models.BooleanField("repas de samedi matin", default=False)
-    meal_saturday_midday = models.BooleanField("repas de samedi midi", default=False)
-    meal_saturday_evening = models.BooleanField("repas de samedi soir", default=False)
-    meal_sunday_morning = models.BooleanField("repas de dimanche matin", default=False)
-    meal_sunday_midday = models.BooleanField("repas de dimanche midi", default=False)
-    meal_sunday_evening = models.BooleanField("repas de dimanche soir", default=False)
+    meals = models.ManyToManyField(MealModel, verbose_name="Repas")
+
+    # meal_friday_evening = models.BooleanField("repas de vendredi soir", default=False)
+    # meal_saturday_morning = models.BooleanField("repas de samedi matin", default=False)
+    # meal_saturday_midday = models.BooleanField("repas de samedi midi", default=False)
+    # meal_saturday_evening = models.BooleanField("repas de samedi soir", default=False)
+    # meal_sunday_morning = models.BooleanField("repas de dimanche matin", default=False)
+    # meal_sunday_midday = models.BooleanField("repas de dimanche midi", default=False)
+    # meal_sunday_evening = models.BooleanField("repas de dimanche soir", default=False)
 
     sleeps = models.BooleanField("dormir sur place", default=False)
 
@@ -387,27 +417,26 @@ class ParticipantModel(models.Model):
 
     comment = models.TextField("Commentaire", max_length=2000, blank=True, null=True)
 
-    amount_paid = models.PositiveIntegerField("Montant payé", default=0)
+    amount_paid = models.DecimalField(
+        "Montant payé", default=0, decimal_places=2, max_digits=5
+    )
 
     def __str__(self) -> str:
         school = self.ENS(self.school).label.replace("ENS ", "") if self.school else ""
         return "{} {} ({})".format(self.user.first_name, self.user.last_name, school)
 
     def nb_meals(self) -> int:
-        return (
-            self.meal_friday_evening
-            + self.meal_saturday_evening
-            + self.meal_saturday_midday
-            + self.meal_saturday_morning
-            + self.meal_sunday_midday
-            + self.meal_sunday_morning
-            + self.meal_sunday_evening
-        )
+        return self.meals.count()
 
-    def cost(self) -> int:
-        return (self.is_registered * 2 + self.nb_meals()) * (2 + self.paid) - (
-            self.paid * self.meal_sunday_evening
-        )
+    def cost(self) -> Decimal:
+        settings = SiteSettings.load()
+        cost = settings.price_paid if self.paid else settings.price_unpaid
+        for meal in self.meals.all():
+            cost += meal.price_paid if self.paid else meal.price_unpaid
+        return cost
+        # return (self.is_registered * 2 + self.nb_meals()) * (2 + self.paid) - (
+        #     self.paid * self.meal_sunday_evening
+        # )
 
     class Meta:
         verbose_name = "participant"

@@ -137,6 +137,19 @@ class SlotModelAdmin(ExportCsvMixin):
     )
 
 
+@admin.register(models.MealModel)
+class MealModelAdmin(ExportCsvMixin):
+    filename = "export_repas.csv"
+    fields = (
+        "name",
+        "time",
+        "menu",
+        "price_unpaid",
+        "price_paid",
+    )
+    list_display = ("name",)
+
+
 @admin.register(models.ParticipantModel)
 class ParticipantModelAdmin(ExportCsvMixin):
     """option d'affichage des participant dans la vue django admin"""
@@ -146,15 +159,7 @@ class ParticipantModelAdmin(ExportCsvMixin):
         "user",
         "school",
         "is_registered",
-        (
-            "meal_friday_evening",
-            "meal_saturday_morning",
-            "meal_saturday_midday",
-            "meal_saturday_evening",
-            "meal_sunday_morning",
-            "meal_sunday_midday",
-            "meal_sunday_evening",
-        ),
+        "meals",
         "sleeps",
         "nb_murder",
         "paid",
@@ -166,13 +171,6 @@ class ParticipantModelAdmin(ExportCsvMixin):
         "school",
         "is_registered",
         "sleeps",
-        "meal_friday_evening",
-        "meal_saturday_morning",
-        "meal_saturday_midday",
-        "meal_saturday_evening",
-        "meal_sunday_morning",
-        "meal_sunday_midday",
-        "meal_sunday_evening",
         "nb_murder",
         "paid",
     )
