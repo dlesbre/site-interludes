@@ -6,7 +6,8 @@
 
 {% if settings.discord_link %}
 	<ul class="messagelist"><li class="info">
-		Rejoins notre <a href="{{ settings.discord_link }}">serveur discord</a> pour participer à l'événement.
+		Rejoins notre <a href="{{ settings.discord_link }}">serveur discord</a> 
+		pour avoir toutes les informations sur l'événement.
 	</li></ul>
 {% endif %}
 
@@ -55,10 +56,10 @@
 <p>
 	Les tarifs sont différenciés entre salarié·es et non-salarié·es.
 	<ul>
-		<li><strong>Participation à l'événement :</strong> 6€/4€</li>
-		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> 10€/6€</li>
-		<li><strong>Repas du dimanche soir (à emporter) :</strong> 2€</li>
-		<li><strong>Logement en tente :</strong> 3€</li>
+		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}</li>
+		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }}</li>
+		<li><strong>Repas du dimanche soir (à emporter) :</strong> {{ settings.price_sunday_meal }}</li>
+		<li><strong>Logement en tente :</strong> {{ settings.price_sleep }}</li>
 	</ul>
 </p>
 

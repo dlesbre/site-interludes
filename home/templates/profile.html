@@ -26,7 +26,7 @@
 	  modifiable jusqu'au {{ settings.inscriptions_end|date:"l d F Y à H:i" }}
 	{% endif %}
 	<ul>
-		<li>Tarif personnalisé : {{ user.profile.cost }}€</li>
+		<li>Tarif personnalisé : {{ user.profile.cost }}&nbsp;€</li>
 		<li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Non inscrit pour dormir sur place{% endif %}</li>
 		{% comment "pas de tasse" %}<li>{% if user.profile.mug %}Commandse une tasse{% else %}Ne commande pas de tasse{% endif %}</li>{% endcomment%}
 		{% if user.profile.nb_meals != 0 %}

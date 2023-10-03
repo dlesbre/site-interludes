@@ -1,4 +1,5 @@
 from datetime import datetime, time, timedelta
+from decimal import Decimal
 from typing import Optional
 
 from django.db import models
@@ -404,9 +405,27 @@ class ParticipantModel(models.Model):
             + self.meal_sunday_evening
         )
 
-    def cost(self) -> int:
-        return (self.is_registered * 2 + self.nb_meals()) * (2 + self.paid) - (
-            self.paid * self.meal_sunday_evening
+    def cost(self) -> Decimal:
+        settings = SiteSettings.load()
+        if self.paid:
+            price_entry = settings.price_entry_paid
+            price_meal = settings.price_meal_paid
+            price_sleep = settings.price_sleep_paid
+            price_sunday_meal = settings.price_sunday_meal_paid
+        else:
+            price_entry = settings.price_entry_unpaid
+            price_meal = settings.price_meal_unpaid
+            price_sleep = settings.price_sleep_unpaid
+            price_sunday_meal = settings.price_sunday_meal_unpaid
+
+        nb_meals = self.nb_meals()
+        if self.meal_sunday_evening:  # priced separately
+            nb_meals -= 1
+        return (
+            price_entry
+            + nb_meals * price_meal
+            + self.sleeps * price_sleep
+            + self.meal_sunday_evening * price_sunday_meal
         )
 
     class Meta:

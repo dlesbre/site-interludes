@@ -22,3 +22,82 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             return "<a href='%s'>download</a>" % (obj.file.url,)
         else:
             return "No attachment"
+
+    fieldsets = [
+        (
+            "Informations générales",
+            {
+                "fields": [
+                    "hosting_school",
+                    "contact_email",
+                    ("date_start", "date_end"),
+                    "discord_link",
+                    "affiche",
+                ]
+            },
+        ),
+        (
+            "Tarifs",
+            {
+                "fields": [
+                    "ticket_url",
+                    ("price_entry_unpaid", "price_entry_paid"),
+                    ("price_meal_unpaid", "price_meal_paid"),
+                    ("price_sleep_unpaid", "price_sleep_paid"),
+                    ("price_sunday_meal_unpaid", "price_sunday_meal_paid"),
+                ],
+                "description": "Tarifs différentiés selon si l'élève est salarié ou non.\
+                        Le repas du dimanche soir (optionel) est à part car il est à emporter.",
+            },
+        ),
+        (
+            "Activités",
+            {
+                "fields": [
+                    "activity_submission_open",
+                    "show_host_emails",
+                    "activities_allocated",
+                ]
+            },
+        ),
+        (
+            "Inscriptions",
+            {
+                "fields": [
+                    "registrations_open",
+                    "inscriptions_open",
+                    "activity_inscriptions_open",
+                    ("inscriptions_start", "inscriptions_end"),
+                ]
+            },
+        ),
+        (
+            "Planning",
+            {
+                "fields": [
+                    "display_planning",
+                    "planning_file",
+                    "caption_red",
+                    "caption_orange",
+                    "caption_yellow",
+                    "caption_green",
+                    "caption_blue",
+                    "caption_dark_blue",
+                    "caption_black",
+                ],
+                "description": 'Laissez une case "Légende" vide pour la masquer',
+            },
+        ),
+        (
+            "Technique",
+            {
+                "fields": [
+                    "allow_mass_mail",
+                    "user_notified",
+                    "orga_notified",
+                    "global_message",
+                    "global_message_as_html",
+                ]
+            },
+        ),
+    ]

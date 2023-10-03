@@ -98,6 +98,62 @@ class SiteSettings(SingletonModel):
     date_start = models.DateField("Date de début", blank=True, null=True)
     date_end = models.DateField("Date de fin", blank=True, null=True)
 
+    price_entry_unpaid = models.DecimalField(
+        "prix d'inscription (non-salarié)", decimal_places=2, max_digits=5, default=0
+    )
+    price_entry_paid = models.DecimalField(
+        "prix d'inscription (salarié)", decimal_places=2, max_digits=5, default=0
+    )
+
+    def price_entry(self) -> str:
+        if self.price_entry_paid == self.price_entry_unpaid:
+            return "{}€".format(self.price_entry_paid)
+        return "{}€ / {}€".format(self.price_entry_paid, self.price_entry_unpaid)
+
+    price_meal_unpaid = models.DecimalField(
+        "prix d'un repas (non-salarié)", decimal_places=2, max_digits=5, default=0
+    )
+    price_meal_paid = models.DecimalField(
+        "prix d'un repas (salarié)", decimal_places=2, max_digits=5, default=0
+    )
+
+    def price_meal(self) -> str:
+        if self.price_meal_paid == self.price_meal_unpaid:
+            return "{}€".format(self.price_meal_paid)
+        return "{}€ / {}€".format(self.price_meal_paid, self.price_meal_unpaid)
+
+    price_sleep_unpaid = models.DecimalField(
+        "prix d'hébergement (non-salarié)", decimal_places=2, max_digits=5, default=0
+    )
+    price_sleep_paid = models.DecimalField(
+        "prix d'hébergement (salarié)", decimal_places=2, max_digits=5, default=0
+    )
+
+    def price_sleep(self) -> str:
+        if self.price_sleep_paid == self.price_sleep_unpaid:
+            return "{}€".format(self.price_sleep_paid)
+        return "{}€ / {}€".format(self.price_sleep_paid, self.price_sleep_unpaid)
+
+    price_sunday_meal_unpaid = models.DecimalField(
+        "prix du repas du dimanche soir (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_sunday_meal_paid = models.DecimalField(
+        "prix du repas du dimanche soir (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    def price_sunday_meal(self) -> str:
+        if self.price_sunday_meal_paid == self.price_sunday_meal_unpaid:
+            return "{}€".format(self.price_sunday_meal_paid)
+        return "{}€ / {}€".format(
+            self.price_sunday_meal_paid, self.price_sunday_meal_unpaid
+        )
+
     registrations_open = models.BooleanField(
         "Ouvrir la création de compte", default=True
     )
@@ -114,12 +170,12 @@ class SiteSettings(SingletonModel):
     activity_submission_open = models.BooleanField(
         "Ouvrir l'ajout d'activité",
         default=False,
-        help_text="Permet de proposer une activité via le formulaire dédié",
+        help_text="Permet de proposer une activité via le formulaire dédié. Nécessite d'ouvrir la création de comptes.",
     )
     show_host_emails = models.BooleanField(
         "Afficher les mails des orgas d'activités",
         default=False,
-        help_text="Ces mail sont affichés sur la page activités pour que les gens puissent les contacter",
+        help_text="Ces mail sont affichés sur la page activités pour qu'ils puissent être contactés",
     )
 
     inscriptions_start = models.DateTimeField(
@@ -152,7 +208,7 @@ class SiteSettings(SingletonModel):
     activities_allocated = models.BooleanField(
         "Afficher les activités obtenues",
         default=False,
-        help_text="Suppose que l'allocation des activités a été effectuée.",
+        help_text="Une fois que l'allocation des activités a été effectuée.",
     )
 
     discord_link = models.CharField(
@@ -180,7 +236,7 @@ class SiteSettings(SingletonModel):
         "Message global",
         blank=True,
         null=True,
-        help_text="Message affiché en haut de chaque page (si non vide)",
+        help_text='Message affiché en haut de chaque page (si non vide). Vous pouvez également modifier le contenu de certaines pages depuis "Pages HTML"',
     )
     global_message_as_html = models.BooleanField(
         "Message global au format HTML",
