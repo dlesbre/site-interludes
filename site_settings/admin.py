@@ -89,6 +89,21 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             },
         ),
         (
+            "Repas",
+            {
+                "fields": [
+                    "meal_sunday_evening",
+                    "menu_friday_evening",
+                    "menu_saturday_morning",
+                    "menu_saturday_midday",
+                    "menu_saturday_evening",
+                    "menu_sunday_morning",
+                    "menu_sunday_midday",
+                    "menu_sunday_evening",
+                ]
+            },
+        ),
+        (
             "Technique",
             {
                 "fields": [

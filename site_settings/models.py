@@ -79,7 +79,11 @@ class SingletonModel(models.Model):
 
 
 class SiteSettings(SingletonModel):
-    """Réglages globaux du site"""
+    """Réglages globaux du site
+
+    SI VOUS AJOUTEZ DES RÉGLAGES, PENSEZ À LES RAJOUTER AUSSI DANS LES fieldsets
+    DE admin.py, SINON IL N'Y APPARAITRONT PAS...
+    """
 
     contact_email = models.EmailField("Email contact", blank=True, null=True)
     hosting_school = models.CharField(
@@ -146,6 +150,44 @@ class SiteSettings(SingletonModel):
         max_digits=5,
         default=0,
     )
+
+    meal_sunday_evening = models.BooleanField(
+        "Repas dimanche soir (à emporter)", default=True
+    )
+
+    menu_friday_evening = models.CharField(
+        "Menu du repas de vendredi soir", blank=True, max_length=400, default=""
+    )
+    menu_saturday_morning = models.CharField(
+        "Menu du repas de samedi matin", blank=True, max_length=400, default=""
+    )
+    menu_saturday_midday = models.CharField(
+        "Menu du repas de samedi midi", blank=True, max_length=400, default=""
+    )
+    menu_saturday_evening = models.CharField(
+        "Menu du repas de samedi soir", blank=True, max_length=400, default=""
+    )
+    menu_sunday_morning = models.CharField(
+        "Menu du repas de dimanche matin", blank=True, max_length=400, default=""
+    )
+    menu_sunday_midday = models.CharField(
+        "Menu du repas de dimanche midi", blank=True, max_length=400, default=""
+    )
+    menu_sunday_evening = models.CharField(
+        "Menu du repas de dimanche soir", blank=True, max_length=400, default=""
+    )
+
+    def menus(self) -> bool:
+        """Check if any menu is defined before displaying them"""
+        return (
+            self.menu_friday_evening != ""
+            or self.menu_saturday_morning != ""
+            or self.menu_saturday_midday != ""
+            or self.menu_saturday_evening != ""
+            or self.menu_sunday_morning != ""
+            or self.menu_sunday_midday != ""
+            or self.menu_sunday_evening != ""
+        )
 
     def price_sunday_meal(self) -> str:
         if self.price_sunday_meal_paid == self.price_sunday_meal_unpaid:

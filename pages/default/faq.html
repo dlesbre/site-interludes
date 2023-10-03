@@ -54,16 +54,39 @@
 	</p>
 	{% endif %}
 
+<h2>Quels sont les tarifs d'entrée</h2>
+<p>
+	Les tarifs sont différenciés entre salarié·es 
+	(ou exté·es remunéré·es au moins autant qu'un normalien salarié)
+	et non-salarié·es.
+	<ul>
+		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}</li>
+		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }}</li>
+		<li><strong>Repas du dimanche soir (à emporter) :</strong> {{ settings.price_sunday_meal }}</li>
+		<li><strong>Logement en tente :</strong> {{ settings.price_sleep }}</li>
+	</ul>
+	Cela ne comprend pas le cout des transports.
+</p>
+
 <h2>Quelles seront les conditions pour dormir/manger&nbsp;?</h2>
 <p> Nous proposerons un logement en tente, pour celleux qui le souhaitent</p>
-<p> Les repas seront préparés et servis sur place. Le menu sera entièrement
-	végétarien, avec options végan et sans gluten possibles.
+{% if settings.menus %}
+<p>
+	Cette année, le menu sera entièrement végétarien, avec options végan et/ou sans gluten possibles.
 	<ul>
-		<li><strong>Vendredi soir :</strong> Chili sin carne, riz et compote</li>
-		<li><strong>Samedi midi :</strong> Brunch (Salade bar, Croques pesto-mozza, Houmous, Gâteaux)</li>
-		<li><strong>Samedi soir :</strong> Soupe de saison et Tartiflette (option végan : gratin de pommes de terre aux champignons)</li>
-		<li><strong>Dimanche midi :</strong> Sandwich au choix</li>
-	</ul></p>
+		{% if settings.menu_friday_evening %}<li><strong>Vendredi soir :</strong> {{ settings.menu_friday_evening }}</li>{% endif %}
+		{% if settings.menu_saturday_morning %}<li><strong>Samedi matin :</strong> {{ settings.menu_saturday_morning }}</li>{% endif %}
+		{% if settings.menu_saturday_midday %}<li><strong>Samedi midi :</strong> {{ settings.menu_saturday_midday }}</li>{% endif %}
+		{% if settings.menu_saturday_evening %}<li><strong>Samedi soir :</strong> {{ settings.menu_saturday_evening }}</li>{% endif %}
+		{% if settings.menu_sunday_morning %}<li><strong>Dimanche matin :</strong> {{ settings.menu_sunday_morning }}</li>{% endif %}
+		{% if settings.menu_sunday_midday %}<li><strong>Dimanche midi :</strong> {{ settings.menu_sunday_midday }}</li>{% endif %}
+		{% if settings.menu_sunday_evening %}<li><strong>Dimanche soir :</strong> {{ settings.menu_sunday_evening }}</li>{% endif %}
+	</ul>
+</p>
+{% else %}
+<p>Le menu des repas n'as pas encore été décidé. Nous le mettrons ici quand il sera fait.</p>
+{% endif %}
+
 <p>	Si vous dormez dans les tentes, pensez à prendre un tapis de sol et duvet.</p>
 
 <h2>Comment payer ?</h2>

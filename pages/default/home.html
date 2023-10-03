@@ -64,17 +64,22 @@
 </p>
 
 <h2>Menu des repas</h2>
+{% if settings.menus %}
 <p>
 	Cette année, le menu sera entièrement végétarien, avec options végan et/ou sans gluten possibles.
 	<ul>
-		<li><strong>Vendredi soir :</strong> Pâtes forestières & crumble aux pommes</li>
-		<li><strong>Samedi matin :</strong>Petit dej'</li>
-		<li><strong>Samedi midi :</strong>Chili sin carne (avec des pâtes) & crème dessert</li>
-		<li><strong>Samedi soir :</strong>Gratin patate poireau & charlotte</li>
-		<li><strong>Dimanche matin :</strong>Petit dej'</li>
-		<li><strong>Dimanche midi :</strong>Wraps & cookie</li>
-		<li><strong>Dimanche soir (à emporter):</strong>Wraps & fruit (ou cookie)</li>
+		{% if settings.menu_friday_evening %}<li><strong>Vendredi soir :</strong> {{ settings.menu_friday_evening }}</li>{% endif %}
+		{% if settings.menu_saturday_morning %}<li><strong>Samedi matin :</strong> {{ settings.menu_saturday_morning }}</li>{% endif %}
+		{% if settings.menu_saturday_midday %}<li><strong>Samedi midi :</strong> {{ settings.menu_saturday_midday }}</li>{% endif %}
+		{% if settings.menu_saturday_evening %}<li><strong>Samedi soir :</strong> {{ settings.menu_saturday_evening }}</li>{% endif %}
+		{% if settings.menu_sunday_morning %}<li><strong>Dimanche matin :</strong> {{ settings.menu_sunday_morning }}</li>{% endif %}
+		{% if settings.menu_sunday_midday %}<li><strong>Dimanche midi :</strong> {{ settings.menu_sunday_midday }}</li>{% endif %}
+		{% if settings.menu_sunday_evening %}<li><strong>Dimanche soir :</strong> {{ settings.menu_sunday_evening }}</li>{% endif %}
 	</ul>
+</p>
+{% else %}
+<p>Le menu des repas n'as pas encore été décidé. Nous le mettrons ici quand il sera fait.</p>
+{% endif %}
 
 <h2>Liens divers</h2>
 
