@@ -2,6 +2,12 @@
 
 # Change Log
 
+## master
+
+- Made prices into settings, no longer hardcoded
+- Made meal menus into settings
+- Improve date display when event is on a month-split weekend
+
 ## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
 
 - Merge saclay's fork
