@@ -181,7 +181,20 @@
 		{{ planning_validation|safe }}
 	</ul>
 
-	<p>Vous pouver uploader une version PDF dans le réglages (depuis django-admin)</p>
+	<p>
+		Vous pouvez uploader une version PDF (plus lisible sur mobile) dans les paramètres du site
+		(depuis la <a href="{% url 'admin:index' %}">page d'administration de django</a>).
+	</p>
+
+	<p>
+		Vous pouvez avoir une activité affichée uniquement dans le planning
+		(son créneau est affiché, mais l'activité ne l'est pas). C'est utile pour éviter
+		d'encombrer la page
+		<a href="{% url 'html_page' slug='activites' %}" rel="text/html">activités</a>
+		avec des activités à description évidentes (par exemple les repas).
+		À éviter avec les activités sur inscription cependant, seules les activités affichées
+		génèrerons des e-mails aux organisateurs avec liste de participants.
+	</p>
 
 	{% include "_planning.html" %}
 

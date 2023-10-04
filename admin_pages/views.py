@@ -159,7 +159,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
     def validate_slot_less(self) -> str:
         """verifie que toutes les activité demandant une liste de participant ont un créneaux"""
-        activities = models.ActivityModel.objects.filter(communicate_participants=True)
+        activities = models.ActivityModel.objects.filter(
+            display=True, communicate_participants=True
+        )
         errors = ""
         for activity in activities:
             count = models.SlotModel.objects.filter(activity=activity).count()
@@ -205,11 +207,23 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
         )
 
+    def validate_hidden_activities(self) -> str:
+        """Vérifie que des activités ne soient pas masquées"""
+        hidden_activites = models.ActivityModel.objects.filter(display=False)
+        errors = ""
+        for act in hidden_activites:
+            errors += "<br> &bullet; &ensp; {}".format(act)
+        if errors:
+            return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(
+                errors
+            )
+        return '<li class="success">Toutes les activités sont affichées</li>'
+
     def planning_validation(self) -> str:
         """Vérifie que toutes les activités ont le bon nombre de créneaux
         dans le planning"""
         errors = ""
-        activities = models.ActivityModel.objects.all()
+        activities = models.ActivityModel.objects.filter(display=True)
         for activity in activities:
             nb_wanted = activity.desired_slot_nb
             nb_got = activity.slots().count()
@@ -246,10 +260,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             validations += '<li class="error">La répartition n\'est pas marquée comme effectuée</li>'
 
         # longer validations
+        hidden = self.validate_hidden_activities()
+        validations += hidden
+        validations += self.validate_slot_less()
         validations += self.validate_activity_participant_nb()
         validations += self.validate_activity_conflicts()
         validations += self.validate_multiple_similar_inscription()
-        validations += self.validate_slot_less()
 
         if settings.discord_link:
             validations += '<li class="success">Le lien du discord est renseigné</li>'
@@ -272,7 +288,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             "user_email_nb": user_email_nb,
             "orga_email_nb": orga_email_nb,
             "validation_errors": '<li class="error">' in validations,
-            "planning_validation": self.planning_validation(),
+            "planning_validation": hidden + self.planning_validation(),
         }
 
     def get_context_data(self, *args, **kwargs):
@@ -547,7 +563,9 @@ class SendOrgaEmail(SendEmailBase):
 
     def get_emails(self) -> List[EMAIL]:
         """genere les mails a envoyer"""
-        activities = models.ActivityModel.objects.filter(communicate_participants=True)
+        activities = models.ActivityModel.objects.filter(
+            display=True, communicate_participants=True
+        )
         emails = []
         settings = SiteSettings.load()
         for activity in activities:
