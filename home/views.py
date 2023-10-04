@@ -4,13 +4,16 @@ from typing import Any, Dict, List, Optional, Tuple
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
+from django.core.mail import mail_admins
 from django.forms import formset_factory
 from django.http import HttpRequest, HttpResponse
 from django.http.response import HttpResponseBase
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView, View
 
+from interludes import settings as site_settings
 from accounts.models import EmailUser
 from home import models
 from home.forms import (
@@ -230,12 +233,26 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
             context["form"] = form
             return render(request, self.template_name, context)
 
-        form.save()
+        activity = form.save()
 
         messages.success(
             request,
             "Votre activité a bien été enregistrée. Elle sera affichée sur le site après relecture par les admins.",
         )
+        settings = SiteSettings.load()
+        if settings.notify_on_activity_submission:
+            message = render_to_string(
+                "new_activity_email.txt",
+                {
+                    "user": request.user,
+                    "activity": activity,
+                    "signature": site_settings.EMAIL_SIGNATURE,
+                },
+            )
+            mail_admins(
+                site_settings.USER_EMAIL_SUBJECT_PREFIX + "Nouvelle activité proposée",
+                message,
+            )
         return redirect(self.success_url, permanent=False)
 
 

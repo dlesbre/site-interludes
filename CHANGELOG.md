@@ -9,6 +9,7 @@
 - Improve date display when event is on a month-split weekend
 - Add a check for undisplayed activities
 - Add a disclaimer for undisplayed activites shown in the planning
+- Send an email to admins on new activity submission
 
 ## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
 

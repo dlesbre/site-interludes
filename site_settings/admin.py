@@ -55,6 +55,7 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             {
                 "fields": [
                     "activity_submission_open",
+                    "notify_on_activity_submission",
                     "show_host_emails",
                     "activities_allocated",
                 ]

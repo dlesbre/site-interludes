@@ -214,6 +214,11 @@ class SiteSettings(SingletonModel):
         default=False,
         help_text="Permet de proposer une activité via le formulaire dédié. Nécessite d'ouvrir la création de comptes.",
     )
+    notify_on_activity_submission = models.BooleanField(
+        "Notification d'ajout d'activité",
+        default=True,
+        help_text="Envoie un email aux administrateurs quand une nouvelle activité est ajoutée via le formulaire.",
+    )
     show_host_emails = models.BooleanField(
         "Afficher les mails des orgas d'activités",
         default=False,
