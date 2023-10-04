@@ -427,7 +427,7 @@ ul.messagelist li:before {
 	font-weight: 900;
 }
 ul.messagelist li.success {
-	background: #dfd;
+	background: #cfc;
 }
 ul.messagelist li.success:before {
 	content: "\f058";
@@ -439,13 +439,13 @@ ul.messagelist li.warning:before {
 	content: "\f071";
 }
 ul.messagelist li.error {
-	background: #ffefef;
+	background: #fcc;
 }
 ul.messagelist li.error:before {
 	content: "\f057";
 }
 ul.messagelist li.info {
-	background: #ddf;
+	background: #ccf;
 }
 ul.messagelist li.info:before {
 	content: "\f05a";
