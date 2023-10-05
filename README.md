@@ -14,6 +14,8 @@ une [licence MIT](https://choosealicense.com/licenses/mit/).
   directement depuis l'admin du site)
 - Recenser les activités proposées (page activités)
 - Un formulaire pour permettre aux gens de proposer des activités
+  qui envoie un mail aux administrateurs à chaque fois qu'une nouvelle activité
+	est proposée.
 - Un formulaire d'inscription ou chaque inscrit peut renseigner des infos
   personnelles (repas/dormir) et les activités qu'il souhaite
 - Afficher un planning dynamique des différentes activités
@@ -48,13 +50,13 @@ une [licence MIT](https://choosealicense.com/licenses/mit/).
 
 Ce serveur a été repris pour plusieurs événements similaires :
 
-| Site Web                                                      | Code source                                                                                                                  | Notes                                                        | État                                                                                                                                           |
-| :------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Interludes 2021 Ulm](https://interludes.ens.fr/)             | [github](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | Version initiale, tag v1.2.8                                 | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)        |
-| [48h des jeux](https://48hdesjeux.cof.ens.fr/)                | [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/48h-des-jeux)                                                             | Rentrée ludique d'Ulm 2021 (48h-v2.3.1) et 2022 (48h-v3.0.1) | ![website](https://img.shields.io/website?url=https%3A%2F%2F48hdesjeux.cof.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)    |
-| [Interludes 2022 Lyon](https://interludes.assos-ensl.fr/)     | [github](https://github.com/Pantoofle/site-interludes)                                                                       | Branche Lyon-2022, tag v2.1.0                                | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.assos-ensl.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne) |
-| [KWEI 2022](https://kwei.crans.org/)                          | [gitlab Paris Saclay](https://gitlab.crans.org/aeltheos/site-kwei)                                                           | Rentrée ludique Paris-Saclay 2022                            | ![website](https://img.shields.io/website?url=https%3A%2F%2Fkwei.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)           |
-| [Interludes 2023 Paris-Saclay](https://interludes.crans.org/) | [gitlab Paris Saclay](https://gitlab.crans.org/mediatek/site-interludes/)                                                    | Branche Saclay-2023                                          | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)     |
+| Site Web                                                      | Code source                                                                                                                  | Notes                                                              | État                                                                                                                                           |
+| :------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Interludes 2021 Ulm](https://interludes.ens.fr/)             | [github](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | Version initiale, tag v1.2.8                                       | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)        |
+| [48h des jeux](https://48hdesjeux.cof.ens.fr/)                | [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/48h-des-jeux)                                                             | Rentrée ludique d'Ulm 2021 (48h-v2.3.1), 2022 et 2023 (48h-v3.0.1) | ![website](https://img.shields.io/website?url=https%3A%2F%2F48hdesjeux.cof.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)    |
+| [Interludes 2022 Lyon](https://interludes.assos-ensl.fr/)     | [github](https://github.com/Pantoofle/site-interludes)                                                                       | Branche Lyon-2022, tag v2.1.0                                      | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.assos-ensl.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne) |
+| [KWEI](https://kwei.crans.org/)                               | [gitlab Paris Saclay](https://gitlab.crans.org/aeltheos/site-kwei)                                                           | Rentrée ludique Paris-Saclay 2022 et 2023                          | ![website](https://img.shields.io/website?url=https%3A%2F%2Fkwei.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)           |
+| [Interludes 2023 Paris-Saclay](https://interludes.crans.org/) | [gitlab Paris Saclay](https://gitlab.crans.org/mediatek/site-interludes/)                                                    | Branche Saclay-2023                                                | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)     |
 
 Le code de l'algorithme de répartition est aussi disponible [sur github](https://github.com/Imakoala/InterludesMatchings).
 
@@ -118,6 +120,16 @@ Pour tester et modifier le répo, après l'avoir cloné :
 	python3 manage.py makemigrations
 	python3 manage.py migrate
 	```
+
+Pour l'aide au développement et maintenir un code propre, j'utilise :
+- les formateurs [black](https://pypi.org/project/black/) et
+  [isort](https://pypi.org/project/isort/),
+	à installer via `pip install black isort` puis lancer par `make format`
+- le linter [flake8](https://flake8.pycqa.org/en/latest/index.html#)
+	à installer via `pip install flake8` puis lancer par `make format`
+- le type-checker [mypy](https://pypi.org/project/mypy/)
+	à installer via `pip install mypy django-stubs` puis lancer par `make mypy`. Normalement
+	tous les fichiers sont bien typés, sauf `shared/forms.py` qui utilisent trop de hacks.
 
 ## Lancer le serveur
 

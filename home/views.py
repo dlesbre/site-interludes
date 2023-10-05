@@ -13,7 +13,6 @@ from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, RedirectView, TemplateView, View
 
-from interludes import settings as site_settings
 from accounts.models import EmailUser
 from home import models
 from home.forms import (
@@ -22,6 +21,7 @@ from home.forms import (
     BaseActivityFormSet,
     InscriptionForm,
 )
+from interludes import settings as site_settings
 from pages.models import HTMLPageModel
 from site_settings.models import SiteSettings
 
