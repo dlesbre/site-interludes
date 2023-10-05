@@ -1,3 +1,5 @@
+<!-- LTeX: language=en -->
+
 # Change Log
 
 Change log for the 48h des Jeux fork
@@ -9,6 +11,8 @@ Change log for the 48h des Jeux fork
 - Add a disclaimer for undisplayed activites shown in the planning
 - Hide previous year activities from metrics
 - Send an email to admins on new activity submission
+- Format and lint code
+- Fix broken send email to all
 
 ## Version 3.0.1 - 2022-09-10
 
