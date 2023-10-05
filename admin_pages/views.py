@@ -25,8 +25,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 	template_name = "admin.html"
 
 	def get_metrics(self):
-		acts = models.ActivityModel.objects.all()
-		slots_in = models.SlotModel.objects.all()
+		year = models.get_year()
+		acts = models.ActivityModel.objects.filter(year=year)
+		slots_in = models.SlotModel.objects.filter(activity__year=year)
+
 		class metrics:
 			users = User.objects.filter(is_active=True).count()
 
@@ -38,11 +40,25 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
 		return metrics
 
+	def validate_hidden_activities(self) -> str:
+		"""Vérifie que des activités ne soient pas masquées"""
+		year = models.get_year()
+		hidden_activites = models.ActivityModel.objects.filter(display=False, year=year)
+		errors = ""
+		for act in hidden_activites:
+			errors += "<br> &bullet; &ensp; {}".format(act)
+		if errors:
+			return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(
+				errors
+			)
+		return '<li class="success">Toutes les activités sont affichées</li>'
+
 	def planning_validation(self):
 		"""Vérifie que toutes les activités ont le bon nombre de créneaux
 		dans le planning"""
 		errors = ""
-		activities = models.ActivityModel.objects.all()
+		year = models.get_year()
+		activities = models.ActivityModel.objects.filter(year=year)
 		for activity in activities:
 			nb_wanted = activity.desired_slot_nb
 			nb_got = activity.slots.count()
@@ -59,7 +75,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
 		context["metrics"] = self.get_metrics()
-		context["planning_validation"] = self.planning_validation()
+		context["planning_validation"] = self.validate_hidden_activities() + self.planning_validation()
 		context.update(get_planning_context())
 		return context
 

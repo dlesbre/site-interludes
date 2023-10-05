@@ -12,7 +12,7 @@ from authens.views import LogoutView as AuthensLogoutView
 
 from pages.models import HTMLPageModel
 
-from .models import SlotModel
+from .models import SlotModel, get_year
 from .forms import ActivitySubmissionForm
 from site_settings.models import SiteSettings
 
@@ -50,7 +50,7 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 
 	def not_open(self, request):
 		"""Appelé quand le formulaire est désactivé"""
-		messages.error(request, "La soumission d'activité est desactivée")
+		messages.error(request, "La soumission d'activité est désactivée")
 		return redirect(self.success_url, permanent=False)
 
 	def get_initial(self):
