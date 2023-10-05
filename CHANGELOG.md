@@ -1,5 +1,15 @@
 # Change Log
 
+Change log for the 48h des Jeux fork
+
+## 48h-des-jeux
+
+- Improve date display when event is on a month-split weekend
+- Add a check for undisplayed activities
+- Add a disclaimer for undisplayed activites shown in the planning
+- Hide previous year activities from metrics
+- Send an email to admins on new activity submission
+
 ## Version 3.0.1 - 2022-09-10
 
 - Fix submission form and sitemap
