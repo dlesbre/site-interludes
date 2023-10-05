@@ -1,0 +1,7 @@
+L'utilisateur {{ user }} vient de soumettre une nouvelle activité sur le site
+des 48h des jeux: "{{ activity }}".
+
+Elle n'est pas affichée publiquement pour le moment. Elle le sera uniquement
+quand vous l'aurez marquer comme telle sur la page d'administration de Django.
+
+{{ signature }}

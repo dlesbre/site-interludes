@@ -3,13 +3,16 @@ from datetime import timedelta
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
+from django.core.mail import mail_admins
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, DetailView, TemplateView
+from django.template.loader import render_to_string
 
 from authens.views import LogoutView as AuthensLogoutView
 
+from site48h import settings as site_settings
 from pages.models import HTMLPageModel
 
 from .models import SlotModel, get_year
@@ -73,9 +76,24 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 			context["form"] = form
 			return render(request, self.template_name, context)
 
-		form.save()
+		activity = form.save()
 
 		messages.success(request, "Votre activité a bien été enregistrée. Elle sera affichée sur le site après relecture par les admins.")
+		settings = SiteSettings.load()
+		if settings.notify_on_activity_submission:
+			message = render_to_string(
+				"new_activity_email.txt",
+				{
+					"user": request.user,
+					"activity": activity,
+					"signature": site_settings.EMAIL_SIGNATURE,
+				},
+			)
+			mail_admins(
+				site_settings.USER_EMAIL_SUBJECT_PREFIX + "Nouvelle activité proposée",
+				message,
+			)
+
 		return redirect(self.success_url, permanent=False)
 
 

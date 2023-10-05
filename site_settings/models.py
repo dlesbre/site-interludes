@@ -103,6 +103,11 @@ class SiteSettings(SingletonModel):
 		help_text="Par sécurité, n'activez ceci qu'au moment d'envoyer les emails et désactivez le après"
 	)
 
+	notify_on_activity_submission = models.BooleanField(
+		"Notification d'ajout d'activité",
+		default=True,
+		help_text="Envoie un email aux administrateurs quand une nouvelle activité est ajoutée via le formulaire.",
+	)
 
 	global_message = models.TextField("Message global", blank=True, null=True,
 		help_text="Message affiché en haut de chaque page (si non vide)"
