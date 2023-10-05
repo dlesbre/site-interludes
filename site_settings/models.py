@@ -1,9 +1,9 @@
 from datetime import timedelta
 from pathlib import Path
 
-from django.db import models
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
+from django.db import models
 
 
 class Colors(models.TextChoices):

@@ -1,8 +1,8 @@
 import csv
 
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.views import View
 from django.http import HttpResponse
+from django.views import View
 
 
 class SuperuserRequiredMixin(UserPassesTestMixin):

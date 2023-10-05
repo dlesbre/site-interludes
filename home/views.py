@@ -1,22 +1,21 @@
 from datetime import timedelta
 
+from authens.views import LogoutView as AuthensLogoutView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
 from django.core.mail import mail_admins
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView
-from django.template.loader import render_to_string
 
-from authens.views import LogoutView as AuthensLogoutView
-
-from site48h import settings as site_settings
 from pages.models import HTMLPageModel
-
-from .models import SlotModel
-from .forms import ActivitySubmissionForm
+from site48h import settings as site_settings
 from site_settings.models import SiteSettings
+
+from .forms import ActivitySubmissionForm
+from .models import SlotModel
 
 
 def get_planning_context():

@@ -1,11 +1,11 @@
 import datetime
 
+from authens.models import User
 from django.db import models
 from django.forms import ValidationError
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
-from authens.models import User
 from site_settings.models import Colors, SiteSettings
 
 
@@ -115,7 +115,7 @@ class ActivityModel(models.Model):
         "Nombre minimum de participants", default=0
     )
 
-    ## Information fournies par le respo
+    # Informations fournies par le respo
     duration = models.DurationField("Durée", help_text="format hh:mm:ss")
     desired_slot_nb = models.PositiveIntegerField(
         "Nombre de créneaux souhaités", default=1, validators=[validate_nonzero]

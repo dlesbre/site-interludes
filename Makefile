@@ -14,6 +14,8 @@ MANAGER := manage.py
 DB := db.sqlite3
 SECRET := site48h/secret.py
 
+MYPY := mypy
+
 # set to ON/OFF to toggle ANSI escape sequences
 COLOR := ON
 
@@ -114,6 +116,30 @@ test: $(SECRET) ## Tests all the apps with django's tests
 .PHONY: preprod
 preprod: test static ## Prepare and check production
 	$(PYTHON) $(MANAGER) check --deploy
+
+.PHONY: mypy
+mypy: $(SETTINGS) ## Typecheck all python files
+	$(call print,Typechecking python with mypy)
+	$(MYPY) . --exclude /migrations/
+
+.PHONY: format
+format: ## Run formatters
+	$(call print,Running black)
+	black . --exclude "/(\.git|\.mypy_cache|\.venv|venv|migrations)/"
+	$(call print,Running isort)
+	isort . --gitignore --sg "*migrations*"
+
+.PHONY: check-format
+check-format: ## Run formatters, doesn't modify the files
+	$(call print,Running black)
+	black . --exclude "/(\.git|\.mypy_cache|\.venv|venv|migrations)/" --check
+	$(call print,Running isort)
+	isort . --gitignore --sg "*migrations*" --check
+
+.PHONY: lint
+lint: ## Run flake8 linter
+	$(call print,Running flake8)
+	flake8 . --exclude .git,.mypy_cache,.venv,venv,migrations
 
 # =================================================
 # Installation

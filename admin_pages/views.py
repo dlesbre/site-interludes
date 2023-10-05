@@ -1,3 +1,4 @@
+from authens.models import User
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
@@ -5,13 +6,11 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
 
-from authens.models import User
+from admin_pages.forms import SendEmailForm
 from home import models
 from home.views import get_planning_context
-from site_settings.models import Colors, SiteSettings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
-
-from admin_pages.forms import SendEmailForm
+from site_settings.models import Colors, SiteSettings
 
 # ==============================
 # Main Admin views
@@ -169,7 +168,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
     success_url = reverse_lazy("admin_pages:index")
     from_address = None
 
-    def get_emails(self, selection):
+    def get_emails(self):
         """return the list of destination emails"""
         users = User.objects.filter(is_active=True)
         return [u.email for u in users]
@@ -188,21 +187,19 @@ class NewEmail(SuperuserRequiredMixin, FormView):
                 self.request, "L'envoi de mail de masse est désactivé dans les réglages"
             )
         else:
-            dest = form.cleaned_data["dest"]
             subject = form.cleaned_data["subject"]
             text = form.cleaned_data["text"]
             emails = []
-            for to_addr in self.get_emails(dest):
+            for to_addr in self.get_emails():
                 emails.append([subject, text, self.from_address, [to_addr]])
             nb_sent = send_mass_mail(emails, fail_silently=False)
             mail_admins(
                 "Email envoyé",
-                "Un email a été envoyé à {}.\n"
+                "Un email a été envoyé à tous les utilisateurs.\n"
                 "Nombre total de mail envoyés: {}\n\n"
                 "Sujet : {}\n\n"
                 "{}\n\n"
                 "{}".format(
-                    Recipients(dest).label,
                     nb_sent,
                     subject,
                     text,
