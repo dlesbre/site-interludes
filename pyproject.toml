@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "site-interludes"
+authors = [{ name = "Dorian Lesbre", email = "dorian.lesbre@gmail.com" }]
+maintainers = [{ name = "Dorian Lesbre", email = "dorian.lesbre@gmail.com" }]
+version = "3.0.0"
+description = "Site web pour les InterENS ludiques et les 48h des jeux"
+requires-python = ">= 3.8"
+readme = "README.md"
+license = {file = "LICENSE"}
+dependencies = [ "django" ]
+
+[project.urls]
+Homepage = "https://interludes.ens.fr"
+Repository = "https://github.com/dlesbre/site-interludes"
+Issues = "https://github.com/dlesbre/site-interludes/issues"
+Changelog = "https://github.com/dlesbre/site-interludes/blob/master/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit",
+  "pytest",
+  "django-stubs",
+  "mypy",
+  "ruff",
+  "coverage",
+  "pytest-cov",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "W", "I"]
+
+[tool.mypy]
+strict = true
+plugins = "mypy_django_plugin.main"
+
+# [[tool.mypy.overrides]]
+# ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "interludes.settings"

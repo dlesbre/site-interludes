@@ -8,7 +8,7 @@
 # ===================================================
 
 SHELL := /bin/bash
-PYTHON := python3
+PYTHON := python3 -Wa
 PIP := pip3
 MANAGER := manage.py
 DB := db.sqlite3
@@ -131,7 +131,7 @@ static: $(SECRET) compressed ## collect static files
 .PHONY: test
 test: $(SECRET) ## Tests all the apps with django's tests
 	$(call print,Running django tests)
-	$(PYTHON) -Wa -m coverage run --source='.' $(MANAGER) test --noinput
+	$(PYTHON) -m coverage run --source='.' $(MANAGER) test --noinput
 	$(call print,Coverage report)
 	rm -rf htmlcov
 	coverage report $(COVERAGE_OMIT)
@@ -147,23 +147,18 @@ mypy: $(SETTINGS) ## Typecheck all python files
 	$(MYPY) . --exclude /migrations/
 
 .PHONY: format
-format: ## Run formatters
-	$(call print,Running black)
-	black . --exclude "/(\.git|\.mypy_cache|\.venv|venv|migrations)/"
-	$(call print,Running isort)
-	isort . --gitignore --sg "*migrations*"
+format: ## Format files with black and isort
+	$(call print,Running ruff format)
+	ruff format --exclude migrations
+	$(call print,Running ruff check and fix)
+	ruff check --exclude migrations --fix
 
-.PHONY: check-format
-check-format: ## Run formatters, doesn't modify the files
-	$(call print,Running black)
-	black . --exclude "/(\.git|\.mypy_cache|\.venv|venv|migrations)/" --check
-	$(call print,Running isort)
-	isort . --gitignore --sg "*migrations*" --check
-
-.PHONY: lint
-lint: ## Run flake8 linter
-	$(call print,Running flake8)
-	flake8 . --exclude .git,.mypy_cache,.venv,venv,migrations
+.PHONY: format-check
+format-check: ## Check that all files are formatted and lint
+	$(call print,Running ruff format)
+	ruff format --exclude migrations --check
+	$(call print,Running ruff check)
+	ruff --exclude migrations check
 
 # =================================================
 # Installation
