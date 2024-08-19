@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "content" %}
+<h2>Guide de l'administrateur</h2>
+
+<p>Le site web se gère depuis deux pages d'administration :</p>
+
+
+<p><strong><a href="{% url 'admin_pages:index' %}">La page d'administration du site</a></strong>
+  dont vous venez probablement.
+  Elle sert principalement à afficher l'état du site et envoyer des mails:
+<ul>
+  <li>permet d'exporter les différentes tables au format CSV</li>
+  <li>affiche l'état du site (version, réglages actuels, différentes métriques)</li>
+  <li>une prévisualisation du planning</li>
+  <li>permet l'écriture d'un mail à tous</li>
+  <li>permet d'envoyer deux séries d'emails :
+    <ul>
+      <li>une aux inscrits pour leur communiquer les activités qu'ils ont obtenues</li>
+      <li>une aux orgas qui ont besoin de connaître la liste des participants à
+        l'avance pour préparer leurs activités.</li>
+    </ul>
+  </li>
+</ul>
+</p>
+
+<p>
+  <strong><a href="{% url 'admin:index' %}">La page d'administration Django</a></strong>
+  est autogénéré à partir des tables de la base de donnée. Elle permet de les modifier
+  directement. Voici un descriptif rapide des tables intéressantes :
+<ul>
+  <li>
+    <strong>Utilisateurs</strong> - contient tous les utilisateurs et leurs permissions. Pour
+    donner les droits d'administrateur à quelqu'un il faut lui donner le statut
+    superuser (accès à l'admin du site) ET le statut équipe (accès à l'admin
+    django).
+  </li>
+  <li>
+    <strong>Pages HTML</strong> - contient les pages d'informations (notamment home, activités et
+    FAQ). Cela permet aux administrateurs de modifier leur contenu facilement
+    depuis le site en ligne, sans avoir à accéder au serveur. Ces pages ont un nom
+    (uniquement visible dans l'admin), un URL d'accès et un contenu (format HTML
+    avec tags de templates django).
+
+    Les pages "home" (url vide) "activites" et "faq" sont spéciales. Elles
+    apparaissent sur la barre de navigation et sont régénérées à partir de
+    fichiers de base dans pages/default/ si quelqu'un tente
+    d'y accéder après leur suppression.
+
+    Vous pouvez créer d'autres pages sur des URL libres si ça vous semble pertinent.
+
+    Les autres pages du site (formulaires, pages de connexion...) sont des
+    templates django plus classiques et ne peuvent être modifié que depuis le code
+    source.
+  </li>
+  <li>
+    <strong>Paramètres</strong> - les réglages du site, ils permettent :
+    <ul>
+      <li>ouvrir/fermer la création de compte, les inscriptions</li>
+      <li>renseigner l'ENS d'accueil</li>
+      <li>renseigner un lien de la billetterie et de serveur discord</li>
+      <li>ouvrir/fermer le formulaire de proposition d'activités</li>
+      <li>afficher/cacher le planning</li>
+      <li>renseigner l'email de contact, les dates de l'événement, les dates d'inscription</li>
+      <li>ajouter un message global au-dessus de toutes les pages</li>
+      <li>bloquer/autoriser l'envoi d'email globaux</li>
+      <li>Ajouter une version PDF du planning (pour affichage sur mobiles)</li>
+      <li>Ajouter l'affiche (visible sur la page d'accueil)</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Activités</strong> liste des activités prévues. C'est ici que vous pouvez
+    rajouter/modifier les activités qui s'affichent sur la page activité. Un
+    formulaire permet aux utilisateurs de proposer des activités directement. Il
+    vous faudra les relire et les valider ensuite manuellement pour qu'elles
+    soient affichées sur le site.
+  </li>
+  <li>
+    <strong>Créneaux</strong> - place une activité sur le planning. Une activité peut avoir
+    plusieurs créneaux si elle a lieu plusieurs fois. Noter que les inscriptions
+    se font à des créneaux et non a des activités.
+
+    Note : le planning généré par le site (en JS) est difficilement lisible sur
+    mobile. Le site permet d'uploader une version PDF propre pour mobiles.
+    Personnellement je faisais une capture d'écran du planning (vu sur un grand
+    écran) que j'exportais en PDF.
+  </li>
+  <li>
+    <strong>Participant</strong> - liste des gens inscrits et des informations sur leur inscription
+    (ENS, repas choisi...).
+  </li>
+  <li>
+    <strong>Choix d'activité</strong> - Liste de (participant, priorité, activité) indiquant les
+    vœux des participants. Une fois que vous avez fait l'attribution, cocher les
+    case "Obtenues" pour indiquer qui a eu quelle activité.
+  </li>
+</ul>
+</p>
+
+
+{% endblock %}

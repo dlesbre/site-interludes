@@ -4,6 +4,7 @@ from admin_pages import views
 
 urlpatterns = [
     path("", views.AdminView.as_view(), name="index"),
+    path("info", views.SiteInfo.as_view(), name="info"),
     path("export/activities/", views.ExportActivities.as_view(), name="activities.csv"),
     path("export/slots/", views.ExportSlots.as_view(), name="slots.csv"),
     path(

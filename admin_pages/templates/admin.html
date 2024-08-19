@@ -8,6 +8,10 @@
 
 {% block "content" %}
 	<h2>Page d'administration</h2>
+	<p>
+		Bienvenue sur la page d'administration du site! Si c'est votre première venue
+		ici, je recommande vivement de lire le <a href="{% url 'admin_pages:info' %}">guide de l'administrateur</a>.
+	</p>
 	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }}</strong></p>
 	<div class="flex wrap">
 		<a class="button" href="{% url 'admin_pages:participants.csv' %}"><i class="fa fa-download"></i> Participants</a>

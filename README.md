@@ -161,7 +161,7 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 Le site se gère depuis deux pages d'administration :
 
 **Page d'administration Django :**
-[http://localhost:8000/admin](http://localhost:8000/admin) permet de modifier
+[http://localhost:8000/admin](http://localhost:8000/admin) (autogénérée) permet de modifier
 directement la base de donnée. Descriptif rapide des tables intéressantes :
 
 - Utilisateurs - contient tous les utilisateurs et leurs permissions. Pour
