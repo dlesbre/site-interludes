@@ -261,7 +261,7 @@ main a:link {
 	justify-content: left
 }
 .stat {
-	min-width: 120px;
+	min-width: 100px;
 	text-align: center;
 	padding: 5px;
 }

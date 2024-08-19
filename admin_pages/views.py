@@ -68,6 +68,11 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             granted = wishes.filter(accepted=True).count()
             malformed = models.ActivityChoicesModel.objects.filter(slot__subscribing_open=False).count()
 
+            revenue = sum(x.cost() for x in registered)
+            revenue_meal = sum(x.cost_meals() for x in registered)
+            revenue_sleep = sum(x.cost_sleep() for x in registered)
+            revenue_entry = sum(x.cost_entry() for x in registered)
+
         return metrics
 
     def validate_activity_participant_nb(self) -> str:

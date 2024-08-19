@@ -383,28 +383,37 @@ class ParticipantModel(models.Model):
             + self.meal_sunday_evening
         )
 
-    def cost(self) -> Decimal:
+    def cost_entry(self) -> Decimal:
+        """Prix d'inscription"""
         settings = SiteSettings.load()
         if self.paid:
-            price_entry = settings.price_entry_paid
+            return settings.price_entry_paid
+        return settings.price_entry_unpaid
+
+    def cost_sleep(self) -> Decimal:
+        """Prix de dormir"""
+        if self.sleeps:
+            settings = SiteSettings.load()
+            if self.paid:
+                return settings.price_sleep_paid
+            return settings.price_sleep_unpaid
+        return Decimal(0)
+
+    def cost_meals(self) -> Decimal:
+        settings = SiteSettings.load()
+        if self.paid:
             price_meal = settings.price_meal_paid
-            price_sleep = settings.price_sleep_paid
             price_sunday_meal = settings.price_sunday_meal_paid
         else:
-            price_entry = settings.price_entry_unpaid
             price_meal = settings.price_meal_unpaid
-            price_sleep = settings.price_sleep_unpaid
             price_sunday_meal = settings.price_sunday_meal_unpaid
-
         nb_meals = self.nb_meals()
         if self.meal_sunday_evening:  # priced separately
             nb_meals -= 1
-        return (
-            price_entry
-            + nb_meals * price_meal
-            + self.sleeps * price_sleep
-            + self.meal_sunday_evening * price_sunday_meal
-        )
+        return nb_meals * price_meal + self.meal_sunday_evening * price_sunday_meal
+
+    def cost(self) -> Decimal:
+        return self.cost_entry() + self.cost_meals() + self.cost_sleep()
 
     class Meta:
         verbose_name = "participant"
