@@ -482,7 +482,7 @@ class SendUserEmail(SendEmailBase):
         settings.save()
         emails = self.get_emails()
 
-        nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
+        nb_sent = send_mass_mail(emails, fail_silently=False)
         mail_admins(
             "Emails de répartition envoyés aux participants",
             "Les participants ont reçu un mail leur communiquant la répartition des activités\n"
@@ -536,7 +536,7 @@ class SendOrgaEmail(SendEmailBase):
         settings.save()
         emails = self.get_emails()
 
-        nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
+        nb_sent = send_mass_mail(emails, fail_silently=False)
         mail_admins(
             "Listes d'inscrits envoyés aux orgas",
             "Les mails communiquant aux organisateurs leur listes d'inscrit ont été envoyés\n"

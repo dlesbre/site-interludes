@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from django.utils.safestring import mark_safe
 
@@ -19,7 +19,7 @@ class FormRenderMixin:
 
     """
 
-    tooltip_helptexts = []
+    tooltip_helptexts: List[Union[str, List[str]]] = []
     field_groups: Optional[List[List[str]]] = None
 
     class BadFieldGroups(Exception):
@@ -36,7 +36,7 @@ class FormRenderMixin:
                             "field": self[treelike],
                             "tooltip": treelike in self.tooltip_helptexts,
                         }
-                    raise self.BadFieldFroups
+                    raise self.BadFieldGroups
                 return list(map(map_to_field, treelike))
 
             if self.field_groups is not None:
