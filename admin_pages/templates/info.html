@@ -4,6 +4,59 @@
 {% block "content" %}
 <h2>Guide de l'administrateur</h2>
 
+<h3>À quoi peut servir ce site</h3>
+
+<p><strong>Ce site permet de :</strong>
+<ul>
+  <li>
+    Afficher des informations sur l'événement
+    (page d'<a href="{% url 'home' %}">accueil</a> et <a href="{% url 'html_page' slug='faq' %}">FAQ</a>,
+    modifiable directement depuis l'une des <a href="{% url 'admin:pages_htmlpagemodel_changelist' %}">pages d'admin de
+      django</a>)
+  </li>
+  <li>Recenser les activités proposées (page <a href="{% url 'html_page' slug='activites' %}">activités</a>)</li>
+  <li>
+    Un formulaire pour permettre aux gens de <a href="{% url 'activity_submission' %}">proposer des activités</a>
+    qui envoie un mail aux administrateurs à chaque fois qu'une nouvelle activité
+    est proposée.
+  </li>
+  <li>
+    Un <a href="{% url 'inscription' %}">formulaire d'inscription</a> où chaque inscrit peut renseigner des infos
+    personnelles (repas/dormir) et les activités qu'il souhaite
+  </li>
+  <li>
+    Afficher un planning dynamique des différentes activités (page <a
+      href="{% url 'html_page' slug='activites' %}">activités</a>)
+  </li>
+  <li>
+    Une fois la répartition faite, envoyer un mail à tous les inscrits pour leur
+    communiquer les activités obtenues et un mail aux orgas pour leur communiquer
+    la liste des participants (depuis le bas de la <a href="{% url 'admin_pages:index' %}">page d'administration</a>)
+  </li>
+  <li>Un formulaire pour envoyer un mail à tous (à utiliser avec modération)</li>
+  <li>Exporter les tables intéressantes au format CSV (depuis la <a href="{% url 'admin_pages:index' %}">page
+      d'administration</a>)</li>
+</ul>
+</p>
+
+<p><strong>Il n'est PAS capable de :</strong>
+<ul>
+  <li>vendre des tickets - différentes solutions ont été utilisées pour ça par le passé :
+    <ul>
+      <li>utiliser une billetterie externe (ex <a href="https://www.helloasso.com/">HelloAsso</a>)</li>
+      <li>recruter les BdE/BdL des autres écoles pour qu'ils gèrent les paiements</li>
+      <li>paiement en espèces/CB sur place le jour J</li>
+    </ul>
+  <li>répartir les activités - nous faisons un premier jet avec le
+    <a href="https://github.com/Lamakaio/InterludesMatchings">ce code</a> (en prenant l'export
+    CSV de la table de choix d'activités), puis l'adaptons à la main et le
+    renseignons dans ce site.
+  </li>
+</ul>
+</p>
+
+<h3>Pages d'administrations</h3>
+
 <p>Le site web se gère depuis deux pages d'administration :</p>
 
 
@@ -99,5 +152,13 @@
 </ul>
 </p>
 
+<h3>Contact support</h3>
+
+<p>
+  Ce site web a été crée par Dorian Lesbre pour les
+  Interludes 2021. N'hésitez pas à me contacter en cas de soucis.
+  Vous trouverez des informations de contact à jour sur
+  <a href="https://www.normalesup.org/~dlesbre/">mon site web</a>.
+</p>
 
 {% endblock %}

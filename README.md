@@ -16,7 +16,7 @@ une [licence MIT](https://choosealicense.com/licenses/mit/).
 - Un formulaire pour permettre aux gens de proposer des activités
   qui envoie un mail aux administrateurs à chaque fois qu'une nouvelle activité
 	est proposée.
-- Un formulaire d'inscription ou chaque inscrit peut renseigner des infos
+- Un formulaire d'inscription où chaque inscrit peut renseigner des infos
   personnelles (repas/dormir) et les activités qu'il souhaite
 - Afficher un planning dynamique des différentes activités
 - Une fois la répartition faite, envoyer un mail à tous les inscrits pour leur
