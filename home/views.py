@@ -249,6 +249,10 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
 # ==============================
 
 
+class LegalView(TemplateView):
+    template_name = "legal.html"
+
+
 ITEM = Tuple[str, Dict[str, str]]
 
 
@@ -261,7 +265,8 @@ class StaticViewSitemap(Sitemap):
         """list of pages to appear in sitemap"""
         home: ITEM = "home", dict()
         inscription: ITEM = "inscription", dict()
-        return [home, inscription] + [
+        legal: ITEM = "legal", dict()
+        return [home, inscription, legal] + [
             ("html_page", {"slug": obj.slug}) for obj in HTMLPageModel.objects.all() if obj.slug
         ]
 

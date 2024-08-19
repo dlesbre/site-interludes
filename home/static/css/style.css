@@ -573,6 +573,9 @@ footer {
 	align-items: center;
 	justify-content: space-around;
 }
+footer a {
+	color: var(--color_header);
+}
 
 footer #sponsors img {
 	margin: 0;

@@ -24,6 +24,7 @@ urlpatterns = [
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
+    path("legal", views.LegalView.as_view(), name="legal"),
     path(
         "admin_pages/",
         include(("admin_pages.urls", "admin_pages"), namespace="admin_pages"),
