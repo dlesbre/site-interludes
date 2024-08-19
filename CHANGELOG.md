@@ -4,7 +4,9 @@
 
 ## master
 
-- Made prices into settings, no longer hardcoded
+- Made prices into settings, no longer hardcoded, added totals to metrics
+- Added the "Guide de l'administrateur" page with useful info
+- Added the legal mentions page
 - Made meal menus into settings
 - Improve date display when event is on a month-split weekend
 - Add a check for undisplayed activities
