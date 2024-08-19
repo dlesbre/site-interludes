@@ -72,12 +72,8 @@ class ActivityModel(models.Model):
 
     title = models.CharField("Titre", max_length=200)
 
-    act_type = models.CharField(
-        "Type d'activité", choices=ActivityTypes.choices, max_length=12
-    )
-    game_type = models.CharField(
-        "Type de jeu", choices=GameTypes.choices, max_length=12
-    )
+    act_type = models.CharField("Type d'activité", choices=ActivityTypes.choices, max_length=12)
+    game_type = models.CharField("Type de jeu", choices=GameTypes.choices, max_length=12)
     description = models.TextField(
         "description",
         max_length=10000,
@@ -107,24 +103,18 @@ class ActivityModel(models.Model):
         "email de l'organisateur",
         help_text="Utilisé pour communiquer la liste des participants si demandé",
     )
-    host_info = models.TextField(
-        "Autre orgas/contacts", max_length=1000, blank=True, null=True
-    )
+    host_info = models.TextField("Autre orgas/contacts", max_length=1000, blank=True, null=True)
 
     must_subscribe = models.BooleanField(
         "sur inscription",
         default=False,
         help_text="Informatif, il faut utiliser les créneaux pour ajouter dans la liste d'inscription",
     )
-    communicate_participants = models.BooleanField(
-        "communiquer la liste des participants à l'orga avant l'événement"
-    )
+    communicate_participants = models.BooleanField("communiquer la liste des participants à l'orga avant l'événement")
     max_participants = models.PositiveIntegerField(
         "Nombre maximum de participants", help_text="0 pour illimité", default=0
     )
-    min_participants = models.PositiveIntegerField(
-        "Nombre minimum de participants", default=0
-    )
+    min_participants = models.PositiveIntegerField("Nombre minimum de participants", default=0)
 
     # Information fournies par le respo
     duration = models.DurationField("Durée", help_text="format hh:mm:ss")
@@ -181,9 +171,7 @@ class ActivityModel(models.Model):
         default=Availability.POSSIBLE,
     )
 
-    constraints = models.TextField(
-        "Contraintes particulières", max_length=2000, blank=True, null=True
-    )
+    constraints = models.TextField("Contraintes particulières", max_length=2000, blank=True, null=True)
 
     status = models.CharField(
         "Présentiel/distanciel",
@@ -192,9 +180,7 @@ class ActivityModel(models.Model):
         default=Status.PRESENT,
         blank=True,
     )
-    needs = models.TextField(
-        "Besoin particuliers", max_length=2000, blank=True, null=True
-    )
+    needs = models.TextField("Besoin particuliers", max_length=2000, blank=True, null=True)
 
     comments = models.TextField("Commentaires", max_length=2000, blank=True, null=True)
 
@@ -225,9 +211,7 @@ class ActivityModel(models.Model):
 
     def slots(self) -> models.QuerySet["SlotModel"]:
         """Returns a list of slots related to self"""
-        return SlotModel.objects.filter(activity=self, on_activity=True).order_by(
-            "start"
-        )
+        return SlotModel.objects.filter(activity=self, on_activity=True).order_by("start")
 
     def __str__(self):
         return self.title
@@ -243,16 +227,12 @@ class SlotModel(models.Model):
 
     TITLE_SPECIFIER = "{act_title}"
 
-    activity = models.ForeignKey(
-        ActivityModel, on_delete=models.CASCADE, verbose_name="Activité"
-    )
+    activity = models.ForeignKey(ActivityModel, on_delete=models.CASCADE, verbose_name="Activité")
     title = models.CharField(
         "Titre",
         max_length=200,
         default=TITLE_SPECIFIER,
-        help_text="Utilisez '{}' pour insérer le titre de l'activité correspondante".format(
-            TITLE_SPECIFIER
-        ),
+        help_text="Utilisez '{}' pour insérer le titre de l'activité correspondante".format(TITLE_SPECIFIER),
     )
     start = models.DateTimeField("début")
     duration = models.DurationField(
@@ -363,9 +343,7 @@ class ParticipantModel(models.Model):
         ENS_RENNES = "R", _("ENS Rennes")
         ENS_CACHAN = "C", _("ENS Paris Saclay")
 
-    user = models.OneToOneField(
-        EmailUser, on_delete=models.CASCADE, related_name="Utilisateur"
-    )
+    user = models.OneToOneField(EmailUser, on_delete=models.CASCADE, related_name="Utilisateur")
     school = models.CharField("ENS de rattachement", choices=ENS.choices, max_length=1)
 
     is_registered = models.BooleanField("est inscrit", default=False)
@@ -457,6 +435,4 @@ class ActivityChoicesModel(models.Model):
         verbose_name_plural = "choix d'activités"
 
 
-EmailUser.profile = property(
-    lambda user: ParticipantModel.objects.get_or_create(user=user)[0]
-)  # type: ignore
+EmailUser.profile = property(lambda user: ParticipantModel.objects.get_or_create(user=user)[0])  # type: ignore

@@ -56,9 +56,7 @@ class EmailVerificationTokenGenerator:
             self.key_salt,
             self._make_hash_value(user, timestamp),
             secret=self.secret,
-        ).hexdigest()[
-            ::2
-        ]  # Limit to 20 characters to shorten the URL.
+        ).hexdigest()[::2]  # Limit to 20 characters to shorten the URL.
         return "%s-%s" % (ts_b36, hash_string)
 
     def _make_hash_value(self, user: EmailUser, timestamp: int) -> str:
@@ -71,11 +69,7 @@ class EmailVerificationTokenGenerator:
         """
         # Truncate microseconds so that tokens are consistent even if the
         # database doesn't support microseconds.
-        login_timestamp = (
-            ""
-            if user.last_login is None
-            else user.last_login.replace(microsecond=0, tzinfo=None)
-        )
+        login_timestamp = "" if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
         return str(user.pk) + user.email + str(timestamp) + str(login_timestamp)
 
     def _num_days(self, dt: date) -> int:

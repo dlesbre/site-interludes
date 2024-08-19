@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.contrib.auth import login, logout, views as auth_views
+from django.contrib.auth import login, logout
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
@@ -16,9 +17,7 @@ from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
 
 
-def send_validation_email(
-    request, user: EmailUser, subject: str, template: str
-) -> None:
+def send_validation_email(request, user: EmailUser, subject: str, template: str) -> None:
     """Send a validation email to user"""
     current_site = get_current_site(request)
     message = render_to_string(
@@ -97,9 +96,7 @@ class CreateAccountView(View):
         user.email_confirmed = False
         user.save()
 
-        send_validation_email(
-            request, user, "Activer votre compte Interludes", self.email_template
-        )
+        send_validation_email(request, user, "Activer votre compte Interludes", self.email_template)
 
         messages.info(
             request,
@@ -123,8 +120,7 @@ class ActivateAccountView(RedirectView):
         except (TypeError, ValueError, OverflowError, EmailUser.DoesNotExist):
             messages.error(
                 self.request,
-                "Le lien de confirmation d'adresse mail ne correspond à aucun·e "
-                "utilisateur·ice inscrit·e",
+                "Le lien de confirmation d'adresse mail ne correspond à aucun·e " "utilisateur·ice inscrit·e",
             )
             return reverse(self.failure_pattern_name)
 
@@ -227,9 +223,7 @@ class ResetPasswordView(auth_views.PasswordResetView):
     form_class = forms.PasswordResetEmailForm
 
     def form_valid(self, form):
-        messages.info(
-            self.request, "Un email vous a été envoyé avec un lien de réinitialisation"
-        )
+        messages.info(self.request, "Un email vous a été envoyé avec un lien de réinitialisation")
         return super().form_valid(form)
 
 

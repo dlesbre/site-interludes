@@ -35,9 +35,7 @@ def get_planning_context() -> Dict[str, Any]:
     """Returns the context dict needed to display the planning"""
     settings = SiteSettings.load()
     context: Dict[str, Any] = dict()
-    context["planning"] = models.SlotModel.objects.filter(on_planning=True).order_by(
-        "title"
-    )
+    context["planning"] = models.SlotModel.objects.filter(on_planning=True).order_by("title")
     if settings.date_start is not None:
         context["friday"] = settings.date_start.day
         context["saturday"] = (settings.date_start + timedelta(days=1)).day
@@ -66,13 +64,9 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         user = self.request.user
         assert isinstance(user, EmailUser)
         if settings.activities_allocated:
-            my_choices = models.ActivityChoicesModel.objects.filter(
-                participant=user.profile, accepted=True
-            )
+            my_choices = models.ActivityChoicesModel.objects.filter(participant=user.profile, accepted=True)
         else:
-            my_choices = models.ActivityChoicesModel.objects.filter(
-                participant=user.profile
-            )
+            my_choices = models.ActivityChoicesModel.objects.filter(participant=user.profile)
 
         context["my_choices"] = my_choices
         return context
@@ -96,18 +90,14 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
 
     template_name = "inscription/form.html"
     form_class = InscriptionForm
-    formset_class = formset_factory(
-        form=ActivityForm, extra=3, formset=BaseActivityFormSet
-    )
+    formset_class = formset_factory(form=ActivityForm, extra=3, formset=BaseActivityFormSet)
     success_url = reverse_lazy("profile")
 
     @staticmethod
     def get_slots(
         participant: models.ParticipantModel,
     ) -> List[Dict[str, models.SlotModel]]:
-        activities = models.ActivityChoicesModel.objects.filter(
-            participant=participant
-        ).order_by("priority")
+        activities = models.ActivityChoicesModel.objects.filter(participant=participant).order_by("priority")
         return [{"slot": act.slot} for act in activities]
 
     @staticmethod
@@ -120,9 +110,7 @@ class RegisterUpdateView(LoginRequiredMixin, TemplateView):
             data = form.cleaned_data
             if data:
                 slot = data["slot"]
-                models.ActivityChoicesModel(
-                    priority=priority, participant=participant, slot=slot
-                ).save()
+                models.ActivityChoicesModel(priority=priority, participant=participant, slot=slot).save()
                 priority += 1
 
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
@@ -274,9 +262,7 @@ class StaticViewSitemap(Sitemap):
         home: ITEM = "home", dict()
         inscription: ITEM = "inscription", dict()
         return [home, inscription] + [
-            ("html_page", {"slug": obj.slug})
-            for obj in HTMLPageModel.objects.all()
-            if obj.slug
+            ("html_page", {"slug": obj.slug}) for obj in HTMLPageModel.objects.all() if obj.slug
         ]
 
     def location(self, item: ITEM) -> str:

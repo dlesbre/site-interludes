@@ -23,10 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 try:
     from . import secret
 except ImportError:
-    raise ImportError(
-        "The interludes/secret.py file is missing.\n"
-        "Run 'make secret' to generate a secret."
-    )
+    raise ImportError("The interludes/secret.py file is missing.\nRun 'make secret' to generate a secret.") from None
 
 
 def import_secret(name: str) -> Any:
@@ -37,7 +34,7 @@ def import_secret(name: str) -> Any:
     try:
         return getattr(secret, name)
     except AttributeError:
-        raise RuntimeError("Secret missing: {}".format(name))
+        raise RuntimeError("Secret missing: {}".format(name)) from None
 
 
 SECRET_KEY = import_secret("SECRET_KEY")

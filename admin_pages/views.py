@@ -27,9 +27,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
     def get_metrics(self) -> Any:
         """Various metrics, return as a class"""
-        registered = models.ParticipantModel.objects.filter(
-            is_registered=True, user__is_active=True
-        )
+        registered = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True)
         acts = models.ActivityModel.objects.all()
         slots_in = models.SlotModel.objects.all()
         wishes = models.ActivityChoicesModel.objects.filter(
@@ -39,18 +37,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         class metrics:
             participants = registered.count()
             ulm = registered.filter(school=models.ParticipantModel.ENS.ENS_ULM).count()
-            lyon = registered.filter(
-                school=models.ParticipantModel.ENS.ENS_LYON
-            ).count()
-            rennes = registered.filter(
-                school=models.ParticipantModel.ENS.ENS_RENNES
-            ).count()
-            saclay = registered.filter(
-                school=models.ParticipantModel.ENS.ENS_CACHAN
-            ).count()
-            non_registered = (
-                EmailUser.objects.filter(is_active=True).count() - participants
-            )
+            lyon = registered.filter(school=models.ParticipantModel.ENS.ENS_LYON).count()
+            rennes = registered.filter(school=models.ParticipantModel.ENS.ENS_RENNES).count()
+            saclay = registered.filter(school=models.ParticipantModel.ENS.ENS_CACHAN).count()
+            non_registered = EmailUser.objects.filter(is_active=True).count() - participants
             # mugs = registered.filter(mug=True).count()
             sleeps = registered.filter(sleeps=True).count()
             paid = registered.filter(paid=True).count()
@@ -68,23 +58,15 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             displayed = acts.filter(display=True).count()
             act_ins = acts.filter(display=True, must_subscribe=True).count()
             communicate = acts.filter(communicate_participants=True).count()
-            st_present = acts.filter(
-                display=True, status=models.ActivityModel.Status.PRESENT
-            ).count()
-            st_distant = acts.filter(
-                display=True, status=models.ActivityModel.Status.DISTANT
-            ).count()
-            st_both = acts.filter(
-                display=True, status=models.ActivityModel.Status.BOTH
-            ).count()
+            st_present = acts.filter(display=True, status=models.ActivityModel.Status.PRESENT).count()
+            st_distant = acts.filter(display=True, status=models.ActivityModel.Status.DISTANT).count()
+            st_both = acts.filter(display=True, status=models.ActivityModel.Status.BOTH).count()
 
             slots = slots_in.count()
             true_ins = slots_in.filter(subscribing_open=True).count()
             wish = wishes.count()
             granted = wishes.filter(accepted=True).count()
-            malformed = models.ActivityChoicesModel.objects.filter(
-                slot__subscribing_open=False
-            ).count()
+            malformed = models.ActivityChoicesModel.objects.filter(slot__subscribing_open=False).count()
 
         return metrics
 
@@ -104,24 +86,16 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             max = slot.activity.max_participants
             min = slot.activity.min_participants
             if max != 0 and max < total:
-                max_fails += "<br> &bullet;&ensp;{}: {} inscrits (maximum {})".format(
-                    slot, total, max
-                )
+                max_fails += "<br> &bullet;&ensp;{}: {} inscrits (maximum {})".format(slot, total, max)
             if min > total:
-                min_fails += "<br> &bullet;&ensp;{}: {} inscrits (minimum {})".format(
-                    slot, total, min
-                )
+                min_fails += "<br> &bullet;&ensp;{}: {} inscrits (minimum {})".format(slot, total, min)
         message = ""
         if min_fails:
-            message += '<li class="error">Activités en sous-effectif : {}</li>'.format(
-                min_fails
-            )
+            message += '<li class="error">Activités en sous-effectif : {}</li>'.format(min_fails)
         else:
             message += '<li class="success">Aucune activité en sous-effectif</li>'
         if max_fails:
-            message += '<li class="error">Activités en sur-effectif : {}</li>'.format(
-                max_fails
-            )
+            message += '<li class="error">Activités en sur-effectif : {}</li>'.format(max_fails)
         else:
             message += '<li class="success">Aucune activité en sur-effectif</li>'
         return message
@@ -150,18 +124,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
                 )
 
         if errors:
-            return '<li class="error">Des participants ont plusieurs activités au même moment :{}</li>'.format(
-                errors
-            )
-        return (
-            '<li class="success">Aucun inscrit à plusieurs activités simultanées</li>'
-        )
+            return '<li class="error">Des participants ont plusieurs activités au même moment :{}</li>'.format(errors)
+        return '<li class="success">Aucun inscrit à plusieurs activités simultanées</li>'
 
     def validate_slot_less(self) -> str:
         """verifie que toutes les activité demandant une liste de participant ont un créneaux"""
-        activities = models.ActivityModel.objects.filter(
-            display=True, communicate_participants=True
-        )
+        activities = models.ActivityModel.objects.filter(display=True, communicate_participants=True)
         errors = ""
         for activity in activities:
             count = models.SlotModel.objects.filter(activity=activity).count()
@@ -171,7 +139,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             return '<li class="error">Certaines activités demandant une liste de participants n\'ont pas de créneaux :{}<br>Leurs orgas vont recevoir un mail inutile.</li>'.format(
                 errors
             )
-        return '<li class="success">Toutes les activités demandant une liste de participants ont au moins un créneau</li>'
+        return (
+            '<li class="success">Toutes les activités demandant une liste de participants ont au moins un créneau</li>'
+        )
 
     def validate_multiple_similar_inscription(self) -> str:
         """verifie que personne n'est inscrit à la même activité plusieurs fois"""
@@ -203,9 +173,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             return '<li class="error">Des participants sont inscrits plusieurs fois à la même activité :{}</li>'.format(
                 errors
             )
-        return (
-            '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
-        )
+        return '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
 
     def validate_hidden_activities(self) -> str:
         """Vérifie que des activités ne soient pas masquées"""
@@ -214,9 +182,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         for act in hidden_activites:
             errors += "<br> &bullet; &ensp; {}".format(act)
         if errors:
-            return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(
-                errors
-            )
+            return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(errors)
         return '<li class="success">Toutes les activités sont affichées</li>'
 
     def planning_validation(self) -> str:
@@ -228,18 +194,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             nb_wanted = activity.desired_slot_nb
             nb_got = activity.slots().count()
             if nb_wanted != nb_got:
-                errors += (
-                    '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
-                        activity.title, nb_wanted, nb_got
-                    )
+                errors += '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
+                    activity.title, nb_wanted, nb_got
                 )
         if errors:
-            return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(
-                errors
-            )
-        return (
-            '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
-        )
+            return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(errors)
+        return '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
 
     def validate_activity_allocation(self) -> Dict[str, Any]:
         settings = SiteSettings.load()
@@ -249,13 +209,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         if not settings.inscriptions_open:
             validations += '<li class="success">Les inscriptions sont fermées</li>'
         else:
-            validations += (
-                '<li class="error">Les inscriptions sont encores ouvertes</li>'
-            )
+            validations += '<li class="error">Les inscriptions sont encores ouvertes</li>'
         if settings.activities_allocated:
-            validations += (
-                '<li class="success">La répartition est marquée comme effectuée</li>'
-            )
+            validations += '<li class="success">La répartition est marquée comme effectuée</li>'
         else:
             validations += '<li class="error">La répartition n\'est pas marquée comme effectuée</li>'
 
@@ -270,18 +226,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         if settings.discord_link:
             validations += '<li class="success">Le lien du discord est renseigné</li>'
         else:
-            validations += (
-                '<li class="error">Le lien du discord n\'est pas renseigné</li>'
-            )
+            validations += '<li class="error">Le lien du discord n\'est pas renseigné</li>'
 
         validations += "</ul>"
 
-        user_email_nb = models.ParticipantModel.objects.filter(
-            is_registered=True, user__is_active=True
-        ).count()
-        orga_email_nb = models.ActivityModel.objects.filter(
-            communicate_participants=True
-        ).count()
+        user_email_nb = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True).count()
+        orga_email_nb = models.ActivityModel.objects.filter(communicate_participants=True).count()
 
         return {
             "validations": validations,
@@ -401,9 +351,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
     ]
 
     def get_rows(self):
-        profiles = models.ParticipantModel.objects.filter(
-            is_registered=True, user__is_active=True
-        ).all()
+        profiles = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True).all()
         rows = []
         for profile in profiles:
             rows.append(
@@ -478,18 +426,14 @@ class SendEmailBase(SuperuserRequiredMixin, RedirectView):
     from_address: Optional[str] = None  # defaults to DEFAULT_FROM_EMAIL setting
 
     def send_emails(self) -> None:
-        raise NotImplementedError(
-            "{}.send_emails isn't implemented".format(self.__class__.__name__)
-        )
+        raise NotImplementedError("{}.send_emails isn't implemented".format(self.__class__.__name__))
 
     def get_redirect_url(self, *args, **kwargs):
         settings = SiteSettings.load()
         if settings.allow_mass_mail:
             self.send_emails()
         else:
-            messages.error(
-                self.request, "L'envoi de mail de masse est désactivé dans les réglages"
-            )
+            messages.error(self.request, "L'envoi de mail de masse est désactivé dans les réglages")
         return reverse(self.pattern_name)
 
 
@@ -502,15 +446,11 @@ class SendUserEmail(SendEmailBase):
 
     def get_emails(self) -> List[EMAIL]:
         """genere les mails a envoyer"""
-        participants = models.ParticipantModel.objects.filter(
-            is_registered=True, user__is_active=True
-        )
+        participants = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True)
         emails = []
         settings = SiteSettings.load()
         for participant in participants:
-            my_choices = models.ActivityChoicesModel.objects.filter(
-                participant=participant
-            )
+            my_choices = models.ActivityChoicesModel.objects.filter(participant=participant)
             message: str = render_to_string(
                 "email/user.html",
                 {
@@ -522,8 +462,7 @@ class SendUserEmail(SendEmailBase):
             )
             emails.append(
                 (
-                    site_settings.USER_EMAIL_SUBJECT_PREFIX
-                    + "Vos activités",  # subject
+                    site_settings.USER_EMAIL_SUBJECT_PREFIX + "Vos activités",  # subject
                     message,
                     self.from_address,  # From:
                     [participant.user.email],  # To:
@@ -550,9 +489,7 @@ class SendUserEmail(SendEmailBase):
             "Nombre total de mail envoyés: {}\n\n"
             "{}".format(nb_sent, site_settings.EMAIL_SIGNATURE),
         )
-        messages.success(
-            self.request, "{} mails envoyés aux utilisateurs".format(nb_sent)
-        )
+        messages.success(self.request, "{} mails envoyés aux utilisateurs".format(nb_sent))
 
 
 class SendOrgaEmail(SendEmailBase):
@@ -563,9 +500,7 @@ class SendOrgaEmail(SendEmailBase):
 
     def get_emails(self) -> List[EMAIL]:
         """genere les mails a envoyer"""
-        activities = models.ActivityModel.objects.filter(
-            display=True, communicate_participants=True
-        )
+        activities = models.ActivityModel.objects.filter(display=True, communicate_participants=True)
         emails = []
         settings = SiteSettings.load()
         for activity in activities:
@@ -581,9 +516,7 @@ class SendOrgaEmail(SendEmailBase):
             emails.append(
                 (
                     site_settings.USER_EMAIL_SUBJECT_PREFIX
-                    + "Liste d'inscrits à votre activité {}".format(
-                        activity.title
-                    ),  # subject
+                    + "Liste d'inscrits à votre activité {}".format(activity.title),  # subject
                     message,
                     self.from_address,  # From:
                     [activity.host_email],  # To:
@@ -627,9 +560,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             users = EmailUser.objects.filter(is_active=True)
             return [u.email for u in users]
         elif selection == Recipients.REGISTERED:
-            participants = models.ParticipantModel.objects.filter(
-                is_registered=True, user__is_active=True
-            )
+            participants = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True)
             return [p.user.email for p in participants]
         else:
             raise ValueError("Invalid selection specifier\n")
@@ -644,9 +575,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
         if not self.sending_allowed():
-            messages.error(
-                self.request, "L'envoi de mail de masse est désactivé dans les réglages"
-            )
+            messages.error(self.request, "L'envoi de mail de masse est désactivé dans les réglages")
         else:
             dest = form.cleaned_data["dest"]
             subject = form.cleaned_data["subject"]
@@ -675,9 +604,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
     def get_context_data(self, *args, **kwargs) -> Dict[str, Any]:
         """ajoute l'email d'envoie aux données contextuelles"""
         context = super().get_context_data(*args, **kwargs)
-        context["from_email"] = (
-            self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
-        )
+        context["from_email"] = self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
         context["registered_nb"] = models.ParticipantModel.objects.filter(
             is_registered=True, user__is_active=True
         ).count()
@@ -687,7 +614,5 @@ class NewEmail(SuperuserRequiredMixin, FormView):
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if self.sending_allowed():
             return super().get(request, *args, **kwargs)
-        messages.error(
-            request, "L'envoi de mail de masse est désactivé dans les réglages"
-        )
+        messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")
         return HttpResponseRedirect(self.get_success_url())

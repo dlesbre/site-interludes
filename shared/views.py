@@ -46,9 +46,7 @@ class CSVWriteView(View, Generic[M]):
         if self.model:
             return self.model.objects.all()
         raise NotImplementedError(
-            "{}.get_values() isn't implemented when model is None".format(
-                self.__class__.__name__
-            )
+            "{}.get_values() isn't implemented when model is None".format(self.__class__.__name__)
         )
 
     def get_field_names(self) -> List[str]:
@@ -58,11 +56,7 @@ class CSVWriteView(View, Generic[M]):
         - all fields minus those in exclude_fields otherwise"""
         if self.fields is not None:
             return self.fields
-        return [
-            field.name
-            for field in self.model._meta.get_fields()
-            if field.name not in self.exclude_fields
-        ]
+        return [field.name for field in self.model._meta.get_fields() if field.name not in self.exclude_fields]
 
     def get_rows(self) -> List[List[str]]:
         """overload this to return the list of rows"""
@@ -78,9 +72,7 @@ class CSVWriteView(View, Generic[M]):
         filename = self.get_filename()
         if not filename.endswith(".csv"):
             filename += ".csv"
-        response["Content-Disposition"] = 'attachment; filename="{}"'.format(
-            self.filename
-        )
+        response["Content-Disposition"] = 'attachment; filename="{}"'.format(self.filename)
 
         writer = csv.writer(response)
         headers = self.get_headers()

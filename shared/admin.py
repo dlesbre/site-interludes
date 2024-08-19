@@ -33,9 +33,7 @@ class ExportCsvMixin(ModelAdmin, Generic[T]):
             return self.filename
         return str(self.model._meta)
 
-    def export_as_csv(
-        self, request: HttpRequest, queryset: QuerySet[T]
-    ) -> HttpResponse:
+    def export_as_csv(self, request: HttpRequest, queryset: QuerySet[T]) -> HttpResponse:
         """renvoie un fichier CSV contenant l'information du queryset"""
         view = CSVWriteViewForAdmin[T](
             request=request,

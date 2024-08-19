@@ -105,21 +105,15 @@ class SiteSettings(SingletonModel):
     price_entry_unpaid = models.DecimalField(
         "prix d'inscription (non-salarié)", decimal_places=2, max_digits=5, default=0
     )
-    price_entry_paid = models.DecimalField(
-        "prix d'inscription (salarié)", decimal_places=2, max_digits=5, default=0
-    )
+    price_entry_paid = models.DecimalField("prix d'inscription (salarié)", decimal_places=2, max_digits=5, default=0)
 
     def price_entry(self) -> str:
         if self.price_entry_paid == self.price_entry_unpaid:
             return "{}€".format(self.price_entry_paid)
         return "{}€ / {}€".format(self.price_entry_paid, self.price_entry_unpaid)
 
-    price_meal_unpaid = models.DecimalField(
-        "prix d'un repas (non-salarié)", decimal_places=2, max_digits=5, default=0
-    )
-    price_meal_paid = models.DecimalField(
-        "prix d'un repas (salarié)", decimal_places=2, max_digits=5, default=0
-    )
+    price_meal_unpaid = models.DecimalField("prix d'un repas (non-salarié)", decimal_places=2, max_digits=5, default=0)
+    price_meal_paid = models.DecimalField("prix d'un repas (salarié)", decimal_places=2, max_digits=5, default=0)
 
     def price_meal(self) -> str:
         if self.price_meal_paid == self.price_meal_unpaid:
@@ -129,9 +123,7 @@ class SiteSettings(SingletonModel):
     price_sleep_unpaid = models.DecimalField(
         "prix d'hébergement (non-salarié)", decimal_places=2, max_digits=5, default=0
     )
-    price_sleep_paid = models.DecimalField(
-        "prix d'hébergement (salarié)", decimal_places=2, max_digits=5, default=0
-    )
+    price_sleep_paid = models.DecimalField("prix d'hébergement (salarié)", decimal_places=2, max_digits=5, default=0)
 
     def price_sleep(self) -> str:
         if self.price_sleep_paid == self.price_sleep_unpaid:
@@ -151,31 +143,15 @@ class SiteSettings(SingletonModel):
         default=0,
     )
 
-    meal_sunday_evening = models.BooleanField(
-        "Repas dimanche soir (à emporter)", default=True
-    )
+    meal_sunday_evening = models.BooleanField("Repas dimanche soir (à emporter)", default=True)
 
-    menu_friday_evening = models.CharField(
-        "Menu du repas de vendredi soir", blank=True, max_length=400, default=""
-    )
-    menu_saturday_morning = models.CharField(
-        "Menu du repas de samedi matin", blank=True, max_length=400, default=""
-    )
-    menu_saturday_midday = models.CharField(
-        "Menu du repas de samedi midi", blank=True, max_length=400, default=""
-    )
-    menu_saturday_evening = models.CharField(
-        "Menu du repas de samedi soir", blank=True, max_length=400, default=""
-    )
-    menu_sunday_morning = models.CharField(
-        "Menu du repas de dimanche matin", blank=True, max_length=400, default=""
-    )
-    menu_sunday_midday = models.CharField(
-        "Menu du repas de dimanche midi", blank=True, max_length=400, default=""
-    )
-    menu_sunday_evening = models.CharField(
-        "Menu du repas de dimanche soir", blank=True, max_length=400, default=""
-    )
+    menu_friday_evening = models.CharField("Menu du repas de vendredi soir", blank=True, max_length=400, default="")
+    menu_saturday_morning = models.CharField("Menu du repas de samedi matin", blank=True, max_length=400, default="")
+    menu_saturday_midday = models.CharField("Menu du repas de samedi midi", blank=True, max_length=400, default="")
+    menu_saturday_evening = models.CharField("Menu du repas de samedi soir", blank=True, max_length=400, default="")
+    menu_sunday_morning = models.CharField("Menu du repas de dimanche matin", blank=True, max_length=400, default="")
+    menu_sunday_midday = models.CharField("Menu du repas de dimanche midi", blank=True, max_length=400, default="")
+    menu_sunday_evening = models.CharField("Menu du repas de dimanche soir", blank=True, max_length=400, default="")
 
     def menus(self) -> bool:
         """Check if any menu is defined before displaying them"""
@@ -192,13 +168,9 @@ class SiteSettings(SingletonModel):
     def price_sunday_meal(self) -> str:
         if self.price_sunday_meal_paid == self.price_sunday_meal_unpaid:
             return "{}€".format(self.price_sunday_meal_paid)
-        return "{}€ / {}€".format(
-            self.price_sunday_meal_paid, self.price_sunday_meal_unpaid
-        )
+        return "{}€ / {}€".format(self.price_sunday_meal_paid, self.price_sunday_meal_unpaid)
 
-    registrations_open = models.BooleanField(
-        "Ouvrir la création de compte", default=True
-    )
+    registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
     inscriptions_open = models.BooleanField(
         "Ouvrir les inscriptions",
         default=False,
@@ -258,9 +230,7 @@ class SiteSettings(SingletonModel):
         help_text="Une fois que l'allocation des activités a été effectuée.",
     )
 
-    discord_link = models.CharField(
-        "Lien du serveur discord", max_length=200, blank=True, null=True
-    )
+    discord_link = models.CharField("Lien du serveur discord", max_length=200, blank=True, null=True)
 
     allow_mass_mail = models.BooleanField(
         "Permettre l'envoi de mails collectifs (aux utilisateurs et orgas)",

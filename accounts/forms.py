@@ -70,9 +70,7 @@ class UpdateAccountForm(FormRenderMixin, forms.ModelForm):
             return email  # type: ignore
         norm_email = normalize_email(email)
         if EmailUser.objects.filter(email=norm_email).count() > 0:
-            raise forms.ValidationError(
-                "Un autre compte avec cette adresse mail existe déjà."
-            )
+            raise forms.ValidationError("Un autre compte avec cette adresse mail existe déjà.")
         return norm_email
 
     def save(self, commit=True) -> Any:
@@ -130,9 +128,7 @@ class UpdatePasswordForm(FormRenderMixin, forms.Form):
         if not password:
             return None
         if password != password_confirm:
-            raise forms.ValidationError(
-                "Les deux mots de passe ne sont pas identiques."
-            )
+            raise forms.ValidationError("Les deux mots de passe ne sont pas identiques.")
         return cleaned_data
 
     def apply(self):
