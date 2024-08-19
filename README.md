@@ -198,6 +198,11 @@ directement la base de donnée. Descriptif rapide des tables intéressantes :
 	- Ajouter une version PDF du planning (pour mobiles)
 	- Ajouter l'affiche (visible sur la page d'accueil)
 
+
+	De nombreux champs dans les paramètres sont purement informationnels et ne servent
+	qu'à mettre à jour l'affichage dans certaines pages, mais certains servent
+	à activer/désactiver des fonctionnalités du site (inscription, soumission d'activités, ...).
+
 - Activités - liste des activités prévues. C'est ici que vous pouvez
 	rajouter/modifier les activités qui s'affichent sur la page activité. Un
 	formulaire permet aux utilisateurs de proposer des activités directement. Il
