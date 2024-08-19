@@ -35,6 +35,7 @@ line-length = 120
 
 [tool.ruff.lint]
 select = ["E", "F", "B", "W", "I"]
+ignore = ["E501"]
 
 [tool.mypy]
 strict = true

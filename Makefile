@@ -158,7 +158,7 @@ format-check: ## Check that all files are formatted and lint
 	$(call print,Running ruff format)
 	ruff format --exclude migrations --check
 	$(call print,Running ruff check)
-	ruff --exclude migrations check
+	ruff check --exclude migrations
 
 # =================================================
 # Installation
