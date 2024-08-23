@@ -28,7 +28,7 @@
 			{% endif %}
 		</table>
 
-		<p>Les menus sont disponibles sur la <a href="{% url 'home' %}">page d'accueil</a>
+		<p>Les menus sont disponibles sur la <a href="{% url 'home' %}#menus">page d'accueil</a>
 
 		<h3>Hébergement</h3>
 
@@ -48,6 +48,8 @@
 		<h3>Tarif</h3>
 		<p>Le tarif est différent selon si vous percevez un salaire ou non.</p>
 		<p>Êtes-vous salarié⋅e : {{ form.paid }}</p>
+
+		<p>Les tarifs sont disponibles sur la <a href="{% url 'home' %}#tarifs">page d'accueil</a>
 
 	<h2>Inscription aux activités</h2>
 		

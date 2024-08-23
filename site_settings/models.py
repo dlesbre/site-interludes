@@ -6,6 +6,7 @@ from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 
 
 class Colors(models.TextChoices):
@@ -78,6 +79,15 @@ class SingletonModel(models.Model):
         cache.set(self.__class__.__name__, self)
 
 
+class ENS(models.TextChoices):
+    """enum representant les ENS"""
+
+    ENS_ULM = "U", _("ENS Ulm")
+    ENS_LYON = "L", _("ENS Lyon")
+    ENS_RENNES = "R", _("ENS Rennes")
+    ENS_CACHAN = "C", _("ENS Paris Saclay")
+
+
 class SiteSettings(SingletonModel):
     """Réglages globaux du site
 
@@ -87,10 +97,7 @@ class SiteSettings(SingletonModel):
 
     contact_email = models.EmailField("Email contact", blank=True, null=True)
     hosting_school = models.CharField(
-        "École hébergeant l'événement",
-        max_length=50,
-        blank=True,
-        null=True,
+        "École hébergeant l'événement", max_length=1, choices=ENS.choices, default=ENS.ENS_ULM
     )
     ticket_url = models.CharField(
         "Lien billeterie",
@@ -223,6 +230,20 @@ class SiteSettings(SingletonModel):
         blank=True,
         storage=OverwriteStorage("AfficheInterludes"),
     )
+    logo = models.FileField(
+        verbose_name="Logo",
+        help_text="Apparait dans le header",
+        null=True,
+        blank=True,
+        storage=OverwriteStorage("LogoInterludes"),
+    )
+    favicon = models.FileField(
+        verbose_name="Favicon",
+        help_text="Icône du site, image au format .ico",
+        null=True,
+        blank=True,
+        storage=OverwriteStorage("favicon"),
+    )
 
     activities_allocated = models.BooleanField(
         "Afficher les activités obtenues",
@@ -231,6 +252,12 @@ class SiteSettings(SingletonModel):
     )
 
     discord_link = models.CharField("Lien du serveur discord", max_length=200, blank=True, null=True)
+    sleeper_link = models.CharField(
+        "Lien du formulaire de demande d'hébergement", max_length=200, blank=True, null=True
+    )
+    sleep_host_link = models.CharField(
+        "Lien du formulaire de proposition d'hébergement", max_length=200, blank=True, null=True
+    )
 
     allow_mass_mail = models.BooleanField(
         "Permettre l'envoi de mails collectifs (aux utilisateurs et orgas)",

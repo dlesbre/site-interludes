@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import EmailUser
-from site_settings.models import Colors, SiteSettings
+from site_settings.models import ENS, Colors, SiteSettings
 
 
 def validate_nonzero(value):
@@ -335,14 +335,6 @@ class SlotModel(models.Model):
 class ParticipantModel(models.Model):
     """un participant aux interludes"""
 
-    class ENS(models.TextChoices):
-        """enum representant les ENS"""
-
-        ENS_ULM = "U", _("ENS Ulm")
-        ENS_LYON = "L", _("ENS Lyon")
-        ENS_RENNES = "R", _("ENS Rennes")
-        ENS_CACHAN = "C", _("ENS Paris Saclay")
-
     user = models.OneToOneField(EmailUser, on_delete=models.CASCADE, related_name="Utilisateur")
     school = models.CharField("ENS de rattachement", choices=ENS.choices, max_length=1)
 
@@ -369,7 +361,7 @@ class ParticipantModel(models.Model):
     amount_paid = models.PositiveIntegerField("Montant payé", default=0)
 
     def __str__(self) -> str:
-        school = self.ENS(self.school).label.replace("ENS ", "") if self.school else ""
+        school = ENS(self.school).label.replace("ENS ", "") if self.school else ""
         return "{} {} ({})".format(self.user.first_name, self.user.last_name, school)
 
     def nb_meals(self) -> int:

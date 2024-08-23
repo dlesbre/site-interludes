@@ -33,6 +33,8 @@ class SiteSettingsAdmin(SingletonModelAdmin):
                     ("date_start", "date_end"),
                     "discord_link",
                     "affiche",
+                    "logo",
+                    "favicon",
                 ]
             },
         ),
@@ -69,6 +71,8 @@ class SiteSettingsAdmin(SingletonModelAdmin):
                     "inscriptions_open",
                     "activity_inscriptions_open",
                     ("inscriptions_start", "inscriptions_end"),
+                    "sleeper_link",
+                    "sleep_host_link",
                 ]
             },
         ),

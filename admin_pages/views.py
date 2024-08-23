@@ -15,7 +15,7 @@ from home import models
 from home.views import get_planning_context
 from interludes import settings as site_settings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
-from site_settings.models import Colors, SiteSettings
+from site_settings.models import ENS, Colors, SiteSettings
 
 # ==============================
 # Main Admin views
@@ -36,10 +36,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         class metrics:
             participants = registered.count()
-            ulm = registered.filter(school=models.ParticipantModel.ENS.ENS_ULM).count()
-            lyon = registered.filter(school=models.ParticipantModel.ENS.ENS_LYON).count()
-            rennes = registered.filter(school=models.ParticipantModel.ENS.ENS_RENNES).count()
-            saclay = registered.filter(school=models.ParticipantModel.ENS.ENS_CACHAN).count()
+            ulm = registered.filter(school=ENS.ENS_ULM).count()
+            lyon = registered.filter(school=ENS.ENS_LYON).count()
+            rennes = registered.filter(school=ENS.ENS_RENNES).count()
+            saclay = registered.filter(school=ENS.ENS_CACHAN).count()
             non_registered = EmailUser.objects.filter(is_active=True).count() - participants
             # mugs = registered.filter(mug=True).count()
             sleeps = registered.filter(sleeps=True).count()
@@ -366,7 +366,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
                     profile.user.email,
                     profile.user.first_name,
                     profile.user.last_name,
-                    profile.school,
+                    profile.get_school_display(),
                     profile.sleeps,
                     # profile.mug,
                     profile.nb_meals(),

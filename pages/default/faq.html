@@ -61,7 +61,7 @@
 	et non-salarié·es.
 	<ul>
 		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}</li>
-		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }}</li>
+		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }} par repas</li>
 		<li><strong>Repas du dimanche soir (à emporter) :</strong> {{ settings.price_sunday_meal }}</li>
 		<li><strong>Logement en tente :</strong> {{ settings.price_sleep }}</li>
 	</ul>
@@ -96,14 +96,25 @@
 </p>
 
 <h2>Comment se rendre à l'événement&nbsp;?</h2>
-<!-- ENS ULM
+
+{% if settings.hosting_school == "U" %}
+
 <div>
 	<p class="centered">
 		<i class="fas fa-map-marker-alt"></i>
 		45 rue d'Ulm, 75005 Paris
 	</p>
 
-	<iframe id="interactive-map" width="750" height="400" src="https://www.openstreetmap.org/export/embed.html?bbox=2.334809303283692%2C48.8368567401711%2C2.3548936843872075%2C48.84636099015179&amp;layer=hot&amp;marker=48.841602029496684%2C2.344851493835449"></iframe>
+	<iframe id="interactive-map" width="750" height="400"
+		src="https://www.openstreetmap.org/export/embed.html?bbox=2.334809303283692%2C48.8368567401711%2C2.3548936843872075%2C48.84636099015179&amp;layer=transportmap&amp;marker=48.8418976%2C2.3448341">
+	</iframe>
+
+	<p class="centered">
+		<a href="https://www.openstreetmap.org/#map=16/48.841962/2.344412&layers=T">
+			<i class="fas fa-map"></i>
+			Voir sur OpenStreetMap
+		</a>
+	</p>
 </div>
 
 <div id="public-transport-info">
@@ -134,9 +145,10 @@
 		<img src="{% static 'imgs/ratp/noctilien-122.svg' %}" alt="Noctilien 122">
 	</div>
 	<span id="transport-ratp-noctilien-stop">Auguste Comte</span>
-</div> -->
+</div> 
 
-<!-- ENS Lyon
+{% elif settings.hosting_school == "L" %}
+
 <div>
 	<p class="centered">
 		<i class="fas fa-map-marker-alt"></i>
@@ -144,7 +156,15 @@
 	</p>
 
 	<iframe id="interactive-map" width="750" height="400"
-		src="https://www.openstreetmap.org/export/embed.html?bbox=4.82691%2C45.73663%2C4.84084%2C45.72936&amp;layer=hot&amp;marker=45.73298%2C4.83397"></iframe>
+		src="https://www.openstreetmap.org/export/embed.html?bbox=4.82691%2C45.73663%2C4.84084%2C45.72936&amp;layer=transportmap&amp;marker=45.73298%2C4.83397">
+	</iframe>
+
+	<p class="centered">
+		<a href="https://www.openstreetmap.org/#map=16/45.73298/4.83397&layers=T">
+			<i class="fas fa-map"></i>
+			Voir sur OpenStreetMap
+		</a>
+	</p>
 </div>
 
 <div id="public-transport-info">
@@ -167,21 +187,26 @@
 		<img src="{% static 'imgs/tcl/64.svg' %}" alt="Bus 64">
 	</div>
 	<span id="transport-tcl-stop">Arrêt : Debourg</span>
-</div> -->
+</div>
 
-<p>Les Interludes se déroule à l'ENS Paris-Saclay : 4 avenue des Sciences, 91190 Gif-sur-Yvette. L'accueil se fait par l'entrée principale.</p>
-<p class="centered">
-	<i class="fas fa-map-marker-alt"></i>
-	4 avenue des Sciences, 91190 Gif-sur-Yvette
-</p>
+{% elif settings.hosting_school == "C" %}
+
 <div>
 	<p class="centered">
-	
-	<iframe width="750" height="400" 
-		frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=2.1628072857856755%2C48.71179934847555%2C2.1672758460044865%2C48.71333201299027&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/>
-		<small><a href="https://www.openstreetmap.org/#map=19/48.71257/2.16504">View Larger Map</a></small>
+		<i class="fas fa-map-marker-alt"></i>
+		4 avenue des Sciences, 91190 Gif-sur-Yvette
 	</p>
 
+	<iframe id="interactive-map" width="750" height="400" 
+		src="https://www.openstreetmap.org/export/embed.html?bbox=2.1523976325988774%2C48.707615255234685%2C2.172482013702393%2C48.71721479009233&amp;layer=transportmap&amp;marker=48.712535%2C2.165009">
+	</iframe>
+	
+	<p class="centered">
+		<a href="https://www.openstreetmap.org/#map=16/48.712535/2.165009&layers=T">
+			<i class="fas fa-map"></i>
+			Voir sur OpenStreetMap
+		</a>
+	</p>
 </div>
 
 <div id="public-transport-info">
@@ -196,6 +221,44 @@
 	</div>
 	<span id="transport-tcl-stop">Arrêt : Moulon</span>
 </div>
+
+{% elif settings.hosting_school == "R" %}
+
+<div>
+	<p class="centered">
+		<i class="fas fa-map-marker-alt"></i>
+		11 Avenue Robert Schuman, Campus de Ker Lann, 35170 Bruz
+	</p>
+
+	<iframe id="interactive-map" width="750" height="400" 
+		src="https://www.openstreetmap.org/export/embed.html?bbox=-1.7628335952758791%2C48.04089163879848%2C-1.7352390289306643%2C48.050617715857555&amp;layer=transportmap&amp;marker=48.045662%2C-1.746086">
+	</iframe>
+
+	<p class="centered">
+		<a href="https://www.openstreetmap.org/#map=16/48.045662/-1.746086&layers=T">
+			<i class="fas fa-map"></i>
+			Voir sur OpenStreetMap
+		</a>
+	</p>
+		
+	<p class="centered">
+		<img width="750" height="350" src="/static/imgs/plan_ens_rennes.png" alt="Plan ENS Rennes" title="Plan ENS Rennes">
+	</p>
+</div>
+
+<div id="public-transport-info">
+	<div id="transport-tcl-bus-1">
+		C7 de jour (Arrêt Schuman)
+	</div>
+	<div id="transport-tcl-bus-2">
+		N3 de nuit (Arrêt Schuman)
+	</div>
+	<div id="transport-tcl-bus-3">
+		TER (Arrêt Ker Lann)
+	</div>
+</div>
+
+{% endif %}
 
 <h2>Comment sont réparties les activités&nbsp;?</h2>
 	<p>
