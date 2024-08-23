@@ -13,7 +13,24 @@
 		ici, je recommande vivement de lire le <a href="{% url 'admin_pages:info' %}">guide de l'administrateur</a>.
 	</p>
 	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }}</strong></p>
-	<div class="flex wrap">
+
+	<h3>Export des tables de la base de données</h3>
+
+	<ul class="messagelist">
+		<li class="warning">
+			En tant qu'administrateur, vous êtes responsables de la gestion de données
+			personnelles stockées sur ce site (notamment email et qui est/n'est pas salarié).
+			Ne diffusez pas ces informations à tout va. S'il faut les partager, supprimez 
+			toutes les lignes et colonnes non pertinentes avant (pour gérer les paiements,
+			un BdE n'a besoin que des colonnes noms et tarifs des élèves de son école).
+
+			<p>Une fois l'évènement terminée, vous êtes également responsable de la suppression
+			de ces données de la base de donnée, ainsi que de toutes les copies/export
+			qui en ont été faites.</p>
+		</li>
+	</ul>
+
+	<div class="flex wrap center">
 		<a class="button" href="{% url 'admin_pages:participants.csv' %}"><i class="fa fa-download"></i> Participants</a>
 		<a class="button" href="{% url 'admin_pages:activities.csv' %}"><i class="fa fa-download"></i> Activités</a>
 		<a class="button" href="{% url 'admin_pages:slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>
@@ -27,6 +44,8 @@
 
 	<h2>Paramètres du site</h2>
 
+		Les paramètres se modifient depuis la
+		<a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">page d'administration de Django</a>.
 		<ul>
 			<li>La création de compte est {% if settings.registrations_open %}ouverte{% else %}fermée{% endif %}.</li>
 			<li>Les inscriptions sont {% if settings.inscriptions_open %}ouvertes{% else %}fermées{% endif %}. Dates informatives:
