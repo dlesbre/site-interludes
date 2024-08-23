@@ -415,6 +415,8 @@ class ParticipantModel(models.Model):
     def cost(self) -> Decimal:
         return self.cost_entry() + self.cost_meals() + self.cost_sleep()
 
+    cost.short_description = "tarif"
+
     class Meta:
         verbose_name = "participant"
 

@@ -161,7 +161,7 @@ class ParticipantModelAdmin(ExportCsvMixin):
         "amount_paid",
         "comment",
     )
-    list_display = ("user", "school", "is_registered", "comment")
+    list_display = ("user", "school", "is_registered", "comment", "cost")
     list_filter = (
         "school",
         "is_registered",
