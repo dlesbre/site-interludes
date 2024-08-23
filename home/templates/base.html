@@ -119,6 +119,37 @@
 
 	<footer>
 		<div id="sponsors">
+			{% if settings.hosting_school == "U" %}
+			<a class="external" href="https://www.ens.psl.eu/">
+				<img src="{% static 'imgs/2021/ens_psl.png' %}"
+					alt="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"
+					title="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"
+				/>
+			</a>
+			<a class="external" href="https://cof.ens.fr/">
+				<img src="{% static 'imgs/2021/cof.svg' %}"
+					alt="COF de l'ENS"
+					title="COF de l'ENS"
+				/>
+			</a>
+			{% elif settings.hosting_school == "L" %}
+			<a class="external" href="https://www.ens-lyon.fr/">
+				<img src="{% static 'imgs/2022/ens_lyon.svg' %}" alt="École Normale Supérieure de Lyon"
+					title="École Normale Supérieure de Lyon" />
+			</a>
+			<a class="external" href="https://discord.gg/27QWSDUNgM">
+    			<img src="{% static 'imgs/2022/bul.png' %}" alt="Bureau Ludique de l'ENS de Lyon"
+    				title="Bureau Ludique de l'ENS de Lyon" />
+			</a>
+			<a class="external" href="https://www.trollune.fr/">
+    			<img src="{% static 'imgs/2022/trollune.png' %}" alt="Trollune"
+    				title="Trollune" />
+			</a>
+			<a class="external" href="https://www.3ptitspois.fr/">
+    			<img src="{% static 'imgs/2022/trois_ptits_pois.png' %}" alt="Trois Ptits Pois"
+    				title="Trois Ptits Pois" />
+			</a>
+			{% elif settings.hosting_school == "C" %}
 			<a class="external" href="https://www.ens-paris-saclay.fr/">
 				<img src="{% static 'imgs/2023/ens_ps.png' %}" alt="École Normale Supérieure Paris-Saclay"
 					title="École Normale Supérieure Paris-Saclay" />
@@ -127,6 +158,21 @@
     			<img src="{% static 'imgs/2023/bdl.png' %}" alt="Bureau des Loisirs de l'ENS de Paris-Saclay"
     				title="Bureau des Loisirs de l'ENS Paris-Saclay" />
 			</a>
+			{% elif settings.hosting_school == "R" %}
+			<a class="external" href="https://www.ens-rennes.fr/">
+				<img src="{% static 'imgs/2024/ens_rennes.png' %}" 
+					alt="Êcole Normale Supérieure Rennes" 
+					title="Êcole Normale Supérieure Rennes">
+			</a>
+			<a class="external" href="https://www.instagram.com/bdaensrennes/">
+				<img src="{% static '/imgs/2024/bda_rennes.png' %}" 
+					alt="Bureau des Arts" title="Bureau des Arts">
+			</a>
+			<a class="external" href="https://www.crous-rennes.fr/">
+				<img src="{% static '/imgs/2024/crous_bretagne.png' %}" 
+					alt="Crous Bretagne" title="Crous Bretagne">
+			</a>
+			{% endif %}
 		</div>
 		<p>
 			{% if settings.contact_email %}
