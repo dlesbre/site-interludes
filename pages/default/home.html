@@ -52,18 +52,18 @@
 		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
 	{% endif %}
 
-<h2>Tarifs</h2>
+<h2 id="tarifs">Tarifs</h2>
 <p>
 	Les tarifs sont différenciés entre salarié·es et non-salarié·es.
 	<ul>
 		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}</li>
-		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }}</li>
+		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }} par repas</li>
 		<li><strong>Repas du dimanche soir (à emporter) :</strong> {{ settings.price_sunday_meal }}</li>
 		<li><strong>Logement en tente :</strong> {{ settings.price_sleep }}</li>
 	</ul>
 </p>
 
-<h2>Menu des repas</h2>
+<h2 id="menus">Menu des repas</h2>
 {% if settings.menus %}
 <p>
 	Cette année, le menu sera entièrement végétarien, avec options végan et/ou sans gluten possibles.
