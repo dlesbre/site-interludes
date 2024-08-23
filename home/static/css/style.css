@@ -7,7 +7,8 @@
 	--color_header: #e4e4e4;
 }
 
-html, body {
+html,
+body {
 	background-color: #dddddd;
 	color: #333;
 	font-weight: 300;
@@ -40,22 +41,27 @@ header {
 	width: calc(100% - 80px);
 }
 
-header > * {
+header>* {
 	color: var(--color_header);
 }
 
-header h1, header h1 a, header h1 a:visited, header h1 a:active {
+header h1,
+header h1 a,
+header h1 a:visited,
+header h1 a:active {
 	color: inherit;
 	font-size: 70px;
 	text-decoration: none;
 	margin: 10px 0;
 	flex: 1;
 }
+
 header h1 a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
 header h1 img {
 	height: 80px;
 }
@@ -69,27 +75,38 @@ header #head_main_infos {
 }
 
 @media (max-width: 800px) {
-	header h1, header h1 a {
+
+	header h1,
+	header h1 a {
 		font-size: 50px;
 	}
+
 	header h1 img {
 		height: 60px;
 	}
+
 	header #head_main_infos {
 		font-size: 15pt;
 	}
 }
+
 @media (max-width: 700px) {
-	header, header h1 a {
+
+	header,
+	header h1 a {
 		flex-direction: column;
 	}
-	header h1, header h1 a {
+
+	header h1,
+	header h1 a {
 		font-size: 30px;
 	}
+
 	header #head_main_infos {
 		font-size: 12pt;
 		flex-direction: row;
 	}
+
 	header #head_main_infos div {
 		padding: 0 10px 10px;
 	}
@@ -97,7 +114,7 @@ header #head_main_infos {
 
 div.easter_egg {
 	display: inline-block;
-  }
+}
 
 #circle {
 	-webkit-clip-path: circle(50% at 50% 50%);
@@ -135,6 +152,7 @@ nav a:hover {
 	background-color: var(--color_bg_3);
 	transition-duration: 0.5s;
 }
+
 nav a:focus {
 	background-color: var(--color_bg_3);
 }
@@ -143,35 +161,44 @@ nav a:focus {
 nav a.current {
 	background-color: var(--color_bg_1);
 }
+
 nav a.icon {
-  display: none;
+	display: none;
 	width: 40px;
 }
- /* hide all links except home and display menu icon */
+
+/* hide all links except home and display menu icon */
 @media (max-width: 600px) {
 	nav {
 		padding: 0;
 	}
-  nav a:not(:first-child) {display: none;}
-  nav a.icon {
-    float: right;
-    display: block;
-  }
+
+	nav a:not(:first-child) {
+		display: none;
+	}
+
+	nav a.icon {
+		float: right;
+		display: block;
+	}
+
 	/* The "responsive" class is added bu JS when the user click the menu icon */
-  nav.responsive {
+	nav.responsive {
 		position: relative;
-    flex-direction: column;
+		flex-direction: column;
 		justify-content: start;
 	}
-  nav.responsive a.icon {
-    position: absolute;
-    right: 0px;
-    top: 0;
-  }
-  nav.responsive a {
+
+	nav.responsive a.icon {
+		position: absolute;
+		right: 0px;
+		top: 0;
+	}
+
+	nav.responsive a {
 		float: none;
 		display: block;
-  }
+	}
 
 }
 
@@ -181,9 +208,9 @@ nav a.icon {
 
 main {
 	background-color: var(--color-bg);
-  justify-content: center;
+	justify-content: center;
 	text-align: justify;
-	padding: 1px 30px 50px;
+	padding: 1px 30px 80px;
 	max-width: 920px;
 	margin: 0 auto 0 auto;
 }
@@ -198,6 +225,7 @@ main h2 {
 	border-image-source: linear-gradient(to right, var(--color_bg_1) 0%, transparent 75%);
 	border-image-slice: 1;
 }
+
 main h3 {
 	color: var(--color_bg_2);
 	font-size: 1.2rem;
@@ -207,14 +235,17 @@ main h3 {
 	border-image-source: linear-gradient(to right, var(--color_bg_1) 0%, transparent 75%);
 	border-image-slice: 1;
 }
+
 @media (max-width: 600px) {
 	main {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
+
 	main h2 {
 		font-size: 1.1rem;
 	}
+
 	main h3 {
 		font-size: 1rem;
 	}
@@ -228,6 +259,7 @@ main p {
 strong {
 	font-weight: bold;
 }
+
 .underline {
 	text-decoration: underline;
 }
@@ -241,6 +273,7 @@ main a:link {
 .flex {
 	display: flex;
 }
+
 .wrap {
 	flex-flow: row wrap;
 	flex-wrap: wrap;
@@ -260,20 +293,25 @@ main a:link {
 	border-bottom: 2px solid #333;
 	justify-content: left
 }
+
 .stat {
 	min-width: 100px;
 	text-align: center;
 	padding: 5px;
 }
+
 .stat .qty {
 	font-size: 1.2em;
 }
+
 .stat .nb_big {
 	font-size: 3em;
 }
+
 .stat .nb_small {
 	font-size: 2em;
 }
+
 @media (max-width:600px) {
 	.stat {
 		min-width: 0;
@@ -292,23 +330,28 @@ dl {
 	padding-left: 10px;
 	margin-bottom: 5px;
 }
+
 dl dt {
 	justify-self: end;
 	text-align: right;
 	font-weight: bold;
 }
+
 dl dd {
 	margin: 0 10px;
 	justify-self: start;
 	text-align: left;
 }
+
 div.desc {
 	margin-top: 0;
 	padding: 0 10px 20px;
 }
+
 div.desc p {
 	margin: 0;
 }
+
 div.desc p.indent {
 	text-indent: 25px;
 }
@@ -317,7 +360,10 @@ div.desc p.indent {
 // Forms
 // =========================== */
 
-.button, .button:link, .button:visited, input[type=submit] {
+.button,
+.button:link,
+.button:visited,
+input[type=submit] {
 	color: white;
 	text-decoration: none;
 	font-size: 1em;
@@ -327,10 +373,15 @@ div.desc p.indent {
 	border-width: 0;
 	cursor: pointer;
 }
-.button:hover, input[type=submit]:hover {
+
+.button:hover,
+input[type=submit]:hover {
 	background-color: var(--color_bg_2);
 }
-.disabled, .disabled:hover, .disabled:visited {
+
+.disabled,
+.disabled:hover,
+.disabled:visited {
 	color: black;
 	background-color: #888;
 	cursor: not-allowed;
@@ -346,6 +397,7 @@ span.helptext {
 	flex-grow: 1;
 	max-width: 500px;
 }
+
 .activity-form select {
 	width: 100%;
 }
@@ -357,13 +409,16 @@ ul.errorlist {
 	padding: 0 5px 0 0;
 	margin: 0;
 }
+
 div.formfield {
 	padding-top: 5px
 }
+
 div.label_line {
 	font-weight: bold;
 	padding: 5px;
 }
+
 div.error {
 	color: red;
 	border: 2px solid red;
@@ -388,33 +443,42 @@ ul.messagelist li {
 	margin: 0 0 10px 0;
 	color: #333;
 }
+
 ul.messagelist li:before {
 	font-family: "Font Awesome 5 Free";
 	padding-right: 10px;
 	margin-left: -30px;
 	font-weight: 900;
 }
+
 ul.messagelist li.success {
 	background: #cfc;
 }
+
 ul.messagelist li.success:before {
 	content: "\f058";
 }
+
 ul.messagelist li.warning {
 	background: #ffc;
 }
+
 ul.messagelist li.warning:before {
 	content: "\f071";
 }
+
 ul.messagelist li.error {
 	background: #fcc;
 }
+
 ul.messagelist li.error:before {
 	content: "\f057";
 }
+
 ul.messagelist li.info {
 	background: #ccf;
 }
+
 ul.messagelist li.info:before {
 	content: "\f05a";
 }
@@ -442,15 +506,17 @@ ul.messagelist li.info:before {
 	white-space: nowrap;
 }
 
-#public-transport-info > * {
+#public-transport-info>* {
 	margin: 5px;
 	justify-self: left;
 }
+
 #public-transport-info img {
 	width: 40px;
 	height: 35px;
 	margin: 0 5px 0 0;
 }
+
 #transport-ratp-metro-icon,
 #transport-ratp-metro-stop,
 #transport-ratp-bus-1-icon,
@@ -459,6 +525,7 @@ ul.messagelist li.info:before {
 #transport-tcl-bus-1 {
 	grid-row: 1;
 }
+
 #transport-ratp-rer-icon,
 #transport-ratp-rer-stop,
 #transport-ratp-bus-2-icon,
@@ -468,22 +535,26 @@ ul.messagelist li.info:before {
 #transport-tcl-stop {
 	grid-row: 2;
 }
+
 #transport-ratp-noctilien-icon,
 #transport-ratp-noctilien-stop,
 #transport-tcl-tram-2,
 #transport-tcl-bus-3 {
 	grid-row: 3;
 }
+
 #transport-ratp-metro-icon,
-#transport-ratp-rer-icon{
+#transport-ratp-rer-icon {
 	grid-column: 1;
 	justify-self: end;
 }
+
 #transport-ratp-metro-stop,
 #transport-ratp-rer-stop,
 #transport-tcl-stop {
 	grid-column: 2;
 }
+
 #transport-ratp-bus-1-icon,
 #transport-ratp-bus-2-icon,
 #transport-ratp-noctilien-icon,
@@ -493,12 +564,13 @@ ul.messagelist li.info:before {
 	grid-column: 3;
 	justify-self: end;
 }
+
 #transport-ratp-bus-1-stop,
 #transport-ratp-bus-2-stop,
 #transport-ratp-noctilien-stop,
 #transport-tcl-bus-1,
 #transport-tcl-bus-2,
-#transport-tcl-bus-3  {
+#transport-tcl-bus-3 {
 	grid-column: 4;
 }
 
@@ -506,51 +578,61 @@ ul.messagelist li.info:before {
 	.centered {
 		font-size: 1.2rem;
 	}
+
 	#public-transport-info {
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: auto auto auto auto auto;
 		align-items: center;
 	}
+
 	#transport-ratp-metro-icon,
 	#transport-ratp-metro-stop {
 		grid-row: 1;
 	}
+
 	#transport-ratp-rer-icon,
 	#transport-ratp-rer-stop {
 		grid-row: 2;
 	}
+
 	#transport-ratp-bus-1-icon,
 	#transport-ratp-bus-1-stop {
 		grid-row: 3;
 	}
+
 	#transport-ratp-bus-2-icon,
 	#transport-ratp-bus-2-stop {
 		grid-row: 4;
 	}
+
 	#transport-ratp-noctilien-icon,
 	#transport-ratp-noctilien-stop {
 		grid-row: 5;
 	}
+
 	#transport-ratp-metro-icon,
 	#transport-ratp-rer-icon,
 	#transport-ratp-bus-1-icon,
 	#transport-ratp-bus-2-icon,
-	#transport-ratp-noctilien-icon  {
+	#transport-ratp-noctilien-icon {
 		grid-column: 1;
 		justify-self: end;
 	}
+
 	#transport-ratp-metro-stop,
 	#transport-ratp-rer-stop,
 	#transport-ratp-bus-1-stop,
 	#transport-ratp-bus-2-stop,
-	#transport-ratp-noctilien-stop  {
+	#transport-ratp-noctilien-stop {
 		grid-column: 2;
 	}
 }
+
 @media (max-width: 600px) {
 	#public-transport-info {
-	font-size: 1em;
+		font-size: 1em;
 	}
+
 	#public-transport-info img {
 		width: 30px;
 		height: 25px;
@@ -573,6 +655,7 @@ footer {
 	align-items: center;
 	justify-content: space-around;
 }
+
 footer a {
 	color: var(--color_header);
 }
@@ -588,13 +671,16 @@ footer #sponsors img {
 	main {
 		padding-bottom: 80px;
 	}
+
 	footer #sponsors img {
 		margin: 0;
 		height: 30px;
 	}
+
 	footer {
 		flex-direction: column;
 	}
+
 	footer p {
 		margin: 5px;
 	}
