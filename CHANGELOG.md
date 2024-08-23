@@ -4,8 +4,11 @@
 
 ## master
 
+- Add uploadable file for logo and favicon
+- Made the hosting school an enum with dynamic how-to-get-here and footer sponsor
 - Made prices into settings, no longer hardcoded, added totals to metrics
 - Added the "Guide de l'administrateur" page with useful info
+- Add a disclaimer for personnal data handling
 - Added the legal mentions page
 - Made meal menus into settings
 - Improve date display when event is on a month-split weekend
