@@ -11,7 +11,9 @@
 		<title>{% block title %}Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}{% endblock %}</title>
 		<meta name="description" content="Inscriptions et infos sur les interENS ludiques{% if settings.date_start %}, édition {{ settings.date_start.year }}{% endif %}">
 		<meta name="keywords" content="Interludes ENS {% if settings.date_start %}{{ settings.date_start.year }} {% endif %}InterENS">
-		<link rel="icon" type="image/png" href="{% static 'imgs/2023/favicon.ico' %}">
+		{% if settings.favicon %}
+		<link rel="icon" type="image/png" href="{{ settings.favicon.url }}">
+		{% endif %}
 
 		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v={{ constants.CSS_VERSION }}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-all.min.css' %}">
@@ -21,7 +23,9 @@
 	<body>
 		<header>
 			<div id="header_logo"  class="easter_egg">
-				<h1><a href="/"><img src="{% static 'imgs/2023/logo.png' %}">&nbsp;Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}&nbsp;</a></h1>
+				<h1><a href="/">
+					{% if settings.logo %}<img src="{{ settings.logo.url }}">&nbsp;{% endif %}
+					Interludes{% if settings.date_start %} {{ settings.date_start.year }}{% endif %}&nbsp;</a></h1>
 			</div>
 			<div id="head_main_infos">
 			<div id="location">
