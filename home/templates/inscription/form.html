@@ -33,17 +33,28 @@
 		<h3>Hébergement</h3>
 
 		<p>
-			Pour l'hébergement, nous proposons le logement chez les Saclaysien⋅nes
-			(comme aux InterQ). Si vous souhaitez un hébergement, cochez la case
-			suivante : {{ form.sleeps }}
+			Les conditions d'hébergements sont détaillés sur la 
+			<a href="{% url 'home' %}#hebergement">page d'accueil</a>
 		</p>
 		<p>
-			L'idée est de proposer aux normalien⋅nes de Saclay de loger celleux des
-			autres écoles. Si vous avez besoin d'un hébergement vous pouvez compléter
-			<a href="https://framaforms.org/logement-interludes-2023-extes-1668450149">ce questionnaire</a>. 
+			Si vous souhaitez un hébergement, cochez la case
+			suivante : {{ form.sleeps }}
+		</p>
 
-			Si vous voulez loger quelqu'un <a	href="https://framaforms.org/logement-interludes-2023-cote-hebergement-1668438253">c'est
-			ici</a>. Merci à ceux qui veulent bien accueillir !</p>
+		{% if settings.sleeper_link %}
+		<p>
+			Il vous faudra également compléter 
+			<a href="{{ settings.sleeper_link }}">ce questionnaire</a>.
+		</p>
+		{% endif %}
+
+		{% if settings.sleep_host_link %}
+		<p>
+			Si vous êtes {{ settings.hosting_school_adjective }} et que vous pouvez
+			héberger quelqu'un, vous pouvez également remplir 
+			<a href="{{ settings.sleeper_link }}">ce formulaire</a>. Un grand merci à vous&nbsp;!
+		</p>
+		{% endif %}
 
 		<h3>Tarif</h3>
 		<p>Le tarif est différent selon si vous percevez un salaire ou non.</p>

@@ -38,7 +38,7 @@
 
 	<p>
 		L'inscription à l'événement, aux repas, à l'hébergement et aux activités se fait dans 
-		<a href="{% url 'inscription'%}">l'onglet inscription</a>
+		<a href="{% url 'inscription'%}">l'onglet inscription</a>.
 	</p>
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
@@ -52,6 +52,7 @@
 		<p>Les inscriptions fermerons le <strong>{{ settings.inscriptions_end|date:"l d F Y à H:i" }}</strong>.</p>
 	{% endif %}
 
+
 <h2 id="tarifs">Tarifs</h2>
 <p>
 	Les tarifs sont différenciés entre salarié·es et non-salarié·es.
@@ -59,9 +60,31 @@
 		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}</li>
 		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }} par repas</li>
 		<li><strong>Repas du dimanche soir (à emporter) :</strong> {{ settings.price_sunday_meal }}</li>
-		<li><strong>Logement en tente :</strong> {{ settings.price_sleep }}</li>
+		<li><strong>Hébergement :</strong> {{ settings.price_sleep }}</li>
 	</ul>
 </p>
+
+<h2 id="hebergement">Hébergement</h2>
+
+<p>
+	L'idée est de proposer aux {{ settings.hosting_school_adjective_plural }} de 
+	loger les normaliens des autres écoles. Si vous le pouvez, prenez un sac de couchage
+	et tapis de sol. Il n'y aura pas forcément suffisamment de matelas
+	pour tout le monde...
+	{% if settings.sleeper_link %}
+	Il y aura un formulaire spécial à compléter sur la page inscription si vous 
+	souhaitez avoir un hébergement.
+	{% endif %}
+	Nous vous contacterons une fois que nous aurons fait la répartition.
+</p>
+
+{% if settings.sleep_host_link %}
+<p>
+	Si vous êtes {{ settings.hosting_school_adjective }} et que vous pouvez
+	héberger quelqu'un, vous pouvez également remplir 
+	<a href="{{ settings.sleeper_link }}">ce formulaire</a>. Un grand merci à vous&nbsp;!
+</p>
+{% endif %}
 
 <h2 id="menus">Menu des repas</h2>
 {% if settings.menus %}

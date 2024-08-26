@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
-from django.core.mail import mail_admins
+from django.core.mail import send_mail
 from django.forms import formset_factory
 from django.http import HttpRequest, HttpResponse
 from django.http.response import HttpResponseBase
@@ -228,7 +228,7 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
             "Votre activité a bien été enregistrée. Elle sera affichée sur le site après relecture par les admins.",
         )
         settings = SiteSettings.load()
-        if settings.notify_on_activity_submission:
+        if settings.notify_on_activity_submission and settings.contact_email:
             message = render_to_string(
                 "new_activity_email.txt",
                 {
@@ -237,9 +237,11 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
                     "signature": site_settings.EMAIL_SIGNATURE,
                 },
             )
-            mail_admins(
+            send_mail(
                 site_settings.USER_EMAIL_SUBJECT_PREFIX + "Nouvelle activité proposée",
                 message,
+                from_email=None,
+                recipient_list=settings.contact_email
             )
         return redirect(self.success_url, permanent=False)
 

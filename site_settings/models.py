@@ -87,6 +87,24 @@ class ENS(models.TextChoices):
     ENS_RENNES = "R", _("ENS Rennes")
     ENS_CACHAN = "C", _("ENS Paris Saclay")
 
+    def adjective(self) -> str:
+        if self == "C":
+            return "saclaysien"
+        elif self == "L":
+            return "lyonnais"
+        elif self == "R":
+            return "rennais"
+        return "ulmite"
+
+    def adjective_plural(self) -> str:
+        if self == "C":
+            return "saclaysiens"
+        elif self == "L":
+            return "lyonnais"
+        elif self == "R":
+            return "rennais"
+        return "ulmites"
+
 
 class SiteSettings(SingletonModel):
     """Réglages globaux du site
@@ -99,7 +117,7 @@ class SiteSettings(SingletonModel):
     hosting_school = models.CharField(
         "École hébergeant l'événement", max_length=1, choices=ENS.choices, default=ENS.ENS_ULM
     )
-    ticket_url = models.CharField(
+    ticket_url = models.URLField(
         "Lien billeterie",
         max_length=300,
         blank=True,
@@ -196,7 +214,7 @@ class SiteSettings(SingletonModel):
     notify_on_activity_submission = models.BooleanField(
         "Notification d'ajout d'activité",
         default=True,
-        help_text="Envoie un email aux administrateurs quand une nouvelle activité est ajoutée via le formulaire.",
+        help_text="Envoie un email (à l'email de contact) lorsqu'une nouvelle activité est ajoutée via le formulaire.",
     )
     show_host_emails = models.BooleanField(
         "Afficher les mails des orgas d'activités",
@@ -251,11 +269,9 @@ class SiteSettings(SingletonModel):
         help_text="Une fois que l'allocation des activités a été effectuée.",
     )
 
-    discord_link = models.CharField("Lien du serveur discord", max_length=200, blank=True, null=True)
-    sleeper_link = models.CharField(
-        "Lien du formulaire de demande d'hébergement", max_length=200, blank=True, null=True
-    )
-    sleep_host_link = models.CharField(
+    discord_link = models.URLField("Lien du serveur discord", max_length=200, blank=True, null=True)
+    sleeper_link = models.URLField("Lien du formulaire de demande d'hébergement", max_length=200, blank=True, null=True)
+    sleep_host_link = models.URLField(
         "Lien du formulaire de proposition d'hébergement", max_length=200, blank=True, null=True
     )
 
@@ -378,3 +394,9 @@ class SiteSettings(SingletonModel):
 
     def __str__(self) -> str:
         return "Modifier les paramètres"
+
+    def hosting_school_adjective(self) -> str:
+        return ENS(self.hosting_school).adjective()
+
+    def hosting_school_adjective_plural(self) -> str:
+        return ENS(self.hosting_school).adjective_plural()
