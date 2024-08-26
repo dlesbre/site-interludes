@@ -4,6 +4,11 @@
 {% block "content" %}
 <h2>Guide de l'administrateur</h2>
 
+<p>
+  Cette page explique un peu comment fonctionne le site et les étapes à suivre pour
+  s'en servir lors des interludes.
+</p>
+
 <h3>À quoi peut servir ce site</h3>
 
 <p><strong>Ce site permet de :</strong>
@@ -62,7 +67,6 @@
 <h3>Pages d'administrations</h3>
 
 <p>Le site web se gère depuis deux pages d'administration :</p>
-
 
 <p><strong><a href="{% url 'admin_pages:index' %}">La page d'administration du site</a></strong>
   dont vous venez probablement.
@@ -158,6 +162,76 @@
   </li>
 </ul>
 </p>
+
+<h3>Guide pas à pas</h3>
+
+<p>Les grandes étapes de la gestion du site des interludes sont&nbsp;:</p>
+<ol>
+  <li>
+    Dans un premier temps : créer ou réclamer des comptes administrateurs pour
+    les organisateurs (normalement si vous voyez cette page vous en avez un!).
+    Pour ajouter un nouvel utilisateur en administrateur,
+    ouvrez la création de compte dans les
+    <a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>;
+    puis dites-lui de se créer un compte; enfin trouvez le dans la
+    <a href="{% url 'admin:accounts_emailuser_changelist' %}">liste des utilisateurs</a>
+    et cochez les cases "Statut super-utilisateur" et "statut équipe".
+  </li>
+  <li>
+    Lorsque vous êtes prêt à communiquer autour de l'évènement, allez dans les
+    <a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>
+    et remplissez toutes les informations pertinentes (dates, lieux, tarifs,
+    affiche et loge, menu...). Si vous n'avez pas encore toutes les infos vous pouvez
+    toujours les rajouter/modifier plus tard. Faites ensuite un tour sur les différentes
+    pages publiques du site
+    (<a href="{% url 'home' %}">accueil</a>,
+    <a href="{% url 'html_page' slug='faq' %}">FAQ</a>,
+    <a href="{% url 'html_page' slug='activites' %}">activités</a>,
+    <a href="{% url 'html_page' slug='legal' %}">mentions légales</a>...)
+    Pour vérifier que toutes les informations sont correctes. Au besoin, vous pouvez
+    modifier ces pages depuis l'une des <a href="{% url 'admin:pages_htmlpagemodel_changelist' %}">pages d'admin de
+      django</a>.
+  </li>
+  <li>
+    La première phase est l'appel à activités&nbsp;: pour ce faire, il faut ouvrir la
+    création de compte et l'ajout d'activités dans les <a
+      href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>.
+    N'importe qui peut alors proposer une activité via <a href="{% url 'activity_submission' %}">le formulaire</a>.
+    (Un paramètre permet d'être notifié par mail à chaque fois qu'une activité est proposée).
+    Par mesure de sécurité, les nouvelles activités proposées ne sont pas directement affichées.
+    Il faut que vous alliez dans la <a href="{% url 'admin:home_activitymodel_changelist' %}">liste des activités (admin
+      django)</a>
+    pour les approuver.
+  </li>
+  <li>
+    Une fois l'appel d'activités terminé, fermez l'ajout d'activités et faites le
+    planning. Pour rentrer le planning dans le site web, il faut ajouter (au moins)
+    un créneau par activité, depuis
+    <a href="{% url 'admin:home_slotmodel_changelist' %}">la page d'admin de django</a>,
+    en précisant l'heure et le lieu où aura lieu l'activité. Vous pouvez ensuite
+    voir une prévisualisation du planning sur la
+    <a href="{% url 'admin_pages:index' %}">page d'admin</a>. Si vous êtes satisfait
+    du rendu, vous pouvez aller dans les <a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>
+    pour afficher le planning et ouvrir les inscriptions.<br>
+    Noter que même si les inscriptions peuvent être ouverte en avance, les participants
+    ne pourront s'inscrire aux activités qu'une fois le planning fait et affiché.
+  </li>
+  <li>
+    Une fois les inscriptions terminées (1-2 semaines avant, pour laisser au MJ le temps de préparer),
+    il faut faire la répartition d'activités.
+    Cela se fait à la main, à l'aide de l'export de la table choix d'activité,
+    et éventuellement de <a href="https://github.com/Lamakaio/InterludesMatchings">ce jupyter notebook</a>.
+    Une fois cela fait, il suffit d'aller cocher celles qui ont été obtenues dans
+    <a href="{% url 'admin:home_activitychoicesmodel_changelist' %}">la liste</a>.
+    Vous pouvez ensuite envoyé des emails automatiques aux organisateurs d'activité,
+    (leur communiquant la liste des participants), et aux participants (leurs communiquant
+    les activités obtenues) depuis la <a href="{% url 'admin_pages:index' %}">page d'admin</a>
+    (par sécurité, l'envoi d'email doit d'abord être activé dans les <a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>).
+    <br>
+    Vous pouvez maintenir les inscriptions ouvertes après la répartition, pour des participants
+    de dernière minute, mais il faudra fermer l'inscription aux activités et ceux-ci n'y auront pas accès.
+  </li>
+</ol>
 
 <h3>Contact support</h3>
 

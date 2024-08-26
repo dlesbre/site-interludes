@@ -241,7 +241,7 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
                 site_settings.USER_EMAIL_SUBJECT_PREFIX + "Nouvelle activité proposée",
                 message,
                 from_email=None,
-                recipient_list=settings.contact_email
+                recipient_list=[settings.contact_email],
             )
         return redirect(self.success_url, permanent=False)
 
