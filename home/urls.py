@@ -17,7 +17,7 @@ urlpatterns = [
         name="activity_submission",
     ),
     path("profil/", views.ProfileView.as_view(), name="profile"),
-    path("favicon.ico", RedirectView.as_view(url="/static/imgs/favicon.ico")),
+    # path("favicon.ico", RedirectView.as_view(url="/static/imgs/favicon.ico")),
     path(
         "sitemap.xml",
         sitemap,
