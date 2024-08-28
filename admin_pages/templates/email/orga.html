@@ -5,7 +5,10 @@ Voici la liste des participant·e·s inscrit·e·s à votre activité {{ activit
 
 {% for slot in slots %}{{ slot }}{% if slot.start %} (le {{ slot.start|date:"l à H:i" }}){% endif %} :
 {% for participant in slot.participants %}
-- {{ participant.participant }} {{ participant.participant.user.email }}{% empty %}
+- {{ participant.participant }} {{ participant.participant.user.email }}
+  {{ participant.participant.nb_murder}} murders jouées{% if participant.participant.extra_contact %}
+  Autre contact : {{ participant.participant.extra_contact }}{% endif %}{% if participant.participant.murder_comment %}
+  Commentaire : {{ participant.participant.murder_comment }}{% endif %}{% empty %}
 - Aucun participant inscrit.{% endfor %}
 
 {% empty %}- Aucun créneau d'inscription.{% endfor %}
