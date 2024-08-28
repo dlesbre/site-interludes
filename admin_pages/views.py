@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Optional, Tuple
 
+from django import VERSION
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
@@ -262,6 +263,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         orga_email_nb = models.ActivityModel.objects.filter(communicate_participants=True).count()
 
         return {
+            "django_version": VERSION,
             "validations": validations,
             "user_email_nb": user_email_nb,
             "orga_email_nb": orga_email_nb,
