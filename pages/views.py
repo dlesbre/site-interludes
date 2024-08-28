@@ -32,9 +32,7 @@ class HTMLPageView(DetailView):
         context = super().get_context_data(**kwargs)
         context["slug"] = self.object.slug
         context["settings"] = SiteSettings.load()
-        context["activities"] = ActivityModel.objects.filter(display=True).order_by(
-            "title"
-        )
+        context["activities"] = ActivityModel.objects.filter(display=True).order_by("title")
         context.update(get_planning_context())
         template = Template(self.object.content)
         context["html_body"] = template.render(context=Context(context))

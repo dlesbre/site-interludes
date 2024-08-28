@@ -44,9 +44,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         for act in hidden_activites:
             errors += "<br> &bullet; &ensp; {}".format(act)
         if errors:
-            return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(
-                errors
-            )
+            return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(errors)
         return '<li class="success">Toutes les activités sont affichées</li>'
 
     def planning_validation(self):
@@ -59,25 +57,17 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             nb_wanted = activity.desired_slot_nb
             nb_got = activity.slots.count()
             if nb_wanted != nb_got:
-                errors += (
-                    '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
-                        activity.title, nb_wanted, nb_got
-                    )
+                errors += '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
+                    activity.title, nb_wanted, nb_got
                 )
         if errors:
-            return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(
-                errors
-            )
-        return (
-            '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
-        )
+            return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(errors)
+        return '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["metrics"] = self.get_metrics()
-        context["planning_validation"] = (
-            self.validate_hidden_activities() + self.planning_validation()
-        )
+        context["planning_validation"] = self.validate_hidden_activities() + self.planning_validation()
         context.update(get_planning_context())
         return context
 
@@ -183,9 +173,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
         if not self.sending_allowed():
-            messages.error(
-                self.request, "L'envoi de mail de masse est désactivé dans les réglages"
-            )
+            messages.error(self.request, "L'envoi de mail de masse est désactivé dans les réglages")
         else:
             subject = form.cleaned_data["subject"]
             text = form.cleaned_data["text"]
@@ -212,16 +200,12 @@ class NewEmail(SuperuserRequiredMixin, FormView):
     def get_context_data(self, *args, **kwargs):
         """ajoute l'email d'envoie aux données contextuelles"""
         context = super().get_context_data(*args, **kwargs)
-        context["from_email"] = (
-            self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
-        )
+        context["from_email"] = self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
         context["accounts_nb"] = User.objects.filter(is_active=True).count()
         return context
 
     def get(self, request, *args, **kwargs):
         if self.sending_allowed():
             return super().get(request, *args, **kwargs)
-        messages.error(
-            request, "L'envoi de mail de masse est désactivé dans les réglages"
-        )
+        messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")
         return HttpResponseRedirect(self.get_success_url())

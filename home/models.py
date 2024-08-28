@@ -67,12 +67,8 @@ class ActivityModel(models.Model):
 
     title = models.CharField("Titre", max_length=200)
 
-    act_type = models.CharField(
-        "Type d'activité", choices=ActivityTypes.choices, max_length=12
-    )
-    game_type = models.CharField(
-        "Type de jeu", choices=GameTypes.choices, max_length=12
-    )
+    act_type = models.CharField("Type d'activité", choices=ActivityTypes.choices, max_length=12)
+    game_type = models.CharField("Type de jeu", choices=GameTypes.choices, max_length=12)
     description = models.TextField(
         "description",
         max_length=10000,
@@ -101,19 +97,13 @@ class ActivityModel(models.Model):
     host_email = models.EmailField(
         "email de l'organisateur",
     )
-    host_info = models.TextField(
-        "Autre orgas/contacts", max_length=1000, blank=True, null=True
-    )
+    host_info = models.TextField("Autre orgas/contacts", max_length=1000, blank=True, null=True)
 
-    must_subscribe = models.BooleanField(
-        "sur inscription", default=False, help_text="Informatif"
-    )
+    must_subscribe = models.BooleanField("sur inscription", default=False, help_text="Informatif")
     max_participants = models.PositiveIntegerField(
         "Nombre maximum de participants", help_text="0 pour illimité", default=0
     )
-    min_participants = models.PositiveIntegerField(
-        "Nombre minimum de participants", default=0
-    )
+    min_participants = models.PositiveIntegerField("Nombre minimum de participants", default=0)
 
     # Informations fournies par le respo
     duration = models.DurationField("Durée", help_text="format hh:mm:ss")
@@ -170,13 +160,9 @@ class ActivityModel(models.Model):
         default=Availability.POSSIBLE,
     )
 
-    constraints = models.TextField(
-        "Contraintes particulières", max_length=2000, blank=True, null=True
-    )
+    constraints = models.TextField("Contraintes particulières", max_length=2000, blank=True, null=True)
 
-    needs = models.TextField(
-        "Besoin particuliers", max_length=2000, blank=True, null=True
-    )
+    needs = models.TextField("Besoin particuliers", max_length=2000, blank=True, null=True)
 
     comments = models.TextField("Commentaires", max_length=2000, blank=True, null=True)
 
@@ -218,9 +204,7 @@ class ActivityModel(models.Model):
     @property
     def slots(self):
         """Returns a list of slots related to self"""
-        return SlotModel.objects.filter(activity=self, on_activity=True).order_by(
-            "start"
-        )
+        return SlotModel.objects.filter(activity=self, on_activity=True).order_by("start")
 
     def __str__(self):
         return self.title
@@ -235,16 +219,12 @@ class SlotModel(models.Model):
 
     TITLE_SPECIFIER = "{act_title}"
 
-    activity = models.ForeignKey(
-        ActivityModel, on_delete=models.CASCADE, verbose_name="Activité"
-    )
+    activity = models.ForeignKey(ActivityModel, on_delete=models.CASCADE, verbose_name="Activité")
     title = models.CharField(
         "Titre",
         max_length=200,
         default=TITLE_SPECIFIER,
-        help_text="Utilisez '{}' pour insérer le titre de l'activité correspondante".format(
-            TITLE_SPECIFIER
-        ),
+        help_text="Utilisez '{}' pour insérer le titre de l'activité correspondante".format(TITLE_SPECIFIER),
     )
     start = models.DateTimeField("début")
     duration = models.DurationField(
@@ -306,9 +286,7 @@ class SlotModel(models.Model):
             offset = datetime.timedelta(0)
             if time.hour < 4:
                 offset = datetime.timedelta(days=1)
-            return timezone.datetime.combine(
-                settings.date_start + offset, date.timetz()
-            )
+            return timezone.datetime.combine(settings.date_start + offset, date.timetz())
         return None
 
     @property
