@@ -13,6 +13,8 @@ Change log for the 48h des Jeux fork
 - Send an email to admins on new activity submission
 - Format and lint code
 - Fix broken send email to all
+- Add "Guide de l'administrateur" page
+- Add "legal mentions" page
 
 ## Version 3.0.1 - 2022-09-10
 

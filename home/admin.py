@@ -30,34 +30,70 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
         "host_name",
     )
     list_editable = ("display",)
-    fields = (
-        "title",
-        "display",
-        ("host_name", "host_email"),
-        "show_email",
-        "host_info",
-        "act_type",
-        "game_type",
-        "description",
-        "desc_as_html",
-        ("min_participants", "max_participants"),
-        "must_subscribe",
-        ("duration", "desired_slot_nb"),
+    fieldsets = [
         (
-            "available_friday_evening",
-            "available_friday_night",
-            "available_saturday_morning",
-            "available_saturday_afternoon",
-            "available_saturday_evening",
-            "available_saturday_night",
-            "available_sunday_morning",
-            "available_sunday_afternoon",
+            "",
+            {
+                "fields": [
+                    "title",
+                    "display",
+                    "year",
+                ]
+            },
         ),
-        "constraints",
-        "needs",
-        "comments",
-        "year",
-    )
+        (
+            "Organisateurs",
+            {
+                "fields": [
+                    ("host_name", "host_email"),
+                    "host_info",
+                ]
+            },
+        ),
+        (
+            "Informations publiques",
+            {
+                "fields": [
+                    "show_email",
+                    "act_type",
+                    "game_type",
+                    "duration",
+                    ("min_participants", "max_participants"),
+                    "must_subscribe",
+                    "description",
+                    "desc_as_html",
+                ]
+            },
+        ),
+        (
+            "Créneau",
+            {
+                "fields": [
+                    "desired_slot_nb",
+                    (
+                        "available_friday_evening",
+                        "available_friday_night",
+                        "available_saturday_morning",
+                        "available_saturday_afternoon",
+                        "available_saturday_evening",
+                        "available_saturday_night",
+                        "available_sunday_morning",
+                        "available_sunday_afternoon",
+                    ),
+                    "constraints",
+                ]
+            },
+        ),
+        (
+            "Autre informations",
+            {
+                "fields": [
+                    "needs",
+                    "comments",
+                ]
+            },
+        ),
+    ]
     list_per_page = 100
     csv_export_fields = [
         # The key is "host_id" but listed as "host" in auto-found field names
