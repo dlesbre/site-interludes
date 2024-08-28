@@ -116,11 +116,22 @@
 	
 	<h3>Expérience</h3>
 		<p>
-			Pour vous attribuer au mieux les activités, nous aimerions connaître votre
-			exprérience en murder (jeux de rôles grandeurs nature). Si vous avez
-			perdu le compte, 42 conviendra très bien ;) </p>
+			Afin d'aider les MJ à préparer leurs murders (ou autre activité), 
+			il leur faudra savoir	votre expérience avec ce type de jeu, ainsi qu'un
+			numéro de téléphone pour faciliter l'organisation le jour J (en amont, tout
+			devrait passer par email). 
+			 </p>
 
-		<p>Nombre de murder déjà jouées : {{ form.nb_murder }}</p>
+		<p>Nombre de murder déjà jouées : {{ form.nb_murder }}<br>
+			 Si vous avez perdu le compte, 42 conviendra très bien ;)
+		</p>
+
+		<p>Numéro de téléphone ou autre contact e.g. discord (optionel) : {{ form.extra_contact }}</p>
+
+		<p>Pour tout autre commentaire à faire parvenir aux orgas des activités auxquelles
+			vous souhaitez participer:
+		</p>
+		{{ form.murder_comment }}
 		
 	<h2>Commentaire</h2>
 		<p>

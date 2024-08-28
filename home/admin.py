@@ -157,6 +157,8 @@ class ParticipantModelAdmin(ExportCsvMixin):
         ),
         "sleeps",
         "nb_murder",
+        "extra_contact",
+        "murder_comment",
         "paid",
         "amount_paid",
         "comment",

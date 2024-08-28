@@ -355,6 +355,14 @@ class ParticipantModel(models.Model):
     # mug = models.BooleanField("commander une tasse", default=False)
 
     nb_murder = models.PositiveIntegerField("Nombre de murder réalisées", default=0)
+    extra_contact = models.CharField(
+        "Numéro de téléphone",
+        max_length=20,
+        blank=True,
+        null=True,
+        help_text="(Optionel) sera communiqué au MJ pour faciliter l'organisation",
+    )
+    murder_comment = models.TextField("Info pour MJ", max_length=2000, blank=True, null=True)
 
     comment = models.TextField("Commentaire", max_length=2000, blank=True, null=True)
 

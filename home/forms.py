@@ -20,6 +20,8 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
             "meal_sunday_evening",
             "paid",
             "nb_murder",
+            "extra_contact",
+            "murder_comment",
             "comment",
         )
 
@@ -36,7 +38,7 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
             "meal_sunday_evening",
         ],
         ["paid"],
-        ["nb_murder"],
+        ["nb_murder", "extra_contact", "murder_comment"],
         ["comment"],
     ]
 
