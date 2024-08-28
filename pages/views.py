@@ -15,6 +15,7 @@ PREBUILT_PAGES = [
     {"name": "home", "slug": "", "file": "home.html"},
     {"name": "activites", "slug": "activites", "file": "activites.html"},
     {"name": "faq", "slug": "faq", "file": "faq.html"},
+    {"name": "legal", "slug": "legal", "file": "legal.html"},
 ]
 
 PREBUILT_PAGES_ROOT = join(settings.BASE_DIR, "pages/default")

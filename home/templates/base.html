@@ -120,9 +120,14 @@
 					/>
 				</a>
 			</div>
-			{% if settings.contact_email %}
-			<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span></p>
-			{% endif %}
+
+			<p>
+				{% if settings.contact_email %}
+				Pour tout problème, contacter&nbsp;:<br><span class="antispam">{{ settings.contact_email_reversed }}</span>
+				<br>
+				{% endif %}
+				<a href="{% url 'pages:html_page' slug='legal' %}">Mentions légales</a>
+			</p>
 		</footer>
 
 	</body>

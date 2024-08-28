@@ -181,7 +181,7 @@ main {
 	background-color: var(--color-bg);
   justify-content: center;
 	text-align: justify;
-	padding: 1px 30px 50px;
+	padding: 1px 30px 80px;
 	max-width: 920px;
 	margin: 0 auto 0 auto;
 }
@@ -590,6 +590,10 @@ footer {
 	border-top: 3px solid var(--color_sep);
 	align-items: center;
 	justify-content: space-around;
+}
+
+footer a {
+	color: var(--color_sep);
 }
 
 footer #sponsors img {
