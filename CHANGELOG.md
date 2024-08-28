@@ -4,7 +4,7 @@
 
 Change log for the 48h des Jeux fork
 
-## 48h-des-jeux
+## Version 3.1.0 - 2024-08-28
 
 - Improve date display when event is on a month-split weekend
 - Add a check for undisplayed activities
