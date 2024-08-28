@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "site-48h-des-jeux"
+authors = [{ name = "Dorian Lesbre", email = "dorian.lesbre@gmail.com" }]
+maintainers = [{ name = "Dorian Lesbre", email = "dorian.lesbre@gmail.com" }]
+version = "3.0.0"
+description = "Site web pour les InterENS ludiques et les 48h des jeux"
+requires-python = ">= 3.8"
+readme = "README.md"
+license = {file = "LICENSE"}
+dependencies = [ "django", "authens" ]
+
+[project.urls]
+Homepage = "https://48hdesjeux.cof.ens.fr/"
+Repository = "https://github.com/dlesbre/site-interludes"
+Issues = "https://github.com/dlesbre/site-interludes/issues"
+Changelog = "https://github.com/dlesbre/site-interludes/blob/master/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit",
+  "pytest",
+  "django-stubs",
+  "mypy",
+  "ruff",
+  "coverage",
+  "pytest-cov",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "W", "I"]
+ignore = ["E501"]
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_calls = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+plugins = "mypy_django_plugin.main"
+
+# [[tool.mypy.overrides]]
+# ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "site48h.settings"
