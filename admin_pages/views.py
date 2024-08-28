@@ -211,3 +211,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             return super().get(request, *args, **kwargs)
         messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")
         return HttpResponseRedirect(self.get_success_url())
+
+
+class SiteInfo(SuperuserRequiredMixin, TemplateView):
+    template_name = "info.html"

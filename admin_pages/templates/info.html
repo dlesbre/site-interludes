@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "content" %}
+<h2>Guide de l'administrateur</h2>
+
+<p>
+  Cette page explique un peu comment fonctionne le site et les étapes à suivre pour
+  s'en servir lors des 48h des Jexu.
+</p>
+
+<h3>À quoi peut servir ce site</h3>
+
+<p><strong>Ce site permet de :</strong>
+<ul>
+  <li>
+    Afficher des informations sur l'événement
+    (page d'<a href="{% url 'pages:home' %}">accueil</a>
+    et <a href="{% url 'pages:html_page' slug='faq' %}">FAQ</a>,
+    modifiable directement depuis l'une des <a href="{% url 'admin:pages_htmlpagemodel_changelist' %}">pages d'admin de
+      django</a>)
+  </li>
+  <li>Recenser les activités proposées (page <a href="{% url 'pages:html_page' slug='activites' %}">activités</a>)</li>
+  <li>
+    Un formulaire pour permettre aux gens de <a href="{% url 'activity_submission' %}">proposer des activités</a>
+    qui envoie un mail aux administrateurs à chaque fois qu'une nouvelle activité
+    est proposée.
+  </li>
+  <li>
+    Afficher un planning dynamique des différentes activités (page <a
+      href="{% url 'pages:html_page' slug='activites' %}">activités</a>)
+  </li>
+  <li>Un formulaire pour envoyer un mail à tous (à utiliser avec modération)</li>
+  <li>Exporter les tables intéressantes au format CSV (depuis la <a href="{% url 'admin_pages:index' %}">page
+      d'administration</a>)</li>
+</ul>
+</p>
+
+<h3>Pages d'administrations</h3>
+
+<p>Le site web se gère depuis deux pages d'administration :</p>
+
+<p><strong><a href="{% url 'admin_pages:index' %}">La page d'administration du site</a></strong>
+  dont vous venez probablement.
+  Elle sert principalement à afficher l'état du site et envoyer des mails:
+<ul>
+  <li>permet d'exporter les différentes tables au format CSV</li>
+  <li>affiche l'état du site (version, réglages actuels, différentes métriques)</li>
+  <li>une prévisualisation du planning</li>
+  <li>permet l'écriture d'un mail à tous</li>
+</ul>
+</p>
+
+<p>
+  <strong><a href="{% url 'admin:index' %}">La page d'administration Django</a></strong>
+  est autogénéré à partir des tables de la base de donnée. Elle permet de les modifier
+  directement. Voici un descriptif rapide des tables intéressantes :
+<ul>
+  <li>
+    <strong>Utilisateurs</strong> - contient tous les utilisateurs et leurs permissions. Pour
+    donner les droits d'administrateur à quelqu'un il faut lui donner le statut
+    superuser (accès à l'admin du site) ET le statut équipe (accès à l'admin
+    django).
+  </li>
+  <li>
+    <strong>Pages HTML</strong> - contient les pages d'informations (notamment home, activités et
+    FAQ). Cela permet aux administrateurs de modifier leur contenu facilement
+    depuis le site en ligne, sans avoir à accéder au serveur. Ces pages ont un nom
+    (uniquement visible dans l'admin), un URL d'accès et un contenu (format HTML
+    avec tags de templates django).
+
+    Les pages "home" (url vide) "activites" et "faq" sont spéciales. Elles
+    apparaissent sur la barre de navigation et sont régénérées à partir de
+    fichiers de base dans pages/default/ si quelqu'un tente
+    d'y accéder après leur suppression.
+
+    Vous pouvez créer d'autres pages sur des URL libres si ça vous semble pertinent.
+
+    Les autres pages du site (formulaires, pages de connexion...) sont des
+    templates django plus classiques et ne peuvent être modifié que depuis le code
+    source.
+  </li>
+  <li>
+    <strong>Paramètres</strong> - les réglages du site, ils permettent :
+    <ul>
+      <li>ouvrir/fermer le formulaire de proposition d'activités</li>
+      <li>afficher/cacher le planning</li>
+      <li>renseigner l'email de contact, les dates de l'événement</li>
+      <li>ajouter un message global au-dessus de toutes les pages</li>
+      <li>bloquer/autoriser l'envoi d'email globaux (pour éviter les envois accidentels)</li>
+      <li>ajouter une version PDF du planning (pour affichage sur mobiles)</li>
+      <li>ajouter l'affiche (visible sur la page d'accueil)</li>
+    </ul>
+    De nombreux champs dans les paramètres sont purement informationnels et ne servent
+    qu'à mettre à jour l'affichage dans certaines pages, mais certains servent
+    à activer/désactiver des fonctionnalités du site (inscription, soumission d'activités, ...).
+  </li>
+
+  <li>
+    <strong>Activités</strong> liste des activités prévues. C'est ici que vous pouvez
+    rajouter/modifier les activités qui s'affichent sur la page activité. Un
+    formulaire permet aux utilisateurs de proposer des activités directement. Il
+    vous faudra les relire et les valider ensuite manuellement pour qu'elles
+    soient affichées sur le site.
+  </li>
+  <li>
+    <strong>Créneaux</strong> - place une activité sur le planning. Une activité peut avoir
+    plusieurs créneaux si elle a lieu plusieurs fois. Noter que les inscriptions
+    se font à des créneaux et non a des activités.
+
+    Note : le planning généré par le site (en JS) est difficilement lisible sur
+    mobile. Le site permet d'uploader une version PDF propre pour mobiles.
+    Personnellement je faisais une capture d'écran du planning (vu sur un grand
+    écran) que j'exportais en PDF.
+  </li>
+</ul>
+</p>
+
+<h3>Guide pas à pas</h3>
+
+<p>Les grandes étapes de la gestion du site des interludes sont&nbsp;:</p>
+<ol>
+  <li>
+    Dans un premier temps : créer ou réclamer des comptes administrateurs pour
+    les organisateurs (normalement si vous voyez cette page vous en avez un!).
+    Pour ajouter un nouvel utilisateur en administrateur,
+    dites-lui de se créer un compte; enfin trouvez le dans la
+    <a href="{% url 'admin:auth_user_changelist' %}">liste des utilisateurs</a>
+    et cochez les cases "Statut super-utilisateur" et "statut équipe".
+  </li>
+  <li>
+    Lorsque vous êtes prêt à communiquer autour de l'évènement, allez dans les
+    <a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>
+    et remplissez toutes les informations pertinentes (dates, affiche...).
+    Si vous n'avez pas encore toutes les infos vous pouvez
+    toujours les rajouter/modifier plus tard. Faites ensuite un tour sur les différentes
+    pages publiques du site
+    (<a href="{% url 'pages:home' %}">accueil</a>,
+    <a href="{% url 'pages:html_page' slug='faq' %}">FAQ</a>,
+    <a href="{% url 'pages:html_page' slug='activites' %}">activités</a>,
+    <a href="{% url 'pages:html_page' slug='legal' %}">mentions légales</a>...)
+    Pour vérifier que toutes les informations sont correctes. Au besoin, vous pouvez
+    modifier ces pages depuis l'une des <a href="{% url 'admin:pages_htmlpagemodel_changelist' %}">pages d'admin de
+      django</a>.
+  </li>
+  <li>
+    La première phase est l'appel à activités&nbsp;: pour ce faire, il faut ouvrir la
+    création de compte et l'ajout d'activités dans les <a
+      href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>.
+    N'importe qui peut alors proposer une activité via <a href="{% url 'activity_submission' %}">le formulaire</a>.
+    (Un paramètre permet d'être notifié par mail à chaque fois qu'une activité est proposée).
+    Par mesure de sécurité, les nouvelles activités proposées ne sont pas directement affichées.
+    Il faut que vous alliez dans la <a href="{% url 'admin:home_activitymodel_changelist' %}">liste des activités (admin
+      django)</a>
+    pour les approuver. Pour les activités sur inscriptions, il faut afficher l'email
+    de l'organisateur afin qu'il puisse être contacté par les personnes voulant s'inscrire.
+  </li>
+  <li>
+    Une fois l'appel d'activités terminé, fermez l'ajout d'activités et faites le
+    planning. Pour rentrer le planning dans le site web, il faut ajouter (au moins)
+    un créneau par activité, depuis
+    <a href="{% url 'admin:home_slotmodel_changelist' %}">la page d'admin de django</a>,
+    en précisant l'heure et le lieu où aura lieu l'activité. Vous pouvez ensuite
+    voir une prévisualisation du planning sur la
+    <a href="{% url 'admin_pages:index' %}">page d'admin</a>. Si vous êtes satisfait
+    du rendu, vous pouvez aller dans les <a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>
+    pour afficher le planning.
+  </li>
+  <li>
+    Envoyer un mail à diff-cof pour annoncer l'événement et proposer aux intéressés
+    de prendre contact avec les MJs des activités auxquelles ils veulent participer.
+  </li>
+</ol>
+
+<h3>Contact support</h3>
+
+<p>
+  Ce site web a été crée par Dorian Lesbre pour les
+  Interludes 2021. N'hésitez pas à me contacter en cas de soucis.
+  Vous trouverez des informations de contact à jour sur
+  <a href="https://www.normalesup.org/~dlesbre/">mon site web</a>.
+</p>
+
+{% endblock %}

@@ -9,6 +9,27 @@
 {% block "content" %}
 	<h2>Page d'administration</h2>
 	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }} &mdash; Django {{ django_version }}</strong></p>
+	
+	<p>
+		Bienvenue sur la page d'administration du site! Si c'est votre première venue
+		ici, je recommande vivement de lire le <a href="{% url 'admin_pages:info' %}">guide de l'administrateur</a>.
+	</p>
+	
+	<ul class="messagelist">
+		<li class="warning">
+			En tant qu'administrateur, vous êtes responsables de la gestion de données
+			personnelles stockées sur ce site (essentiellement les emails des orgas,
+			mais aussi d'éventuelles détails personnels qu'ils peuvent rajouter dans 
+			les champs additionnels des propositions d'activités).
+
+			<p>Une fois l'évènement terminée, vous êtes également responsable de la suppression
+			de ces données de la base de donnée, ainsi que de toutes les copies/export
+			qui en ont été faites. J'imagine qu'on peut garder les noms et emails en privé
+		  à des fins d'historique (sauf si on reçoit une demande explicite de suppression
+			de données), mais toute information plus personnelle doit être retirée.</p>
+		</li>
+	</ul>
+	
 	<div class="flex wrap">
 		<a class="button" href="{% url 'admin_pages:activities.csv' %}"><i class="fa fa-download"></i> Activités</a>
 		<a class="button" href="{% url 'admin_pages:slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>
@@ -27,6 +48,13 @@
 			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>
 		</ul>
+
+		<div>
+			<a class="button" href="{% url 'admin:site_settings_sitesettings_change' 1 %}">
+				<i class="fa fa-cog"></i>
+				Modifier les paramètres
+			</a>
+		</div>
 
 	<h2>Métriques</h2>
 
