@@ -8,7 +8,7 @@
 
 {% block "content" %}
 	<h2>Page d'administration</h2>
-	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }}</strong></p>
+	<p><strong>Version {{ constants.WEBSITE_FULL_VERSION }} &mdash; Django {{ django_version }}</strong></p>
 	<div class="flex wrap">
 		<a class="button" href="{% url 'admin_pages:activities.csv' %}"><i class="fa fa-download"></i> Activités</a>
 		<a class="button" href="{% url 'admin_pages:slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>

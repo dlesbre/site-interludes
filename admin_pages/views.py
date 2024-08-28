@@ -1,4 +1,5 @@
 from authens.models import User
+from django import VERSION
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
@@ -66,6 +67,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context["django_version"] = VERSION
         context["metrics"] = self.get_metrics()
         context["planning_validation"] = self.validate_hidden_activities() + self.planning_validation()
         context.update(get_planning_context())
