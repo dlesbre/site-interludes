@@ -30,35 +30,71 @@ class ActivityModelAdmin(ExportCsvMixin):
         "host_name",
     )
     list_editable = ("display",)
-    fields = (
-        "title",
-        "display",
-        ("host_name", "host_email"),
-        "show_email",
-        "host_info",
-        "act_type",
-        "game_type",
-        "description",
-        "desc_as_html",
-        ("min_participants", "max_participants"),
-        "must_subscribe",
-        "communicate_participants",
-        ("duration", "desired_slot_nb"),
+    fieldsets = [
         (
-            "available_friday_evening",
-            "available_friday_night",
-            "available_saturday_morning",
-            "available_saturday_afternoon",
-            "available_saturday_evening",
-            "available_saturday_night",
-            "available_sunday_morning",
-            "available_sunday_afternoon",
+            "",
+            {
+                "fields": [
+                    "title",
+                    "display",
+                ]
+            },
         ),
-        "constraints",
-        "status",
-        "needs",
-        "comments",
-    )
+        (
+            "Organisateurs/MJ",
+            {
+                "fields": [
+                    ("host_name", "host_email"),
+                    "host_info",
+                ]
+            },
+        ),
+        (
+            "Informations publiques",
+            {
+                "fields": [
+                    "show_email",
+                    "act_type",
+                    "game_type",
+                    ("min_participants", "max_participants"),
+                    ("must_subscribe", "communicate_participants"),
+                    "duration",
+                    "description",
+                    "desc_as_html",
+                ],
+                "description": "Ces informations apparaissent sur la page activités",
+            },
+        ),
+        (
+            "Créneaux",
+            {
+                "fields": [
+                    "desired_slot_nb",
+                    (
+                        "available_friday_evening",
+                        "available_friday_night",
+                        "available_saturday_morning",
+                        "available_saturday_afternoon",
+                        "available_saturday_evening",
+                        "available_saturday_night",
+                        "available_sunday_morning",
+                        "available_sunday_afternoon",
+                    ),
+                    "constraints",
+                ]
+            },
+        ),
+        (
+            "Autre informations",
+            {
+                "fields": [
+                    "status",
+                    "needs",
+                    "comments",
+                ]
+            },
+        ),
+    ]
     list_per_page = 100
     csv_export_fields = [
         # The key is "host_id" but listed as "host" in auto-found field names
@@ -142,27 +178,48 @@ class ParticipantModelAdmin(ExportCsvMixin):
     """option d'affichage des participant dans la vue django admin"""
 
     filename = "export_participants.csv"
-    fields = (
-        "user",
-        "school",
-        "is_registered",
+    fieldsets = [
         (
-            "meal_friday_evening",
-            "meal_saturday_morning",
-            "meal_saturday_midday",
-            "meal_saturday_evening",
-            "meal_sunday_morning",
-            "meal_sunday_midday",
-            "meal_sunday_evening",
+            "",
+            {
+                "fields": [
+                    "user",
+                    "school",
+                ]
+            },
         ),
-        "sleeps",
-        "nb_murder",
-        "extra_contact",
-        "murder_comment",
-        "paid",
-        "amount_paid",
-        "comment",
-    )
+        (
+            "Inscription",
+            {
+                "fields": [
+                    "is_registered",
+                    (
+                        "meal_friday_evening",
+                        "meal_saturday_morning",
+                        "meal_saturday_midday",
+                        "meal_saturday_evening",
+                        "meal_sunday_morning",
+                        "meal_sunday_midday",
+                        "meal_sunday_evening",
+                    ),
+                    "sleeps",
+                    "paid",
+                    "amount_paid",
+                    "comment",
+                ]
+            },
+        ),
+        (
+            "Expérience murder",
+            {
+                "fields": [
+                    "nb_murder",
+                    "extra_contact",
+                    "murder_comment",
+                ]
+            },
+        ),
+    ]
     list_display = ("user", "school", "is_registered", "comment", "cost")
     list_filter = (
         "school",
