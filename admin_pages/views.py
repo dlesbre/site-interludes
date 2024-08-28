@@ -204,7 +204,30 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
                 )
         if errors:
             return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(errors)
-        return '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
+        return '<li class="success">Toutes les activités (affichées) ont le bon nombre de crénaux</li>'
+
+    def validate_registration_matches(self) -> str:
+        """Vérifie que les créneaux sur inscription correspondent aux activités
+        sur inscription"""
+        errors = ""
+        activities = models.ActivityModel.objects.filter(display=True)
+        for activity in activities:
+            for slot in activity.slots():
+                if slot.subscribing_open != activity.must_subscribe:
+                    errors += "<br> &bullet;&ensp; "
+                    if slot.subscribing_open:
+                        errors += "Le créneau '{}' est 'sur inscription', mais son activité correspondante '{}' ne l'est pas".format(
+                            slot, activity.title
+                        )
+                    else:
+                        errors += "L'activité '{}' est 'sur inscription', mais son créneau '{}' ne l'est pas".format(
+                            activity.title, slot
+                        )
+        if errors:
+            return '<li class="error">Le cases "sur inscription" ne correspondent pas entre activités et créneaux :{}</li>'.format(
+                errors
+            )
+        return '<li class="success">Toutes les activités (affichées) "sur inscription" n\'ont que des créneaux sur inscription (et réciproquement)</li>'
 
     def validate_activity_allocation(self) -> Dict[str, Any]:
         settings = SiteSettings.load()
@@ -243,7 +266,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             "user_email_nb": user_email_nb,
             "orga_email_nb": orga_email_nb,
             "validation_errors": '<li class="error">' in validations,
-            "planning_validation": hidden + self.planning_validation(),
+            "planning_validation": hidden + self.planning_validation() + self.validate_registration_matches(),
         }
 
     def get_context_data(self, *args, **kwargs):
