@@ -52,14 +52,16 @@
 
 		<ul>
 			<li>La création de compte est {% if settings.registrations_open %}ouverte{% else %}fermée{% endif %}.</li>
-			<li>Les inscriptions sont {% if settings.inscriptions_open %}ouvertes{% else %}fermées{% endif %}. Dates informatives:
+			<li>Les inscriptions sont {% if settings.inscriptions_open %}ouvertes{% else %}fermées{% endif %}.</li>
+			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
+			<li>L'inscription aux activités est {% if settings.activity_inscriptions_open %}ouverte{% else %}fermée{% endif %}.
+				Dates informatives:
 				<ul>
 					<li>Ouverture : {{ settings.inscriptions_start|default:"non fixée" }}</li>
 					<li>Fermeture : {{ settings.inscriptions_end|default:"non fixée" }}</li>
 				</ul>
 			</li>
 			<li>Les emails des orgas sont {% if settings.show_host_emails %}affichés sur la page activité{% else %}masqués{% endif %}.</li>
-			<li>Le planning {% if settings.display_planning %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
 			<li>La répartition des activités {% if settings.activities_allocated %}est effectuée et affichée{% else %}n'est pas faite/affichée{% endif %}.</li>
 			<li>{% if settings.global_message %}Un message global est affiché{% else %}Aucun message global{% endif %}.</li>
 			<li>Le lien du serveur discord {% if settings.discord_link %}est affiché{% else %}n'est pas affiché{% endif %}.</li>
@@ -321,7 +323,7 @@
 
 	<h2>Mail aux utilisateurs</h2>
 
-	<p>Écrire un mail aux utilisateurs (tous ou seulement les inscrits)</p>
+	<p>Écrire un mail aux utilisateurs (tous, seulement les inscrits, par école, ou juste au orgas d'activités)</p>
 
 	<p>Évitez de spammer. N'envoyez que si vraiment nécessaire.</p>
 

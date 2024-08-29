@@ -625,6 +625,9 @@ class NewEmail(SuperuserRequiredMixin, FormView):
                 is_registered=True, user__is_active=True, school=ENS.ENS_CACHAN
             )
             return [p.user.email for p in participants]
+        elif selection == Recipients.ORGAS:
+            activities = models.ActivityModel.objects.filter(display=True)
+            return [a.host_email for a in activities]
         else:
             raise ValueError("Invalid selection specifier\n")
 
@@ -644,7 +647,8 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             subject = form.cleaned_data["subject"]
             text = form.cleaned_data["text"]
             emails = []
-            for to_addr in self.get_emails(dest):
+            # Use a set to avoid possible duplications
+            for to_addr in set(self.get_emails(dest)):
                 emails.append([subject, text, self.from_address, [to_addr]])
             nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
             mail_admins(

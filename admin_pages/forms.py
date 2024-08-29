@@ -10,6 +10,7 @@ class Recipients(TextChoices):
     LYONNAIS = ("L", "tous les inscrits lyonnais")
     RENNAIS = ("R", "tous les inscrits rennais")
     CACHANAIS = ("C", "tous les inscrits saclaysiens")
+    ORGAS = ("o", "tous les organisateurs d'activités")
 
 
 class SendEmailForm(forms.Form):
