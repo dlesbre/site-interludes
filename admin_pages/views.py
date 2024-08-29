@@ -358,6 +358,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 
 
 class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
+    school: Optional[ENS] = None
     filename = "participants_interludes"
     headers = [
         "id",
@@ -378,11 +379,20 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
         "Tarif",
         "Montant payé",
         "Nombre murders",
+        "Autre contact",
+        "Commentaires murders",
         "Commentaires",
     ]
 
+    def get_filename(self):
+        if self.school is None:
+            return super().get_filename()
+        return "participants_" + self.school.label.lower().replace(" ", "_").replace("ens_", "")
+
     def get_rows(self):
-        profiles = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True).all()
+        profiles = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True)
+        if self.school is not None:
+            profiles = profiles.filter(school=self.school)
         rows = []
         for profile in profiles:
             rows.append(
@@ -406,9 +416,12 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
                     profile.cost(),
                     profile.amount_paid,
                     profile.nb_murder,
+                    profile.extra_contact,
+                    profile.murder_comment,
                     profile.comment,
                 ]
             )
+        rows.sort(key=lambda x: (x[4], x[3], x[2]))  # sort by school, last_name, first_name
         return rows
 
 

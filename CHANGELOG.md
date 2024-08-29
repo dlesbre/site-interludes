@@ -18,6 +18,7 @@
 - Add a check that slot and activity registration matches
 - Communicate murder XP to DMs
 - Per school email
+- Per school participant export
 
 ## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
 

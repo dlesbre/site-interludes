@@ -1,6 +1,7 @@
 from django.urls import path
 
 from admin_pages import views
+from site_settings.models import ENS
 
 urlpatterns = [
     path("", views.AdminView.as_view(), name="index"),
@@ -11,6 +12,26 @@ urlpatterns = [
         "export/participants/",
         views.ExportParticipants.as_view(),
         name="participants.csv",
+    ),
+    path(
+        "export/participants/ulm",
+        views.ExportParticipants.as_view(school=ENS.ENS_ULM),
+        name="participants_ulm.csv",
+    ),
+    path(
+        "export/participants/lyon",
+        views.ExportParticipants.as_view(school=ENS.ENS_LYON),
+        name="participants_lyon.csv",
+    ),
+    path(
+        "export/participants/rennes",
+        views.ExportParticipants.as_view(school=ENS.ENS_RENNES),
+        name="participants_rennes.csv",
+    ),
+    path(
+        "export/participants/saclay",
+        views.ExportParticipants.as_view(school=ENS.ENS_CACHAN),
+        name="participants_saclay.csv",
     ),
     path(
         "export/activity_choices/",

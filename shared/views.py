@@ -72,7 +72,7 @@ class CSVWriteView(View, Generic[M]):
         filename = self.get_filename()
         if not filename.endswith(".csv"):
             filename += ".csv"
-        response["Content-Disposition"] = 'attachment; filename="{}"'.format(self.filename)
+        response["Content-Disposition"] = 'attachment; filename="{}"'.format(filename)
 
         writer = csv.writer(response)
         headers = self.get_headers()

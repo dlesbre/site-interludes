@@ -36,6 +36,12 @@
 		<a class="button" href="{% url 'admin_pages:slots.csv' %}"><i class="fa fa-download"></i> Crénaux</a>
 		<a class="button" href="{% url 'admin_pages:activity_choices.csv' %}"><i class="fa fa-download"></i> Choix d'activités</a>
 	</div>
+	<div class="flex wrap center">
+		<a class="button" href="{% url 'admin_pages:participants_ulm.csv' %}"><i class="fa fa-download"></i> Participants (Ulm)</a>
+		<a class="button" href="{% url 'admin_pages:participants_lyon.csv' %}"><i class="fa fa-download"></i> Participants (Lyon)</a>
+		<a class="button" href="{% url 'admin_pages:participants_rennes.csv' %}"><i class="fa fa-download"></i> Participants (Rennes)</a>
+		<a class="button" href="{% url 'admin_pages:participants_saclay.csv' %}"><i class="fa fa-download"></i> Participants (Saclay)</a>
+	</div>
 	<ul class="messagelist">
 		<li class="info">
 	Pour plus d'options d'accès et de modifications, aller à la <a href="{% url 'admin:index' %}">page d'administration de django</a>.
