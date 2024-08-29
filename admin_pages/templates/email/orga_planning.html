@@ -1,0 +1,22 @@
+{% autoescape off %}
+Bonjour {{ activity.host_name }},
+
+Le planning des Interludes a été terminé, voici les créneaux qui ont été attribués
+à vos activités :
+
+{% for activity in activities %}
+Pour l'activité {{ activity }} :
+{% for slot in activity.slots %}- Créneau {{ slot }}{% if slot.start %} (le {{ slot.start|date:"l à H:i" }}){% endif %}
+{% empty %}- Aucun créneau d'inscription.
+{% endfor %}
+{% endfor %}
+
+Vous pouvez également consulter le planning sur la page "activités" du site web.
+
+S'ils ne vous conviennent pas, prévenez nous rapidement afin que l'on puisse
+corriger le planning.
+
+--
+L'équipe Interludes
+{% if settings.contact_email %}Pour nous contacter, envoyer un email à {{ settings.contact_email }}{% endif %}
+{% endautoescape %}

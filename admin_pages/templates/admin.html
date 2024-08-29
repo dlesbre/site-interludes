@@ -254,6 +254,44 @@
 
 	{% include "_planning.html" %}
 
+	<script type="text/javascript">
+		{% if planning_validation_errors %}
+		  const errors = "Cette planning ne passe PAS tous les tests !\n\n";
+		{% else %}
+			const errors = "";
+		{% endif %}
+		{% if not settings.orga_planning_notified and settings.allow_mass_mail %}
+			function mail_orgas_planning() {
+				if (confirm(
+					`${errors}Cette action va envoyer {{ orga_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
+				))
+					window.location = "{% url 'admin_pages:email_orgas_planning' %}";
+			}
+		{% endif %}
+	</script>
+
+	{% if not settings.allow_mass_mail %}
+		<p>L'envoi d'emails collectifs est désactivé dans les réglages. Activez le avant d'envoyer
+			et redésactivez le après.
+		</p>
+	{% endif %}
+	{% if settings.orga_planning_notified %}
+		<p>Un email communiquant les créneaux aux organisateurs a déjà été envoyé.
+			(Modifiez les paramètres s'il faut en renvoyer un)
+		</p>
+		{% else %}
+		<p>
+			Vous pouvez envoyer un email aux organisateurs d'activité leur communicant
+			les créneaux de leus activités.
+		</p>
+		{% endif %}
+
+	{% if settings.orga_planning_notified or not settings.allow_mass_mail %}
+	<button class="button disabled">Email créneaux aux orgas</button>
+	{% else %}
+	<button class="button" onclick="mail_orgas_planning();">Email créneaux aux orgas</button>
+	{% endif %}
+
 	<h2>Répartition des activités</h2>
 
 	<p>La répartition se fait depuis la <a href="{% url 'admin:index' %}">page d'administration de django</a>,
@@ -265,7 +303,7 @@
 
 	<script type="text/javascript">
 		{% if validation_errors %}
-		  const errors = "!! Cette répartition ne passe PAS tous les tests !!\n\n";
+		  const errors = "Cette répartition ne passe PAS tous les tests !\n\n";
 		{% else %}
 			const errors = "";
 		{% endif %}
@@ -315,9 +353,9 @@
 			<button class="button" onclick="mail_inscrits();">Email aux inscrits</button>
 		{% endif %}
 		{% if settings.orga_notified or not settings.allow_mass_mail %}
-			<button class="button disabled">Email aux orgas</button>
+			<button class="button disabled">Email participants aux orgas</button>
 		{% else %}
-			<button class="button" onclick="mail_orgas();">Email aux orgas</button>
+			<button class="button" onclick="mail_orgas();">Email participants aux orgas</button>
 		{% endif %}
 	</div>
 

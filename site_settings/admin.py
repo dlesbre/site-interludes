@@ -113,6 +113,7 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             {
                 "fields": [
                     "allow_mass_mail",
+                    "orga_planning_notified",
                     "user_notified",
                     "orga_notified",
                     "global_message",

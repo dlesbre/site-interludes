@@ -291,6 +291,11 @@ class SiteSettings(SingletonModel):
         default=False,
         help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails",
     )
+    orga_planning_notified = models.BooleanField(
+        "L'email communiquant leurs créneaux aux orgas été envoyé",
+        default=False,
+        help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails",
+    )
 
     global_message = models.TextField(
         "Message global",

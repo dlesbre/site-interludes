@@ -48,5 +48,10 @@ urlpatterns = [
         views.SendOrgaEmail.as_view(),
         name="email_orgas",
     ),
+    path(
+        "email/send_orga_planning_emails_56983345621/",
+        views.SendOrgaPlanningEmail.as_view(),
+        name="email_orgas_planning",
+    ),
     path("email/new_email/", views.NewEmail.as_view(), name="email_new"),
 ]

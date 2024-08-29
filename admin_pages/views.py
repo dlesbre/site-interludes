@@ -262,13 +262,21 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         user_email_nb = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True).count()
         orga_email_nb = models.ActivityModel.objects.filter(communicate_participants=True).count()
 
+        planning_validations = ""
+        if settings.display_planning:
+            planning_validations += '<li class="success">Le planning est affiché</li>'
+        else:
+            planning_validations += '<li class="error">Le planning n\'est pas affiché</li>'
+        planning_validations += hidden + self.planning_validation() + self.validate_registration_matches()
+
         return {
             "django_version": VERSION,
             "validations": validations,
             "user_email_nb": user_email_nb,
             "orga_email_nb": orga_email_nb,
             "validation_errors": '<li class="error">' in validations,
-            "planning_validation": hidden + self.planning_validation() + self.validate_registration_matches(),
+            "planning_validation": planning_validations,
+            "planning_validation_errors": '<li class="error">' in planning_validations,
         }
 
     def get_context_data(self, *args, **kwargs):
@@ -562,8 +570,7 @@ class SendOrgaEmail(SendEmailBase):
             )
             emails.append(
                 (
-                    site_settings.USER_EMAIL_SUBJECT_PREFIX
-                    + "Liste d'inscrits à votre activité {}".format(activity.title),  # subject
+                    site_settings.USER_EMAIL_SUBJECT_PREFIX + "Liste d'inscrits à vos activités",  # subject
                     message,
                     self.from_address,  # From:
                     [activity.host_email],  # To:
@@ -587,6 +594,62 @@ class SendOrgaEmail(SendEmailBase):
         mail_admins(
             "Listes d'inscrits envoyés aux orgas",
             "Les mails communiquant aux organisateurs leur listes d'inscrit ont été envoyés\n"
+            "Nombre total de mail envoyés: {}\n\n"
+            "{}".format(nb_sent, site_settings.EMAIL_SIGNATURE),
+        )
+        messages.success(self.request, "{} mails envoyés aux orgas".format(nb_sent))
+
+
+class SendOrgaPlanningEmail(SendEmailBase):
+    """
+    Envoie aux organisateur leur communiquant les créneaux de leurs activités
+    """
+
+    def get_emails(self) -> List[EMAIL]:
+        """genere les mails a envoyer"""
+        activities = models.ActivityModel.objects.filter(display=True)
+        emails = []
+        settings = SiteSettings.load()
+        seen = set()
+        for activity in activities:
+            # To avoid sending too many email, all activities with the same
+            # host_email get sent in a single email.
+            if activity.host_email in seen:
+                continue
+            seen.add(activity.host_email)
+            message: str = render_to_string(
+                "email/orga_planning.html",
+                {
+                    "activities": activities.filter(host_email=activity.host_email),
+                    "settings": settings,
+                },
+            )
+            emails.append(
+                (
+                    site_settings.USER_EMAIL_SUBJECT_PREFIX + "Planning interludes",  # subject
+                    message,
+                    self.from_address,  # From:
+                    [activity.host_email],  # To:
+                )
+            )
+        return emails
+
+    def send_emails(self) -> None:
+        settings = SiteSettings.load()
+        if settings.orga_planning_notified:
+            messages.error(
+                self.request,
+                "Les orgas ont déjà reçu un mail avec leur créneaux. Modifiez les réglages pour en envoyer un autre",
+            )
+            return
+        settings.orga_planning_notified = True
+        settings.save()
+        emails = self.get_emails()
+
+        nb_sent = send_mass_mail(emails, fail_silently=False)
+        mail_admins(
+            "Créneaux envoyés aux organisateurs d'activités",
+            "Les mails communiquant aux organisateurs les créneaux de leurs activités ont été envoyés.\n"
             "Nombre total de mail envoyés: {}\n\n"
             "{}".format(nb_sent, site_settings.EMAIL_SIGNATURE),
         )
