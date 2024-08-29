@@ -546,14 +546,18 @@ class SendOrgaEmail(SendEmailBase):
         activities = models.ActivityModel.objects.filter(display=True, communicate_participants=True)
         emails = []
         settings = SiteSettings.load()
+        seen = set()
         for activity in activities:
-            slots = models.SlotModel.objects.filter(activity=activity)
+            # To avoid sending too many email, all activities with the same
+            # host_email get sent in a single email.
+            if activity.host_email in seen:
+                continue
+            seen.add(activity.host_email)
             message: str = render_to_string(
                 "email/orga.html",
                 {
-                    "activity": activity,
+                    "activities": activities.filter(host_email=activity.host_email),
                     "settings": settings,
-                    "slots": slots,
                 },
             )
             emails.append(

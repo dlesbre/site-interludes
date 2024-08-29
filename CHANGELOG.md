@@ -19,6 +19,7 @@
 - Communicate murder XP to DMs
 - Per school email
 - Per school participant export
+- Send only one email par orga
 
 ## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
 
