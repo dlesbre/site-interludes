@@ -6,6 +6,10 @@ from django.db.models import TextChoices
 class Recipients(TextChoices):
     ALL = ("a", "tous les utilisateurs")
     REGISTERED = ("b", "tous les inscrits")
+    ULMITES = ("U", "tous les inscrits ulmites")
+    LYONNAIS = ("L", "tous les inscrits lyonnais")
+    RENNAIS = ("R", "tous les inscrits rennais")
+    CACHANAIS = ("C", "tous les inscrits saclaysiens")
 
 
 class SendEmailForm(forms.Form):

@@ -17,6 +17,7 @@
 - Send an email to admins on new activity submission
 - Add a check that slot and activity registration matches
 - Communicate murder XP to DMs
+- Per school email
 
 ## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
 

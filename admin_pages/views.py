@@ -592,6 +592,26 @@ class NewEmail(SuperuserRequiredMixin, FormView):
         elif selection == Recipients.REGISTERED:
             participants = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True)
             return [p.user.email for p in participants]
+        elif selection == Recipients.ULMITES:
+            participants = models.ParticipantModel.objects.filter(
+                is_registered=True, user__is_active=True, school=ENS.ENS_ULM
+            )
+            return [p.user.email for p in participants]
+        elif selection == Recipients.LYONNAIS:
+            participants = models.ParticipantModel.objects.filter(
+                is_registered=True, user__is_active=True, school=ENS.ENS_LYON
+            )
+            return [p.user.email for p in participants]
+        elif selection == Recipients.RENNAIS:
+            participants = models.ParticipantModel.objects.filter(
+                is_registered=True, user__is_active=True, school=ENS.ENS_RENNES
+            )
+            return [p.user.email for p in participants]
+        elif selection == Recipients.CACHANAIS:
+            participants = models.ParticipantModel.objects.filter(
+                is_registered=True, user__is_active=True, school=ENS.ENS_CACHAN
+            )
+            return [p.user.email for p in participants]
         else:
             raise ValueError("Invalid selection specifier\n")
 
@@ -635,9 +655,12 @@ class NewEmail(SuperuserRequiredMixin, FormView):
         """ajoute l'email d'envoie aux données contextuelles"""
         context = super().get_context_data(*args, **kwargs)
         context["from_email"] = self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
-        context["registered_nb"] = models.ParticipantModel.objects.filter(
-            is_registered=True, user__is_active=True
-        ).count()
+        participants = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True)
+        context["registered_nb"] = participants.count()
+        context["ulm"] = participants.filter(school=ENS.ENS_ULM).count()
+        context["lyon"] = participants.filter(school=ENS.ENS_LYON).count()
+        context["rennes"] = participants.filter(school=ENS.ENS_RENNES).count()
+        context["saclay"] = participants.filter(school=ENS.ENS_CACHAN).count()
         context["accounts_nb"] = EmailUser.objects.filter(is_active=True).count()
         return context
 
