@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import FormView, RedirectView, TemplateView
 
 from accounts.models import EmailUser
@@ -532,7 +533,7 @@ class SendUserEmail(SendEmailBase):
                 "Les participants ont déjà reçu un mail annonçant la répartition. Modifiez les réglages pour en envoyer un autre",
             )
             return
-        settings.user_notified = True
+        settings.user_notified = now()
         settings.save()
         emails = self.get_emails()
 
@@ -589,7 +590,7 @@ class SendOrgaEmail(SendEmailBase):
                 "Les orgas ont déjà reçu un mail avec leur listes d'inscrits. Modifiez les réglages pour en envoyer un autre",
             )
             return
-        settings.orga_notified = True
+        settings.orga_notified = now()
         settings.save()
         emails = self.get_emails()
 
@@ -645,7 +646,7 @@ class SendOrgaPlanningEmail(SendEmailBase):
                 "Les orgas ont déjà reçu un mail avec leur créneaux. Modifiez les réglages pour en envoyer un autre",
             )
             return
-        settings.orga_planning_notified = True
+        settings.orga_planning_notified = now()
         settings.save()
         emails = self.get_emails()
 

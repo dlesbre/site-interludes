@@ -281,20 +281,23 @@ class SiteSettings(SingletonModel):
         help_text="Par sécurité, n'activez ceci qu'au moment d'envoyer les emails et désactivez le après",
     )
 
-    user_notified = models.BooleanField(
-        "L'email de répartition des activités a été envoyé",
-        default=False,
-        help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails",
+    user_notified = models.DateTimeField(
+        "Dernier envoie de l'email de répartition des activités",
+        blank=True,
+        null=True,
+        help_text="Email donnant à chaque participant la liste des activités qu'il a obtenu. Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Mettez le à vide pour ré-envoyer un email",
     )
-    orga_notified = models.BooleanField(
-        "L'email de liste des participants a été envoyé",
-        default=False,
-        help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails",
+    orga_notified = models.DateTimeField(
+        "Dernier envoie de l'email de liste des participants",
+        blank=True,
+        null=True,
+        help_text="Email donnant à chaque orga d'activité (qui le demande) la liste des participants inscrit à son activite. Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Mettez le à vide pour ré-envoyer un email",
     )
-    orga_planning_notified = models.BooleanField(
-        "L'email communiquant leurs créneaux aux orgas été envoyé",
-        default=False,
-        help_text="Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Le decocher permet de renvoyer tous les mails",
+    orga_planning_notified = models.DateTimeField(
+        "Dernier envoie de l'email communiquant leurs créneaux aux orgas",
+        blank=True,
+        null=True,
+        help_text="Email donnant aux organisateurs d'activité leurs créneaux. Ce champ existe pour éviter l'envoie de plusieurs mails successifs. Mettez le à vide pour ré-envoyer un email",
     )
 
     global_message = models.TextField(

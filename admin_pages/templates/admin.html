@@ -276,8 +276,9 @@
 		</p>
 	{% endif %}
 	{% if settings.orga_planning_notified %}
-		<p>Un email communiquant les créneaux aux organisateurs a déjà été envoyé.
-			(Modifiez les paramètres s'il faut en renvoyer un)
+		<p>Un email communiquant les créneaux aux organisateurs a déjà été envoyé
+			(le {{ settings.orga_planning_notified }}).
+			Modifiez les paramètres s'il faut en renvoyer un
 		</p>
 		{% else %}
 		<p>
@@ -287,9 +288,15 @@
 		{% endif %}
 
 	{% if settings.orga_planning_notified or not settings.allow_mass_mail %}
-	<button class="button disabled">Email créneaux aux orgas</button>
+	<button class="button disabled">
+		<i class="fa fa-envelope"></i>
+		Email créneaux aux orgas
+	</button>
 	{% else %}
-	<button class="button" onclick="mail_orgas_planning();">Email créneaux aux orgas</button>
+	<button class="button" onclick="mail_orgas_planning();">
+		<i class="fa fa-envelope"></i>
+		Email créneaux aux orgas
+	</button>
 	{% endif %}
 
 	<h2>Répartition des activités</h2>
@@ -331,16 +338,20 @@
 		</p>
 	{% endif %}
 	{% if settings.user_notified %}
-		<p>Un email communiquant la répartition aux utilisateurs a déjà été envoyé.
-			(Modifiez les paramètres s'il faut en renvoyer un)
+		<p>
+			Un email communiquant la répartition aux utilisateurs a déjà été envoyé
+			(le {{ settings.user_notified }}).
+			Modifiez les paramètres s'il faut en renvoyer un.
 		</p>
 	{% else %}
 		<p>L'email aux inscrits enverra un email à tous les utilisateurs inscrits.
 			Il communiquera également le lien du discord si celui-ci est renseigné.</p>
 	{% endif %}
 	{% if settings.orga_notified %}
-		<p>Un email communiquant les inscrits aux organisateur à déjà été envoyé.
-			(Modifiez les paramètres s'il faut en renvoyer un)
+		<p>
+			Un email communiquant les inscrits aux organisateur à déjà été envoyé
+			(le {{ settings.orga_notified }}).
+			Modifiez les paramètres s'il faut en renvoyer un.
 		</p>
 		{% else %}
 		<p>L'email aux orgas enverra un email uniquement aux orgas des activités qui ont demandé de communiquer la liste de participants.</p>
@@ -348,14 +359,26 @@
 
 	<div class="flex wrap">
 		{% if settings.user_notified or not settings.allow_mass_mail %}
-			<button class="button disabled">Email aux inscrits</button>
+			<button class="button disabled">
+				<i class="fa fa-envelope"></i>
+				Email aux inscrits
+			</button>
 		{% else %}
-			<button class="button" onclick="mail_inscrits();">Email aux inscrits</button>
+			<button class="button" onclick="mail_inscrits();">
+				<i class="fa fa-envelope"></i>
+				Email aux inscrits
+			</button>
 		{% endif %}
 		{% if settings.orga_notified or not settings.allow_mass_mail %}
-			<button class="button disabled">Email participants aux orgas</button>
+			<button class="button disabled">
+				<i class="fa fa-envelope"></i>
+				Email participants aux orgas
+			</button>
 		{% else %}
-			<button class="button" onclick="mail_orgas();">Email participants aux orgas</button>
+			<button class="button" onclick="mail_orgas();">
+				<i class="fa fa-envelope"></i>
+				Email participants aux orgas
+			</button>
 		{% endif %}
 	</div>
 
@@ -365,5 +388,8 @@
 
 	<p>Évitez de spammer. N'envoyez que si vraiment nécessaire.</p>
 
-	<p><a class="button{% if not settings.allow_mass_mail %} disabled{% endif %}" href="{% url 'admin_pages:email_new' %}">Écrire un nouveau mail</a></p>
+	<p><a class="button{% if not settings.allow_mass_mail %} disabled{% endif %}" href="{% url 'admin_pages:email_new' %}">
+		<i class="fa fa-envelope"></i>
+		Écrire un nouveau mail
+	</a></p>
 {% endblock %}
