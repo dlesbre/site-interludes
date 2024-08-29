@@ -260,7 +260,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         validations += "</ul>"
 
         user_email_nb = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True).count()
-        orga_email_nb = models.ActivityModel.objects.filter(communicate_participants=True).count()
+        acts = models.ActivityModel.objects.filter(display=True)
+        orga_planning_email_nb = len(set(x.host_email for x in acts))
+        orga_email_nb = len(set(x.host_email for x in acts.filter(communicate_participants=True)))
 
         planning_validations = ""
         if settings.display_planning:
@@ -273,6 +275,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             "django_version": VERSION,
             "validations": validations,
             "user_email_nb": user_email_nb,
+            "orga_planning_email_nb": orga_planning_email_nb,
             "orga_email_nb": orga_email_nb,
             "validation_errors": '<li class="error">' in validations,
             "planning_validation": planning_validations,

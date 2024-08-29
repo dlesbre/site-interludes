@@ -263,7 +263,7 @@
 		{% if not settings.orga_planning_notified and settings.allow_mass_mail %}
 			function mail_orgas_planning() {
 				if (confirm(
-					`${errors}Cette action va envoyer {{ orga_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
+					`${errors}Cette action va envoyer {{ orga_planning_email_nb }} emails.\nÊtes-vous sur de vouloir continuer ?`
 				))
 					window.location = "{% url 'admin_pages:email_orgas_planning' %}";
 			}
