@@ -21,9 +21,9 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
         "must_subscribe",
     )
     list_filter = (
+        "year",
         "display",
         "must_subscribe",
-        "year",
     )
     ordering = (
         "title",
@@ -154,8 +154,9 @@ class SlotModelAdmin(ExportCsvMixin, admin.ModelAdmin):
         "on_activity",
     )
     list_filter = (
-        "on_planning",
+        "activity__year",
         "activity__display",
+        "on_planning",
     )
     list_editable = (
         "on_planning",

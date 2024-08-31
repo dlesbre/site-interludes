@@ -310,6 +310,18 @@ class SlotModel(models.Model):
     def __str__(self) -> str:
         return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)
 
+    def conflicts(self, other: "SlotModel") -> bool:
+        """Check whether these slots overlap"""
+        if self.start <= other.start:
+            return other.start <= self.end
+        return self.start <= other.end
+
+    # def is_active(self) -> bool:
+    #     year = get_year()
+    #     return self.activity.year == year and self.activity.display and (self.on_activity or self.on_planning)
+
+    # is_active.short_description = "Affiché"
+
     class Meta:
         verbose_name = "créneau"
         verbose_name_plural = "créneaux"

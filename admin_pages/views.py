@@ -55,7 +55,8 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
     def get_conflicts(self) -> Conflicts:
         """Returns a list of overlapping slot pairs"""
-        slots = models.SlotModel.objects.filter(subscribing_open=True)
+        year = models.get_year()
+        slots = models.SlotModel.objects.filter(activity__year=year)
         conflicts = []
         for i, slot_1 in enumerate(slots):
             for slot_2 in slots[i + 1 :]:
@@ -113,7 +114,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         conflicts = self.get_conflicts()
-
+        settings = SiteSettings.load()
         planning_validations = ""
         if settings.display_planning:
             planning_validations += self.format_ok("Le planning est affiché")
