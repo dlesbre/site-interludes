@@ -56,16 +56,21 @@
 
 	<h3>Participants et inscription</h3>
 
+	<p>
+		Ne vous comptez pas dans le nombre de participants, et ne comptez pas non plus vos co-orgas.
+	</p>
+
 	<table>
 		<tr><td><strong class="underline">Nécessite une inscription&nbsp;:</strong></td><td> {{ form.must_subscribe }}</td></tr>
 		<tr><td><strong>Me communiquer la liste des participants à l'avance&nbsp;:</strong></td><td> {{ form.communicate_participants }}</td></tr>
+
 		<tr><td><strong class="underline">Nombre max de participants&nbsp;:</strong></td><td> {{ form.max_participants }} (mettez 0 pour illimité)</td></tr>
 		{% if form.max_participants.errors %}<tr><td></td><td>{{ form.max_participants.errors }}</td></tr>{% endif %}
 		<tr><td><strong class="underline">Nombre min de participants&nbsp;:</strong></td><td> {{ form.min_participants }}</td></tr>
 		{% if form.min_participants.errors %}<tr><td></td><td>{{ form.min_participants.errors }}</td></tr>{% endif %}
 	</table>
 
-	<h3>Durée et crénaux</h3>
+	<h3>Durée et créneaux</h3>
 
 	<table>
 		<tr><td><strong class="underline">Durée approximative&nbsp;:</strong></td><td> {{ form.duration }} (format hh:mm:ss)</td></tr>
@@ -102,13 +107,18 @@
 
 	<h3>Commentaires</h3>
 
-	<p>D'autre choses à nous communiquer qui ne rentre pas dans les champs précédents&nbsp;?</p>
+	<p>D'autres choses à nous communiquer qui ne rentre pas dans les champs précédents&nbsp;?</p>
 
 	{{ form.comments }}
 
 	<h3>Soumettre</h3>
 
-	<p>L'activité n'est plus modifiable une fois soumise. Les administrateurs la reliront avant de l'afficher sur le site.</p>
+	<p>
+		L'activité n'est plus modifiable une fois soumise. 
+		Les administrateurs la reliront avant de l'afficher sur le site.
+		S'il faut absolument corrigé quelque chose une fois l'activité soumise,
+		contactez-nous et nous ferons la modification.
+	</p>
 
 	<div class="flex">
 		<input type="submit" value="Soumettre mon activité">
