@@ -21,6 +21,7 @@
 - Per school participant export
 - Send only one email par orga
 - Send email communicating time slots
+- Check for orga/orga conflict and orga/participant conflicts
 
 ## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
 
