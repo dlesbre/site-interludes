@@ -1,9 +1,12 @@
+from typing import List, Optional, Tuple
+
 from authens.models import User
 from django import VERSION
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
 from django.http import HttpResponseRedirect
+from django.template.defaultfilters import date as django_date
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
 
@@ -37,39 +40,94 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         return metrics
 
-    def validate_hidden_activities(self) -> str:
-        """Vérifie que des activités ne soient pas masquées"""
+    def format_ok(self, message: str) -> str:
+        """Mise en forme d'un check passé avec succès"""
+        return '<li class="success">' + message + "</li>"
+
+    def format_error(self, message: str, errors: Optional[List[str]] = None) -> str:
+        """Mise en forme d'un check qui échoue"""
+        if errors is not None:
+            for err in errors:
+                message += "<br> &bullet;&ensp; " + err
+        return '<li class="error">' + message + "</li>"
+
+    Conflicts = List[Tuple[models.SlotModel, models.SlotModel]]
+
+    def get_conflicts(self) -> Conflicts:
+        """Returns a list of overlapping slot pairs"""
+        slots = models.SlotModel.objects.filter(subscribing_open=True)
+        conflicts = []
+        for i, slot_1 in enumerate(slots):
+            for slot_2 in slots[i + 1 :]:
+                if slot_1.conflicts(slot_2):
+                    conflicts.append((slot_1, slot_2))
+        return conflicts
+
+    def check_hidden_activities(self) -> str:
+        """Vérification du planning et de la répartition des activités:
+        Vérifie que des activités ne soient pas masquées"""
         year = models.get_year()
         hidden_activites = models.ActivityModel.objects.filter(display=False, year=year)
-        errors = ""
+        errors = []
         for act in hidden_activites:
-            errors += "<br> &bullet; &ensp; {}".format(act)
+            errors.append("{}".format(act))
         if errors:
-            return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(errors)
-        return '<li class="success">Toutes les activités sont affichées</li>'
+            return self.format_error("Certaines activités ne sont pas affichées&nbsp;:", errors)
+        return self.format_ok("Toutes les activités sont affichées")
 
-    def planning_validation(self):
-        """Vérifie que toutes les activités ont le bon nombre de créneaux
+    def check_planning_slots_nb(self) -> str:
+        """Vérification du planning:
+        Vérifie que toutes les activités ont le bon nombre de créneaux
         dans le planning"""
-        errors = ""
+        errors = []
         year = models.get_year()
         activities = models.ActivityModel.objects.filter(year=year)
         for activity in activities:
             nb_wanted = activity.desired_slot_nb
             nb_got = activity.slots.count()
             if nb_wanted != nb_got:
-                errors += '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
-                    activity.title, nb_wanted, nb_got
-                )
+                errors.append('"{}" souhaite {} crénaux mais en a {}.'.format(activity.title, nb_wanted, nb_got))
         if errors:
-            return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(errors)
-        return '<li class="success">Toutes les activités ont le bon nombre de crénaux</li>'
+            return self.format_error("Certaines activités ont trop/pas assez de crénaux&nbsp;:", errors)
+        return self.format_ok("Toutes les activités ont le bon nombre de crénaux")
+
+    def check_planning_slot_conflicts(self, conflicts: Conflicts) -> str:
+        """Vérification du planning:
+        Vérifie qu'il n'y a pas d'orga gérant plusieurs activités simultanément"""
+        errors = []
+        for slot1, slot2 in conflicts:
+            conflict_text = "'{}' (le {} UTC) et '{}' (le {} UTC)".format(
+                slot1, django_date(slot1.start, "l à H:i"), slot2, django_date(slot2.start, "l à H:i")
+            )
+            if slot1.activity.host is not None and slot1.activity.host == slot2.activity.host:
+                errors.append("L'utilisateur '{}' organise {}".format(slot1.activity.host, conflict_text))
+            elif slot1.activity.host_name is not None and slot1.activity.host_name == slot2.activity.host_name:
+                errors.append("'{}' organise {}".format(slot1.activity.host_name, conflict_text))
+            elif slot1.activity.host_email == slot2.activity.host_email:
+                errors.append("'{}' organise {}".format(slot1.activity.host_email, conflict_text))
+        if errors:
+            return self.format_error("Certains organisteurs gèrent plusieurs créneaux simultanément&nbsp;:", errors)
+        return self.format_ok(
+            "Aucun organisateur ne gèrent de créneaux simultanés.<br>(Ne compare que les orgas principaux, pas les éventuels additionels)"
+        )
 
     def get_context_data(self, *args, **kwargs):
+        conflicts = self.get_conflicts()
+
+        planning_validations = ""
+        if settings.display_planning:
+            planning_validations += self.format_ok("Le planning est affiché")
+        else:
+            planning_validations += self.format_error("Le planning n'est pas affiché")
+        planning_validations += self.check_hidden_activities()
+        planning_validations += self.check_planning_slots_nb()
+        planning_validations += self.check_planning_slot_conflicts(conflicts)
+
         context = super().get_context_data(*args, **kwargs)
         context["django_version"] = VERSION
         context["metrics"] = self.get_metrics()
-        context["planning_validation"] = self.validate_hidden_activities() + self.planning_validation()
+        context["planning_validation"] = planning_validations
+        context["planning_validation_errors"] = '<li class="error">' in planning_validations
         context.update(get_planning_context())
         return context
 

@@ -15,6 +15,7 @@ Change log for the 48h des Jeux fork
 - Fix broken send email to all
 - Add "Guide de l'administrateur" page
 - Add "legal mentions" page
+- Check for orga/orga planning conflic
 
 ## Version 3.0.1 - 2022-09-10
 

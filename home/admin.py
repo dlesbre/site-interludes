@@ -45,6 +45,7 @@ class ActivityModelAdmin(ExportCsvMixin, admin.ModelAdmin):
             "Organisateurs",
             {
                 "fields": [
+                    "host",
                     ("host_name", "host_email"),
                     "host_info",
                 ]
