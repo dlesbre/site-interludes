@@ -4,7 +4,7 @@
 
 Change log for the 48h des Jeux fork
 
-## Version 3.1.0 - 2024-08-28
+## Version 3.1.0 - 2024-08-31
 
 - Improve date display when event is on a month-split weekend
 - Add a check for undisplayed activities
@@ -15,7 +15,7 @@ Change log for the 48h des Jeux fork
 - Fix broken send email to all
 - Add "Guide de l'administrateur" page
 - Add "legal mentions" page
-- Check for orga/orga planning conflic
+- Check for orga/orga planning conflicts
 
 ## Version 3.0.1 - 2022-09-10
 
