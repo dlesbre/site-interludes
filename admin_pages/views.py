@@ -361,7 +361,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             "planning_validation_errors": '<li class="error">' in planning_validations,
         }
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, *args, **kwargs) -> Dict[str, str]:
         context = super().get_context_data(*args, **kwargs)
         context["metrics"] = self.get_metrics()
         context.update(get_planning_context())
@@ -746,7 +746,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
     success_url = reverse_lazy("admin_pages:index")
     from_address: Optional[str] = None
 
-    def get_emails(self, selection) -> List[str]:
+    def get_emails(self, selection: Recipients) -> List[str]:
         """return the list of destination emails"""
         if selection == Recipients.ALL:
             users = EmailUser.objects.filter(is_active=True)
@@ -786,7 +786,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
         settings = SiteSettings.load()
         return settings.allow_mass_mail
 
-    def form_valid(self, form):
+    def form_valid(self, form: SendEmailForm) -> HttpResponse:
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
         if not self.sending_allowed():
