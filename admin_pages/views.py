@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.template.defaultfilters import date as django_date
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.timezone import now
@@ -77,12 +78,51 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         return metrics
 
-    def validate_activity_participant_nb(self) -> str:
-        """Vérifie que le nombre de participant inscrit
+    def format_ok(self, message: str) -> str:
+        """Mise en forme d'un check passé avec succès"""
+        return '<li class="success">' + message + "</li>"
+
+    def format_error(self, message: str, errors: Optional[List[str]] = None) -> str:
+        """Mise en forme d'un check qui échoue"""
+        if errors is not None:
+            for err in errors:
+                message += "<br> &bullet;&ensp; " + err
+        return '<li class="error">' + message + "</li>"
+
+    def check_activity_slots(self) -> str:
+        """Vérification du planning et de la répartition des activités:
+        verifie que toutes les activité demandant une liste de participant ont un créneaux"""
+        activities = models.ActivityModel.objects.filter(display=True, communicate_participants=True)
+        errors = []
+        for activity in activities:
+            count = models.SlotModel.objects.filter(activity=activity).count()
+            if count == 0:
+                errors.append(activity.title)
+        if errors:
+            return self.format_error(
+                "Certaines activités demandant une liste de participants n'ont pas de créneaux, leurs orgas vont recevoir un mail inutile.",
+                errors,
+            )
+        return self.format_ok("Toutes les activités demandant une liste de participants ont au moins un créneau")
+
+    def check_hidden_activities(self) -> str:
+        """Vérification du planning et de la répartition des activités:
+        Vérifie que des activités ne soient pas masquées"""
+        hidden_activites = models.ActivityModel.objects.filter(display=False)
+        errors = []
+        for act in hidden_activites:
+            errors.append(str(act))
+        if errors:
+            return self.format_error("Certaines activités ne sont pas affichées", errors)
+        return self.format_ok("Toutes les activités sont affichées")
+
+    def check_repartition_participant_nb(self) -> str:
+        """Vérification de la répartition des activités:
+        Vérifie que le nombre de participant inscrit
         à chaque activité est compris entre le min et le max"""
         slots = models.SlotModel.objects.filter(subscribing_open=True)
-        min_fails = ""
-        max_fails = ""
+        min_fails = []
+        max_fails = []
         for slot in slots:
             total = models.ActivityChoicesModel.objects.filter(
                 slot=slot,
@@ -93,65 +133,83 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             max = slot.activity.max_participants
             min = slot.activity.min_participants
             if max != 0 and max < total:
-                max_fails += "<br> &bullet;&ensp;{}: {} inscrits (maximum {})".format(slot, total, max)
+                max_fails.append("{}: {} inscrits (maximum {})".format(slot, total, max))
             if min > total:
-                min_fails += "<br> &bullet;&ensp;{}: {} inscrits (minimum {})".format(slot, total, min)
+                min_fails.append("{}: {} inscrits (minimum {})".format(slot, total, min))
         message = ""
         if min_fails:
-            message += '<li class="error">Activités en sous-effectif : {}</li>'.format(min_fails)
+            message += self.format_error("Activités en sous-effectif :", min_fails)
         else:
-            message += '<li class="success">Aucune activité en sous-effectif</li>'
+            message += self.format_ok("Aucune activité en sous-effectif")
         if max_fails:
-            message += '<li class="error">Activités en sur-effectif : {}</li>'.format(max_fails)
+            message += self.format_error("Activités en sur-effectif :", max_fails)
         else:
-            message += '<li class="success">Aucune activité en sur-effectif</li>'
+            message += self.format_ok("Aucune activité en sur-effectif")
         return message
 
-    def validate_activity_conflicts(self) -> str:
-        """Vérifie que personne n'est inscrit à des activités simultanées"""
+    Conflicts = List[Tuple[models.SlotModel, models.SlotModel]]
+
+    def get_conflicts(self) -> Conflicts:
+        """Returns a list of overlapping slot pairs"""
         slots = models.SlotModel.objects.filter(subscribing_open=True)
         conflicts = []
         for i, slot_1 in enumerate(slots):
             for slot_2 in slots[i + 1 :]:
                 if slot_1.conflicts(slot_2):
                     conflicts.append((slot_1, slot_2))
+        return conflicts
+
+    def check_repartition_no_simultaneaous_inscriptions(self, conflicts: Conflicts) -> str:
+        """Vérification de la répartition des activités:
+        Vérifie que personne n'est inscrit à des activités simultanées
+        Vérifie aussi que personne n'est inscrit en même temps qu'une activité qu'il organise"""
+
         base_qs = models.ActivityChoicesModel.objects.filter(
             accepted=True,
             participant__is_registered=True,
             participant__user__is_active=True,
         )
-        errors = ""
+        errors = []
+        errors_orga = []
         for slot_1, slot_2 in conflicts:
             participants_1 = {x.participant for x in base_qs.filter(slot=slot_1)}
             participants_2 = {x.participant for x in base_qs.filter(slot=slot_2)}
             intersection = participants_1.intersection(participants_2)
             if intersection:
-                errors += '<br> &bullet;&ensp; {} participe à la fois à "{}" et à "{}"'.format(
-                    ", ".join(str(x) for x in intersection), slot_1, slot_2
+                errors.append(
+                    '{} participe à la fois à "{}" et à "{}"'.format(
+                        ", ".join(str(x) for x in intersection), slot_1, slot_2
+                    )
                 )
+            for participant in participants_1:
+                if participant.user == slot_2.activity.host:
+                    errors_orga.append(
+                        "{} ({}) organise '{}' et participe à {}".format(participant, participant.user, slot_2, slot_1)
+                    )
+            for participant in participants_2:
+                if participant.user == slot_1.activity.host:
+                    errors_orga.append(
+                        "{} ({}) organise '{}' et participe à {}".format(participant, participant.user, slot_2, slot_1)
+                    )
 
+        result = ""
         if errors:
-            return '<li class="error">Des participants ont plusieurs activités au même moment :{}</li>'.format(errors)
-        return '<li class="success">Aucun inscrit à plusieurs activités simultanées</li>'
-
-    def validate_slot_less(self) -> str:
-        """verifie que toutes les activité demandant une liste de participant ont un créneaux"""
-        activities = models.ActivityModel.objects.filter(display=True, communicate_participants=True)
-        errors = ""
-        for activity in activities:
-            count = models.SlotModel.objects.filter(activity=activity).count()
-            if count == 0:
-                errors += "<br> &bullet;&ensp; {}".format(activity.title)
-        if errors:
-            return '<li class="error">Certaines activités demandant une liste de participants n\'ont pas de créneaux :{}<br>Leurs orgas vont recevoir un mail inutile.</li>'.format(
-                errors
+            result += self.format_error("Des participants ont plusieurs activités au même moment :", errors)
+        else:
+            result += self.format_ok("Aucun inscrit à plusieurs activités simultanées")
+        if errors_orga:
+            return result + self.format_error(
+                "Certains orgas sont incrit à des activités se déroulant en même temps que celle qu'ils organisent :",
+                errors_orga,
             )
-        return (
-            '<li class="success">Toutes les activités demandant une liste de participants ont au moins un créneau</li>'
+        return result + self.format_ok(
+            "Aucun orga n'est incrit à une activité en même temps que celle qu'il organise<br>"
+            "(Ne compare que les orgas principaux, pas les éventuels additionels)"
         )
 
-    def validate_multiple_similar_inscription(self) -> str:
-        """verifie que personne n'est inscrit à la même activité plusieurs fois"""
+    def check_repartition_no_duplicate_inscription(self) -> str:
+        """Vérification de la répartition des activités:
+        vérifie que personne n'est inscrit à la même activité plusieurs fois"""
         slots = models.SlotModel.objects.filter(subscribing_open=True)
         conflicts = []
         for i, slot_1 in enumerate(slots):
@@ -163,73 +221,88 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             participant__is_registered=True,
             participant__user__is_active=True,
         )
-        errors = ""
+        errors = []
         for slot_1, slot_2 in conflicts:
             participants_1 = {x.participant for x in base_qs.filter(slot=slot_1)}
             participants_2 = {x.participant for x in base_qs.filter(slot=slot_2)}
             intersection = participants_1.intersection(participants_2)
             if intersection:
-                errors += '<br> &bullet;&ensp; {} inscrit aux créneaux "{}" et  "{}" de l\'activité "{}"'.format(
-                    ", ".join(str(x) for x in intersection),
-                    slot_1,
-                    slot_2,
-                    slot_1.activity,
+                errors.append(
+                    '{} inscrit aux créneaux "{}" et  "{}" de l\'activité "{}"'.format(
+                        ", ".join(str(x) for x in intersection),
+                        slot_1,
+                        slot_2,
+                        slot_1.activity,
+                    )
                 )
 
         if errors:
-            return '<li class="error">Des participants sont inscrits plusieurs fois à la même activité :{}</li>'.format(
-                errors
-            )
-        return '<li class="success">Aucun inscrit plusieurs fois à une même activité</li>'
+            return self.format_error("Des participants sont inscrits plusieurs fois à la même activité :", errors)
+        return self.format_ok("Aucun inscrit plusieurs fois à une même activité")
 
-    def validate_hidden_activities(self) -> str:
-        """Vérifie que des activités ne soient pas masquées"""
-        hidden_activites = models.ActivityModel.objects.filter(display=False)
-        errors = ""
-        for act in hidden_activites:
-            errors += "<br> &bullet; &ensp; {}".format(act)
-        if errors:
-            return '<li class="error">Certaines activités ne sont pas affichées&nbsp;:{}</li>'.format(errors)
-        return '<li class="success">Toutes les activités sont affichées</li>'
-
-    def planning_validation(self) -> str:
-        """Vérifie que toutes les activités ont le bon nombre de créneaux
+    def check_planning_slots_nb(self) -> str:
+        """Vérification du planning:
+        Vérifie que toutes les activités ont le bon nombre de créneaux
         dans le planning"""
-        errors = ""
+        errors = []
         activities = models.ActivityModel.objects.filter(display=True)
         for activity in activities:
             nb_wanted = activity.desired_slot_nb
             nb_got = activity.slots().count()
             if nb_wanted != nb_got:
-                errors += '<br> &bullet;&ensp; "{}" souhaite {} crénaux mais en a {}.'.format(
-                    activity.title, nb_wanted, nb_got
-                )
+                errors.append('"{}" souhaite {} crénaux mais en a {}.'.format(activity.title, nb_wanted, nb_got))
         if errors:
-            return '<li class="error">Certaines activités ont trop/pas assez de crénaux :{}</li>'.format(errors)
-        return '<li class="success">Toutes les activités (affichées) ont le bon nombre de crénaux</li>'
+            return self.format_error("Certaines activités ont trop/pas assez de crénaux :", errors)
+        return self.format_ok("Toutes les activités (affichées) ont le bon nombre de crénaux")
 
-    def validate_registration_matches(self) -> str:
-        """Vérifie que les créneaux sur inscription correspondent aux activités
+    def check_planning_registration_matches(self) -> str:
+        """Vérification du planning:
+        Vérifie que les créneaux sur inscription correspondent aux activités
         sur inscription"""
-        errors = ""
+        errors = []
         activities = models.ActivityModel.objects.filter(display=True)
         for activity in activities:
             for slot in activity.slots():
                 if slot.subscribing_open != activity.must_subscribe:
-                    errors += "<br> &bullet;&ensp; "
                     if slot.subscribing_open:
-                        errors += "Le créneau '{}' est 'sur inscription', mais son activité correspondante '{}' ne l'est pas".format(
-                            slot, activity.title
+                        errors.append(
+                            "Le créneau '{}' est 'sur inscription', mais son activité correspondante '{}' ne l'est pas".format(
+                                slot, activity.title
+                            )
                         )
                     else:
-                        errors += "L'activité '{}' est 'sur inscription', mais son créneau '{}' ne l'est pas".format(
-                            activity.title, slot
+                        errors.append(
+                            "L'activité '{}' est 'sur inscription', mais son créneau '{}' ne l'est pas".format(
+                                activity.title, slot
+                            )
                         )
         if errors:
-            return '<li class="error">Le cases "sur inscription" ne correspondent pas entre activités et créneaux :{}</li>'.format(
-                errors
+            return self.format_error(
+                'Les cases "sur inscription" ne correspondent pas entre activités et créneaux :', errors
             )
-        return '<li class="success">Toutes les activités (affichées) "sur inscription" n\'ont que des créneaux sur inscription (et réciproquement)</li>'
+        return self.format_ok(
+            'Toutes les activités (affichées) "sur inscription" n\'ont que des créneaux sur inscription (et réciproquement)'
+        )
+
+    def check_planning_slot_conflicts(self, conflicts: Conflicts) -> str:
+        """Vérification du planning:
+        Vérifie qu'il n'y a pas d'orga gérant plusieurs activités simultanément"""
+        errors = []
+        for slot1, slot2 in conflicts:
+            conflict_text = "'{}' (le {} UTC) et '{}' (le {} UTC)".format(
+                slot1, django_date(slot1.start, "l à H:i"), slot2, django_date(slot2.start, "l à H:i")
+            )
+            if slot1.activity.host is not None and slot1.activity.host == slot2.activity.host:
+                errors.append("L'utilisateur '{}' organise {}".format(slot1.activity.host, conflict_text))
+            elif slot1.activity.host_name is not None and slot1.activity.host_name == slot2.activity.host_name:
+                errors.append("'{}' organise {}".format(slot1.activity.host_name, conflict_text))
+            elif slot1.activity.host_email == slot2.activity.host_email:
+                errors.append("'{}' organise {}".format(slot1.activity.host_email, conflict_text))
+        if errors:
+            return self.format_error("Certains organisteurs gèrent plusieurs créneaux simultanément :", errors)
+        return self.format_ok(
+            "Aucun organisateur ne gèrent de créneaux simultanés.<br>(Ne compare que les orgas principaux, pas les éventuels additionels)"
+        )
 
     def validate_activity_allocation(self) -> Dict[str, Any]:
         settings = SiteSettings.load()
@@ -237,26 +310,28 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         # validate global settings
         if not settings.inscriptions_open:
-            validations += '<li class="success">Les inscriptions sont fermées</li>'
+            validations += self.format_ok("Les inscriptions sont fermées")
         else:
-            validations += '<li class="error">Les inscriptions sont encores ouvertes</li>'
+            validations += self.format_error("Les inscriptions sont encores ouvertes")
         if settings.activities_allocated:
-            validations += '<li class="success">La répartition est marquée comme effectuée</li>'
+            validations += self.format_ok("La répartition est marquée comme effectuée")
         else:
-            validations += '<li class="error">La répartition n\'est pas marquée comme effectuée</li>'
+            validations += self.format_error("La répartition n'est pas marquée comme effectuée")
+
+        conflicts = self.get_conflicts()
 
         # longer validations
-        hidden = self.validate_hidden_activities()
+        hidden = self.check_hidden_activities()
         validations += hidden
-        validations += self.validate_slot_less()
-        validations += self.validate_activity_participant_nb()
-        validations += self.validate_activity_conflicts()
-        validations += self.validate_multiple_similar_inscription()
+        validations += self.check_activity_slots()
+        validations += self.check_repartition_participant_nb()
+        validations += self.check_repartition_no_simultaneaous_inscriptions(conflicts)
+        validations += self.check_repartition_no_duplicate_inscription()
 
         if settings.discord_link:
-            validations += '<li class="success">Le lien du discord est renseigné</li>'
+            validations += self.format_ok("Le lien du discord est renseigné")
         else:
-            validations += '<li class="error">Le lien du discord n\'est pas renseigné</li>'
+            validations += self.format_error("Le lien du discord n'est pas renseigné")
 
         validations += "</ul>"
 
@@ -267,10 +342,13 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         planning_validations = ""
         if settings.display_planning:
-            planning_validations += '<li class="success">Le planning est affiché</li>'
+            planning_validations += self.format_ok("Le planning est affiché")
         else:
-            planning_validations += '<li class="error">Le planning n\'est pas affiché</li>'
-        planning_validations += hidden + self.planning_validation() + self.validate_registration_matches()
+            planning_validations += self.format_error("Le planning n'est pas affiché")
+        planning_validations += hidden
+        planning_validations += self.check_planning_slots_nb()
+        planning_validations += self.check_planning_registration_matches()
+        planning_validations += self.check_planning_slot_conflicts(conflicts)
 
         return {
             "django_version": VERSION,
