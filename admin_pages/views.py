@@ -804,7 +804,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
                 "Email envoyé",
                 "Un email a été envoyé à {}.\n"
                 "Nombre total de mail envoyés: {}\n\n"
-                "Sujet&nbsp;: {}\n\n"
+                "Sujet : {}\n\n"
                 "{}\n\n"
                 "{}".format(
                     Recipients(dest).label,
