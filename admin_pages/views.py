@@ -1,11 +1,11 @@
-from typing import List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from authens.models import User
 from django import VERSION
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import mail_admins, send_mass_mail
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.template.defaultfilters import date as django_date
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
@@ -112,7 +112,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             "Aucun organisateur ne gèrent de créneaux simultanés.<br>(Ne compare que les orgas principaux, pas les éventuels additionels)"
         )
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, *args, **kwargs) -> Dict[str, Any]:
         conflicts = self.get_conflicts()
         settings = SiteSettings.load()
         planning_validations = ""
@@ -211,6 +211,10 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
 # ==============================
 
 
+# Subject, Message, From, To
+EMAIL = Tuple[str, str, Optional[str], List[str]]
+
+
 class NewEmail(SuperuserRequiredMixin, FormView):
     """Créer un nouveau mail"""
 
@@ -219,18 +223,18 @@ class NewEmail(SuperuserRequiredMixin, FormView):
     success_url = reverse_lazy("admin_pages:index")
     from_address = None
 
-    def get_emails(self):
+    def get_emails(self) -> List[str]:
         """return the list of destination emails"""
         users = User.objects.filter(is_active=True)
         return [u.email for u in users]
 
     @staticmethod
-    def sending_allowed():
+    def sending_allowed() -> bool:
         """Checks if sending mass emails is allowed"""
         settings = SiteSettings.load()
         return settings.allow_mass_mail
 
-    def form_valid(self, form):
+    def form_valid(self, form: SendEmailForm) -> HttpResponse:
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
         if not self.sending_allowed():
@@ -258,14 +262,14 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             messages.success(self.request, "{} mails envoyés".format(nb_sent))
         return super().form_valid(form)
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, *args, **kwargs) -> Dict[str, str]:
         """ajoute l'email d'envoie aux données contextuelles"""
         context = super().get_context_data(*args, **kwargs)
         context["from_email"] = self.from_address if self.from_address else settings.DEFAULT_FROM_EMAIL
         context["accounts_nb"] = User.objects.filter(is_active=True).count()
         return context
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if self.sending_allowed():
             return super().get(request, *args, **kwargs)
         messages.error(request, "L'envoi de mail de masse est désactivé dans les réglages")

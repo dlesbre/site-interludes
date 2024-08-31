@@ -1,7 +1,9 @@
 import csv
+from typing import Generic, List, Optional, Type, TypeVar
 
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.http import HttpResponse
+from django.db.models import Model, QuerySet
+from django.http import HttpRequest, HttpResponse
 from django.views import View
 
 
@@ -11,22 +13,27 @@ class SuperuserRequiredMixin(UserPassesTestMixin):
     raise_exception = True
     permission_denied_message = "Seul les superutilisateurs ont accès à cette page"
 
-    def test_func(self):
+    request: HttpRequest
+
+    def test_func(self) -> bool:
         user = self.request.user
         return user.is_authenticated and user.is_superuser
 
 
-class CSVWriteView(View):
-    filename = "csv_file.csv"
-    headers = None
-    model = None
-    exclude_fields = []
-    fields = None
+M = TypeVar("M", bound=Model)
 
-    def get_filename(self):
+
+class CSVWriteView(View, Generic[M]):
+    filename = "csv_file.csv"
+    headers: Optional[List[str]] = None
+    model: Type[M]
+    exclude_fields: List[str] = []
+    fields: Optional[List[str]] = None
+
+    def get_filename(self) -> str:
         return self.filename
 
-    def get_headers(self):
+    def get_headers(self) -> Optional[List[str]]:
         """overload this to dynamicaly generate headers"""
         if self.headers:
             return self.headers
@@ -34,7 +41,7 @@ class CSVWriteView(View):
             return self.get_field_names()
         return None
 
-    def get_values(self):
+    def get_values(self) -> QuerySet[M]:
         """overload to change queryset used in self.get_rows"""
         if self.model:
             return self.model.objects.values()
@@ -42,7 +49,7 @@ class CSVWriteView(View):
             "{}.get_values() isn't implemented when model is None".format(self.__class__.__name__)
         )
 
-    def get_field_names(self):
+    def get_field_names(self) -> List[str]:
         """overload to limit/change field names
         default to:
         - the value of self.field if not None
@@ -51,7 +58,7 @@ class CSVWriteView(View):
             return self.fields
         return [field.name for field in self.model._meta.get_fields() if field.name not in self.exclude_fields]
 
-    def get_rows(self):
+    def get_rows(self) -> List[List[str]]:
         """overload this to return the list of rows"""
         queryset = self.get_values()
         fields = self.get_field_names()
@@ -60,7 +67,7 @@ class CSVWriteView(View):
             table.append([row[field] for field in fields])
         return table
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         response = HttpResponse(content_type="text/csv")
         filename = self.get_filename()
         if not filename.endswith(".csv"):

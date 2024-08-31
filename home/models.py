@@ -1,4 +1,5 @@
 import datetime
+from typing import Optional
 
 from authens.models import User
 from django.db import models
@@ -250,8 +251,7 @@ class SlotModel(models.Model):
         help_text="La légende des couleurs est modifiable dans les paramètres",
     )
 
-    @property
-    def end(self):
+    def end(self) -> datetime.datetime:
         """Heure de fin du créneau"""
         if self.duration:
             return self.start + self.duration
@@ -268,7 +268,7 @@ class SlotModel(models.Model):
         if settings.date_start:
             return (
                 date
-                - timezone.datetime.combine(
+                - datetime.datetime.combine(
                     settings.date_start,
                     datetime.time(hour=4),
                     timezone.get_current_timezone(),
@@ -278,7 +278,7 @@ class SlotModel(models.Model):
             return 0
 
     @staticmethod
-    def fake_date(date: datetime.datetime):
+    def fake_date(date: datetime.datetime) -> Optional[datetime.datetime]:
         """Fake day for display on the (single day planning)"""
         settings = SiteSettings.load()
         if settings.date_start:
@@ -286,26 +286,22 @@ class SlotModel(models.Model):
             offset = datetime.timedelta(0)
             if time.hour < 4:
                 offset = datetime.timedelta(days=1)
-            return timezone.datetime.combine(settings.date_start + offset, date.timetz())
+            return datetime.datetime.combine(settings.date_start + offset, date.timetz())
         return None
 
-    @property
     def start_day(self) -> int:
         """returns a day (0-2)"""
         return self.relative_day(self.start)
 
-    @property
     def end_day(self) -> int:
         """returns a day (0-2)"""
-        return self.relative_day(self.end)
+        return self.relative_day(self.end())
 
-    @property
-    def planning_start(self) -> int:
+    def planning_start(self) -> Optional[datetime.datetime]:
         return self.fake_date(self.start)
 
-    @property
-    def planning_end(self) -> int:
-        return self.fake_date(self.end)
+    def planning_end(self) -> Optional[datetime.datetime]:
+        return self.fake_date(self.end())
 
     def __str__(self) -> str:
         return self.title.replace(self.TITLE_SPECIFIER, self.activity.title)
@@ -313,8 +309,8 @@ class SlotModel(models.Model):
     def conflicts(self, other: "SlotModel") -> bool:
         """Check whether these slots overlap"""
         if self.start <= other.start:
-            return other.start <= self.end
-        return self.start <= other.end
+            return other.start <= self.end()
+        return self.start <= other.end()
 
     # def is_active(self) -> bool:
     #     year = get_year()

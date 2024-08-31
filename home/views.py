@@ -1,10 +1,12 @@
 from datetime import timedelta
+from typing import Any, Dict
 
 from authens.views import LogoutView as AuthensLogoutView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sitemaps import Sitemap
 from django.core.mail import send_mail
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
@@ -18,7 +20,7 @@ from .forms import ActivitySubmissionForm
 from .models import SlotModel
 
 
-def get_planning_context():
+def get_planning_context() -> Dict[str, Any]:
     """Returns the context dict needed to display the planning"""
     settings = SiteSettings.load()
     context = dict()
@@ -47,28 +49,28 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
     success_url = reverse_lazy("pages:html_page", kwargs={"slug": "activites"})
 
     @staticmethod
-    def submission_check():
+    def submission_check() -> bool:
         """Vérifie si le formulaire est ouvert ou non"""
         settings = SiteSettings.load()
         return settings.activity_submission_open
 
-    def not_open(self, request):
+    def not_open(self, request: HttpRequest) -> HttpResponse:
         """Appelé quand le formulaire est désactivé"""
         messages.error(request, "La soumission d'activité est désactivée")
         return redirect(self.success_url, permanent=False)
 
-    def get_initial(self):
+    def get_initial(self) -> Dict[str, str]:
         init = super().get_initial()
         user = self.request.user
         init.update({"host_name": user.username, "host_email": user.email})
         return init
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if not self.submission_check():
             return self.not_open(request)
         return super().get(self, request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if not self.submission_check():
             return self.not_open(request)
         form = self.form_class(request.POST)

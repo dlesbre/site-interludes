@@ -35,9 +35,12 @@ class ActivitySubmissionForm(FormRenderMixin, forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        maxi = cleaned_data.get("max_participants")
-        mini = cleaned_data.get("min_participants")
-        if maxi != 0 and mini > maxi:
+        maxi = None
+        mini = None
+        if cleaned_data is not None:
+            maxi = cleaned_data.get("max_participants")
+            mini = cleaned_data.get("min_participants")
+        if maxi is not None and mini is not None and maxi != 0 and mini > maxi:
             raise forms.ValidationError(
                 "Le nombre minimal de participants est supérieur au nombre maximal",
                 code="invalid_order",
