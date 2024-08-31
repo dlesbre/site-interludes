@@ -138,11 +138,11 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
                 min_fails.append("{}: {} inscrits (minimum {})".format(slot, total, min))
         message = ""
         if min_fails:
-            message += self.format_error("Activités en sous-effectif :", min_fails)
+            message += self.format_error("Activités en sous-effectif&nbsp;:", min_fails)
         else:
             message += self.format_ok("Aucune activité en sous-effectif")
         if max_fails:
-            message += self.format_error("Activités en sur-effectif :", max_fails)
+            message += self.format_error("Activités en sur-effectif&nbsp;:", max_fails)
         else:
             message += self.format_ok("Aucune activité en sur-effectif")
         return message
@@ -194,12 +194,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         result = ""
         if errors:
-            result += self.format_error("Des participants ont plusieurs activités au même moment :", errors)
+            result += self.format_error("Des participants ont plusieurs activités au même moment&nbsp;:", errors)
         else:
             result += self.format_ok("Aucun inscrit à plusieurs activités simultanées")
         if errors_orga:
             return result + self.format_error(
-                "Certains orgas sont incrit à des activités se déroulant en même temps que celle qu'ils organisent :",
+                "Certains orgas sont incrit à des activités se déroulant en même temps que celle qu'ils organisent&nbsp;:",
                 errors_orga,
             )
         return result + self.format_ok(
@@ -237,7 +237,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
                 )
 
         if errors:
-            return self.format_error("Des participants sont inscrits plusieurs fois à la même activité :", errors)
+            return self.format_error("Des participants sont inscrits plusieurs fois à la même activité&nbsp;:", errors)
         return self.format_ok("Aucun inscrit plusieurs fois à une même activité")
 
     def check_planning_slots_nb(self) -> str:
@@ -252,7 +252,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             if nb_wanted != nb_got:
                 errors.append('"{}" souhaite {} crénaux mais en a {}.'.format(activity.title, nb_wanted, nb_got))
         if errors:
-            return self.format_error("Certaines activités ont trop/pas assez de crénaux :", errors)
+            return self.format_error("Certaines activités ont trop/pas assez de crénaux&nbsp;:", errors)
         return self.format_ok("Toutes les activités (affichées) ont le bon nombre de crénaux")
 
     def check_planning_registration_matches(self) -> str:
@@ -278,7 +278,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
                         )
         if errors:
             return self.format_error(
-                'Les cases "sur inscription" ne correspondent pas entre activités et créneaux :', errors
+                'Les cases "sur inscription" ne correspondent pas entre activités et créneaux&nbsp;:', errors
             )
         return self.format_ok(
             'Toutes les activités (affichées) "sur inscription" n\'ont que des créneaux sur inscription (et réciproquement)'
@@ -299,7 +299,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             elif slot1.activity.host_email == slot2.activity.host_email:
                 errors.append("'{}' organise {}".format(slot1.activity.host_email, conflict_text))
         if errors:
-            return self.format_error("Certains organisteurs gèrent plusieurs créneaux simultanément :", errors)
+            return self.format_error("Certains organisteurs gèrent plusieurs créneaux simultanément&nbsp;:", errors)
         return self.format_ok(
             "Aucun organisateur ne gèrent de créneaux simultanés.<br>(Ne compare que les orgas principaux, pas les éventuels additionels)"
         )
@@ -804,7 +804,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
                 "Email envoyé",
                 "Un email a été envoyé à {}.\n"
                 "Nombre total de mail envoyés: {}\n\n"
-                "Sujet : {}\n\n"
+                "Sujet&nbsp;: {}\n\n"
                 "{}\n\n"
                 "{}".format(
                     Recipients(dest).label,
