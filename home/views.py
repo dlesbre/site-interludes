@@ -222,6 +222,8 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
             return render(request, self.template_name, context)
 
         activity = form.save()
+        activity.host = request.user
+        activity.save()
 
         messages.success(
             request,
