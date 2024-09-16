@@ -78,6 +78,45 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
         return metrics
 
+    def url_parameters(self, field: Optional[str] = None) -> str:
+        """URL de modification des paramètres"""
+        url = reverse("admin:site_settings_sitesettings_change", args=[1])
+        if field is not None:
+            url += "#id_" + field
+        return '<a href="{}">Modifier</a>'.format(url)
+
+    def url_activity(
+        self, activity: models.ActivityModel, field: Optional[str] = None, text: Optional[str] = None
+    ) -> str:
+        url = reverse("admin:home_activitymodel_change", args=[activity.id])
+        if field is not None:
+            url += "#id_" + field
+        if text is None:
+            text = str(activity.title)
+        return '<a href="{}">{}</a>'.format(url, text)
+
+    def url_slot(self, slot: models.SlotModel, field: Optional[str] = None) -> str:
+        url = reverse("admin:home_slotmodel_change", args=[slot.id])
+        if field is not None:
+            url += "#id_" + field
+        return '<a href="{}">{}</a>'.format(url, slot)
+
+    def url_participant(self, participant: models.ParticipantModel, field: Optional[str] = None) -> str:
+        url = reverse("admin:home_participantmodel_change", args=[participant.id])
+        if field is not None:
+            url += "#id_" + field
+        return '<a href="{}">{}</a>'.format(url, participant)
+
+    def url_user(self, user: EmailUser, field: Optional[str] = None) -> str:
+        url = reverse("admin:accounts_emailuser_change", args=[user.id])
+        if field is not None:
+            url += "#id_" + field
+        return '<a href="{}">{}</a>'.format(url, user.email)
+
+    def url_add_slot(self, activity: models.ActivityModel) -> str:
+        url = reverse("admin:home_slotmodel_add")
+        return '<a href="{}?activity={}">nouveau créneau</a>'.format(url, activity.id)
+
     def format_ok(self, message: str) -> str:
         """Mise en forme d'un check passé avec succès"""
         return '<li class="success">' + message + "</li>"
@@ -97,7 +136,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         for activity in activities:
             count = models.SlotModel.objects.filter(activity=activity).count()
             if count == 0:
-                errors.append(activity.title)
+                errors.append("{} (créer un {})".format(self.url_activity(activity), self.url_add_slot(activity)))
         if errors:
             return self.format_error(
                 "Certaines activités demandant une liste de participants n'ont pas de créneaux, leurs orgas vont recevoir un mail inutile.",
@@ -111,7 +150,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         hidden_activites = models.ActivityModel.objects.filter(display=False)
         errors = []
         for act in hidden_activites:
-            errors.append(str(act))
+            errors.append(self.url_activity(act, "display"))
         if errors:
             return self.format_error("Certaines activités ne sont pas affichées", errors)
         return self.format_ok("Toutes les activités sont affichées")
@@ -133,18 +172,18 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             max = slot.activity.max_participants
             min = slot.activity.min_participants
             if max != 0 and max < total:
-                max_fails.append("{}: {} inscrits (maximum {})".format(slot, total, max))
+                max_fails.append("{}: {} inscrits (maximum {})".format(self.url_slot(slot), total, max))
             if min > total:
-                min_fails.append("{}: {} inscrits (minimum {})".format(slot, total, min))
+                min_fails.append("{}: {} inscrits (minimum {})".format(self.url_slot(slot), total, min))
         message = ""
         if min_fails:
-            message += self.format_error("Activités en sous-effectif&nbsp;:", min_fails)
+            message += self.format_error("Créneaux en sous-effectif&nbsp;:", min_fails)
         else:
-            message += self.format_ok("Aucune activité en sous-effectif")
+            message += self.format_ok("Aucune créneau en sous-effectif")
         if max_fails:
-            message += self.format_error("Activités en sur-effectif&nbsp;:", max_fails)
+            message += self.format_error("Créneaux en sur-effectif&nbsp;:", max_fails)
         else:
-            message += self.format_ok("Aucune activité en sur-effectif")
+            message += self.format_ok("Aucune créneau en sur-effectif")
         return message
 
     Conflicts = List[Tuple[models.SlotModel, models.SlotModel]]
@@ -178,26 +217,39 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             if intersection:
                 errors.append(
                     '{} participe à la fois à "{}" et à "{}"'.format(
-                        ", ".join(str(x) for x in intersection), slot_1, slot_2
+                        ", ".join(self.url_participant(x) for x in intersection),
+                        self.url_slot(slot_1),
+                        self.url_slot(slot_2),
                     )
                 )
             for participant in participants_1:
                 if participant.user == slot_2.activity.host:
                     errors_orga.append(
-                        "{} ({}) organise '{}' et participe à {}".format(participant, participant.user, slot_2, slot_1)
+                        "{} ({}) organise '{}' et participe à {}".format(
+                            self.url_participant(participant),
+                            self.url_user(participant.user),
+                            self.url_slot(slot_2),
+                            self.url_slot(slot_1),
+                        )
                     )
             for participant in participants_2:
                 if participant.user == slot_1.activity.host:
                     errors_orga.append(
-                        "{} ({}) organise '{}' et participe à {}".format(participant, participant.user, slot_2, slot_1)
+                        "{} ({}) organise '{}' et participe à {}".format(
+                            self.url_participant(participant),
+                            self.url_user(participant.user),
+                            self.url_slot(slot_2),
+                            self.url_slot(slot_1),
+                        )
                     )
 
         result = ""
         if errors:
-            result += self.format_error("Des participants ont plusieurs activités au même moment&nbsp;:", errors)
+            result += self.format_error("Des participants ont plusieurs créneaux au même moment&nbsp;:", errors)
         else:
-            result += self.format_ok("Aucun inscrit à plusieurs activités simultanées")
+            result += self.format_ok("Aucun inscrit à plusieurs créneaux simultanées")
         if errors_orga:
+            errors_orga = list(set(errors_orga))  # Ugly way to avoid duplicate warnings
             return result + self.format_error(
                 "Certains orgas sont incrit à des activités se déroulant en même temps que celle qu'ils organisent&nbsp;:",
                 errors_orga,
@@ -229,10 +281,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             if intersection:
                 errors.append(
                     '{} inscrit aux créneaux "{}" et  "{}" de l\'activité "{}"'.format(
-                        ", ".join(str(x) for x in intersection),
-                        slot_1,
-                        slot_2,
-                        slot_1.activity,
+                        ", ".join(self.url_participant(x) for x in intersection),
+                        self.url_slot(slot_1),
+                        self.url_slot(slot_2),
+                        self.url_activity(slot_1.activity),
                     )
                 )
 
@@ -250,7 +302,11 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             nb_wanted = activity.desired_slot_nb
             nb_got = activity.slots().count()
             if nb_wanted != nb_got:
-                errors.append('"{}" souhaite {} crénaux mais en a {}.'.format(activity.title, nb_wanted, nb_got))
+                errors.append(
+                    '"{}" souhaite {} crénaux mais en a {} ({}).'.format(
+                        self.url_activity(activity), nb_wanted, nb_got, self.url_add_slot(activity)
+                    )
+                )
         if errors:
             return self.format_error("Certaines activités ont trop/pas assez de crénaux&nbsp;:", errors)
         return self.format_ok("Toutes les activités (affichées) ont le bon nombre de crénaux")
@@ -267,13 +323,13 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
                     if slot.subscribing_open:
                         errors.append(
                             "Le créneau '{}' est 'sur inscription', mais son activité correspondante '{}' ne l'est pas".format(
-                                slot, activity.title
+                                self.url_slot(slot, "subscribing_open"), self.url_activity(activity, "must_subscribe")
                             )
                         )
                     else:
                         errors.append(
                             "L'activité '{}' est 'sur inscription', mais son créneau '{}' ne l'est pas".format(
-                                activity.title, slot
+                                self.url_activity(activity, "must_subscribe"), self.url_slot(slot, "subscribing_open")
                             )
                         )
         if errors:
@@ -290,10 +346,15 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         errors = []
         for slot1, slot2 in conflicts:
             conflict_text = "'{}' (le {} UTC) et '{}' (le {} UTC)".format(
-                slot1, django_date(slot1.start, "l à H:i"), slot2, django_date(slot2.start, "l à H:i")
+                self.url_slot(slot1),
+                django_date(slot1.start, "l à H:i"),
+                self.url_slot(slot2),
+                django_date(slot2.start, "l à H:i"),
             )
             if slot1.activity.host is not None and slot1.activity.host == slot2.activity.host:
-                errors.append("L'utilisateur '{}' organise {}".format(slot1.activity.host, conflict_text))
+                errors.append(
+                    "L'utilisateur '{}' organise {}".format(self.url_user(slot1.activity.host), conflict_text)
+                )
             elif slot1.activity.host_name is not None and slot1.activity.host_name == slot2.activity.host_name:
                 errors.append("'{}' organise {}".format(slot1.activity.host_name, conflict_text))
             elif slot1.activity.host_email == slot2.activity.host_email:
@@ -312,11 +373,17 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         if not settings.inscriptions_open:
             validations += self.format_ok("Les inscriptions sont fermées")
         else:
-            validations += self.format_error("Les inscriptions sont encores ouvertes")
+            validations += self.format_error(
+                "Les inscriptions sont encores ouvertes ({})".format(self.url_parameters("inscriptions_open"))
+            )
         if settings.activities_allocated:
             validations += self.format_ok("La répartition est marquée comme effectuée")
         else:
-            validations += self.format_error("La répartition n'est pas marquée comme effectuée")
+            validations += self.format_error(
+                "La répartition n'est pas marquée comme effectuée ({})".format(
+                    self.url_parameters("activities_allocated")
+                )
+            )
 
         conflicts = self.get_conflicts()
 
@@ -331,7 +398,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         if settings.discord_link:
             validations += self.format_ok("Le lien du discord est renseigné")
         else:
-            validations += self.format_error("Le lien du discord n'est pas renseigné")
+            validations += self.format_error(
+                "Le lien du discord n'est pas renseigné ({})".format(self.url_parameters("discord_link"))
+            )
 
         validations += "</ul>"
 
@@ -344,7 +413,9 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         if settings.display_planning:
             planning_validations += self.format_ok("Le planning est affiché")
         else:
-            planning_validations += self.format_error("Le planning n'est pas affiché")
+            planning_validations += self.format_error(
+                "Le planning n'est pas affiché ({})".format(self.url_parameters("display_planning"))
+            )
         planning_validations += hidden
         planning_validations += self.check_planning_slots_nb()
         planning_validations += self.check_planning_registration_matches()
