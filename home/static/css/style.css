@@ -318,6 +318,54 @@ main a:link {
 	font-size: 2em;
 }
 
+@media (max-width:900px) {
+	.stat {
+		min-width: 70px;
+		padding: 2px;
+	}
+
+	.stat .qty {
+		font-size: 0.8em;
+	}
+
+	.stat .nb_big {
+		font-size: 2em;
+	}
+
+	.stat .nb_small {
+		font-size: 1.5em;
+	}
+
+	.lines {
+		border-top: 1px solid #333;
+		border-bottom: 1px solid #333;
+	}
+}
+
+@media (max-width:670px) {
+	.stat {
+		min-width: 40px;
+		padding: 2px;
+	}
+
+	.stat .qty {
+		font-size: 0.5em;
+	}
+
+	.stat .nb_big {
+		font-size: 1em;
+	}
+
+	.stat .nb_small {
+		font-size: 0.7em;
+	}
+
+	.lines {
+		border-top: 1px solid #333;
+		border-bottom: 1px solid #333;
+	}
+}
+
 @media (max-width:600px) {
 	.stat {
 		min-width: 0;
@@ -497,6 +545,7 @@ ul.messagelist li.info:before {
 	font-size: 1.5rem;
 	text-align: center;
 }
+
 .centered a {
 	text-decoration: none;
 }
