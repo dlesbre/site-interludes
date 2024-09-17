@@ -122,11 +122,8 @@ Pour tester et modifier le répo, après l'avoir cloné :
 	```
 
 Pour l'aide au développement et maintenir un code propre, j'utilise :
-- les formateurs [black](https://pypi.org/project/black/) et
-  [isort](https://pypi.org/project/isort/),
-	à installer via `pip install black isort` puis lancer par `make format`
-- le linter [flake8](https://flake8.pycqa.org/en/latest/index.html#)
-	à installer via `pip install flake8` puis lancer par `make format`
+- les formateurs/linter [ruff](https://github.com/astral-sh/ruff),
+	à installer via `pip install ruff` puis lancer par `make format`
 - le type-checker [mypy](https://pypi.org/project/mypy/)
 	à installer via `pip install mypy django-stubs` puis lancer par `make mypy`. Normalement
 	tous les fichiers sont bien typés, sauf `shared/forms.py` qui utilisent trop de hacks.
@@ -157,6 +154,9 @@ Pour pouvoir afficher et tester le site (après avoir tout installé)
 4. Créer un compte super-utilisateur avec `make adduser`. Les réglages se modifient depuis les pages d'admin de Django [http://localhost:8000/admin](http://localhost:8000/admin).
 
 ## Guide de l'administrateur
+
+Le site inclus un guide de l'administrateur accessible aux super-utilisateurs
+a [http://localhost:8000/admin_pages/info](http://localhost:8000/admin_pages/info)
 
 Le site se gère depuis deux pages d'administration :
 
