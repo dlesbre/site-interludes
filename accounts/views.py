@@ -1,9 +1,12 @@
+from urllib.parse import urlparse, urlunparse
+
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import Http404
+from django.core.exceptions import PermissionDenied
+from django.http import Http404, HttpRequest
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
@@ -12,6 +15,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.generic import FormView, RedirectView, UpdateView, View
 
 from accounts import forms
+from accounts.backends import CLIPPER_SESSION_KEY, get_cas_client
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
@@ -47,11 +51,32 @@ class LogoutView(RedirectView):
     permanent = False
     pattern_name = "home"
 
+    clipper_connected: bool
+
+    def setup(self, request: HttpRequest) -> None:
+        super().setup(request)
+        if CLIPPER_SESSION_KEY in request.session:
+            del request.session[CLIPPER_SESSION_KEY]
+            self.clipper_connected = True
+        else:
+            self.clipper_connected = False
+
     def get_redirect_url(self, *args, **kwargs):
         if self.request.user.is_authenticated:
             logout(self.request)
+        next_page = super().get_redirect_url(*args, **kwargs)
+        if self.clipper_connected:
+            cas_client = get_cas_client(self.request)
+
+            # If the next_url is local (no hostname), make it absolute so that the user
+            # is correctly redirected from CAS.
+            if next_page is not None and not urlparse(next_page).netloc:
+                request = self.request
+                next_page = urlunparse((request.scheme, request.get_host(), next_page, "", "", ""))
+
+            next_page = cas_client.get_logout_url(redirect_url=next_page)
         messages.success(self.request, "Vous avez bien été déconnecté·e.")
-        return super().get_redirect_url(*args, **kwargs)
+        return next_page
 
 
 # ==============================
@@ -134,7 +159,7 @@ class ActivateAccountView(RedirectView):
         user.is_active = True
         user.email_confirmed = True
         user.save()
-        login(self.request, user)
+        login(self.request, user, backend="django.contrib.auth.backends.ModelBackend")
         messages.success(self.request, "Votre adresse email a bien été confirmée.")
         return reverse(self.success_pattern_name)
 
@@ -151,7 +176,7 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
     form_class = forms.UpdateAccountForm
     email_template = "email/change.html"
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         return self.request.user
 
     def get_context_data(self, **kwargs):
@@ -236,3 +261,48 @@ class ResetPasswordConfirmView(auth_views.PasswordResetConfirmView):
     def form_valid(self, form):
         messages.success(self.request, "Votre mot de passe a été enregistré")
         return super().form_valid(form)
+
+
+class ClipperLoginView(View):
+    """CAS authentication view.
+
+    Implement the CAS authentication scheme:
+
+    1. We first redirect the user to the student CAS.
+    2. The user comes back with a ticket, we validate it to make sure the user is legit
+       (validation is delegated to the ENSCASBackend).
+    3. We redirect the user to the next page.
+    """
+
+    http_method_names = ["get"]
+
+    def get_next_url(self) -> str:
+        """Decide where to go after a successful login.
+
+        Look for (in order):
+        - a `next` GET parameter;
+        - a `CASNEXT` session variable;
+        - the `LOGIN_REDIRECT_URL` django setting.
+        """
+        request = self.request
+        next_url = request.GET.get("next")
+        if next_url is None and "CASNEXT" in request.session:
+            next_url = request.session["CASNEXT"]
+            del request.session["CASNEXT"]
+        if next_url is None:
+            next_url = reverse("profile")
+        return str(next_url)
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        ticket = request.GET.get("ticket")
+
+        if not ticket:
+            request.session["CASNEXT"] = self.get_next_url()
+            cas_client = get_cas_client(request)
+            return redirect(cas_client.get_login_url())
+
+        user = authenticate(request, ticket=ticket)
+        if user is None:
+            raise PermissionDenied("Connection échouée !")
+        login(request, user)
+        return redirect(self.get_next_url())

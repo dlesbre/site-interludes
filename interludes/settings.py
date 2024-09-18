@@ -135,7 +135,7 @@ DATABASES = {
     }
 }
 
-AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend", "accounts.backends.ClipperCASBackend")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

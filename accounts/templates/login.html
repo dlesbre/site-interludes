@@ -6,21 +6,28 @@
 <div id="content-area">
 	<h2>Connexion</h2>
 
+	{% if next %}
+	<ul class="messagelist">
+		{% if user.is_authenticated %}
+		<li class="error">Accès non autorisé.</li>
+		{% else %}
+		<li class="error">Vous devez vous connectez pour accéder à cette page.</li>
+		{% endif %}
+	</ul>
+	{% endif %}
+
+	{% if settings.registrations_open %}
+	<a class="fancybutton" href="{% url 'accounts:clipper' %}">Compte clipper (ENS Ulm)</a>
+	{% endif %}
+
+	<div class="fancy"><span>OU</span></div>
+
 	{% if form.errors %}
 	<ul class="messagelist">
 		<li class="error">Login ou mot de passe incorrect</li>
 	</ul>
 	{% endif %}
 
-	{% if next %}
-	<ul class="messagelist">
-	{% if user.is_authenticated %}
-		<li class="error">Accès non autorisé.</li>
-	{% else %}
-		<li class="info">Vous devez vous connectez pour accéder à cette page.</li>
-	{% endif %}
-	</ul>
-	{% endif %}
 	<form method="post" action="{% url 'accounts:login' %}?next={{ next|urlencode }}">
 		{% csrf_token %}
 		<table>
@@ -36,7 +43,7 @@
 		<a href="{% url 'accounts:password_reset' %}">Mot de passe oublié&nbsp;?</a>
 		<br><br>
 		<div class="flex">
-		<input type="submit" value="Connexion">
+			<input type="submit" value="Connexion">
 			{% if settings.registrations_open %}
 			<a class="button" href="{% url 'accounts:create' %}">Créer un compte</a>
 			{% endif %}

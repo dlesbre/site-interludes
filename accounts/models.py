@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
@@ -23,7 +23,7 @@ class EmailUserManager(UserManager["AbstractUser"]):
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email: str, password: str, **extra_fields):
         """Create and save a SuperUser with the given email and password."""
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -41,6 +41,7 @@ class EmailUser(AbstractUser):
     un nom d'utilisateur"""
 
     profile: "ParticipantModel"
+    clipper_account: "Optional[ClipperAccount]"
 
     username = None  # type: ignore
     email = models.EmailField("adresse email", unique=True)
@@ -58,3 +59,42 @@ class EmailUser(AbstractUser):
 
     class Meta:
         verbose_name = "utilisateur"
+
+
+class ClipperAccount(models.Model):
+    """Information about Clipper accounts (ENS ULM).
+
+    A user is given an instance of this model iff they have a Clipper account.
+
+    Instances of this model should only be created by the `ClipperBackend` authentication
+    backend.
+    """
+
+    user = models.OneToOneField(
+        EmailUser,
+        verbose_name="utilisateur",
+        on_delete=models.CASCADE,
+        related_name="clipper_account",
+    )
+    clipper_login = models.CharField(
+        verbose_name="login clipper",
+        max_length=20,
+        blank=False,
+        unique=True,
+    )
+    unique_id = models.CharField(
+        verbose_name="identifiant unique",
+        max_length=1023,
+        blank=False,
+        help_text="Les logins clipper sont rarements unique, mais le combo login+homedir l'est souvent",
+    )
+
+    class Meta:
+        verbose_name = "Compte Clipper"
+        verbose_name_plural = "Comptes Clipper"
+
+    def __str__(self):
+        return "{} ({})".format(
+            self.clipper_login,
+            self.user.email,
+        )

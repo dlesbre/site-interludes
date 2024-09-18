@@ -441,6 +441,69 @@ input[type=submit]:hover {
 	cursor: not-allowed;
 }
 
+.fancybutton {
+	text-decoration: none;
+	text-align: center;
+	border-radius: 10px;
+	color: var(--color_header);
+	padding: 5px 30px;
+	border: 2px solid var(--color_bg_3);
+	background-color: var(--color_bg_1);
+	font: inherit;
+	margin: 0px 20px;
+}
+
+.fancybutton:hover {
+	background-color: var(--color_bg_3);
+}
+
+.fancybutton:focus {
+	background-color: var(--color_bg_3);
+	box-shadow: 0 0 1.5px 1px var(--color_bg_2);
+}
+
+.fancybutton:link {
+	text-decoration: none;
+	color: var(--color_header)
+}
+
+.fancybutton:visited {
+	text-decoration: none;
+	color: var(--color_header)
+}
+
+
+.fancy {
+	line-height: 0.5;
+	margin: 30px 133px 20px;
+}
+
+.fancy span {
+	display: inline-block;
+	position: relative;
+}
+
+.fancy span:before,
+.fancy span:after {
+	content: "";
+	position: absolute;
+	height: 3px;
+	border-bottom: 1px solid var(--color_bg_1);
+	top: 0;
+	width: 120px;
+}
+
+.fancy span:before {
+	right: 100%;
+	margin-right: 15px;
+}
+
+.fancy span:after {
+	left: 100%;
+	margin-left: 15px;
+}
+
+
 span.helptext {
 	color: #444444;
 	font-size: 0.8em;
