@@ -105,7 +105,11 @@ class ClipperCASBackend(BaseBackend):
         with transaction.atomic():
             try:
                 user = EmailUser.objects.get(email=email)
-                if user.clipper_account is None or user.clipper_account.unique_id != uid:
+                if (
+                    not hasattr(user, "clipper_account")
+                    or user.clipper_account is None
+                    or user.clipper_account.unique_id != uid
+                ):
                     # Non-clipper user with account exists or other clipper account exists
                     if (
                         user.last_login is None or now() - user.last_login >= timedelta(days=30.0 * 6.0)
@@ -114,7 +118,7 @@ class ClipperCASBackend(BaseBackend):
                         user.delete()
                         raise EmailUser.DoesNotExist
 
-                    if user.clipper_account is None:
+                    if not hasattr(user, "clipper_account") or user.clipper_account is None:
                         messages.error(
                             request,
                             "L'email {} est déjà associé à un compte non-clipper. Utilisez le formulaire de connexion classique.".format(

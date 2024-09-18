@@ -159,7 +159,7 @@ class ActivateAccountView(RedirectView):
         user.is_active = True
         user.email_confirmed = True
         user.save()
-        login(self.request, user)
+        login(self.request, user, backend="django.contrib.auth.backends.ModelBackend")
         messages.success(self.request, "Votre adresse email a bien été confirmée.")
         return reverse(self.success_pattern_name)
 
