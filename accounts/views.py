@@ -1,3 +1,5 @@
+from urllib.parse import urlparse, urlunparse
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
@@ -13,7 +15,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.generic import FormView, RedirectView, UpdateView, View
 
 from accounts import forms
-from accounts.backends import get_cas_client
+from accounts.backends import CLIPPER_SESSION_KEY, get_cas_client
 from accounts.models import EmailUser
 from accounts.tokens import email_token_generator
 from site_settings.models import SiteSettings
@@ -49,11 +51,32 @@ class LogoutView(RedirectView):
     permanent = False
     pattern_name = "home"
 
+    clipper_connected: bool
+
+    def setup(self, request: HttpRequest) -> None:
+        super().setup(request)
+        if CLIPPER_SESSION_KEY in request.session:
+            del request.session[CLIPPER_SESSION_KEY]
+            self.clipper_connected = True
+        else:
+            self.clipper_connected = False
+
     def get_redirect_url(self, *args, **kwargs):
         if self.request.user.is_authenticated:
             logout(self.request)
+        next_page = super().get_redirect_url(*args, **kwargs)
+        if self.clipper_connected:
+            cas_client = get_cas_client(self.request)
+
+            # If the next_url is local (no hostname), make it absolute so that the user
+            # is correctly redirected from CAS.
+            if next_page is not None and not urlparse(next_page).netloc:
+                request = self.request
+                next_page = urlunparse((request.scheme, request.get_host(), next_page, "", "", ""))
+
+            next_page = cas_client.get_logout_url(redirect_url=next_page)
         messages.success(self.request, "Vous avez bien été déconnecté·e.")
-        return super().get_redirect_url(*args, **kwargs)
+        return next_page
 
 
 # ==============================

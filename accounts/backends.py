@@ -10,6 +10,7 @@ from django.http import HttpRequest
 from django.utils.timezone import now
 
 from accounts.models import ClipperAccount, EmailUser
+from site_settings.models import ENS
 
 
 def get_cas_client(request: HttpRequest) -> CASClient:
@@ -19,6 +20,9 @@ def get_cas_client(request: HttpRequest) -> CASClient:
         service_url=urlunparse((request.scheme, request.get_host(), request.path, "", "", "")),
         server_url="https://cas.eleves.ens.fr/",
     )
+
+
+CLIPPER_SESSION_KEY = "CLIPPERCONNECTED"
 
 
 class ClipperCASBackend(BaseBackend):
@@ -45,16 +49,17 @@ class ClipperCASBackend(BaseBackend):
         print(attributes)
         homedir = attributes.get("homeDirectory")
         email = attributes.get("email")
+        name = attributes.get("name")
 
         if cas_login is None or homedir is None or email is None:
             # Authentication failed
             return None
         cas_login = self.clean_cas_login(cas_login)
 
-        # if request:
-        #     request.session["CASCONNECTED"] = True
-
-        return self.get_or_create(request, cas_login, email=email, homedir=homedir)
+        user = self.get_or_create(request, cas_login, email=email, homedir=homedir, name=name)
+        if user is not None:
+            request.session[CLIPPER_SESSION_KEY] = True
+        return user
 
     def clean_cas_login(self, cas_login: str) -> str:
         return cas_login.strip().lower()
@@ -63,17 +68,31 @@ class ClipperCASBackend(BaseBackend):
         """Clipper usernames aren't unique accross many years, hopefully this ID is"""
         return cas_login + "#" + homedir
 
-    def create_user(self, cas_login: str, homedir: str, email: str) -> EmailUser:
+    def create_user(self, cas_login: str, homedir: str, email: str, name: Optional[str]) -> EmailUser:
         """Create a CAS user, base method that can be overrided to add more
         information.
         """
         user = EmailUser.objects.create_user(email=email, password=EmailUser.objects.make_random_password())  # type: ignore
+        user.email_confirmed = True
+        if name is not None:
+            name = name.strip()
+            if name != "":
+                if " " in name:
+                    # Arbitrary first/last split, but more often than not it is correct
+                    names = name.split(" ")
+                    user.first_name = names[0]
+                    user.last_name = " ".join(names[1:])
+                else:
+                    user.last_name = name  # Can't reliably distiguish first/last name
+        user.save()
         ClipperAccount.objects.create(
             user=user, unique_id=self.get_unique_id(cas_login, homedir, email), clipper_login=cas_login
         )
         return user
 
-    def get_or_create(self, request: HttpRequest, cas_login: str, email: str, homedir: str) -> Optional[EmailUser]:
+    def get_or_create(
+        self, request: HttpRequest, cas_login: str, email: str, homedir: str, name: str
+    ) -> Optional[EmailUser]:
         """Handles account retrieval, creation and invalidation as described above.
 
         - If no CAS account exists, create one;
@@ -109,7 +128,7 @@ class ClipperCASBackend(BaseBackend):
                         )
                     return None
             except EmailUser.DoesNotExist:
-                return self.create_user(cas_login, homedir, email)
+                return self.create_user(cas_login, homedir, email, name)
         return None
 
     # Django boilerplate.
