@@ -446,11 +446,11 @@ input[type=submit]:hover {
 	text-align: center;
 	border-radius: 10px;
 	color: var(--color_header);
-	padding: 8px 50px;
+	padding: 5px 30px;
 	border: 2px solid var(--color_bg_3);
 	background-color: var(--color_bg_1);
 	font: inherit;
-	margin: 5px 10px;
+	margin: 0px 20px;
 }
 
 .fancybutton:hover {
@@ -475,7 +475,7 @@ input[type=submit]:hover {
 
 .fancy {
 	line-height: 0.5;
-	margin: 20px 140px 10px;
+	margin: 30px 133px 20px;
 }
 
 .fancy span {
@@ -490,7 +490,7 @@ input[type=submit]:hover {
 	height: 3px;
 	border-bottom: 1px solid var(--color_bg_1);
 	top: 0;
-	width: 125px;
+	width: 120px;
 }
 
 .fancy span:before {
