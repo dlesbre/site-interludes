@@ -66,6 +66,7 @@ Pour installer toutes les dépendances et lancer le serveur :
 
 ```console
 git clone https://github.com/dlesbre/site-interludes.git &&
+sudo apt-get install libsasl2-dev python-dev-is-python3 libldap2-dev libssl-dev &&
 cd site-interlude &&
 python3 -m venv venv &&
 source venv/bin/activate &&
@@ -102,19 +103,26 @@ Pour tester et modifier le répo, après l'avoir cloné :
 	python3 -m pip install --upgrade pip
 	```
 
-4. Installer les dépendances
+4. Installer les dépendance externes (nécessaire pour `python-ldap`, qui est nécessaire
+	pour la connexion clipper):
+
+	```console
+	sudo apt-get install libsasl2-dev python-dev-is-python3 libldap2-dev libssl-dev
+	```
+
+5. Installer les dépendances
 
 	```console
 	pip3 install -r requirements.txt
 	```
 
-5. Copier/linker le fichier `interludes/secret_example.py` dans `interludes/secret.py`
+6. Copier/linker le fichier `interludes/secret_example.py` dans `interludes/secret.py`
 
 	```console
 	ln -s interludes/secret_example.py interludes/secret.py
 	```
 
-6. Faire les migrations
+7. Faire les migrations
 
 	```console
 	python3 manage.py makemigrations
