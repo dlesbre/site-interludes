@@ -29,6 +29,7 @@ urlpatterns = [
         include(("admin_pages.urls", "admin_pages"), namespace="admin_pages"),
     ),
     path("comptes/", include("accounts.urls")),
+    path("robots.txt", views.TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ]
 
 if settings.DEBUG:
