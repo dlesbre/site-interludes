@@ -46,7 +46,6 @@ class ClipperCASBackend(BaseBackend):
         cas_client = get_cas_client(request)
         cas_login, attributes, _ = cas_client.verify_ticket(ticket)
 
-        print(attributes)
         homedir = attributes.get("homeDirectory")
         email = attributes.get("email")
         name = attributes.get("name")
@@ -131,6 +130,7 @@ class ClipperCASBackend(BaseBackend):
                             "Impossible de se connecter avec ce compte clipper, un autre compte clipper du même identifiant est déjà présent",
                         )
                     return None
+                return user
             except EmailUser.DoesNotExist:
                 return self.create_user(cas_login, homedir, email, name)
         return None
