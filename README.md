@@ -203,7 +203,7 @@ directement la base de donnée. Descriptif rapide des tables intéressantes :
 	- renseigner l'email de contact, les dates de l'événement, les dates d'inscription
 	- ajouter un message global au-dessus de toutes les pages
 	- bloquer/autoriser l'envoi d'email globaux
-	- Ajouter une version PDF du planning (pour mobiles)
+	- Ajouter une version PDF/PNG du planning (pour mobiles)
 	- Ajouter l'affiche (visible sur la page d'accueil)
 
 
@@ -222,7 +222,7 @@ directement la base de donnée. Descriptif rapide des tables intéressantes :
   se font à des créneaux et non a des activités.
 
 	Note : le planning généré par le site (en JS) est difficilement lisible sur
-	mobile. Le site permet d'uploader une version PDF propre pour mobiles.
+	mobile. Le site permet d'uploader une version PDF ou PNG propre pour mobiles.
 	Personnellement je faisais une capture d'écran du planning (vu sur un grand
 	écran) que j'exportais en PDF.
 

@@ -237,10 +237,11 @@ class SiteSettings(SingletonModel):
 
     display_planning = models.BooleanField("Afficher le planning", default=False)
     planning_file = models.FileField(
-        verbose_name="Version PDF du planning",
+        verbose_name="Version image ou PDF du planning",
         null=True,
         blank=True,
         storage=OverwriteStorage("PlanningInterludes"),
+        help_text="Le planning autogénéré n'est pas très lisible sur mobile. Je conseille d'en faire une capture sur grand écran et l'ajouter ici.",
     )
     affiche = models.FileField(
         verbose_name="Affiche",
