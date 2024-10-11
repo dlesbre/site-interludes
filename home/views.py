@@ -235,6 +235,7 @@ class ActivitySubmissionView(LoginRequiredMixin, FormView):
                 "new_activity_email.txt",
                 {
                     "user": request.user,
+                    "request": request,
                     "activity": activity,
                     "signature": site_settings.EMAIL_SIGNATURE,
                 },
