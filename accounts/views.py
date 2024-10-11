@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views.generic import FormView, RedirectView, UpdateView, View
+from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, View
 
 from accounts import forms
 from accounts.backends import CLIPPER_SESSION_KEY, get_cas_client
@@ -52,6 +52,7 @@ class LogoutView(RedirectView):
     pattern_name = "home"
 
     clipper_connected: bool
+    message = "Vous avez bien été déconnecté·e."
 
     def setup(self, request: HttpRequest) -> None:
         super().setup(request)
@@ -75,7 +76,7 @@ class LogoutView(RedirectView):
                 next_page = urlunparse((request.scheme, request.get_host(), next_page, "", "", ""))
 
             next_page = cas_client.get_logout_url(redirect_url=next_page)
-        messages.success(self.request, "Vous avez bien été déconnecté·e.")
+        messages.success(self.request, self.message)
         return next_page
 
 
@@ -261,6 +262,31 @@ class ResetPasswordConfirmView(auth_views.PasswordResetConfirmView):
     def form_valid(self, form):
         messages.success(self.request, "Votre mot de passe a été enregistré")
         return super().form_valid(form)
+
+
+# ==============================
+# Delete account
+# ==============================
+
+
+class DeleteConfirmView(LoginRequiredMixin, TemplateView):
+    template_name = "delete_account.html"
+
+
+class DeleteFinalView(LogoutView):
+    pattern_name = "home"
+    message = "Votre compte a été supprimé"
+
+    def get_redirect_url(self, *args, **kwargs):
+        self.user = self.request.user
+        next_page = super().get_redirect_url(*args, **kwargs)
+        self.user.delete()
+        return next_page
+
+
+# ==============================
+# Clipper
+# ==============================
 
 
 class ClipperLoginView(View):

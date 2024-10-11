@@ -428,9 +428,18 @@ input[type=submit] {
 	cursor: pointer;
 }
 
+.red,
+.red:link,
+.red:visited {
+	background-color: #c22;
+}
+
 .button:hover,
 input[type=submit]:hover {
 	background-color: var(--color_bg_2);
+}
+.red:hover {
+	background-color: #800;
 }
 
 .disabled,

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block "content" %}
+<h2>Supprimer mon compte</h2>
+
+<p>
+  Ceci supprimera votre compte et vous désinscrira de l'évènement.
+  Si vous avez déjà payé votre inscription, il ne sera pas forcément possible de
+  vous rembourser. Contactez-nous le cas échéant.
+</p>
+<p>
+  Si vous avez proposé des activités, celles-ci seront conservées (avec toute
+  information de contact ou informations personnelles qu'elles contiennent).
+  Si vous voulez supprimer l'activité (ou juste les informations personnelles qu'elle contient),
+  n'hésitez pas à nous contacter.
+  Nous anonymiserons toutes les activités une fois l'évènement passé.
+</p>
+
+<div class="flex">
+  <a class="red button" href="{% url 'accounts:delete_final' %}">Supprimer</a>
+  <a class="button" href="{% url 'profile' %}">Ne pas supprimer</a>
+</div>
+
+{% endblock %}

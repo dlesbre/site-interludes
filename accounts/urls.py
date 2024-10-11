@@ -10,6 +10,8 @@ urlpatterns = [
     path("logout/", views.LogoutView.as_view(), name="logout"),
     path("create/", views.CreateAccountView.as_view(), name="create"),
     path("update/", views.UpdateAccountView.as_view(), name="update"),
+    path("delete/", views.DeleteConfirmView.as_view(), name="delete"),
+    path("delete/final", views.DeleteFinalView.as_view(), name="delete_final"),
     path("change_password/", views.UpdatePasswordView.as_view(), name="change_password"),
     path(
         "activate/<uidb64>/<token>/",
