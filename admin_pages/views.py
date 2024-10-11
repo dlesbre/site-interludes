@@ -543,6 +543,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
         "Autre contact",
         "Commentaires murders",
         "Commentaires",
+        "Compte clipper",
     ]
 
     def get_filename(self):
@@ -580,6 +581,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
                     profile.extra_contact,
                     profile.murder_comment,
                     profile.comment,
+                    hasattr(profile.user, "clipper_account"),
                 ]
             )
         rows.sort(key=lambda x: (x[4], x[3], x[2]))  # sort by school, last_name, first_name
