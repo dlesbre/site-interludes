@@ -52,6 +52,27 @@ class ActivityModel(models.Model):
         COOP = "coop", _("Jeu coopératif")
         OTHER = "other", _("Autre")
 
+        def short_name(self) -> str:
+            if self == "jeu cartes":
+                return "Jeu de cartes"
+            if self == "jeu plateau":
+                return "Jeu de société"
+            if self == "table RPG":
+                return "JdR"
+            if self == "large RPG":
+                return "JdR GN"
+            if self == "videogame":
+                return "Jeu vidéo"
+            if self == "partygame":
+                return "Party game"
+            if self == "puzzle":
+                return "Puzzle"
+            if self == "secret roles":
+                return "Rôles secrets"
+            if self == "coop":
+                return "Jeu coop"
+            return "Autre"
+
     class Availability(models.TextChoices):
         """Diponibilité à un moment donné"""
 
@@ -204,6 +225,10 @@ class ActivityModel(models.Model):
         type = self.ActivityTypes(self.act_type).label
         game = self.GameTypes(self.game_type).label
         return "{}, {}".format(game, type.lower())
+
+    def short_type(self) -> str:
+        return self.GameTypes(self.game_type).short_name()
+    
 
     def slug(self) -> str:
         """Returns the planning/display slug for this activity"""

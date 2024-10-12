@@ -32,11 +32,22 @@
 
 {% if activities %}
 <p id="act-list"><strong>Liste des activités&nbsp;:</strong></p>
-<ul>
-	{% for activity in activities %}
-	<li><a href="#{{ activity.slug }}">{{ activity.title }}</a></li>
-	{% endfor %}
-</ul>
+<table>
+	<tbody>
+		<tr>
+			<th>Activité</th>
+			<th>Type</th>
+			<th>Durée</th>
+		</tr>
+		{% for activity in activities %}
+			<tr>
+				<td><a href="#{{ activity.slug }}">{{ activity.title }}</a></td>
+				<td>{{ activity.short_type }}</td>
+				<td>{{ activity.pretty_duration }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
 {% endif %}
 
 {% for activity in activities %}

@@ -815,3 +815,20 @@ footer #sponsors img {
 		margin: 5px;
 	}
 }
+
+table {
+	border-collapse: collapse;
+	margin-bottom: 40px;
+	td, th {
+		text-align: left;
+		border-top: 1px solid #333;
+	}
+}
+tbody:last-child td {
+	border-bottom: 1px solid #333;
+}
+/* tbody tr:nth-child(even) {background-color: #ddd} */
+tbody tr:nth-child(odd) {background-color: #ddf}
+tr > * {
+	padding: 3px 5px;
+}
