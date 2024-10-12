@@ -116,6 +116,16 @@ MEALS = [
     "sunday_evening",
 ]
 
+MEALS_FR = [
+    "vendredi soir",
+    "samedi matin",
+    "samedi midi",
+    "samedi soir",
+    "dimanche matin",
+    "dimanche midi",
+    "dimanche soir",
+]
+
 
 class SiteSettings(SingletonModel):
     """Réglages globaux du site
@@ -252,13 +262,13 @@ class SiteSettings(SingletonModel):
 
     price_entry = pretty_price("entry")
     price_sleep = pretty_price("sleep")
-    price_friday_evening = pretty_price("friday_evening")
-    price_saturday_morning = pretty_price("saturday_morning")
-    price_saturday_midday = pretty_price("saturday_midday")
-    price_saturday_evening = pretty_price("saturday_evening")
-    price_sunday_morning = pretty_price("sunday_morning")
-    price_sunday_midday = pretty_price("sunday_midday")
-    price_sunday_evening = pretty_price("sunday_evening")
+    price_friday_evening_meal = pretty_price("friday_evening_meal")
+    price_saturday_morning_meal = pretty_price("saturday_morning_meal")
+    price_saturday_midday_meal = pretty_price("saturday_midday_meal")
+    price_saturday_evening_meal = pretty_price("saturday_evening_meal")
+    price_sunday_morning_meal = pretty_price("sunday_morning_meal")
+    price_sunday_midday_meal = pretty_price("sunday_midday_meal")
+    price_sunday_evening_meal = pretty_price("sunday_evening_meal")
 
     meal_friday_evening = models.BooleanField("Repas vendredi soir", default=True)
     meal_saturday_morning = models.BooleanField("Repas samedi matin", default=True)
@@ -297,6 +307,26 @@ class SiteSettings(SingletonModel):
             or self.menu_sunday_morning != ""
             or self.menu_sunday_midday != ""
             or self.menu_sunday_evening != ""
+        )
+
+    def pretty_meal_prices(self) -> str:
+        if not self.any_meal():
+            return ""
+        all_meals = []
+        for i, meal in enumerate(MEALS):
+            if getattr(self, "meal_" + meal):
+                all_meals.append((MEALS_FR[i], getattr(self, "price_" + meal + "_meal")()))
+        if all(x[1] == all_meals[0][1] for x in all_meals):
+            # All meals have the same price
+            return "<li><strong>Repas&nbsp;:</strong> {} par repas</li>".format(all_meals[0][1])
+        elif len(all_meals) >= 3 and all(x[1] == all_meals[0][1] for x in all_meals[:-1]):
+            # All meals but the last one have the same price
+            return "<li><strong>Repas (du {} au {})&nbsp;:</strong> {} par repas</li>\n\
+                <li><strong>Repas du {}&nbsp;:</strong> {}</li>".format(
+                all_meals[0][0], all_meals[-2][0], all_meals[0][1], all_meals[-1][0], all_meals[-1][1]
+            )
+        return "\n".join(
+            "<li><strong>Repas du {}&nbsp;:</strong> {}</li>".format(meal, price) for meal, price in all_meals
         )
 
     registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)

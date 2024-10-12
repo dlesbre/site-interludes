@@ -58,8 +58,7 @@
 	Les tarifs sont différenciés entre salarié·es et non-salarié·es.
 	<ul>
 		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}</li>
-		<li><strong>Repas (du vendredi soir au dimanche midi) :</strong> {{ settings.price_meal }} par repas</li>
-		<li><strong>Repas du dimanche soir (à emporter) :</strong> {{ settings.price_sunday_meal }}</li>
+		{{ settings.pretty_meal_prices|safe }}
 		<li><strong>Hébergement :</strong> {{ settings.price_sleep }}</li>
 	</ul>
 </p>
