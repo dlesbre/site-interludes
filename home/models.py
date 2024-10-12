@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import EmailUser
-from site_settings.models import ENS, Colors, SiteSettings
+from site_settings.models import ENS, Colors, MEALS, SiteSettings
 
 
 def validate_nonzero(value):
@@ -228,7 +228,6 @@ class ActivityModel(models.Model):
 
     def short_type(self) -> str:
         return self.GameTypes(self.game_type).short_name()
-    
 
     def slug(self) -> str:
         """Returns the planning/display slug for this activity"""
@@ -426,16 +425,14 @@ class ParticipantModel(models.Model):
 
     def cost_meals(self) -> Decimal:
         settings = SiteSettings.load()
+        suffix = "_meal_unpaid"
         if self.paid:
-            price_meal = settings.price_meal_paid
-            price_sunday_meal = settings.price_sunday_meal_paid
-        else:
-            price_meal = settings.price_meal_unpaid
-            price_sunday_meal = settings.price_sunday_meal_unpaid
-        nb_meals = self.nb_meals()
-        if self.meal_sunday_evening:  # priced separately
-            nb_meals -= 1
-        return nb_meals * price_meal + self.meal_sunday_evening * price_sunday_meal
+            suffix = "_meal_paid"
+        total = Decimal(0)
+        for meal in MEALS:
+            if getattr(settings, "meal_" + meal):
+                total += getattr(settings, "price_" + meal + suffix)
+        return total
 
     def cost(self) -> Decimal:
         return self.cost_entry() + self.cost_meals() + self.cost_sleep()

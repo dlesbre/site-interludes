@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 from pathlib import Path
-from typing import Optional, Type, TypeVar
+from typing import Callable, Optional, Type, TypeVar
 
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
@@ -106,6 +106,17 @@ class ENS(models.TextChoices):
         return "ulmites"
 
 
+MEALS = [
+    "friday_evening",
+    "saturday_morning",
+    "saturday_midday",
+    "saturday_evening",
+    "sunday_morning",
+    "sunday_midday",
+    "sunday_evening",
+]
+
+
 class SiteSettings(SingletonModel):
     """Réglages globaux du site
 
@@ -132,43 +143,141 @@ class SiteSettings(SingletonModel):
     )
     price_entry_paid = models.DecimalField("prix d'inscription (salarié)", decimal_places=2, max_digits=5, default=0)
 
-    def price_entry(self) -> str:
-        if self.price_entry_paid == self.price_entry_unpaid:
-            return "{}€".format(self.price_entry_paid)
-        return "{}€ / {}€".format(self.price_entry_paid, self.price_entry_unpaid)
-
-    price_meal_unpaid = models.DecimalField("prix d'un repas (non-salarié)", decimal_places=2, max_digits=5, default=0)
-    price_meal_paid = models.DecimalField("prix d'un repas (salarié)", decimal_places=2, max_digits=5, default=0)
-
-    def price_meal(self) -> str:
-        if self.price_meal_paid == self.price_meal_unpaid:
-            return "{}€".format(self.price_meal_paid)
-        return "{}€ / {}€".format(self.price_meal_paid, self.price_meal_unpaid)
-
     price_sleep_unpaid = models.DecimalField(
         "prix d'hébergement (non-salarié)", decimal_places=2, max_digits=5, default=0
     )
     price_sleep_paid = models.DecimalField("prix d'hébergement (salarié)", decimal_places=2, max_digits=5, default=0)
 
-    def price_sleep(self) -> str:
-        if self.price_sleep_paid == self.price_sleep_unpaid:
-            return "{}€".format(self.price_sleep_paid)
-        return "{}€ / {}€".format(self.price_sleep_paid, self.price_sleep_unpaid)
+    price_friday_evening_meal_unpaid = models.DecimalField(
+        "prix du repas du vendredi soir (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_friday_evening_meal_paid = models.DecimalField(
+        "prix du repas du vendredi soir (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
 
-    price_sunday_meal_unpaid = models.DecimalField(
+    price_saturday_morning_meal_unpaid = models.DecimalField(
+        "prix du repas du samedi matin (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_saturday_morning_meal_paid = models.DecimalField(
+        "prix du repas du samedi matin (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    price_saturday_midday_meal_unpaid = models.DecimalField(
+        "prix du repas du samedi midi (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_saturday_midday_meal_paid = models.DecimalField(
+        "prix du repas du samedi midi (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    price_saturday_evening_meal_unpaid = models.DecimalField(
+        "prix du repas du samedi soir (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_saturday_evening_meal_paid = models.DecimalField(
+        "prix du repas du samedi soir (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    price_sunday_morning_meal_unpaid = models.DecimalField(
+        "prix du repas du dimanche matin (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_sunday_morning_meal_paid = models.DecimalField(
+        "prix du repas du dimanche matin (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    price_sunday_midday_meal_unpaid = models.DecimalField(
+        "prix du repas du dimanche midi (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_sunday_midday_meal_paid = models.DecimalField(
+        "prix du repas du dimanche midi (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    price_sunday_evening_meal_unpaid = models.DecimalField(
         "prix du repas du dimanche soir (non-salarié)",
         decimal_places=2,
         max_digits=5,
         default=0,
     )
-    price_sunday_meal_paid = models.DecimalField(
+    price_sunday_evening_meal_paid = models.DecimalField(
         "prix du repas du dimanche soir (salarié)",
         decimal_places=2,
         max_digits=5,
         default=0,
     )
 
-    meal_sunday_evening = models.BooleanField("Repas dimanche soir (à emporter)", default=True)
+    @staticmethod
+    def pretty_price(name: str) -> Callable[["SiteSettings"], str]:
+        def pp(self):
+            paid = getattr(self, "price_" + name + "_paid")
+            unpaid = getattr(self, "price_" + name + "_unpaid")
+            if paid == unpaid:
+                return "{}€".format(paid)
+            return "{}€ / {}€".format(paid, unpaid)
+
+        return pp
+
+    price_entry = pretty_price("entry")
+    price_sleep = pretty_price("sleep")
+    price_friday_evening = pretty_price("friday_evening")
+    price_saturday_morning = pretty_price("saturday_morning")
+    price_saturday_midday = pretty_price("saturday_midday")
+    price_saturday_evening = pretty_price("saturday_evening")
+    price_sunday_morning = pretty_price("sunday_morning")
+    price_sunday_midday = pretty_price("sunday_midday")
+    price_sunday_evening = pretty_price("sunday_evening")
+
+    meal_friday_evening = models.BooleanField("Repas vendredi soir", default=True)
+    meal_saturday_morning = models.BooleanField("Repas samedi matin", default=True)
+    meal_saturday_midday = models.BooleanField("Repas samedi midi", default=True)
+    meal_saturday_evening = models.BooleanField("Repas samedi soir", default=True)
+    meal_sunday_morning = models.BooleanField("Repas dimanche matin", default=True)
+    meal_sunday_midday = models.BooleanField("Repas dimanche midi", default=True)
+    meal_sunday_evening = models.BooleanField("Repas dimanche soir", default=True)
+
+    def any_meal(self) -> bool:
+        return (
+            self.meal_friday_evening
+            or self.meal_saturday_morning
+            or self.meal_saturday_midday
+            or self.meal_saturday_evening
+            or self.meal_sunday_morning
+            or self.meal_sunday_midday
+            or self.meal_sunday_evening
+        )
 
     menu_friday_evening = models.CharField("Menu du repas de vendredi soir", blank=True, max_length=400, default="")
     menu_saturday_morning = models.CharField("Menu du repas de samedi matin", blank=True, max_length=400, default="")
@@ -189,11 +298,6 @@ class SiteSettings(SingletonModel):
             or self.menu_sunday_midday != ""
             or self.menu_sunday_evening != ""
         )
-
-    def price_sunday_meal(self) -> str:
-        if self.price_sunday_meal_paid == self.price_sunday_meal_unpaid:
-            return "{}€".format(self.price_sunday_meal_paid)
-        return "{}€ / {}€".format(self.price_sunday_meal_paid, self.price_sunday_meal_unpaid)
 
     registrations_open = models.BooleanField("Ouvrir la création de compte", default=True)
     inscriptions_open = models.BooleanField(

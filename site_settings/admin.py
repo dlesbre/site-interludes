@@ -44,12 +44,19 @@ class SiteSettingsAdmin(SingletonModelAdmin):
                 "fields": [
                     "ticket_url",
                     ("price_entry_unpaid", "price_entry_paid"),
-                    ("price_meal_unpaid", "price_meal_paid"),
                     ("price_sleep_unpaid", "price_sleep_paid"),
-                    ("price_sunday_meal_unpaid", "price_sunday_meal_paid"),
+                    ("price_friday_evening_meal_unpaid", "price_friday_evening_meal_paid"),
+                    ("price_saturday_morning_meal_unpaid", "price_saturday_morning_meal_paid"),
+                    ("price_saturday_midday_meal_unpaid", "price_saturday_midday_meal_paid"),
+                    ("price_saturday_evening_meal_unpaid", "price_saturday_evening_meal_paid"),
+                    ("price_sunday_morning_meal_unpaid", "price_sunday_morning_meal_paid"),
+                    ("price_sunday_midday_meal_unpaid", "price_sunday_midday_meal_paid"),
+                    ("price_sunday_evening_meal_unpaid", "price_sunday_evening_meal_paid"),
                 ],
                 "description": "Tarifs différentiés selon si l'élève est salarié ou non.\
-                        Le repas du dimanche soir (optionel) est à part car il est à emporter.",
+                        Les tarifs des repas sont séparés en cas de besoin, mais un affichage compact\
+                        est prévu si tous les repas ont le même prix (ou tous sauf le dernier).\
+                        Vous pouvez aussi désactiver certains repas dans la section repas.",
             },
         ),
         (
@@ -97,7 +104,9 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             "Repas",
             {
                 "fields": [
-                    "meal_sunday_evening",
+                    "meal_friday_evening",
+                    ("meal_saturday_morning", "meal_saturday_midday", "meal_saturday_evening"),
+                    ("meal_sunday_morning", "meal_sunday_midday", "meal_sunday_evening"),
                     "menu_friday_evening",
                     "menu_saturday_morning",
                     "menu_saturday_midday",
