@@ -438,6 +438,7 @@ input[type=submit] {
 input[type=submit]:hover {
 	background-color: var(--color_bg_2);
 }
+
 .red:hover {
 	background-color: #800;
 }
@@ -816,19 +817,26 @@ footer #sponsors img {
 	}
 }
 
-table {
+table.colored {
 	border-collapse: collapse;
 	margin-bottom: 40px;
-	td, th {
+
+	td,
+	th {
 		text-align: left;
 		border-top: 1px solid #333;
 	}
 }
-tbody:last-child td {
+
+.colored tbody:last-child td {
 	border-bottom: 1px solid #333;
 }
+
 /* tbody tr:nth-child(even) {background-color: #ddd} */
-tbody tr:nth-child(odd) {background-color: #ddf}
-tr > * {
+.colored tbody tr:nth-child(odd) {
+	background-color: #ddf
+}
+
+tr>* {
 	padding: 3px 5px;
 }
