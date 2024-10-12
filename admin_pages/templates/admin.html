@@ -121,34 +121,48 @@
 			<div class="qty">Repas</div>
 			<div class="nb_big">{{ metrics.meals }}</div>
 		</div>
+		{% if settings.meal_friday_evening %}
 		<div class="stat">
 			<div class="qty">Vendredi</div>
 			<div class="nb_small">{{ metrics.meal1 }}</div>
 		</div>
+		{% endif %}
+		{% if settings.meal_saturday_morning %}
 		<div class="stat">
 			<div class="qty">S matin</div>
 			<div class="nb_small">{{ metrics.meal2 }}</div>
 		</div>
+		{% endif %}
+		{% if settings.meal_saturday_midday %}
 		<div class="stat">
 			<div class="qty">S midi</div>
 			<div class="nb_small">{{ metrics.meal3 }}</div>
 		</div>
+		{% endif %}
+		{% if settings.meal_saturday_evening %}
 		<div class="stat">
 			<div class="qty">S soir</div>
 			<div class="nb_small">{{ metrics.meal4 }}</div>
 		</div>
+		{% endif %}
+		{% if settings.meal_sunday_morning %}
 		<div class="stat">
 			<div class="qty">D matin</div>
 			<div class="nb_small">{{ metrics.meal5 }}</div>
 		</div>
+		{% endif %}
+		{% if settings.meal_sunday_midday %}
 		<div class="stat">
 			<div class="qty">D midi</div>
 			<div class="nb_small">{{ metrics.meal6 }}</div>
 		</div>
+		{% endif %}
+		{% if settings.meal_sunday_evening %}
 		<div class="stat">
 			<div class="qty">D soir</div>
 			<div class="nb_small">{{ metrics.meal7 }}</div>
 		</div>
+		{% endif %}
 	</div>
 
 	<div class="flex wrap lines">

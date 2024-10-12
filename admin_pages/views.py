@@ -36,6 +36,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         wishes = models.ActivityChoicesModel.objects.filter(
             participant__is_registered=True, participant__user__is_active=True
         )
+        settings = SiteSettings.load()
 
         class metrics:
             participants = registered.count()
@@ -48,14 +49,14 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             sleeps = registered.filter(sleeps=True).count()
             paid = registered.filter(paid=True).count()
 
-            meal1 = registered.filter(meal_friday_evening=True).count()
-            meal2 = registered.filter(meal_saturday_morning=True).count()
-            meal3 = registered.filter(meal_saturday_midday=True).count()
-            meal4 = registered.filter(meal_saturday_evening=True).count()
-            meal5 = registered.filter(meal_sunday_morning=True).count()
-            meal6 = registered.filter(meal_sunday_midday=True).count()
-            meal7 = registered.filter(meal_sunday_evening=True).count()
-            meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6
+            meal1 = registered.filter(meal_friday_evening=True).count() if settings.meal_friday_evening else 0
+            meal2 = registered.filter(meal_saturday_morning=True).count() if settings.meal_saturday_morning else 0
+            meal3 = registered.filter(meal_saturday_midday=True).count() if settings.meal_saturday_midday else 0
+            meal4 = registered.filter(meal_saturday_evening=True).count() if settings.meal_saturday_evening else 0
+            meal5 = registered.filter(meal_sunday_morning=True).count() if settings.meal_sunday_morning else 0
+            meal6 = registered.filter(meal_sunday_midday=True).count() if settings.meal_sunday_midday else 0
+            meal7 = registered.filter(meal_sunday_evening=True).count() if settings.meal_sunday_evening else 0
+            meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6 + meal7
 
             activites = acts.count()
             displayed = acts.filter(display=True).count()
