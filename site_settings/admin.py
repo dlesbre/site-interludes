@@ -56,6 +56,7 @@ class SiteSettingsAdmin(SingletonModelAdmin):
                 "description": "Tarifs différentiés selon si l'élève est salarié ou non.\
                         Les tarifs des repas sont séparés en cas de besoin, mais un affichage compact\
                         est prévu si tous les repas ont le même prix (ou tous sauf le dernier).\
+                        S'il ne s'affiche pas bien, vous pouvez toujours modifier les pages HTML à la main.\
                         Vous pouvez aussi désactiver certains repas dans la section repas.",
             },
         ),
