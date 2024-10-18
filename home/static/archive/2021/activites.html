@@ -1,0 +1,2474 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"><!-- WEBSITE VERSION 1.2.8 - 2021-05-06 -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Interludes 2021</title>
+	<meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2021">
+	<meta name="keywords" content="Interludes ENS événement COF 2021 InterENS">
+	<link rel="icon" type="image/png" href="/static/imgs/2021/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font-awesome-all.min.css">
+	<script src="/static/js/vis-timeline.min.js"></script>
+	<style type="text/css">
+		.vis-time-axis {
+			position: relative;
+			overflow: hidden
+		}
+
+		.vis-time-axis.vis-foreground {
+			top: 0;
+			left: 0;
+			width: 100%
+		}
+
+		.vis-time-axis.vis-background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%
+		}
+
+		.vis-time-axis .vis-text {
+			position: absolute;
+			color: #4d4d4d;
+			padding: 3px;
+			overflow: hidden;
+			box-sizing: border-box;
+			white-space: nowrap
+		}
+
+		.vis-time-axis .vis-text.vis-measure {
+			position: absolute;
+			padding-left: 0;
+			padding-right: 0;
+			margin-left: 0;
+			margin-right: 0;
+			visibility: hidden
+		}
+
+		.vis-time-axis .vis-grid.vis-vertical {
+			position: absolute;
+			border-left: 1px solid
+		}
+
+		.vis-time-axis .vis-grid.vis-vertical-rtl {
+			position: absolute;
+			border-right: 1px solid
+		}
+
+		.vis-time-axis .vis-grid.vis-minor {
+			border-color: #e5e5e5
+		}
+
+		.vis-time-axis .vis-grid.vis-major {
+			border-color: #bfbfbf
+		}
+	</style>
+	<style type="text/css">
+		.vis .overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 10
+		}
+
+		.vis-active {
+			box-shadow: 0 0 10px #86d5f8
+		}
+	</style>
+	<style type="text/css">
+		.vis-custom-time {
+			background-color: #6e94ff;
+			width: 2px;
+			cursor: move;
+			z-index: 1
+		}
+
+		.vis-custom-time>.vis-custom-time-marker {
+			background-color: inherit;
+			color: #fff;
+			font-size: 12px;
+			white-space: nowrap;
+			padding: 3px 5px;
+			top: 0;
+			cursor: auto;
+			z-index: inherit
+		}
+	</style>
+	<style type="text/css">
+		.vis-current-time {
+			background-color: #ff7f6e;
+			width: 2px;
+			z-index: 1;
+			pointer-events: none
+		}
+
+		.vis-rolling-mode-btn {
+			height: 40px;
+			width: 40px;
+			position: absolute;
+			top: 7px;
+			right: 20px;
+			border-radius: 50%;
+			font-size: 28px;
+			cursor: pointer;
+			opacity: .8;
+			color: #fff;
+			font-weight: 700;
+			text-align: center;
+			background: #3876c2
+		}
+
+		.vis-rolling-mode-btn:before {
+			content: "\26F6"
+		}
+
+		.vis-rolling-mode-btn:hover {
+			opacity: 1
+		}
+	</style>
+	<style type="text/css">
+		.vis-panel {
+			position: absolute;
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box
+		}
+
+		.vis-panel.vis-bottom,
+		.vis-panel.vis-center,
+		.vis-panel.vis-left,
+		.vis-panel.vis-right,
+		.vis-panel.vis-top {
+			border: 1px #bfbfbf
+		}
+
+		.vis-panel.vis-center,
+		.vis-panel.vis-left,
+		.vis-panel.vis-right {
+			border-top-style: solid;
+			border-bottom-style: solid;
+			overflow: hidden
+		}
+
+		.vis-left.vis-panel.vis-vertical-scroll,
+		.vis-right.vis-panel.vis-vertical-scroll {
+			height: 100%;
+			overflow-x: hidden;
+			overflow-y: scroll
+		}
+
+		.vis-left.vis-panel.vis-vertical-scroll {
+			direction: rtl
+		}
+
+		.vis-left.vis-panel.vis-vertical-scroll .vis-content,
+		.vis-right.vis-panel.vis-vertical-scroll {
+			direction: ltr
+		}
+
+		.vis-right.vis-panel.vis-vertical-scroll .vis-content {
+			direction: rtl
+		}
+
+		.vis-panel.vis-bottom,
+		.vis-panel.vis-center,
+		.vis-panel.vis-top {
+			border-left-style: solid;
+			border-right-style: solid
+		}
+
+		.vis-background {
+			overflow: hidden
+		}
+
+		.vis-panel>.vis-content {
+			position: relative
+		}
+
+		.vis-panel .vis-shadow {
+			position: absolute;
+			width: 100%;
+			height: 1px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, .8)
+		}
+
+		.vis-panel .vis-shadow.vis-top {
+			top: -1px;
+			left: 0
+		}
+
+		.vis-panel .vis-shadow.vis-bottom {
+			bottom: -1px;
+			left: 0
+		}
+	</style>
+	<style type="text/css">
+		.vis-graph-group0 {
+			fill: #4f81bd;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #4f81bd
+		}
+
+		.vis-graph-group1 {
+			fill: #f79646;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #f79646
+		}
+
+		.vis-graph-group2 {
+			fill: #8c51cf;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #8c51cf
+		}
+
+		.vis-graph-group3 {
+			fill: #75c841;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #75c841
+		}
+
+		.vis-graph-group4 {
+			fill: #ff0100;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #ff0100
+		}
+
+		.vis-graph-group5 {
+			fill: #37d8e6;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #37d8e6
+		}
+
+		.vis-graph-group6 {
+			fill: #042662;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #042662
+		}
+
+		.vis-graph-group7 {
+			fill: #00ff26;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #00ff26
+		}
+
+		.vis-graph-group8 {
+			fill: #f0f;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #f0f
+		}
+
+		.vis-graph-group9 {
+			fill: #8f3938;
+			fill-opacity: 0;
+			stroke-width: 2px;
+			stroke: #8f3938
+		}
+
+		.vis-timeline .vis-fill {
+			fill-opacity: .1;
+			stroke: none
+		}
+
+		.vis-timeline .vis-bar {
+			fill-opacity: .5;
+			stroke-width: 1px
+		}
+
+		.vis-timeline .vis-point {
+			stroke-width: 2px;
+			fill-opacity: 1
+		}
+
+		.vis-timeline .vis-legend-background {
+			stroke-width: 1px;
+			fill-opacity: .9;
+			fill: #fff;
+			stroke: #c2c2c2
+		}
+
+		.vis-timeline .vis-outline {
+			stroke-width: 1px;
+			fill-opacity: 1;
+			fill: #fff;
+			stroke: #e5e5e5
+		}
+
+		.vis-timeline .vis-icon-fill {
+			fill-opacity: .3;
+			stroke: none
+		}
+	</style>
+	<style type="text/css">
+		.vis-timeline {
+			position: relative;
+			border: 1px solid #bfbfbf;
+			overflow: hidden;
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box
+		}
+
+		.vis-loading-screen {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0
+		}
+	</style>
+	<style type="text/css">
+		.vis [class*=span] {
+			min-height: 0;
+			width: auto
+		}
+	</style>
+	<style type="text/css">
+		.vis-item {
+			position: absolute;
+			color: #1a1a1a;
+			border-color: #97b0f8;
+			border-width: 1px;
+			background-color: #d5ddf6;
+			display: inline-block;
+			z-index: 1
+		}
+
+		.vis-item.vis-selected {
+			border-color: #ffc200;
+			background-color: #fff785;
+			z-index: 2
+		}
+
+		.vis-editable.vis-selected {
+			cursor: move
+		}
+
+		.vis-item.vis-point.vis-selected {
+			background-color: #fff785
+		}
+
+		.vis-item.vis-box {
+			text-align: center;
+			border-style: solid;
+			border-radius: 2px
+		}
+
+		.vis-item.vis-point {
+			background: none
+		}
+
+		.vis-item.vis-dot {
+			position: absolute;
+			padding: 0;
+			border-width: 4px;
+			border-style: solid;
+			border-radius: 4px
+		}
+
+		.vis-item.vis-range {
+			border-style: solid;
+			border-radius: 2px;
+			box-sizing: border-box
+		}
+
+		.vis-item.vis-background {
+			border: none;
+			background-color: rgba(213, 221, 246, .4);
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0
+		}
+
+		.vis-item .vis-item-overflow {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+			overflow: hidden
+		}
+
+		.vis-item-visible-frame {
+			white-space: nowrap
+		}
+
+		.vis-item.vis-range .vis-item-content {
+			position: relative;
+			display: inline-block
+		}
+
+		.vis-item.vis-background .vis-item-content {
+			position: absolute;
+			display: inline-block
+		}
+
+		.vis-item.vis-line {
+			padding: 0;
+			position: absolute;
+			width: 0;
+			border-left-width: 1px;
+			border-left-style: solid
+		}
+
+		.vis-item .vis-item-content {
+			white-space: nowrap;
+			box-sizing: border-box;
+			padding: 5px
+		}
+
+		.vis-item .vis-onUpdateTime-tooltip {
+			position: absolute;
+			background: #4f81bd;
+			color: #fff;
+			width: 200px;
+			text-align: center;
+			white-space: nowrap;
+			padding: 5px;
+			border-radius: 1px;
+			transition: .4s;
+			-o-transition: .4s;
+			-moz-transition: .4s;
+			-webkit-transition: .4s
+		}
+
+		.vis-item .vis-delete,
+		.vis-item .vis-delete-rtl {
+			position: absolute;
+			top: 0;
+			width: 24px;
+			height: 24px;
+			box-sizing: border-box;
+			padding: 0 5px;
+			cursor: pointer;
+			-webkit-transition: background .2s linear;
+			-moz-transition: background .2s linear;
+			-ms-transition: background .2s linear;
+			-o-transition: background .2s linear;
+			transition: background .2s linear
+		}
+
+		.vis-item .vis-delete {
+			right: -24px
+		}
+
+		.vis-item .vis-delete-rtl {
+			left: -24px
+		}
+
+		.vis-item .vis-delete-rtl:after,
+		.vis-item .vis-delete:after {
+			content: "\00D7";
+			color: red;
+			font-family: arial, sans-serif;
+			font-size: 22px;
+			font-weight: 700;
+			-webkit-transition: color .2s linear;
+			-moz-transition: color .2s linear;
+			-ms-transition: color .2s linear;
+			-o-transition: color .2s linear;
+			transition: color .2s linear
+		}
+
+		.vis-item .vis-delete-rtl:hover,
+		.vis-item .vis-delete:hover {
+			background: red
+		}
+
+		.vis-item .vis-delete-rtl:hover:after,
+		.vis-item .vis-delete:hover:after {
+			color: #fff
+		}
+
+		.vis-item .vis-drag-center {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			cursor: move
+		}
+
+		.vis-item.vis-range .vis-drag-left {
+			left: -4px;
+			cursor: w-resize
+		}
+
+		.vis-item.vis-range .vis-drag-left,
+		.vis-item.vis-range .vis-drag-right {
+			position: absolute;
+			width: 24px;
+			max-width: 20%;
+			min-width: 2px;
+			height: 100%;
+			top: 0
+		}
+
+		.vis-item.vis-range .vis-drag-right {
+			right: -4px;
+			cursor: e-resize
+		}
+
+		.vis-range.vis-item.vis-readonly .vis-drag-left,
+		.vis-range.vis-item.vis-readonly .vis-drag-right {
+			cursor: auto
+		}
+
+		.vis-item.vis-cluster {
+			vertical-align: center;
+			text-align: center;
+			border-style: solid;
+			border-radius: 2px
+		}
+
+		.vis-item.vis-cluster-line {
+			padding: 0;
+			position: absolute;
+			width: 0;
+			border-left-width: 1px;
+			border-left-style: solid
+		}
+
+		.vis-item.vis-cluster-dot {
+			position: absolute;
+			padding: 0;
+			border-width: 4px;
+			border-style: solid;
+			border-radius: 4px
+		}
+	</style>
+	<style type="text/css">
+		div.vis-tooltip {
+			position: absolute;
+			visibility: hidden;
+			padding: 5px;
+			white-space: nowrap;
+			font-family: verdana;
+			font-size: 14px;
+			color: #000;
+			background-color: #f5f4ed;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			border: 1px solid #808074;
+			box-shadow: 3px 3px 10px rgba(0, 0, 0, .2);
+			pointer-events: none;
+			z-index: 5
+		}
+	</style>
+	<style type="text/css">
+		.vis-itemset {
+			position: relative;
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box
+		}
+
+		.vis-itemset .vis-background,
+		.vis-itemset .vis-foreground {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			overflow: visible
+		}
+
+		.vis-axis {
+			position: absolute;
+			width: 100%;
+			height: 0;
+			left: 0;
+			z-index: 1
+		}
+
+		.vis-foreground .vis-group {
+			position: relative;
+			box-sizing: border-box;
+			border-bottom: 1px solid #bfbfbf
+		}
+
+		.vis-foreground .vis-group:last-child {
+			border-bottom: none
+		}
+
+		.vis-nesting-group {
+			cursor: pointer
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-unknown-but-gte1 {
+			background: #f5f5f5
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-0 {
+			background-color: #fff
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-0 .vis-inner {
+			padding-left: 0
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-0 .vis-inner {
+			padding-right: 0
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-1 {
+			background-color: rgba(0, 0, 0, .05)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-1 .vis-inner {
+			padding-left: 15px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-1 .vis-inner {
+			padding-right: 15px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-2 {
+			background-color: rgba(0, 0, 0, .1)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-2 .vis-inner {
+			padding-left: 30px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-2 .vis-inner {
+			padding-right: 30px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-3 {
+			background-color: rgba(0, 0, 0, .15)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-3 .vis-inner {
+			padding-left: 45px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-3 .vis-inner {
+			padding-right: 45px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-4 {
+			background-color: rgba(0, 0, 0, .2)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-4 .vis-inner {
+			padding-left: 60px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-4 .vis-inner {
+			padding-right: 60px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-5 {
+			background-color: rgba(0, 0, 0, .25)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-5 .vis-inner {
+			padding-left: 75px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-5 .vis-inner {
+			padding-right: 75px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-6 {
+			background-color: rgba(0, 0, 0, .3)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-6 .vis-inner {
+			padding-left: 90px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-6 .vis-inner {
+			padding-right: 90px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-7 {
+			background-color: rgba(0, 0, 0, .35)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-7 .vis-inner {
+			padding-left: 105px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-7 .vis-inner {
+			padding-right: 105px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-8 {
+			background-color: rgba(0, 0, 0, .4)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-8 .vis-inner {
+			padding-left: 120px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-8 .vis-inner {
+			padding-right: 120px
+		}
+
+		.vis-label.vis-nested-group.vis-group-level-9 {
+			background-color: rgba(0, 0, 0, .45)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group.vis-group-level-9 .vis-inner {
+			padding-left: 135px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group.vis-group-level-9 .vis-inner {
+			padding-right: 135px
+		}
+
+		.vis-label.vis-nested-group {
+			background-color: rgba(0, 0, 0, .5)
+		}
+
+		.vis-ltr .vis-label.vis-nested-group .vis-inner {
+			padding-left: 150px
+		}
+
+		.vis-rtl .vis-label.vis-nested-group .vis-inner {
+			padding-right: 150px
+		}
+
+		.vis-group-level-unknown-but-gte1 {
+			border: 1px solid red
+		}
+
+		.vis-label.vis-nesting-group:before {
+			display: inline-block;
+			width: 15px
+		}
+
+		.vis-label.vis-nesting-group.expanded:before {
+			content: "\25BC"
+		}
+
+		.vis-label.vis-nesting-group.collapsed:before {
+			content: "\25B6"
+		}
+
+		.vis-rtl .vis-label.vis-nesting-group.collapsed:before {
+			content: "\25C0"
+		}
+
+		.vis-ltr .vis-label:not(.vis-nesting-group):not(.vis-group-level-0) {
+			padding-left: 15px
+		}
+
+		.vis-rtl .vis-label:not(.vis-nesting-group):not(.vis-group-level-0) {
+			padding-right: 15px
+		}
+
+		.vis-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 10
+		}
+	</style>
+	<style type="text/css">
+		.vis-labelset {
+			overflow: hidden
+		}
+
+		.vis-labelset,
+		.vis-labelset .vis-label {
+			position: relative;
+			box-sizing: border-box
+		}
+
+		.vis-labelset .vis-label {
+			left: 0;
+			top: 0;
+			width: 100%;
+			color: #4d4d4d;
+			border-bottom: 1px solid #bfbfbf
+		}
+
+		.vis-labelset .vis-label.draggable {
+			cursor: pointer
+		}
+
+		.vis-group-is-dragging {
+			background: rgba(0, 0, 0, .1)
+		}
+
+		.vis-labelset .vis-label:last-child {
+			border-bottom: none
+		}
+
+		.vis-labelset .vis-label .vis-inner {
+			display: inline-block;
+			padding: 5px
+		}
+
+		.vis-labelset .vis-label .vis-inner.vis-hidden {
+			padding: 0
+		}
+	</style>
+	<style type="text/css">
+		div.vis-configuration {
+			position: relative;
+			display: block;
+			float: left;
+			font-size: 12px
+		}
+
+		div.vis-configuration-wrapper {
+			display: block;
+			width: 700px
+		}
+
+		div.vis-configuration-wrapper:after {
+			clear: both;
+			content: "";
+			display: block
+		}
+
+		div.vis-configuration.vis-config-option-container {
+			display: block;
+			width: 495px;
+			background-color: #fff;
+			border: 2px solid #f7f8fa;
+			border-radius: 4px;
+			margin-top: 20px;
+			left: 10px;
+			padding-left: 5px
+		}
+
+		div.vis-configuration.vis-config-button {
+			display: block;
+			width: 495px;
+			height: 25px;
+			vertical-align: middle;
+			line-height: 25px;
+			background-color: #f7f8fa;
+			border: 2px solid #ceced0;
+			border-radius: 4px;
+			margin-top: 20px;
+			left: 10px;
+			padding-left: 5px;
+			cursor: pointer;
+			margin-bottom: 30px
+		}
+
+		div.vis-configuration.vis-config-button.hover {
+			background-color: #4588e6;
+			border: 2px solid #214373;
+			color: #fff
+		}
+
+		div.vis-configuration.vis-config-item {
+			display: block;
+			float: left;
+			width: 495px;
+			height: 25px;
+			vertical-align: middle;
+			line-height: 25px
+		}
+
+		div.vis-configuration.vis-config-item.vis-config-s2 {
+			left: 10px;
+			background-color: #f7f8fa;
+			padding-left: 5px;
+			border-radius: 3px
+		}
+
+		div.vis-configuration.vis-config-item.vis-config-s3 {
+			left: 20px;
+			background-color: #e4e9f0;
+			padding-left: 5px;
+			border-radius: 3px
+		}
+
+		div.vis-configuration.vis-config-item.vis-config-s4 {
+			left: 30px;
+			background-color: #cfd8e6;
+			padding-left: 5px;
+			border-radius: 3px
+		}
+
+		div.vis-configuration.vis-config-header {
+			font-size: 18px;
+			font-weight: 700
+		}
+
+		div.vis-configuration.vis-config-label {
+			width: 120px;
+			height: 25px;
+			line-height: 25px
+		}
+
+		div.vis-configuration.vis-config-label.vis-config-s3 {
+			width: 110px
+		}
+
+		div.vis-configuration.vis-config-label.vis-config-s4 {
+			width: 100px
+		}
+
+		div.vis-configuration.vis-config-colorBlock {
+			top: 1px;
+			width: 30px;
+			height: 19px;
+			border: 1px solid #444;
+			border-radius: 2px;
+			padding: 0;
+			margin: 0;
+			cursor: pointer
+		}
+
+		input.vis-configuration.vis-config-checkbox {
+			left: -5px
+		}
+
+		input.vis-configuration.vis-config-rangeinput {
+			position: relative;
+			top: -5px;
+			width: 60px;
+			padding: 1px;
+			margin: 0;
+			pointer-events: none
+		}
+
+		input.vis-configuration.vis-config-range {
+			-webkit-appearance: none;
+			border: 0 solid #fff;
+			background-color: transparent;
+			width: 300px;
+			height: 20px
+		}
+
+		input.vis-configuration.vis-config-range::-webkit-slider-runnable-track {
+			width: 300px;
+			height: 5px;
+			background: #dedede;
+			background: -moz-linear-gradient(top, #dedede 0, #c8c8c8 99%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dedede), color-stop(99%, #c8c8c8));
+			background: -webkit-linear-gradient(top, #dedede, #c8c8c8 99%);
+			background: -o-linear-gradient(top, #dedede 0, #c8c8c8 99%);
+			background: -ms-linear-gradient(top, #dedede 0, #c8c8c8 99%);
+			background: linear-gradient(180deg, #dedede 0, #c8c8c8 99%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dedede", endColorstr="#c8c8c8", GradientType=0);
+			border: 1px solid #999;
+			box-shadow: 0 0 3px 0 #aaa;
+			border-radius: 3px
+		}
+
+		input.vis-configuration.vis-config-range::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			border: 1px solid #14334b;
+			height: 17px;
+			width: 17px;
+			border-radius: 50%;
+			background: #3876c2;
+			background: -moz-linear-gradient(top, #3876c2 0, #385380 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #3876c2), color-stop(100%, #385380));
+			background: -webkit-linear-gradient(top, #3876c2, #385380);
+			background: -o-linear-gradient(top, #3876c2 0, #385380 100%);
+			background: -ms-linear-gradient(top, #3876c2 0, #385380 100%);
+			background: linear-gradient(180deg, #3876c2 0, #385380);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3876c2", endColorstr="#385380", GradientType=0);
+			box-shadow: 0 0 1px 0 #111927;
+			margin-top: -7px
+		}
+
+		input.vis-configuration.vis-config-range:focus {
+			outline: none
+		}
+
+		input.vis-configuration.vis-config-range:focus::-webkit-slider-runnable-track {
+			background: #9d9d9d;
+			background: -moz-linear-gradient(top, #9d9d9d 0, #c8c8c8 99%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #9d9d9d), color-stop(99%, #c8c8c8));
+			background: -webkit-linear-gradient(top, #9d9d9d, #c8c8c8 99%);
+			background: -o-linear-gradient(top, #9d9d9d 0, #c8c8c8 99%);
+			background: -ms-linear-gradient(top, #9d9d9d 0, #c8c8c8 99%);
+			background: linear-gradient(180deg, #9d9d9d 0, #c8c8c8 99%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9d9d9d", endColorstr="#c8c8c8", GradientType=0)
+		}
+
+		input.vis-configuration.vis-config-range::-moz-range-track {
+			width: 300px;
+			height: 10px;
+			background: #dedede;
+			background: -moz-linear-gradient(top, #dedede 0, #c8c8c8 99%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dedede), color-stop(99%, #c8c8c8));
+			background: -webkit-linear-gradient(top, #dedede, #c8c8c8 99%);
+			background: -o-linear-gradient(top, #dedede 0, #c8c8c8 99%);
+			background: -ms-linear-gradient(top, #dedede 0, #c8c8c8 99%);
+			background: linear-gradient(180deg, #dedede 0, #c8c8c8 99%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dedede", endColorstr="#c8c8c8", GradientType=0);
+			border: 1px solid #999;
+			box-shadow: 0 0 3px 0 #aaa;
+			border-radius: 3px
+		}
+
+		input.vis-configuration.vis-config-range::-moz-range-thumb {
+			border: none;
+			height: 16px;
+			width: 16px;
+			border-radius: 50%;
+			background: #385380
+		}
+
+		input.vis-configuration.vis-config-range:-moz-focusring {
+			outline: 1px solid #fff;
+			outline-offset: -1px
+		}
+
+		input.vis-configuration.vis-config-range::-ms-track {
+			width: 300px;
+			height: 5px;
+			background: transparent;
+			border-color: transparent;
+			border-width: 6px 0;
+			color: transparent
+		}
+
+		input.vis-configuration.vis-config-range::-ms-fill-lower {
+			background: #777;
+			border-radius: 10px
+		}
+
+		input.vis-configuration.vis-config-range::-ms-fill-upper {
+			background: #ddd;
+			border-radius: 10px
+		}
+
+		input.vis-configuration.vis-config-range::-ms-thumb {
+			border: none;
+			height: 16px;
+			width: 16px;
+			border-radius: 50%;
+			background: #385380
+		}
+
+		input.vis-configuration.vis-config-range:focus::-ms-fill-lower {
+			background: #888
+		}
+
+		input.vis-configuration.vis-config-range:focus::-ms-fill-upper {
+			background: #ccc
+		}
+
+		.vis-configuration-popup {
+			position: absolute;
+			background: rgba(57, 76, 89, .85);
+			border: 2px solid #f2faff;
+			line-height: 30px;
+			height: 30px;
+			width: 150px;
+			text-align: center;
+			color: #fff;
+			font-size: 14px;
+			border-radius: 4px;
+			-webkit-transition: opacity .3s ease-in-out;
+			-moz-transition: opacity .3s ease-in-out;
+			transition: opacity .3s ease-in-out
+		}
+
+		.vis-configuration-popup:after,
+		.vis-configuration-popup:before {
+			left: 100%;
+			top: 50%;
+			border: solid transparent;
+			content: " ";
+			height: 0;
+			width: 0;
+			position: absolute;
+			pointer-events: none
+		}
+
+		.vis-configuration-popup:after {
+			border-color: rgba(136, 183, 213, 0) rgba(136, 183, 213, 0) rgba(136, 183, 213, 0) rgba(57, 76, 89, .85);
+			border-width: 8px;
+			margin-top: -8px
+		}
+
+		.vis-configuration-popup:before {
+			border-color: rgba(194, 225, 245, 0) rgba(194, 225, 245, 0) rgba(194, 225, 245, 0) #f2faff;
+			border-width: 12px;
+			margin-top: -12px
+		}
+	</style>
+	<style type="text/css">
+		.vis-panel.vis-background.vis-horizontal .vis-grid.vis-horizontal {
+			position: absolute;
+			width: 100%;
+			height: 0;
+			border-bottom: 1px solid
+		}
+
+		.vis-panel.vis-background.vis-horizontal .vis-grid.vis-minor {
+			border-color: #e5e5e5
+		}
+
+		.vis-panel.vis-background.vis-horizontal .vis-grid.vis-major {
+			border-color: #bfbfbf
+		}
+
+		.vis-data-axis .vis-y-axis.vis-major {
+			width: 100%;
+			position: absolute;
+			color: #4d4d4d;
+			white-space: nowrap
+		}
+
+		.vis-data-axis .vis-y-axis.vis-major.vis-measure {
+			padding: 0;
+			margin: 0;
+			border: 0;
+			visibility: hidden;
+			width: auto
+		}
+
+		.vis-data-axis .vis-y-axis.vis-minor {
+			position: absolute;
+			width: 100%;
+			color: #bebebe;
+			white-space: nowrap
+		}
+
+		.vis-data-axis .vis-y-axis.vis-minor.vis-measure {
+			padding: 0;
+			margin: 0;
+			border: 0;
+			visibility: hidden;
+			width: auto
+		}
+
+		.vis-data-axis .vis-y-axis.vis-title {
+			position: absolute;
+			color: #4d4d4d;
+			white-space: nowrap;
+			bottom: 20px;
+			text-align: center
+		}
+
+		.vis-data-axis .vis-y-axis.vis-title.vis-measure {
+			padding: 0;
+			margin: 0;
+			visibility: hidden;
+			width: auto
+		}
+
+		.vis-data-axis .vis-y-axis.vis-title.vis-left {
+			bottom: 0;
+			-webkit-transform-origin: left top;
+			-moz-transform-origin: left top;
+			-ms-transform-origin: left top;
+			-o-transform-origin: left top;
+			transform-origin: left bottom;
+			-webkit-transform: rotate(-90deg);
+			-moz-transform: rotate(-90deg);
+			-ms-transform: rotate(-90deg);
+			-o-transform: rotate(-90deg);
+			transform: rotate(-90deg)
+		}
+
+		.vis-data-axis .vis-y-axis.vis-title.vis-right {
+			bottom: 0;
+			-webkit-transform-origin: right bottom;
+			-moz-transform-origin: right bottom;
+			-ms-transform-origin: right bottom;
+			-o-transform-origin: right bottom;
+			transform-origin: right bottom;
+			-webkit-transform: rotate(90deg);
+			-moz-transform: rotate(90deg);
+			-ms-transform: rotate(90deg);
+			-o-transform: rotate(90deg);
+			transform: rotate(90deg)
+		}
+
+		.vis-legend {
+			background-color: rgba(247, 252, 255, .65);
+			padding: 5px;
+			border: 1px solid #b3b3b3;
+			box-shadow: 2px 2px 10px hsla(0, 0%, 60.4%, .55)
+		}
+
+		.vis-legend-text {
+			white-space: nowrap;
+			display: inline-block
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div id="header_logo" class="easter_egg">
+			<h1><a href="/static/archive/2021/index.html"><img id="circle"
+						src="/static/imgs/2021/logo_easter_egg.png">&nbsp;Interludes 2021&nbsp;</a></h1>
+		</div>
+		<div id="head_main_infos">
+			<div id="location">ENS Ulm</div>
+			<div id="date">7-9 mai 2021</div>
+		</div>
+	</header>
+	<script type="text/javascript">
+		function toggle_menu() {
+			var nav = document.getElementById("nav");
+			if (nav.className === "") {
+				nav.className += "responsive";
+			} else {
+				nav.className = "";
+			}
+		}
+	</script>
+	<nav id="nav"><a href="/static/archive/2021/index.html" rel="text/html" class="">
+			Accueil
+		</a><a href="/static/archive/2021/activites.html" rel="text/html" class="current">
+			Activités
+		</a><a href="/static/archive/2021/faq.html" rel="text/html" class=" ">
+			FAQ
+		</a><a href="javascript:void(0);" class="icon" onclick="toggle_menu()"><i class="fa fa-bars"></i></a></nav>
+	<main>
+		<h2>Planning</h2>
+		<div id="planning"></div><!--
+In order to limit the planning's width, we cheat using the timeline's groups
+I.E we set all dates to the first day (Friday) and set groups allowing vertical display:
+-->
+		<script type="text/javascript">
+			// https://visjs.org/
+			// DOM element where the Timeline will be attached
+			const container = document.getElementById('planning');
+
+			const groups = new vis.DataSet([
+				{ id: 0, content: "Ven.", order: 0 },
+				{ id: 1, content: "Sam.", order: 1 },
+				{ id: 2, content: "Dim.", order: 2 },
+			]);
+
+			// Items in the timeline
+			const items = new vis.DataSet([
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-14"><div><strong>CosmiA</strong><br></div></a></div>',
+					title: '<strong>CosmiA</strong><br>',
+					start: '2021-05-07 10:00:00',
+					align: 'left',
+					group: 2,
+					end: '2021-05-07 13:00:00',
+					className: "color-b",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-7"><div><strong>Documents Secrets</strong><br></div></a></div>',
+					title: '<strong>Documents Secrets</strong><br>',
+					start: '2021-05-07 10:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 13:00:00',
+					className: "color-b",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-17"><div><strong>Scribbl.io</strong><br></div></a></div>',
+					title: '<strong>Scribbl.io</strong><br>',
+					start: '2021-05-07 14:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 16:00:00',
+					className: "color-c",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-20"><div><strong>Diplomacy</strong><br></div></a></div>',
+					title: '<strong>Diplomacy</strong><br>',
+					start: '2021-05-07 20:00:00',
+					align: 'left',
+					group: 0,
+					end: '2021-05-08 04:00:00',
+					className: "color-c",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-21"><div><strong>Loups-garous de Thiercelieux</strong><br></div></a></div>',
+					title: '<strong>Loups-garous de Thiercelieux</strong><br>',
+					start: '2021-05-07 21:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 23:00:00',
+					className: "color-c",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-23"><div><strong>Sporz</strong><br></div></a></div>',
+					title: '<strong>Sporz</strong><br>',
+					start: '2021-05-07 20:00:00',
+					align: 'left',
+					group: 0,
+					end: '2021-05-07 23:30:00',
+					className: "color-c",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-25"><div><strong>Début</strong><br></div></a></div>',
+					title: '<strong>Début</strong><br>',
+					start: '2021-05-07 18:00:00',
+					align: 'left',
+					group: 0,
+					end: '2021-05-07 18:45:00',
+					className: "color-d",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-27"><div><strong>Civilization 6</strong><br></div></a></div>',
+					title: '<strong>Civilization 6</strong><br>',
+					start: '2021-05-07 21:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-08 00:00:00',
+					className: "color-a",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-3"><div><strong>Minecraft</strong><br></div></a></div>',
+					title: '<strong>Minecraft</strong><br>',
+					start: '2021-05-07 16:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-08 00:00:00',
+					className: "color-a",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-18"><div><strong>Among Us</strong><br></div></a></div>',
+					title: '<strong>Among Us</strong><br>',
+					start: '2021-05-07 10:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 12:00:00',
+					className: "color-a",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-19"><div><strong>Gartic Phone</strong><br></div></a></div>',
+					title: '<strong>Gartic Phone</strong><br>',
+					start: '2021-05-07 15:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 17:00:00',
+					className: "color-c",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-10"><div><strong>Chaîne Alimentaire</strong><br></div></a></div>',
+					title: '<strong>Chaîne Alimentaire</strong><br>',
+					start: '2021-05-07 10:00:00',
+					align: 'left',
+					group: 2,
+					end: '2021-05-07 11:30:00',
+					className: "color-c",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-22"><div><strong>Niche Écologique</strong><br></div></a></div>',
+					title: '<strong>Niche Écologique</strong><br>',
+					start: '2021-05-07 18:30:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 20:00:00',
+					className: "color-c",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-5"><div><strong>Elémentaire !</strong><br></div></a></div>',
+					title: '<strong>Elémentaire !</strong><br>',
+					start: '2021-05-07 11:30:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 17:00:00',
+					className: "color-b",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-11"><div><strong>Monster of the Week</strong><br></div></a></div>',
+					title: '<strong>Monster of the Week</strong><br>',
+					start: '2021-05-07 18:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 22:00:00',
+					className: "color-g",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-1"><div><strong>Demi-Dieux - Séance 1</strong><br></div></a></div>',
+					title: '<strong>Demi-Dieux - Séance 1</strong><br>',
+					start: '2021-05-07 21:00:00',
+					align: 'left',
+					group: 0,
+					end: '2021-05-08 00:00:00',
+					className: "color-g",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-1"><div><strong>Demi-Dieux - Séance 2</strong><br></div></a></div>',
+					title: '<strong>Demi-Dieux - Séance 2</strong><br>',
+					start: '2021-05-07 23:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-08 02:00:00',
+					className: "color-g",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-24"><div><strong>Flim: La Classe Américaine</strong><br></div></a></div>',
+					title: '<strong>Flim: La Classe Américaine</strong><br>',
+					start: '2021-05-07 19:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 20:30:00',
+					className: "color-f",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-2"><div><strong>Justice et Chevalerie</strong><br></div></a></div>',
+					title: '<strong>Justice et Chevalerie</strong><br>',
+					start: '2021-05-07 15:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 20:00:00',
+					className: "color-g",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-26"><div><strong>Remise des achievements</strong><br></div></a></div>',
+					title: '<strong>Remise des achievements</strong><br>',
+					start: '2021-05-07 15:00:00',
+					align: 'left',
+					group: 2,
+					end: '2021-05-07 17:15:00',
+					className: "color-d",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-28"><div><strong>T. Codenames</strong><br></div></a></div>',
+					title: '<strong>T. Codenames</strong><br>',
+					start: '2021-05-07 21:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-08 00:00:00',
+					className: "color-e",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-16"><div><strong>T. Échecs</strong><br></div></a></div>',
+					title: '<strong>T. Échecs</strong><br>',
+					start: '2021-05-07 12:00:00',
+					align: 'left',
+					group: 2,
+					end: '2021-05-07 14:00:00',
+					className: "color-e",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-9"><div><strong>T. Geoguessr</strong><br></div></a></div>',
+					title: '<strong>T. Geoguessr</strong><br>',
+					start: '2021-05-07 16:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-07 18:30:00',
+					className: "color-e",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-8"><div><strong>The space between us - Séance 1</strong><br></div></a></div>',
+					title: '<strong>The space between us - Séance 1</strong><br>',
+					start: '2021-05-07 19:00:00',
+					align: 'left',
+					group: 0,
+					end: '2021-05-08 00:00:00',
+					className: "color-b",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-8"><div><strong>The space between us - Séance 2</strong><br></div></a></div>',
+					title: '<strong>The space between us - Séance 2</strong><br>',
+					start: '2021-05-07 09:00:00',
+					align: 'left',
+					group: 2,
+					end: '2021-05-07 14:00:00',
+					className: "color-b",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-15"><div><strong>T. Magic</strong><br></div></a></div>',
+					title: '<strong>T. Magic</strong><br>',
+					start: '2021-05-07 21:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-08 00:00:00',
+					className: "color-e",
+				},
+
+
+
+				{
+					content: '<div style="background-color: yellow;"><a class="hidden" href="#act-13"><div><strong>T. Pokémon Showdown</strong><br></div></a></div>',
+					title: '<strong>T. Pokémon Showdown</strong><br>',
+					start: '2021-05-07 21:00:00',
+					align: 'left',
+					group: 1,
+					end: '2021-05-08 00:00:00',
+					className: "color-e",
+				},
+
+
+			]);
+
+			// Configuration for the Timeline
+			const start = '2021-05-07 08:00:00';
+			const end = '2021-05-8 04:00:00';
+			const options = {
+				showMajorLabels: false,
+				showCurrentTime: false,
+				locale: "fr",
+				groupOrder: "order",
+				start: start,
+				min: start,
+				end: end,
+				max: end,
+				selectable: false,
+				zoomable: false,
+			};
+
+			// Create a Timeline
+			const timeline = new vis.Timeline(container, items, options);
+			timeline.setGroups(groups);
+			// timeline.on('select', function (properties) {
+			// 	alert('selected items: ' + properties.items);
+			// });
+		</script>
+		<style>
+			.vis-item {
+				background-color: var(--color_bg_1);
+				color: white;
+			}
+
+			.vis-item-content {
+				width: 100%;
+			}
+
+			.vis-item a,
+			.vis-item a:link,
+			.vis-item a:visited {
+				text-decoration: none;
+				color: white;
+				width: 100%;
+			}
+
+			.vis-item a div {
+				width: 100%;
+			}
+
+			.vis-item:hover {
+				background-color: var(--color_bg_2);
+			}
+
+			.vis-time-axis .grid.vis-odd {
+				background: #444;
+			}
+
+			/* Color specific things */
+			:root {
+				--color_1: var(--color_bg_1);
+				--color_1_hover: var(--color_bg_2);
+				--color_1_fg: white;
+				--color_2: #e84855;
+				--color_2_hover: #da1b2b;
+				--color_2_fg: white;
+				--color_3: #f9dc5c;
+				--color_3_hover: #f7d126;
+				--color_3_fg: black;
+				--color_4: #3185fc;
+				--color_4_hover: #0467f1;
+				--color_4_fg: white;
+				--color_5: #7cae7a;
+				--color_5_hover: #5f8b55;
+				--color_5_fg: white;
+				--color_6: #483D3F;
+				--color_6_hover: #2c2627;
+				--color_6_fg: white;
+				--color_7: #dd7230;
+				--color_7_hover: #c15d1f;
+				--color_7_fg: white;
+			}
+
+			.vis-item.color-a {
+				background-color: var(--color_1);
+			}
+
+			.vis-item.color-a a,
+			.vis-item.color-a a:link,
+			.vis-item.color-a a:visited {
+				color: var(--color_1_fg);
+			}
+
+			.vis-item.color-a:hover {
+				background-color: var(--color_1_hover)
+			}
+
+			.vis-item.color-b {
+				background-color: var(--color_2);
+			}
+
+			.vis-item.color-b a,
+			.vis-item.color-b a:link,
+			.vis-item.color-b a:visited {
+				color: var(--color_2_fg);
+			}
+
+			.vis-item.color-b:hover {
+				background-color: var(--color_2_hover)
+			}
+
+			.vis-item.color-c {
+				background-color: var(--color_2);
+			}
+
+			.vis-item.color-c a,
+			.vis-item.color-c a:link,
+			.vis-item.color-c a:visited {
+				color: var(--color_2_fg);
+			}
+
+			.vis-item.color-c:hover {
+				background-color: var(--color_2_hover)
+			}
+
+			.vis-item.color-c {
+				background-color: var(--color_3);
+			}
+
+			.vis-item.color-c a,
+			.vis-item.color-c a:link,
+			.vis-item.color-c a:visited {
+				color: var(--color_3_fg);
+			}
+
+			.vis-item.color-c:hover {
+				background-color: var(--color_3_hover)
+			}
+
+			.vis-item.color-d {
+				background-color: var(--color_4);
+			}
+
+			.vis-item.color-d a,
+			.vis-item.color-d a:link,
+			.vis-item.color-d a:visited {
+				color: var(--color_4_fg);
+			}
+
+			.vis-item.color-d:hover {
+				background-color: var(--color_4_hover)
+			}
+
+			.vis-item.color-e {
+				background-color: var(--color_5);
+			}
+
+			.vis-item.color-e a,
+			.vis-item.color-e a:link,
+			.vis-item.color-e a:visited {
+				color: var(--color_5_fg);
+			}
+
+			.vis-item.color-e:hover {
+				background-color: var(--color_5_hover)
+			}
+
+			.vis-item.color-f {
+				background-color: var(--color_6);
+			}
+
+			.vis-item.color-f a,
+			.vis-item.color-f a:link,
+			.vis-item.color-f a:visited {
+				color: var(--color_6_fg);
+			}
+
+			.vis-item.color-f:hover {
+				background-color: var(--color_6_hover)
+			}
+
+			.vis-item.color-g {
+				background-color: var(--color_7);
+			}
+
+			.vis-item.color-g a,
+			.vis-item.color-g a:link,
+			.vis-item.color-g a:visited {
+				color: var(--color_7_fg);
+			}
+
+			.vis-item.color-g:hover {
+				background-color: var(--color_7_hover)
+			}
+		</style>
+		<div class="caption">
+			<p><strong>Légende :</strong></p>
+			<ul style="list-style-type: none; margin-left:-20px">
+				<li><span style="background-color: var(--color_2);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle
+					grandeur nature</li>
+				<li><span style="background-color: var(--color_7);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle sur
+					table</li>
+				<li><span style="background-color: var(--color_3);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Activités libres
+				</li>
+				<li><span style="background-color: var(--color_5);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Tournois</li>
+				<li><span style="background-color: var(--color_4);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Événements de
+					début et fin</li>
+				<li><span style="background-color: var(--color_1);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux vidéos</li>
+				<li><span style="background-color: var(--color_6);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Autre</li>
+			</ul>
+		</div>
+		<div></div>
+
+		<h2>Activités</h2>
+		<p>Durant tout l'événement, des jeux seront en libre-service et des tables disponibles pour jouer.
+			Certaines activités ne pourront se faire qu'avec inscription au vue d'un nombre de places limité.
+		</p>
+		<p id="act-list"><strong>Liste des activités&nbsp;:</strong></p>
+		<ul>
+			<li><a href="#act-10">Chaîne Alimentaire</a></li>
+			<li><a href="#act-14">CosmiA</a></li>
+			<li><a href="#act-1">Demi-Dieux : Bienvenue à Starland!</a></li>
+			<li><a href="#act-20">Diplomacy</a></li>
+			<li><a href="#act-7">Documents Secrets</a></li>
+			<li><a href="#act-5">Elémentaire !</a></li>
+			<li><a href="#act-2">Justice et Chevalerie - Un scénario pour héros de l'Œil Noir</a></li>
+			<li><a href="#act-4">L'Expert</a></li>
+			<li><a href="#act-3">Minecraft</a></li>
+			<li><a href="#act-11">Monster of the Week</a></li>
+			<li><a href="#act-22">Niche Écologique</a></li>
+			<li><a href="#act-23">Sporz</a></li>
+			<li><a href="#act-8">The space between us</a></li>
+			<li><a href="#act-28">Tournoi Codenames</a></li>
+			<li><a href="#act-16">Tournoi Échecs</a></li>
+			<li><a href="#act-9">Tournoi Geoguessr</a></li>
+			<li><a href="#act-15">Tournoi Magic</a></li>
+			<li><a href="#act-13">Tournoi Pokémon Showdown</a></li>
+			<li><a href="#act-12">Zero Escape : Radical Outcome</a></li>
+		</ul>
+		<h3 id="act-10">Chaîne Alimentaire</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>1h30</dd>
+			<dt>Type :</dt>
+			<dd>Jeu à rôles secrets</dd>
+			<dt>Places :</dt>
+			<dd>13 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				dimanche 10:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Oyé
+				oyé ! Vous avez toujours rêvé d'être un animal, que ce soit un
+				majestueux lion, un dangereux crocodile ou une loutre trop choupi ? Et
+				bien la chaîne alimentaire est faite pour vous !</p>
+			<p class="indent">Dans
+				ce jeu, chaque joueur incarne un animal parmi 13 différents, situé sur
+				un de cinq rangs de la chaine alimentaire. Chaque animal a son habitat
+				naturel, un pouvoir spécial ainsi qu’une condition de victoire qui lui
+				est propre.</p>
+			<p class="indent">Afin de vous aider, vous serez informé
+				en début de partie de l'identité d'un autre joueur de votre choix, puis
+				aurez 30 minutes pour glâner des informations et établir une stratégie
+				en discutant auprès des autres animaux. Ensuite, il y aura quatre tours
+				de jeu, durant lesquels vous devrez vous déplacer d'habitats en habitats
+				pour accomplir vos objectifs avec les autres animaux. Gare à ne pas
+				vous retrouver seul face à un lion affamé !
+				Alors n'attendez plus et inscrivez-vous ;-)</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-14">CosmiA</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>3h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle grandeur nature</dd>
+			<dt>Places :</dt>
+			<dd>4 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				dimanche 10:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Disclaimer : Ceci est un GN (grandeur nature) sur Table Top Simulator. Oui, vous avez bien lu.
+			</p>
+			<p class="indent">CosmiA©&nbsp;–
+				Le monde s’ouvre à vous.
+				Rejoignez la plateforme vidéoludique la plus populaire de l’année
+				2048&nbsp;!
+				Vous aurez l’impression de faire corps avec votre personnage, dans un
+				monde en réalité virtuelle qui revient aux source du MMORPG où les Elfes
+				côtoient les Humains ou encore les Lutins...
+				Saurez-vous venir à bout des dangers qu’il renferme&nbsp;?</p>
+			<p class="indent">Votre
+				objectif sera de gravir un donjon, en triomphant de chacun des 6
+				étages. Si possible en emmenant au bout avec vous vos compagnons de
+				circonstance.</p>
+			<p class="indent">Ce jeu de rôle plutôt coopératif est
+				d’inspiration fortement vidéoludique, avec des mécaniques au cœur du jeu
+				et un panel d’actions limité. Il est ainsi également assez proche d’une
+				jeu de société. Pour ceux qui ont les références, je dirais qu'il est à
+				quelque part entre Aeon, Donjons &amp; Dragons, Mice &amp; Mystics et
+				Dofus.
+				Il est plutôt destiné à un public averti, mais si vous avez apprécié des
+				jeux vidéo type Dofus vous pourrez également profiter de l'expérience
+				sans problème.</p>
+			<p class="indent">(Je l'ai originellement construit
+				comme un jdr sur table, mais ça s'adapte sur TTS, et le qualifier de GN
+				me parait approprié (et à peine putaclic) vu que nos personnages sont
+				des gens en train de jouer à un jeu vidéo, certes avec une meilleur
+				technologie que nous et en VR mais bon close enough. Il est nécessaire
+				de posséder Tabletop Simulator pour participer.)</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-1">Demi-Dieux : Bienvenue à Starland!</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>3h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle sur table</dd>
+			<dt>Places :</dt>
+			<dd>3 - 5 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				vendredi 21:00<!-- None -->,<br>
+
+				samedi 23:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Dans
+				Demi-Dieux, vous incarnez des.... demi-dieux voyageant à travers les
+				univers à la demande des dieux de ceux-ci. Une fois investis d'une
+				mission, vous vous incarnez dans un être de cet univers et essayez de
+				l'accomplir avec les capacités de l'être incarné (avec quelques pouvoirs
+				divins par la même occasion).<br><br>Système D20, tous niveaux acceptés (débutants bienvenus!). Mon style de jeu
+				est plus narratif qu'autre chose.<br><br>... C'est quoi cette histoire de parc d'attractions?<br><br>Il y aura
+				probablement deux séances.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-20">Diplomacy</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>8h</dd>
+			<dt>Type :</dt>
+			<dd>Une partie</dd>
+			<dt>Places :</dt>
+			<dd>Illimités</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				vendredi 20:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Jeu
+				de guerre sur plateau, sorte de Risk sans dés, qui laisse la part belle
+				aux négociations entre joueurs. Créé dans les années 50 . Maintes fois
+				réédité. Interminable. Incroyable. Inimitable.</p>
+			<p class="indent">A
+				l’aube du XXe siècle, l’Europe se prépare pour un nouveau conflit. Alors
+				que les armées se déplacent lentement et que des batailles dantesques
+				se succèdent, les diplomates ne ménagent pas leurs efforts pour former
+				et dissoudre leurs alliances, et s’assurer du contrôle des territoires
+				les plus importants pour ravitailler leurs armées.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-7">Documents Secrets</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>3h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle grandeur nature</dd>
+			<dt>Places :</dt>
+			<dd>7 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 10:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+
+			Résumé :<br>
+			<p class="indent">Le 5 novembre 2017, un énième scandale
+				d'investigation enflamme l'opinion publique : les Paradise Papers. Des
+				centaines de multinationales sont visées par des accusations
+				d'optimisation fiscale par le biais de sociétés écrans. Une conjoncture
+				inquiétante, mais bien loin du quotidien de la population.
+				Un matin de mars 2018, bouche pâteuse, la tête lourde. Je me réveille
+				dans une salle glaciale inconnue. D'autres gens que je ne connais pas.
+				Qu'est-ce que je fais là ?</p><br>
+			Note d'intention :<br>
+			<p class="indent">Ce huis-clos se passe dans un
+				monde contemporain (uchronique). Il mêle les sujets de société et leurs
+				dilemmes moraux et éthiques. Dans une atmosphère tendue, les personnages
+				vont devoir trouver leurs marques et communiquer habilement pour s'en
+				sortir.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-5">Elémentaire !</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>5h30</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle grandeur nature</dd>
+			<dt>Places :</dt>
+			<dd>7 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 11:30<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Depuis
+				la nuit des temps, le monde est baigné dans les 4 éléments. Chaque
+				être, chaque action, chaque idée est rattaché à l’un d’entre eux. Vous
+				êtes les éminents membres de la Ligue des quatre éléments, une école
+				élémentaire où, pendant 4 ans, un heureux élu a l’occasion de
+				perfectionner sa maîtrise de son élément de prédilection avec un maître
+				en la matière. Vous êtes donc 8. Enfin, vous l’étiez jusqu’à ce qu’Eole,
+				le maître de l’air, ne soit retrouvé assassiné…</p><br>
+			Note d'intention :<br>
+			<p class="indent">Ce murder vous plonge dans un
+				univers magique. Mais la magie n’y jouera pas un rôle très actif, le
+				plus important est ce que chaque élément représente. Vous suivrez un
+				scénario, dans lequel vous aurez quelques choix à faire mais qui sera
+				dans l’ensemble très dirigé, le rendant tout à fait approprié pour des
+				débutants.</p>
+			<p class="indent">L’objectif de ce murder n’est pas de
+				ressentir des émotions extrêmes ou d’approfondir la psychologie de vos
+				personnages. Ce n’est pas d’explorer un univers merveilleux et de tester
+				les limites de la physique. C’est un murder centré sur l’information :
+				anticiper le genre d’informations que l’on pourrait trouver, et décider
+				qui a les meilleures capacités et révélera effectivement ce qu’il
+				découvrira. Et, bien sûr, exploiter ces informations pour reconstruire
+				les événements et découvrir des secrets potentiellement dangereux. Car,
+				comme vous le découvrirez bien assez tôt, il s’est passé quelque-chose.
+				Quelque-chose de grave. Qui vous affecte personnellement.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-2">Justice et Chevalerie - Un scénario pour héros de l'Œil Noir</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>5h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle sur table</dd>
+			<dt>Places :</dt>
+			<dd>3 - 5 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 15:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">De
+				sombres et omniprésents nuages sur les sommets enneigés de Sombrecrête
+				au nord-ouest. Maintes et maintes fois d'haineux adversaires se sont
+				déversés depuis ses pentes sur les terres de Gué-du-Griffon et du duché
+				des Pasturies. Ensemble, ces deux régions forment les terres-bouclier
+				qui veillent à la défense des provinces internes de l'Empire Midlandais.
+				Les Orks errent sur ces terres déchirées par la guerre, mais ce ne sont
+				pas les seules menaces — voleurs, hors-la-loi et nobles devenus bandits
+				ont fait des bois au pied de Sombrecrête un endroit dangereux.</p>
+			<p class="indent">Depuis
+				la cour ensoleillée de l'auberge des quatre hêtres, tous ces problèmes
+				vous semblent bien lointains. C'est peut-être la simplicité du pays, la
+				beauté immaculée de cette terre indomptée, qui vous a invitée à rester
+				et vous reposer un peu. Alors que vous venez d'arriver, en milieu de
+				journée, les chauds rayons du disque de Praïos vous éclairent d'en haut.</p>
+			<p class="indent">Vous
+				et vos compagnons de voyages serez cependant vite confrontés, au cours
+				du scénario, à l'un des problèmes de la région. Peut-être agissez vous
+				par appas du gain, peut-être par principe, et peut-être finalement par
+				amitié envers vos compagnons, mais quel que soit le cas, vous n'avez pas
+				l'habitude de partir d'un endroit sans avoir tenté de porter secours à
+				ceux dans le besoin.</p><br>
+			<p class="indent">Le système de jeu a pour
+				but d'immerger les joueurs dans un univers de style low-fantasy très
+				riche en lore et en histoire, au travers de mécaniques encourageant le
+				roleplay et permettant de régler les rencontres aussi bien par le combat
+				que le social, ou par d'autres solutions. C'est la 5em version du
+				système, récemment traduite, bien différente de la mythique V1. Je
+				m'assurerai bien sûr que ces mécaniques restent faciles à utiliser. Tous
+				les joueurs sont les bienvenus.<br></p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-4">L'Expert</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>4h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu vidéo</dd>
+			<dt>Places :</dt>
+			<dd>2 - 32 (sur inscription)</dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc"><strong>Annulée par manque de participants</strong>
+			<p class="indent">Si vous avez toujours rêvé de reproduire les mouvements de Neo (Matrix) dans un jeu vidéo, c'est
+				le moment.</p>
+			<p class="indent">The Specialist est un mod Half-Life 1 (<a
+					href="https://www.moddb.com/mods/the-specialists">https://www.moddb.com/mods/the-specialists</a>)
+				qui vise à produire un jeu multijoueur avec des mécaniques type slow
+				motion, un système de poids pour porter ses armes (avec une très large
+				gamme), un système de kung-fu avec parades, des armes de jets, couteaux
+				de combats, katana, désarmement et plus encore.</p>
+			<p class="indent">De
+				plus, des pouvoirs spéciaux (true slow motion de ≤ 3 secondes, slow
+				motion de ≤ 3 secondes, kung fu amélioré, doublement de la capacité des
+				chargeurs, saut amélioré) existent et peuvent vous permettre de survivre
+				contre une horde d'ennemis.</p>
+			<p class="indent">Plusieurs façons de
+				jouer existent, seul contre tous (The One où on vous confère plus de
+				force que les autres joueurs), avec des bots, sans bots.</p>
+			<p class="indent">Les cartes du jeu s'inspirent notamment d'endroits mythiques de Matrix (le fameux lobby de
+				l'hôtel par exemple).</p>
+			<p class="indent">Le
+				jeu est intuitif pour ceux qui sont habitués aux FPS, se joue à la
+				troisième ou la première personne. Pour ceux qui n'ont pas HL1, sera
+				fourni une archive complète du jeu pour pouvoir y jouer facilement en un
+				clic. [1]</p>
+
+			[1]: Pour Linux, Proton/wine peut plus ou moins fonctionner, mais à voir au cas par cas.
+
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-3">Minecraft</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>8h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu vidéo</dd>
+			<dt>Places :</dt>
+			<dd>2 - 60 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 16:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Vous avez toujours rêver de découvrir Minecraft, mais vous n'avez jamais franchi le pas ?</p>
+			<p class="indent">Vous êtes un ancien joueur aguerri, et vous voulez redécouvrir Minecraft sous ses mises à jour ?
+			</p>
+			<p class="indent">Vous êtes un joueur régulier, mais vous aimeriez jouer avec des amis ?</p>
+			<p class="indent">Alors,
+				cette grande partie de Minecraft est pour vous :) — venez sur le
+				serveur du club Minecraft pour découvrir ou redécouvrir ce jeu, aucune
+				licence de Minecraft n'est requis, à l'ordre du jour, un serveur de
+				survie avec un niveau de difficulté raisonnable et qui augmentera, pour
+				ceux qui le veulent, il sera peut-être possible de faire du Skyblock et
+				construire votre propre monde à partir de presque rien !</p><br>
+			<p class="indent">Les inscriptions sont informelles pour avoir une idée du nombre de participants.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-11">Monster of the Week</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>4h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle sur table</dd>
+			<dt>Places :</dt>
+			<dd>3 - 5</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 18:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Je
+				propose une partie de "Monster of the Week", c'est un jeu de rôle PBTA
+				(propulsed by the Apocalypse) qui émule les épisodes de série tel Buffy,
+				Charmed, etc...</p>
+			<p class="indent">Il se jouera sur <a href="https://roll20.net/">Roll20</a></p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-22">Niche Écologique</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>1h30</dd>
+			<dt>Type :</dt>
+			<dd>Quelques parties</dd>
+			<dt>Places :</dt>
+			<dd>5</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 18:30<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Pour
+				survivre, chacun se doit de trouver sa niche écologique, mais la
+				bataille est rude. Cinq groupes animaux s’affrontent pour faire survivre
+				le plus grand nombre possible de leurs espèces, mais attention, il n’y
+				aura pas assez de place pour tout le monde.</p>
+			<p class="indent">Dans ce
+				jeu à gameplay symétrique, chacun des cinq joueurs contrôlera l’un des
+				ces groupes animaux et devra, chaque tour, envoyer l’un de ses animaux
+				dans l’un des quatre habitats disponibles. Malheureusement, seuls les
+				animaux se retrouvant seuls dans leur habitat survivront, et tous les
+				autres mourront.</p>
+			<p class="indent">Trigger Warning : Ce jeu ne se veut pas réaliste par rapport aux concepts phylogénétiques ou
+				écologiques du monde animal.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-23">Sporz</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>3h30</dd>
+			<dt>Type :</dt>
+			<dd>Jeu à rôles secrets</dd>
+			<dt>Places :</dt>
+			<dd>Illimités</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				vendredi 20:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Vous
+				rêvez de changer de votre quotidien morose ? D'être confiné dans un
+				vaisseau, en proie à un terrible virus, avec peu d'espoir de vous en
+				sortir ? Vous trouvez qu'il manque un petit quelque-chose au Loup-garou
+				pour être vraiment bien, et vous en avez marre d'être toujours la
+				victime nuit 1 ? SporZ est fait pour vous !</p>
+			<p class="indent">Pour
+				ceux qui ne connaitraient pas encore, SporZ est un jeu à rôles secrets,
+				avec comme spécificités notables qu'il y a peu de morts, mais les
+				affiliations des joueurs peuvent changer (en étant infecté.e.s par le
+				virus ou soigné.e.s par les médecins), et que les discussion ne se font
+				pas tous ensemble mais, risque de contamination oblige, par petits
+				groupes de 2 ou 3.</p>
+			<p class="indent">La (les ?) partie aura lieu sur gather.town pour le jour, et discord pour la nuit
+				(fonctionnement testé et approuvé à Ulm).</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-8">The space between us</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>5h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle grandeur nature</dd>
+			<dt>Places :</dt>
+			<dd>5 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				vendredi 19:00<!-- None -->,<br>
+
+				dimanche 09:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">We've
+				been fearing it for years. Now, at the dawn of the 23rd century, the
+				day when Earth becomes uninhabitable to humans looms near. Our only
+				recourse is to send exploratory ships far and wide into space to search
+				for a new home... and to hope that we aren't too late.</p>
+			<p class="indent">Humanity's
+				desperate last hope, you are a member of the distinguished Mangata
+				spacefaring family. You have been sent into deep space searching for a
+				new home for your species, now that it has royally screwed up Earth's
+				habitability. You are alone in your solo exploration craft, cut off by
+				vast distances from Earth, your only human contact the video calls
+				between you and the four distant ships that make up the rest of your
+				team. Can you overcome the familial tensions between you? Can you brave
+				the ghosts of your past and complete your mission?</p>
+			<p class="indent">Un jeu écrit par Wilbora Wilfueur, multi primé. Plus d'info ici!
+				<a
+					href="https://wiborawildfeuer.itch.io/the-space-between-us">https://wiborawildfeuer.itch.io/the-space-between-us</a>
+			</p>
+			<p class="indent">Fiches de jeu en anglais, nécessite zoom installé si possible</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-28">Tournoi Codenames</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>3h</dd>
+			<dt>Type :</dt>
+			<dd>Tournoi</dd>
+			<dt>Places :</dt>
+			<dd>Illimités</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 21:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Salut à toi,<br>On organise un petit tournoi de codenames :<br>- Toutes tailles d'équipe
+				acceptées, idéalement entre 2 et 4,<br>- Le temps sera limité : 20 minutes par équipe au total.<br>On
+				vous conseille de former les équipes à l'avance par école, mais il sera
+				possible de former des équipes sur le tas si vous n'en avez pas :)</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-16">Tournoi Échecs</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>2h</dd>
+			<dt>Type :</dt>
+			<dd>Tournoi</dd>
+			<dt>Places :</dt>
+			<dd>Illimités</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				dimanche 12:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Bonjour
+				à tous ! Vous aimez les échecs ? Que vous soyez un petit débutant qui
+				aime prendre du plaisir à jouer avec ses potes ou un mordu qui a fait
+				plusieurs années en club, nous vous convions au tournoi d'Echecs des
+				Interludes !<br><br>Le tournoi prendra forme d'une Arena Lichess, qui
+				durera 2h. Il vous faudra donc un compte sur cette plateforme (pas de
+				panique, l'inscription ne demande qu'une adresse mail). <br>Pour ceux qui ont fait le tournoi des InterENS, il
+				s'agit du même format.<br>En
+				Arena Lichess, vous pouvez rejoindre, mettre en pause ou quitter le
+				tournoi lorsque vous voulez et sans aucune incidence sur les autres
+				joueurs. Donc si vous êtes fatigué⋅e, ou s'il y a une autre activité qui
+				vous intéresse qui chevauche, pas de panique, vous pourrez quand même
+				venir jouer même si ce n'est que deux ou trois parties ! Vous n'aurez
+				pas non plus à attendre pour pouvoir trouver un nouvel adversaire. <br>Pour plus d'informations sur le format:
+				https://lichess.org/tournament/help?system=arena<br><br>Alors n'ayez pas peur d'essayer, on est là pour avoir un
+				maximum de fun !</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-9">Tournoi Geoguessr</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>2h30</dd>
+			<dt>Type :</dt>
+			<dd>Tournoi</dd>
+			<dt>Places :</dt>
+			<dd>10 - 20 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 16:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Petit tournoi geoguessr<br>Les inscriptions sont informelles pour avoir une idée du nombre de
+				participants.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-15">Tournoi Magic</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>3h</dd>
+			<dt>Type :</dt>
+			<dd>Tournoi</dd>
+			<dt>Places :</dt>
+			<dd>Illimités</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 21:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Tournoi Magic sur MTG Arena en rondes suisses. Le format exact sera déterminé avec les joueurs.
+			</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-13">Tournoi Pokémon Showdown</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>3h</dd>
+			<dt>Type :</dt>
+			<dd>Tournoi</dd>
+			<dt>Places :</dt>
+			<dd>2 - 20 (sur inscription)</dd>
+			<dt>Heure<!--/Lieu--> :</dt>
+			<dd>
+				samedi 21:00<!-- None --></dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc">
+			<p class="indent">Vous
+				connaissez certainement Pokémon, et il est probable que vous ayez
+				essayé ce jeu au moins une fois, mais avez-vous déjà tenté d’y faire des
+				combats stratégiques ? C’est le but derrière Showdown, un simulateur en
+				ligne qui vous permet de faire des combats contre d’autres joueurs sans
+				même avoir besoin de posséder une cartouche de jeu. Beaucoup de choses y
+				sont possibles, des matchs avec des pokémons générées aléatoirement
+				jusqu’à la créations d’équipes où vous pouvez gérer toutes les
+				caractéristiques de vos créatures.</p>
+			<p class="indent">Nous vous
+				proposons donc un tournoi sur ce simulateur. Celui-ci se fera suivant
+				les règles de “l’Overused”. Si vous ne connaissez pas il vous suffit
+				d’aller voir la catégorie “Play Restrictions” dans ce lien pour voir ce
+				qui n’est pas autorisé :
+				<a href="https://www.smogon.com/dex/ss/formats/ou/">https://www.smogon.com/dex/ss/formats/ou/</a>
+				. Retenez qu’en gros presque tout y est permis mis à part les gros
+				pokémons légendaires comme Rayquaza, Giratina et companie, ainsi que
+				certaines techniques anti-jeu. Pour ce format il est nécessaire d’avoir
+				ses propres teams. Si vous voulez la créer vous même il vous suffira
+				d’aller sur Showdown dans “Teambuilder”, puis dans “New Team”, de
+				sélectionnez le format “OU”, et ensuite de choisir vos pokémons et leurs
+				caractéristiques. Si vous n’avez pas envie de vous prendre la tête avec
+				ça avant le tournoi on aura plusieurs équipes à vous prêter juste
+				avant, et on vous expliquera comment les récupérer facilement.
+				Voici le lien de Showdown : <a href="https://play.pokemonshowdown.com/">https://play.pokemonshowdown.com/</a>
+			</p>
+			<p class="indent">Si
+				vous avez la moindre question sur l’organisation, sur les règles ou sur
+				Showdown en général, n’hésitez pas à contacter Meracx#9687 ou Abd#4735
+				sur Discord ou par mail : lucas.cottrel@laposte.net ou
+				abdalmalik.halfaoui@gmail.com</p>
+			<p class="indent">Les inscriptions sont informelles pour avoir une idée du nombre de participants.</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+		<h3 id="act-12">Zero Escape : Radical Outcome</h3>
+		<dl>
+			<dt>Durée :</dt>
+			<dd>7h</dd>
+			<dt>Type :</dt>
+			<dd>Jeu de rôle grandeur nature</dd>
+			<dt>Places :</dt>
+			<dd>9 (sur inscription)</dd>
+			<dt>Description :</dt>
+		</dl>
+		<div class="desc"><strong>Annulée par manque de participants</strong>
+			<p class="indent">Zero
+				Escape : Radical Outcome est une murder (ou jeu de rôle grandeur
+				nature) pour 9 joueur·euses, et d'une durée d'environ 7h (en comptant
+				brief et debrief). Lisez bien les deux notes d'intention avant de vous
+				inscrire à l'activité pour éviter toute mauvaise surprise !</p><br>
+			<p>Note d'intention spécifique au format Discord:</p>
+			<p class="indent">Ceci
+				est une adaptation au format Discord d'une murder habituellement jouée
+				en grandeur nature. Il s'agit de la première session organisée avec ce
+				format, nous ne garantissons donc pas le bon déroulement de la murder et
+				ne sommes pas à l'abri de problèmes techniques liés à ce nouveau format
+				(même si on espère que tout se passera comme prévu !). Un ordinateur et
+				un micro sont nécessaires pour jouer. La majorité des interactions
+				auront lieu en vocal, et les salons textuels seront là avant tout pour
+				des descriptions ponctuelles des lieux. En effet, même si nous jouerons à
+				distance, il faudra imaginer que les personnages, eux, évoluent dans la
+				même pièces et se voient les uns les autres.</p>
+			<p class="indent">Même
+				si le format Discord le permet un peu moins, l'accent est autant que
+				possible mis sur le rôleplay : l'intention est davantage d'incarner un
+				personnage et de vivre dans sa peau pendant quelques heures, que de
+				gagner à tout prix un jeu de dilemme du prisonnier. De ce fait, il est
+				possible que l'activité soit annulée si nous n'arrivons pas à faire un
+				casting satisfaisant, notamment si nous jugeons que le risque que
+				certain·es se retrouvent frustré·es en cours de jeu est trop grand.</p><br>
+			<p>Note d'intention : thèmes et ambiance</p>
+			<p class="indent">Cette
+				murder repose essentiellement sur les notions d'alliance et de trahison
+				entre des personnages soumis à une expérience répétée du dilemme du
+				prisonnier. Le jeu ne contient pas de fouilles et est à visée rôle-play,
+				immersive et psychologiquement dure. L'accent est mis sur le
+				développement de relations de confiance ou de suspicion entre des
+				personnages qui chercheront à survivre à un "jeu" mortel, ensemble ou
+				seuls.
+				Cette murder est inspirée de l'univers de la série de jeux vidéo Zero
+				Escape. Nous avons pris un certain nombre de libertés avec la trame
+				originale des jeux, et si certains personnages sont dans l'esprit
+				d'autres personnages présents dans les jeux, ils en demeurent des
+				entités indépendantes. Quelques spoils sont tout de même présents en
+				filigrane, et si vous jouez aux jeux en recoupant les similitudes avec
+				la murder, il vous est possible de vous spoiler certains éléments
+				d'intrigue des jeux. Cependant les retournements scénaristiques majeurs
+				ne seront pas abordés : ne tentez donc pas d'inférer des éléments des
+				jeux par le biais de la murder, ou le contraire. Nous veillerons par
+				ailleurs à ce qu'aucune mention des jeux ne soit effectuée afin que vous
+				ne puissiez deviner ce que nous avons repris et ce qui est de notre
+				cru. En décidant de vous inscrire à cette murder, vous acceptez les
+				présentes conditions sur les risques de spoil.</p>
+			<p class="indent">Cette
+				murder se veut relativement complexe scénaristiquement parlant. De
+				plus, elle laisse vraisemblablement peu d'espoir de fin heureuse à une
+				grande majorité des personnages. Enfin, cette murder abordera a priori
+				les thèmes traditionnellement jugés durs suivants : PANDEMIE MONDIALE,
+				enlèvement, massacre de masse, chantage, secte, perte d'un être cher,
+				perte d'identité.</p><br>
+			<p>Pitch:</p>
+			<p class="indent">Je me réveille
+				difficilement. Je n’ai aucune idée d’où je suis, mais je remarque
+				immédiatement que j’ai un bracelet attaché à mon poignet, sur lequel
+				figure le chiffre 3. J’ai aussi une marque de piqûre au niveau de
+				l’avant bras gauche.
+				Je n’ai pas le temps de me poser plus de questions qu’une voix résonne
+				dans un haut parleur :</p>
+			<p class="indent">« Bienvenue au Nonary Game,
+				Ambidex Game Edition. Je serai votre guide pour vos futures épreuves.
+				J’espère que nous allons bien nous amuser tous ensemble, et que nous
+				pourrons échapper à un ennui mortel ! Je vous prie de rejoindre la salle
+				principale, où je vais vous expliquer les règles de l’Ambidex Game. »</p>
+			<p class="indent">A
+				peine le discours terminé, des lumières s’allument au sol. Elles
+				forment un chemin lumineux, qui mène jusqu’à un ascenseur. Les premiers
+				instants de panique passés, je décide de suivre le chemin jusqu’à la
+				salle principale. Là je trouve huit autres personnes qui semblent avoir
+				subi le même sort que moi. Comment ai-je atterri là ? Que va-t-il
+				m’arriver ? Qui est derrière tout ça ? Pourquoi m’avoir choisi moi ? Et
+				surtout, vais-je m’en sortir ?</p>
+		</div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+	</main>
+	<footer>
+		<div id="sponsors"><a class="external" href="https://www.ens.psl.eu/"><img src="/static/imgs/2021/ens_psl.png"
+					alt="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"
+					title="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"></a><a class="external"
+				href="https://cof.ens.fr/"><img src="/static/imgs/2021/cof.svg" alt="COF de l'ENS" title="COF de l'ENS"></a>
+		</div>
+		<p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">ue.lsp.sne@12sedulretniopser</span></p>
+	</footer>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr">
+
+<head><!-- WEBSITE VERSION 1.2.8 - 2021-05-06 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interludes 2021</title>
+  <meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2021">
+  <meta name="keywords" content="Interludes ENS événement COF 2021 InterENS">
+  <link rel="icon" type="image/png" href="/static/imgs/2021/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome-all.min.css">
+</head>
+
+<body>
+  <header>
+    <div id="header_logo" class="easter_egg">
+      <h1><a href="/static/archive/2021/index.html"><img id="circle"
+            src="/static/imgs/2021/logo_easter_egg.png">&nbsp;Interludes 2021&nbsp;</a></h1>
+    </div>
+    <div id="head_main_infos">
+      <div id="location">ENS Ulm</div>
+      <div id="date">7-9 mai 2021</div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    function toggle_menu() {
+      var nav = document.getElementById("nav");
+      if (nav.className === "") {
+        nav.className += "responsive";
+      } else {
+        nav.className = "";
+      }
+    }
+  </script>
+  <nav id="nav"><a href="/static/archive/2021/index.html" rel="text/html" class="">
+      Accueil
+    </a><a href="/static/archive/2021/activites.html" rel="text/html" class="">
+      Activités
+    </a><a href="/static/archive/2021/faq.html" rel="text/html" class="current">
+      FAQ
+    </a><a href="javascript:void(0);" class="icon" onclick="toggle_menu()"><i class="fa fa-bars"></i></a></nav>
+  <main>
+    <h2>Dois-je être inscrit&middot;e pour participer&nbsp;?</h2>
+    <p>Les interludes ayant lieu à distance cette année, l'inscription est facultative.
+      Une inscription est seulement nécessaire pour certaines activités au nombre de places limité.
+      Sans inscription tu peux rejoindre notre
+      serveur discord
+      et y participer au jeux libres et à toutes les activités sans inscriptions.
+    </p>
+    <h2>Comment seront organisées les interludes à distance&nbsp;?</h2>
+    <p>Les interludes passeront principalement par un
+      serveur discord.
+      Nous y regrouperont
+      une liste de sites permettant de jouer en ligne et des canaux vocaux dédiés.
+    </p>
+    <p>Pour les <a href="activites.html">activités</a> proposées, leur description
+      vous indiquera s'il vous faudra autre chose qu'un ordinateur et une connexion internet pour participer.
+    </p>
+    <p>Le serveur contiendra des salons écrits et vocaux pour organiser des parties sur d'autres plateformes en lignes.
+    </p>
+    <h2>Comment rejoindre le serveur discord&nbsp;?</h2>
+    <p>Le lien vous sera communiqué par mail peu avant l'événement. Il apparaîtra également sur ce site.</p>
+    <p>Vous pouvez utiliser Discord sur navigateur sans créer de compte (mais se connecter sans compte
+      pose parfois des problèmes). Sinon il existe une application mobile (Android et iOS) et un programme
+      (Linux/Windows/Mac)
+      permettant d'y accèder via un compte.
+    </p>
+    <h2>Où jouer en ligne&nbsp;?</h2>
+    <p>Voici une liste (non-exhaustive) des plateformes de jeu en ligne&nbsp;:
+    <ul>
+      <li><a href="https://fr.boardgamearena.com/">Board Game Arena</a> (site gratuit nécessitant un compte)</li>
+      <li><a href="https://store.steampowered.com/app/286160/Tabletop_Simulator/">Tabletop Simulator</a> (jeu vendu 20€
+        sur steam)</li>
+      <li>Des sites spécialisés (gratuits)&nbsp;<ul>
+          <li>Pour Codenames : <a href="https://codenames.game/">codenames.game</a> ou <a
+              href="https://www.horsepaste.com/">horsepaste.com</a>.</li>
+          <li>Pour Hanabi : <a href="https://hanab.live/">hanab.live</a> (nécessite un compte).</li>
+          <li>Pour Catan : <a href="https://colonist.io/">colonist.io</a>.</li>
+          <li>Pour Shadow-Hunter : <a href="http://shadowhunters.live/">shadowhunters.live</a>.</li>
+          <li>Pour Diplomacy : <a href="https://vdiplomacy.com/">vdiplomacy.com</a> (nécessite un compte).</li>
+        </ul>
+      </li>
+      <li>N'importe quel jeu vidéo multijoueur</li>
+    </ul>
+    Vous trouverez une liste plus fournie sur le discord interludes.
+    </p>
+    <h2>Comment sont réparties les activités&nbsp;?</h2>
+    <p>
+      La répartition est faite par un algorithme puis vérifiée à la main.
+      Dans la mesure du possible, l'algorithme essaie d'attribue au moins une activité par personne. Par conséquent, si
+      vous ne mettez qu'une seule activité, vous avez plus de chance de l'avoir.
+    </p>
+    <p>
+      Les activités qui n'ont pas de limite de place (et toutes les activités avec moins de demande que de places) ne
+      comptent pas pour ce système, donc vous pouvez les mettre et vous ne serez pas pénalisés.
+    </p>
+    <p>
+      Vous ne pourrez pas avoir deux activités qui se déroulent en même temps. Si l'une vous est attribué l'autre
+      souhait sera ignoré.
+    </p>
+    <p>On n'a pas trouvé le code des années précédentes, mais je suspecte fortement que ce soit un algo similaire en
+      départageant les égalités aléatoirement plutôt qu'au shotgun.</p>
+    <p>Plus précisément : l'algorithme se base sur le problème hôpital-résident&nbsp;:</p>
+    <ol>
+      <li>Il commence par essayer d'attribuer une activité à chaque participant.es au mieux possible, en utilisant la
+        librairie matching de python. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre
+        liste de souhait, plus vous avez de chance de vous le voir attribuer. Si vous n'avez qu'un seul choix, vous avez
+        plus de chance de vous le voir attribué. (les participant.es avec un seul choix sont automatique placé.es avant
+        ceux qui en ont plusieurs)</li>
+      <li>Toutes les activités attribuées sont supprimées, ainsi que les voeux résolus des joueurs.</li>
+      <li>Tant qu'il reste des place dans des activités et des participant.es qui veulent y participer, on recommence à
+        l'étape 1.</li>
+    </ol>
+    <p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, il ne marche pas encore
+      parfaitement, et on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers
+      (conflits d'horaires, activité présente plusieurs fois...).
+
+
+  </main>
+  <footer>
+    <div id="sponsors"><a class="external" href="https://www.ens.psl.eu/"><img src="/static/imgs/2021/ens_psl.png"
+          alt="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"
+          title="École Normale Supérieure de Paris | Université Paris Sciences et Lettres"></a><a class="external"
+        href="https://cof.ens.fr/"><img src="/static/imgs/2021/cof.svg" alt="COF de l'ENS" title="COF de l'ENS"></a>
+    </div>
+    <p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">ue.lsp.sne@12sedulretniopser</span></p>
+  </footer>
+</body>
+
+</html>
