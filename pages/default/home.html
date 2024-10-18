@@ -1,3 +1,5 @@
+{% load static %}
+
 <h2>Présentation</h2>
 
 {% if settings.affiche %}
@@ -113,5 +115,9 @@
 	<li>
 		Un historique des interludes avec leurs visuels, site webs et photos est sur le 
 		<a href="https://wiki.crans.org/VieBdl/InterLudes">wiki de Paris-Saclay</a>.
+	</li>
+	<li>Archives de ce site web: 
+		<a href="{% static 'archive/2021/index.html' %}">Ulm 2021</a> | 
+		<a href="{% static 'archive/2024/index.html' %}">Rennes 2024</a>
 	</li>
 </ul>

@@ -90,6 +90,7 @@
 
 <p>
   <strong><a href="{% url 'admin:index' %}">La page d'administration Django</a></strong>
+  (pages en thème sombre)
   est autogénéré à partir des tables de la base de donnée. Elle permet de les modifier
   directement. Voici un descriptif rapide des tables intéressantes :
 <ul>
@@ -228,7 +229,8 @@
     Vous pouvez ensuite envoyé des emails automatiques aux organisateurs d'activité,
     (leur communiquant la liste des participants), et aux participants (leurs communiquant
     les activités obtenues) depuis la <a href="{% url 'admin_pages:index' %}">page d'admin</a>
-    (par sécurité, l'envoi d'email doit d'abord être activé dans les <a href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>).
+    (par sécurité, l'envoi d'email doit d'abord être activé dans les <a
+      href="{% url 'admin:site_settings_sitesettings_change' 1 %}">paramètres</a>).
     <br>
     Vous pouvez maintenir les inscriptions ouvertes après la répartition, pour des participants
     de dernière minute, mais il faudra fermer l'inscription aux activités et ceux-ci n'y auront pas accès.
@@ -239,14 +241,15 @@
 
 <p>
   Ce site web a été crée par Dorian Lesbre pour les
-  Interludes 2021. N'hésitez pas à me contacter en cas de soucis.
+  Interludes 2021. N'hésitez pas à me contacter en cas de soucis, ou si vous
+  voulez que je vous explique un peu le code.
   Vous trouverez des informations de contact à jour sur
   <a href="https://www.normalesup.org/~dlesbre/">mon site web</a>.
 </p>
 <p>
   Je suis également preneur de tout retour d'expérience que vous
   avez avec ce site web, que ce soit des bugs rencontrés, des
-  fonctionnalités souhaitées... (par mail ou avec une 
+  fonctionnalités souhaitées... (par mail ou avec une
   <a href="https://github.com/dlesbre/site-interludes/issues">issue github</a>).
   Si je trouve le temps, cela permettra d'améliorer le site web.
 </p>
