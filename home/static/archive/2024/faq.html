@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+
+<head><!-- WEBSITE VERSION 2.0.0-beta - 2021-10-05 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interludes 2024</title>
+  <meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2024">
+  <meta name="keywords" content="Interludes ENS 2024 InterENS">
+  <link rel="icon" type="image/png" href="/static/imgs/2023/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=1.0">
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome-all.min.css">
+</head>
+
+<body>
+  <header>
+    <div id="header_logo" class="easter_egg">
+      <h1><a href="/static/archive/2024/index.html"><img src="/static/imgs/2024/logo_interludes.png">&nbsp;Interludes
+          2024&nbsp;</a></h1>
+    </div>
+    <div id="head_main_infos">
+      <div id="location">ENS Rennes</div>
+      <div id="date">19-21 janvier 2024</div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    function toggle_menu() {
+      var nav = document.getElementById("nav");
+      if (nav.className === "") {
+        nav.className += "responsive";
+      } else {
+        nav.className = "";
+      }
+    }
+  </script>
+  <nav id="nav"><a href="/static/archive/2024/index.html" rel="text/html" class="">
+      Accueil
+    </a><a href="/static/archive/2024/activites.html" rel="text/html" class="">
+      Activités
+    </a><a href="/static/archive/2024/faq.html" rel="text/html" class="current">
+      FAQ
+    </a><a href="javascript:void(0);" class="icon" onclick="toggle_menu()"><i class="fa fa-bars"></i></a></nav>
+  <main>
+    <h2>Comment s'incrire ?</h2>
+    <p> Les inscriptions ne sont pas ouvertes. </p>
+    <h2>Comment payer ?</h2>
+    De préférence par l'associations qui gèrent les Interludes dans votre ENS (Bureau des Loisirs, Bul...). Sinon par
+    espèce, chèque, carte sur place.
+
+    <h2>Comment proposer une activité&nbsp;?</h2>
+    <p>L'appel a activités est fermé pour le moment.
+      Contactez nous en cas de besoin urgent ou d'idée trop géniale pour être délaissée.</p>
+    <h2>Quelles seront les conditions pour dormir/manger&nbsp;?</h2>
+    <p> Nous proposerons un logement indéterminé, pour celleux qui le souhaitent</p>
+    <p> Les repas seront préparés et servis sur place.</p>
+    <h2>Comment se rendre à l'événement&nbsp;?</h2>
+    <p>Les Interludes se déroule à l'ENS Rennes : 11 Avenue Robert Schuman, Campus de Ker Lann, 35170 Bruz.
+      L'acceuil se fera par la porte du hall BU, sur le coté de l'ENS comme indiqué par le plan ci-dessous.</p>
+    <div>
+      <p class="centered"><iframe width="750" height="400" frameborder="0" scrolling="no" marginheight="0"
+          marginwidth="0"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-1.74809428%2C48.045013668%2C-1.74362572%2C48.046546333&amp;layer=mapnik"
+          style="border: 1px solid black"></iframe><br /><small><a
+            href="https://www.openstreetmap.org/#map=19/48.04578/-1.74586">View Larger Map</a></small></p>
+      <p class="centered"><img width="750" height="350" src="/static/imgs/2024/plan_interludes.png" alt="Plan"
+          title="Plan" /></p>
+    </div>
+    <div id="public-transport-info">
+      <div id="transport-tcl-bus-1">
+        C7 de jour (arrêt Ker Lann)
+      </div>
+      <div id="transport-tcl-bus-2">
+        N3 de nuit (arrêt Ker Lann)
+      </div>
+      <div id="transport-tcl-bus-3">
+        TER (arrêt Ker Lann)
+      </div>
+    </div>
+    <h2>Comment sont réparties les activités&nbsp;?</h2>
+    <p>
+      La répartition est faite par un algorithme puis vérifiée à la main.
+      Dans la mesure du possible, l'algorithme essaie d'attribue au moins une activité par personne. Par conséquent, si
+      vous ne mettez qu'une seule activité, vous avez plus de chance de l'avoir.
+    </p>
+    <p>
+      Les activités qui n'ont pas de limite de place (et toutes les activités avec moins de demande que de places) ne
+      comptent pas pour ce système, donc vous pouvez les mettre et vous ne serez pas pénalisés.
+    </p>
+    <p>
+      Vous ne pourrez pas avoir deux activités qui se déroulent en même temps. Si l'une vous est attribué l'autre
+      souhait sera ignoré.
+    </p>
+    <p>On n'a pas trouvé le code des années précédentes, mais je suspecte fortement que ce soit un algo similaire en
+      départageant les égalités aléatoirement plutôt qu'au shotgun.</p>
+    <p>Plus précisément : l'algorithme se base sur le problème hôpital-résident&nbsp;:</p>
+    <ol>
+      <li>Il commence par essayer d'attribuer une activité à chaque participant.es au mieux possible, en utilisant la
+        librairie matching de python. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre
+        liste de souhait, plus vous avez de chance de vous le voir attribuer. Si vous n'avez qu'un seul choix, vous avez
+        plus de chance de vous le voir attribué. (les participant.es avec un seul choix sont automatique placé.es avant
+        ceux qui en ont plusieurs)</li>
+      <li>Toutes les activités attribuées sont supprimées, ainsi que les voeux résolus des joueurs.</li>
+      <li>Tant qu'il reste des place dans des activités et des participant.es qui veulent y participer, on recommence à
+        l'étape 1.</li>
+    </ol>
+    <p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, il ne marche pas encore
+      parfaitement, et on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers
+      (conflits d'horaires, activité présente plusieurs fois...).
+
+
+    <h2>J'ai encore une question, je fais quoi ?</h2>
+    <p> Hésite pas à nous passer un mail à <span class="antispam">rf.senner-sne@adb</span> pour nous poser tes questions
+      !</p>
+  </main>
+  <footer>
+    <div id="sponsors"><a class="external" href="https://www.ens-rennes.fr/"><img src="/static/imgs/2024/ens_rennes.png"
+          alt="Êcole Normale Supérieure Rennes" title="Êcole Normale Supérieure Rennes"></a><a class="external"
+        href="https://www.instagram.com/bdaensrennes/"><img src="/static/imgs/2024/bda_rennes.png" alt="Bureau des Arts"
+          title="Bureau des Arts"></a><a class="external" href="https://www.crous-rennes.fr/"><img
+          src="/static/imgs/2024/crous_bretagne.png" alt="Crous Bretagne" title="Crous Bretagne"></a><a class="external"
+        href="https://www.crans.org/"><img src="/static/imgs/2024/crans.svg" alt="Ecole Normale Superieure Rennes"
+          title="Crans"></a></div>
+    <p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">rf.senner-sne@adb</span></p>
+  </footer>
+</body>
+
+</html>

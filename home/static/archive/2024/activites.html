@@ -1,0 +1,2279 @@
+<!doctype html>
+<html lang="fr">
+
+<head><!-- WEBSITE VERSION 2.0.0-beta - 2021-10-05 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interludes 2024</title>
+  <meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2024">
+  <meta name="keywords" content="Interludes ENS 2024 InterENS">
+  <link rel="icon" type="image/png" href="/static/imgs/2023/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=1.0">
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome-all.min.css">
+  <script src="/static/js/vis-timeline.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div id="header_logo" class="easter_egg">
+      <h1><a href="/static/archive/2024/index.html"><img src="/static/imgs/2024/logo_interludes.png">&nbsp;Interludes
+          2024&nbsp;</a></h1>
+    </div>
+    <div id="head_main_infos">
+      <div id="location">ENS Rennes</div>
+      <div id="date">19-21 janvier 2024</div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    function toggle_menu() {
+      var nav = document.getElementById("nav");
+      if (nav.className === "") {
+        nav.className += "responsive";
+      } else {
+        nav.className = "";
+      }
+    }
+  </script>
+  <nav id="nav"><a href="/static/archive/2024/index.html" rel="text/html" class="">
+      Accueil
+    </a><a href="/static/archive/2024/activites.html" rel="text/html" class="current">
+      Activités
+    </a><a href="/static/archive/2024/faq.html" rel="text/html" class="">
+      FAQ
+    </a><a href="javascript:void(0);" class="icon" onclick="toggle_menu()"><i class="fa fa-bars"></i></a></nav>
+  <main>
+    <h2>Planning</h2>
+    <div id="planning" style="margin-left: calc(-49vw + 50%); width: 97vw; background-color: white; padding: 10px;">
+    </div><!--
+In order to limit the planning's width, we cheat using the timeline's groups
+I.E we set all dates to the first day (Friday) and set groups allowing vertical display:
+-->
+    <script type="text/javascript">
+      // https://visjs.org/
+      // DOM element where the Timeline will be attached
+      const container = document.getElementById('planning');
+
+      const groups = new vis.DataSet([
+        { id: 0, content: "Ven.", order: 0 },
+        { id: 1, content: "Sam.", order: 1 },
+        { id: 2, content: "Dim.", order: 2 },
+      ]);
+
+      // Items in the timeline
+      const items = new vis.DataSet([
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-49"><div><strong>Atelier coiffure (dimanche)</strong><br>Alcove</div></a></div>',
+          title: '<strong>Atelier coiffure (dimanche)</strong><br>Alcove',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 11:00:00',
+          className: "color-g",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-49"><div><strong>Atelier coiffure (samedi)</strong><br>Alcove</div></a></div>',
+          title: '<strong>Atelier coiffure (samedi)</strong><br>Alcove',
+          start: '2024-01-19 10:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 11:30:00',
+          className: "color-g",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-29"><div><strong>Demi Dieu - Le clan des libérés (samedi matin)</strong><br>Appartement (à voir avec l&#x27;organisateur)</div></a></div>',
+          title: '<strong>Demi Dieu - Le clan des libérés (samedi matin)</strong><br>Appartement (à voir avec l&#x27;organisateur)',
+          start: '2024-01-19 09:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 14:00:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-29"><div><strong>Demi Dieu - Le clan des libérés (samedi soir)</strong><br>Appartement (à voir avec l&#x27;organisateur)</div></a></div>',
+          title: '<strong>Demi Dieu - Le clan des libérés (samedi soir)</strong><br>Appartement (à voir avec l&#x27;organisateur)',
+          start: '2024-01-19 15:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 20:00:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-26"><div><strong>Donjons &amp; Chatons</strong><br>salle 05 et salle 06</div></a></div>',
+          title: '<strong>Donjons &amp; Chatons</strong><br>salle 05 et salle 06',
+          start: '2024-01-19 21:45:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-19 23:15:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-26"><div><strong>Donjons &amp; Chatons</strong><br>salle 05 et salle 06</div></a></div>',
+          title: '<strong>Donjons &amp; Chatons</strong><br>salle 05 et salle 06',
+          start: '2024-01-19 18:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 19:45:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-26"><div><strong>Donjons &amp; Chatons</strong><br>salle 08</div></a></div>',
+          title: '<strong>Donjons &amp; Chatons</strong><br>salle 08',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 13:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-9"><div><strong>JDR - Le culte des songes (samedi)</strong><br>salle 01</div></a></div>',
+          title: '<strong>JDR - Le culte des songes (samedi)</strong><br>salle 01',
+          start: '2024-01-19 19:15:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 21:45:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-9"><div><strong>JDR - Le culte des songes (vendredi)</strong><br>salle 06</div></a></div>',
+          title: '<strong>JDR - Le culte des songes (vendredi)</strong><br>salle 06',
+          start: '2024-01-19 23:30:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-20 02:00:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-28"><div><strong>Outer Wilds - Remnants of the Eye (samedi)</strong><br>salle 05 et salle 06</div></a></div>',
+          title: '<strong>Outer Wilds - Remnants of the Eye (samedi)</strong><br>salle 05 et salle 06',
+          start: '2024-01-19 20:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-20 01:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-28"><div><strong>Outer Wilds - Remnants of the Eye (vendredi)</strong><br>salle 08 et salle 10</div></a></div>',
+          title: '<strong>Outer Wilds - Remnants of the Eye (vendredi)</strong><br>salle 08 et salle 10',
+          start: '2024-01-19 21:00:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-20 02:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-12"><div><strong>Parte de Baston (samedi matin)</strong><br>Couloir de jeu</div></a></div>',
+          title: '<strong>Parte de Baston (samedi matin)</strong><br>Couloir de jeu',
+          start: '2024-01-19 09:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 14:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-12"><div><strong>Parte de Baston (samedi soir)</strong><br>Couloir de jeu</div></a></div>',
+          title: '<strong>Parte de Baston (samedi soir)</strong><br>Couloir de jeu',
+          start: '2024-01-19 21:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-20 02:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-12"><div><strong>Parte de Baston (vendredi)</strong><br>Couloir de jeu</div></a></div>',
+          title: '<strong>Parte de Baston (vendredi)</strong><br>Couloir de jeu',
+          start: '2024-01-19 21:00:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-20 02:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-15"><div><strong>Trollball</strong><br>Cour de l&#x27;ENS</div></a></div>',
+          title: '<strong>Trollball</strong><br>Cour de l&#x27;ENS',
+          start: '2024-01-19 14:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 16:30:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-22"><div><strong>Colorless</strong><br>salle 03, salle 05 et salle 06</div></a></div>',
+          title: '<strong>Colorless</strong><br>salle 03, salle 05 et salle 06',
+          start: '2024-01-19 12:45:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 17:45:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-13"><div><strong>Geekorale x Nekorale</strong><br>Amphi</div></a></div>',
+          title: '<strong>Geekorale x Nekorale</strong><br>Amphi',
+          start: '2024-01-19 19:15:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 21:15:00',
+          className: "color-g",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-25"><div><strong>Magic the Gathering : Cubes des clubs magic des ENS de Lyon et Paris-Saclay</strong><br>salle 24</div></a></div>',
+          title: '<strong>Magic the Gathering : Cubes des clubs magic des ENS de Lyon et Paris-Saclay</strong><br>salle 24',
+          start: '2024-01-19 14:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 19:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-45"><div><strong>Dieu est mort</strong><br>salle 01</div></a></div>',
+          title: '<strong>Dieu est mort</strong><br>salle 01',
+          start: '2024-01-19 22:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-20 02:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-3"><div><strong>Donjon de Naheulbeuk, jeu de plateau</strong><br>salle 03</div></a></div>',
+          title: '<strong>Donjon de Naheulbeuk, jeu de plateau</strong><br>salle 03',
+          start: '2024-01-19 23:00:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-20 02:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-46"><div><strong>Et quand ils ne pompaient pas…</strong><br>salle 03</div></a></div>',
+          title: '<strong>Et quand ils ne pompaient pas…</strong><br>salle 03',
+          start: '2024-01-19 18:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 19:30:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-51"><div><strong>Just Dance</strong><br>Amphi</div></a></div>',
+          title: '<strong>Just Dance</strong><br>Amphi',
+          start: '2024-01-19 21:00:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-20 01:00:00',
+          className: "color-f",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-52"><div><strong>Karaoké</strong><br>Amphi</div></a></div>',
+          title: '<strong>Karaoké</strong><br>Amphi',
+          start: '2024-01-19 21:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-20 02:00:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-53"><div><strong>Finale du Tournois Smash</strong><br>Amphi</div></a></div>',
+          title: '<strong>Finale du Tournois Smash</strong><br>Amphi',
+          start: '2024-01-19 16:15:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 19:00:00',
+          className: "color-f",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-54"><div><strong>Tournoi Mario Kart</strong><br>Amphi</div></a></div>',
+          title: '<strong>Tournoi Mario Kart</strong><br>Amphi',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 11:00:00',
+          className: "color-f",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-33"><div><strong>Blind Test du club Animés</strong><br>Amphi</div></a></div>',
+          title: '<strong>Blind Test du club Animés</strong><br>Amphi',
+          start: '2024-01-19 12:45:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 13:45:00',
+          className: "color-g",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-36"><div><strong>Film d&#x27;animation japonais</strong><br>Amphi</div></a></div>',
+          title: '<strong>Film d&#x27;animation japonais</strong><br>Amphi',
+          start: '2024-01-19 10:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 12:30:00',
+          className: "color-g",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-2"><div><strong>Gears of Rebellion</strong><br>salle 03</div></a></div>',
+          title: '<strong>Gears of Rebellion</strong><br>salle 03',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 12:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-10"><div><strong>Gilgamesh</strong><br>salle 01</div></a></div>',
+          title: '<strong>Gilgamesh</strong><br>salle 01',
+          start: '2024-01-19 08:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 12:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-8"><div><strong>Horizon Zero Dawn : the Board Game</strong><br>salle 24</div></a></div>',
+          title: '<strong>Horizon Zero Dawn : the Board Game</strong><br>salle 24',
+          start: '2024-01-19 14:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 19:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-32"><div><strong>Initiation à la Révolte</strong><br>salle 24</div></a></div>',
+          title: '<strong>Initiation à la Révolte</strong><br>salle 24',
+          start: '2024-01-19 08:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 10:30:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-24"><div><strong>Jeu de figurines à gogo</strong><br>salle 24</div></a></div>',
+          title: '<strong>Jeu de figurines à gogo</strong><br>salle 24',
+          start: '2024-01-19 19:15:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-20 02:00:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-14"><div><strong>La Soirée du Prince</strong><br>salle 08 et salle 10</div></a></div>',
+          title: '<strong>La Soirée du Prince</strong><br>salle 08 et salle 10',
+          start: '2024-01-19 08:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 13:30:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-43"><div><strong>Le Pokémon Magique</strong><br>Amphi</div></a></div>',
+          title: '<strong>Le Pokémon Magique</strong><br>Amphi',
+          start: '2024-01-19 11:15:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 12:00:00',
+          className: "color-g",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-16"><div><strong>Ligne de vie</strong><br>salle 08 et salle 10</div></a></div>',
+          title: '<strong>Ligne de vie</strong><br>salle 08 et salle 10',
+          start: '2024-01-19 22:15:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-20 01:45:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-44"><div><strong>Lockdown en entreprise</strong><br>salle 05 et salle 06</div></a></div>',
+          title: '<strong>Lockdown en entreprise</strong><br>salle 05 et salle 06',
+          start: '2024-01-19 08:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 12:30:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-4"><div><strong>Mage: la Technocratie</strong><br>salle 03</div></a></div>',
+          title: '<strong>Mage: la Technocratie</strong><br>salle 03',
+          start: '2024-01-19 08:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 12:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-21"><div><strong>Présentation du fantôme exquis</strong><br>Amphi</div></a></div>',
+          title: '<strong>Présentation du fantôme exquis</strong><br>Amphi',
+          start: '2024-01-19 12:15:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 13:15:00',
+          className: "color-g",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-18"><div><strong>Tournoi d&#x27;échecs</strong><br>salle 06</div></a></div>',
+          title: '<strong>Tournoi d&#x27;échecs</strong><br>salle 06',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 11:30:00',
+          className: "color-e",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-42"><div><strong>Rubik&#x27;s Cube</strong><br>salle 24</div></a></div>',
+          title: '<strong>Rubik&#x27;s Cube</strong><br>salle 24',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 12:30:00',
+          className: "color-e",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-30"><div><strong>Requiem</strong><br>salle 05</div></a></div>',
+          title: '<strong>Requiem</strong><br>salle 05',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 11:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-40"><div><strong>Questions pour un weeb ! Interludes édition</strong><br>Amphi</div></a></div>',
+          title: '<strong>Questions pour un weeb ! Interludes édition</strong><br>Amphi',
+          start: '2024-01-19 14:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 16:00:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-17"><div><strong>Samuel</strong><br>salle 08 et salle 10</div></a></div>',
+          title: '<strong>Samuel</strong><br>salle 08 et salle 10',
+          start: '2024-01-19 18:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 22:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-6"><div><strong>Sporz</strong><br>salle 24</div></a></div>',
+          title: '<strong>Sporz</strong><br>salle 24',
+          start: '2024-01-19 23:30:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-20 01:30:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-31"><div><strong>Tournoi de Krapules</strong><br>salle 24</div></a></div>',
+          title: '<strong>Tournoi de Krapules</strong><br>salle 24',
+          start: '2024-01-19 10:45:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 14:15:00',
+          className: "color-e",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-7"><div><strong>Yu-Gi-Oh !</strong><br>salle 24</div></a></div>',
+          title: '<strong>Yu-Gi-Oh !</strong><br>salle 24',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 11:00:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-19"><div><strong>Une magie étrange...</strong><br>salle 10</div></a></div>',
+          title: '<strong>Une magie étrange...</strong><br>salle 10',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 11:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-15"><div><strong>Trollball</strong><br>Cour de l&#x27;ENS</div></a></div>',
+          title: '<strong>Trollball</strong><br>Cour de l&#x27;ENS',
+          start: '2024-01-19 10:00:00',
+          align: 'left',
+          group: 2,
+          end: '2024-01-19 12:00:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-39"><div><strong>Ravenberg</strong><br>salle 03</div></a></div>',
+          title: '<strong>Ravenberg</strong><br>salle 03',
+          start: '2024-01-19 19:45:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-20 01:45:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-47"><div><strong>Sous l&#x27;océan</strong><br>salle 08 et salle 10</div></a></div>',
+          title: '<strong>Sous l&#x27;océan</strong><br>salle 08 et salle 10',
+          start: '2024-01-19 13:45:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 17:45:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-38"><div><strong>Oath</strong><br>Couloir de jeu</div></a></div>',
+          title: '<strong>Oath</strong><br>Couloir de jeu',
+          start: '2024-01-19 14:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 20:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-48"><div><strong>Raptor Echecs</strong><br>Couloir de jeu</div></a></div>',
+          title: '<strong>Raptor Echecs</strong><br>Couloir de jeu',
+          start: '2024-01-19 23:30:00',
+          align: 'left',
+          group: 0,
+          end: '2024-01-20 01:30:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-34"><div><strong>RoboRally modé</strong><br>Couloir de jeu</div></a></div>',
+          title: '<strong>RoboRally modé</strong><br>Couloir de jeu',
+          start: '2024-01-19 09:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 19:30:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-55"><div><strong>Tournoi Smash</strong><br>salle 09</div></a></div>',
+          title: '<strong>Tournoi Smash</strong><br>salle 09',
+          start: '2024-01-19 12:00:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 16:00:00',
+          className: "color-f",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-30"><div><strong>Requiem</strong><br>Salle 1</div></a></div>',
+          title: '<strong>Requiem</strong><br>Salle 1',
+          start: '2024-01-19 16:30:00',
+          align: 'left',
+          group: 1,
+          end: '2024-01-19 19:00:00',
+          className: "color-a",
+        },
+
+
+      ]);
+
+      // Configuration for the Timeline
+      const start = '2024-01-19 08:00:00';
+      const end = '2024-01-20 04:00:00';
+      const options = {
+        showMajorLabels: false,
+        showCurrentTime: false,
+        locale: "fr",
+        groupOrder: "order",
+        start: start,
+        min: start,
+        end: end,
+        max: end,
+        selectable: false,
+        zoomable: false,
+      };
+
+      // Create a Timeline
+      const timeline = new vis.Timeline(container, items, options);
+      timeline.setGroups(groups);
+      // timeline.on('select', function (properties) {
+      // 	alert('selected items: ' + properties.items);
+      // });
+    </script>
+    <style>
+      .vis-item {
+        background-color: var(--color_bg_1);
+        color: white;
+      }
+
+      .vis-item-content {
+        width: 100%;
+      }
+
+      .vis-item a,
+      .vis-item a:link,
+      .vis-item a:visited {
+        text-decoration: none;
+        color: white;
+        width: 100%;
+      }
+
+      .vis-item a div {
+        width: 100%;
+      }
+
+      .vis-item:hover {
+        background-color: var(--color_bg_2);
+      }
+
+      .vis-time-axis .grid.vis-odd {
+        background: #444;
+      }
+
+      /* Color specific things */
+      :root {
+        /* red */
+        --color_1: #e84855;
+        --color_1_hover: #da1b2b;
+        --color_1_fg: white;
+
+        /* orange */
+        --color_2: #dd7230;
+        --color_2_hover: #c15d1f;
+        --color_2_fg: white;
+
+        /* yellow */
+        --color_3: #f9dc5c;
+        --color_3_hover: #f7d126;
+        --color_3_fg: black;
+
+        /* green */
+        --color_4: #7cae7a;
+        --color_4_hover: #5f8b55;
+        --color_4_fg: white;
+
+        /* blue */
+        --color_5: #3185fc;
+        --color_5_hover: #0467f1;
+        --color_5_fg: white;
+
+        /* dark blue */
+        --color_6: #4c4c7c;
+        --color_6_hover: #26263c;
+        --color_6_fg: white;
+
+        /* black */
+        --color_7: #483D3F;
+        --color_7_hover: #2c2627;
+        --color_7_fg: white;
+
+      }
+
+      .vis-item.color-a {
+        background-color: var(--color_1);
+      }
+
+      .vis-item.color-a a,
+      .vis-item.color-a a:link,
+      .vis-item.color-a a:visited {
+        color: var(--color_1_fg);
+      }
+
+      .vis-item.color-a:hover {
+        background-color: var(--color_1_hover)
+      }
+
+      .vis-item.color-b {
+        background-color: var(--color_2);
+      }
+
+      .vis-item.color-b a,
+      .vis-item.color-b a:link,
+      .vis-item.color-b a:visited {
+        color: var(--color_2_fg);
+      }
+
+      .vis-item.color-b:hover {
+        background-color: var(--color_2_hover)
+      }
+
+      .vis-item.color-c {
+        background-color: var(--color_2);
+      }
+
+      .vis-item.color-c a,
+      .vis-item.color-c a:link,
+      .vis-item.color-c a:visited {
+        color: var(--color_2_fg);
+      }
+
+      .vis-item.color-c:hover {
+        background-color: var(--color_2_hover)
+      }
+
+      .vis-item.color-c {
+        background-color: var(--color_3);
+      }
+
+      .vis-item.color-c a,
+      .vis-item.color-c a:link,
+      .vis-item.color-c a:visited {
+        color: var(--color_3_fg);
+      }
+
+      .vis-item.color-c:hover {
+        background-color: var(--color_3_hover)
+      }
+
+      .vis-item.color-d {
+        background-color: var(--color_4);
+      }
+
+      .vis-item.color-d a,
+      .vis-item.color-d a:link,
+      .vis-item.color-d a:visited {
+        color: var(--color_4_fg);
+      }
+
+      .vis-item.color-d:hover {
+        background-color: var(--color_4_hover)
+      }
+
+      .vis-item.color-e {
+        background-color: var(--color_5);
+      }
+
+      .vis-item.color-e a,
+      .vis-item.color-e a:link,
+      .vis-item.color-e a:visited {
+        color: var(--color_5_fg);
+      }
+
+      .vis-item.color-e:hover {
+        background-color: var(--color_5_hover)
+      }
+
+      .vis-item.color-f {
+        background-color: var(--color_6);
+      }
+
+      .vis-item.color-f a,
+      .vis-item.color-f a:link,
+      .vis-item.color-f a:visited {
+        color: var(--color_6_fg);
+      }
+
+      .vis-item.color-f:hover {
+        background-color: var(--color_6_hover)
+      }
+
+      .vis-item.color-g {
+        background-color: var(--color_7);
+      }
+
+      .vis-item.color-g a,
+      .vis-item.color-g a:link,
+      .vis-item.color-g a:visited {
+        color: var(--color_7_fg);
+      }
+
+      .vis-item.color-g:hover {
+        background-color: var(--color_7_hover)
+      }
+    </style>
+    <div class="caption">
+      <p><strong>Légende :</strong></p>
+      <ul style="list-style-type: none; margin-left:-20px">
+        <li><span style="background-color: var(--color_1);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle
+          grandeur nature</li>
+        <li><span style="background-color: var(--color_2);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle sur
+          table</li>
+        <li><span style="background-color: var(--color_3);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Activités libres
+        </li>
+        <li><span style="background-color: var(--color_4);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de société
+          / jeux de carte</li>
+        <li><span style="background-color: var(--color_5);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Tournois</li>
+        <li><span style="background-color: var(--color_6);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux vidéos</li>
+        <li><span style="background-color: var(--color_7);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Autre</li>
+      </ul>
+    </div>
+    <h2>Activités</h2>
+    <p>Durant tout l'événement, des jeux seront en libre-service et des tables disponibles pour jouer.
+      Certaines activités ne pourront se faire qu'avec inscription au vue d'une préparation en amont ou d'un nombre de
+      places limité.
+    </p>
+    <p id="act-list"><strong>Liste des activités&nbsp;:</strong></p>
+    <ul>
+      <li><a href="#act-49">Atelier coiffure</a></li>
+      <li><a href="#act-33">Blind Test du club Animés</a></li>
+      <li><a href="#act-22">Colorless</a></li>
+      <li><a href="#act-29">Demi-Dieu - Le clan des libérés</a></li>
+      <li><a href="#act-27">Dessin participatif</a></li>
+      <li><a href="#act-45">Dieu est mort</a></li>
+      <li><a href="#act-3">Donjon de Naheulbeuk, jeu de plateau</a></li>
+      <li><a href="#act-26">Donjons &amp; Chatons</a></li>
+      <li><a href="#act-46">Et quand ils ne pompaient pas…</a></li>
+      <li><a href="#act-20">Fantôme exquis</a></li>
+      <li><a href="#act-36">Film d&#x27;animation japonais</a></li>
+      <li><a href="#act-53">Finale du Tournois Smash</a></li>
+      <li><a href="#act-2">Gears of Rebellion</a></li>
+      <li><a href="#act-13">Geekorale x Nekorale</a></li>
+      <li><a href="#act-10">Gilgamesh</a></li>
+      <li><a href="#act-8">Horizon Zero Dawn : the Board Game</a></li>
+      <li><a href="#act-32">Initiation à la Révolte</a></li>
+      <li><a href="#act-9">JDR - Le culte des songes</a></li>
+      <li><a href="#act-24">Jeu de figurines à gogo</a></li>
+      <li><a href="#act-51">Just Dance</a></li>
+      <li><a href="#act-52">Karaoké</a></li>
+      <li><a href="#act-14">La Soirée du Prince</a></li>
+      <li><a href="#act-43">Le Pokémon Magique</a></li>
+      <li><a href="#act-16">Ligne de vie</a></li>
+      <li><a href="#act-44">Lockdown en entreprise</a></li>
+      <li><a href="#act-4">Mage: la Technocratie</a></li>
+      <li><a href="#act-25">Magic the Gathering : Cubes des clubs magic des ENS de Lyon et Paris-Saclay</a></li>
+      <li><a href="#act-38">Oath</a></li>
+      <li><a href="#act-28">Outer Wilds - Remnants of the Eye</a></li>
+      <li><a href="#act-12">Partie de Baston</a></li>
+      <li><a href="#act-21">Présentation du fantôme exquis</a></li>
+      <li><a href="#act-40">Questions pour un weeb ! Interludes édition</a></li>
+      <li><a href="#act-48">Raptor Echecs</a></li>
+      <li><a href="#act-39">Ravenberg</a></li>
+      <li><a href="#act-30">Requiem</a></li>
+      <li><a href="#act-34">RoboRally modé</a></li>
+      <li><a href="#act-42">Rubik&#x27;s Cube</a></li>
+      <li><a href="#act-17">Samuel</a></li>
+      <li><a href="#act-47">Sous l&#x27;océan</a></li>
+      <li><a href="#act-6">Sporz</a></li>
+      <li><a href="#act-54">Tournoi Mario Kart</a></li>
+      <li><a href="#act-55">Tournoi Smash</a></li>
+      <li><a href="#act-18">Tournoi d&#x27;échecs</a></li>
+      <li><a href="#act-31">Tournoi de Krapules</a></li>
+      <li><a href="#act-15">Trollball</a></li>
+      <li><a href="#act-19">Une magie étrange...</a></li>
+      <li><a href="#act-7">Yu-Gi-Oh !</a></li>
+    </ul>
+    <h3 id="act-49">Atelier coiffure</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h30</dd>
+      <dt>Orga :</dt>
+      <dd>petit gastéropode, Alix</dd>
+      <dt>Type :</dt>
+      <dd>Jeu coopératif, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 10:00 Alcove,<br>
+
+        dimanche 09:30 Alcove
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tresses, chignons et autre tissages… venez coiffer ou vous faire coiffer !<br><br>Atelier : La
+        durée de l&#x27;atelier est indicative, dépendante des envies de coiffure des participant⋅e⋅s. On vous demande
+        de vous inscrire pour qu&#x27;on puisse vous demander si vous envisagez de coiffer, vous faire coiffer ou les
+        deux, et ainsi pouvoir anticiper si on a besoin de trouver des têtes à coiffer ou des mains qui coiffent en plus
+        pour équilibrer un peu. Pour autant, si ça vous tente mais qu&#x27;il se trouve que vous ne vous êtes pas
+        inscrit⋅e, n&#x27;hésitez pas à venir quand même.<br>On invite aussi à se joindre à l&#x27;improviste aux
+        ateliers coiffure toute initiative à base de maquillage ! (Contactez-nous, par exemple en vous
+        inscrivant.)<br><br>Tout au long des interludes : Hors des ateliers, la réalisation de coiffures continue !
+        N&#x27;hésitez pas à nous demander des coiffures ou des conseils pour en réaliser si on se croise.<br><br>Être
+        coiffé⋅e : Que vous souhaitiez un détail discret ou une extravagance capillaire, que vous ayez une commande
+        spéciale pour une murder ou donniez libre cours à l&#x27;inspiration de l&#x27;artiste, que votre tignasse soit
+        emmêlée ou vos cheveux soyeux, que vous veniez voir ce que ça peut donner ou reveniez pour la 15ème fois, que
+        votre calvitie impose de faire de la dentelle ou que votre crinière envahisse tout, nos doigts de fées sauront
+        sublimer votre chevelure. Et si vous n&#x27;avez pas une longueur suffisante actuellement, venez donc avec une
+        perruque !<br>Notez que les coiffures compliquées peuvent prendre du temps : si vous nous en demandez hors
+        d&#x27;un atelier, envisagez de prévoir une boisson chaude à siroter ou d&#x27;être en train de faire un jeu de
+        société.<br><br>Coiffer : Exercez vos talents, échangez des astuces ou apprenez tout de zéro. Pas besoin
+        d&#x27;amener de matériel, seulement vos mains propres.<br>Hors des ateliers, ne pouvant garantir de trouver
+        dans la minute des têtes à coiffer, l&#x27;idéal est que vous veniez nous voir avec.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-33">Blind Test du club Animés</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h</dd>
+      <dt>Orga :</dt>
+      <dd>Oscar NOVAT</dd>
+      <dt>Type :</dt>
+      <dd>Autre, une partie</dd>
+      <dt>Places :</dt>
+      <dd>Illimités (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 12:45 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tu aimes les animés et tu veux passer un moment convivial avec d&#x27;autres personnes
+        partageant ta passion? Viens au super Blind Test du Club Animés de l&#x27;ENSL! Le but est simple : reconnaître
+        le plus d&#x27;OST (pas que des openings) d&#x27;animés pour gagner un max de points! Les gagnants auront une
+        récompenses ;)<br><br>N.B: l&#x27;activité est ouverte à toustes, les inscriptions de dernières minutes et
+        venues en cours d&#x27;activité sont les bienvenues!</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-22">Colorless</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>Armand Salagnon, Solveig Appel</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>12 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 12:45 salle 03, salle 05 et salle 06
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Note d’intention :<br>Cette murder est une murder d’enquête relativement difficile pour 12
+        joueureuses. Cependant, tous les personnages n’ont pas de composante enquête et peuvent se concentrer sur le
+        côté RP du jeu. L’ambiance est a priori détendue et loufoque mais peut devenir plus pesante et émotionnelle
+        selon la direction prise par le groupe.<br>Cependant, cette murder s’adresse aussi bien aux joueureuses (pas
+        trop) débutant.es que confirmé.es ! Il s’agit de la V1 (post-bêta), donc il y aura encore sûrement des
+        mécaniques pas très bien rodées.<br>Attention, les fiches sont courtes mais contiennent beaucoup
+        d&#x27;information.<br>Le seul effort à faire sur les costumes est qu’ils devront être en nuances de gris, noir
+        ou blanc, ou dans des tons les plus neutres possible à défaut. Sinon, laissez libre cours à votre
+        envie.<br><br>TW exhaustifs (certains peuvent ne pas apparaître en jeu, n&#x27;hésitez pas à nous contacter pour
+        en savoir plus si la question se pose) :<br>amnésie, alcoolisme, drogues, dépendance affective, jalousie,
+        relation sexuelle, violence, mutilation, kidnapping, torture, mort, perte de sens<br>(rappel, l&#x27;ambiance
+        n&#x27;est pas censée être trop pesante de base)<br><br>Synopsis :<br>À quelques pas de Bourges-Palette, un
+        petit village tranquille du monde des couleurs, se situe un atelier très renommé. Douze couleurs parmi les plus
+        connues y travaillent ensemble depuis plusieurs années déjà.<br>Chaque année le très riche Juste Albus leur
+        passe une importante commande, car il est ébahi par les couleurs qui sortent de l’atelier (puisque chez lui tout
+        est blanc).<br>Il aime bien les faire travailler sous pression pour avoir les résultats les plus surprenants, et
+        la commande se fait toujours dans des délais d’un jour.<br>Cette année, la commande est tombée la veille (de la
+        murder). Les couleurs ont donc tout préparé pour faire le tableau aujourd’hui.<br>Seulement, en se réveillant ce
+        matin… Elles n’arrivent pas à se distinguer ! Les couleurs ont disparu ! Ou plutôt, la vision des couleurs ? à
+        moins que ce ne soit un problème plus grave…<br>Pas le temps de se poser plus de questions, Albus arrive dans
+        l’après-midi, il va falloir remplir la commande avant son arrivée et espérer que tout soit réglé d’ici-là…</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-29">Demi-Dieu - Le clan des libérés</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>Axel Palaude (discord : alexcadwish)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>3 - 5 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 09:00 Appartement (à voir avec l&#x27;organisateur),<br>
+
+        samedi 15:00 Appartement (à voir avec l&#x27;organisateur)
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Demi-Dieu est un univers construit au fur et à mesure des one-shots depuis 2017, souvent en
+        convention.<br>Vous incarnez des demi-divinités, êtres intangibles ayant la capacité de se balader entre les
+        univers. Parfois, les demi-divinités sont appelées par les divins d&#x27;un univers précis, et s&#x27;incarnent
+        alors dans des êtres de cet univers.<br>Pour les PJs, c&#x27;est alors l&#x27;occasion de faire des one-shots
+        non reliés les uns aux autres, en reliant tout ça via l&#x27;intrigue du meta-monde.<br>Cependant, tout
+        n&#x27;est pas si simple dans le monde des demi-divins. Il parait qu&#x27;un certain groupe de demi-divinités
+        sème le chaos dans certains univers, détruisant les mondes dans lesquels ils interviennent...</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-27">Dessin participatif</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>18h</dd>
+      <dt>Orga :</dt>
+      <dd>Armand Salagnon</dd>
+      <dt>Type :</dt>
+      <dd>Autre, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Venez dessiner un moment qui vous a plus aux interludes, ou simplement ce qui vous passe par la
+        tête :)<br><br>évidemment, tout ce qui est oppressif ou discriminant est interdit.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-45">Dieu est mort</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Théo Vignon, Bleizi, Nicomarg, Dawn</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>9 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 22:00 salle 01
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Anges et Démons travaillaient, Archanges et Princes Démons intriguaient, les humains naissaient,
+        mourraient et s&#x27;entre-tuaient... Bref tout allait pour le mieux dans le meilleur des mondes. Quand la pire
+        des catastrophes est arrivée. Une catastrophe imprévisible, incompréhensible, inimaginable, qui allait changer à
+        jamais la face du monde.<br><br>Dieu est mort.<br>Et de manière totalement ridicule, qui plus est
+        !<br><br>Réunies en catastrophe chez Régis, un restaurant faisant office de terrain neutre, les entités les plus
+        puissantes du Bien et du Mal vont devoir décider de quelle est la marche à suivre dans un monde maintenant sans
+        Dieu... et peut-être en apprendre plus à ce sujet ?</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-3">Donjon de Naheulbeuk, jeu de plateau</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h</dd>
+      <dt>Orga :</dt>
+      <dd>Rrrrufus</dd>
+      <dt>Type :</dt>
+      <dd>Jeu coopératif, une partie</dd>
+      <dt>Places :</dt>
+      <dd>3 - 6 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 23:00 salle 03
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Adapté de la célèbre saga parodique, le jeu de plateau Donjon de Naheulbeuk est un jeu à
+        l&#x27;ambiance déconnante et survoltée.<br><br>Attention c&#x27;est un jeu très drôle, très bruyant et très
+        con.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-26">Donjons &amp; Chatons</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>7h</dd>
+      <dt>Orga :</dt>
+      <dd>Vivien GACHET (.vivien), Iwan QUEMERAIS (iwan___)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>6 - 7 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 21:45 salle 05 et salle 06,<br>
+
+        samedi 18:00 salle 05 et salle 06,<br>
+
+        dimanche 09:30 salle 08
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">JdR avec le système Donjons &amp; Chatons, dans un univers steampunk/biopunk (avec des
+        chats)<br><br>La partie sera répartie en trois sessions le long du weekend.<br><br>Plot :<br>L&#x27;Arbre à Chat
+        est une métropole séparée en deux. <br>En bas, sous la surface, dans la Chatrbonnière, le poussier noircit tout,
+        les moustaches des habitants comme leurs rêves d&#x27;un ciel ouvert; En haut, s&#x27;élançant vers les nuages,
+        Nepeta. les aristocrates repoussent les frontières de l&#x27;imagination, grâce aux miracles de la
+        techno-miagie.<br><br>Mais tout en bas, des Chatons s&#x27;affairent. Ils vont faire tout ce qui est en leur
+        pouvoir pour s&#x27;élever hors du bourbier qu&#x27;est la Chatrbonnière, et atteindre Nepeta...</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-46">Et quand ils ne pompaient pas…</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h30</dd>
+      <dt>Orga :</dt>
+      <dd>petit gastéropode</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>7 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 18:00 salle 03
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Et quand ils ne pompaient pas… est une murder lyonnaise de Bastien Durain.<br><br>Contexte :
+        Comme toujours, toute la population Shadok pompait, pompait, pompait… Ils pompaient le matin, ils pompaient le
+        midi, ils pompaient le soir… et quand ils ne pompaient, ils rêvaient qu’ils pompaient ! Et plus ils pompaient,
+        pompaient, pompaient… plus leur moral baissait, baissait, baissait… Or voilà qu’un jour, justement, les Shadoks
+        ne pompent plus ! Mais enfin, on n’avait pas idée de bouleverser ainsi des années de tradition et de
+        civilisation ! De mémoire de Shadok, on n’avait jamais vu ça. Si l’on avait toujours pompé, c’est qu’il devait y
+        avoir une bonne raison. Et par conséquent, si l’on ne pompait plus, on allait forcément au-devant de grands
+        ennuis… Devant cette situation pour le moins préoccupante, le Chef Shadok sort le grand jeu et convoque aussitôt
+        une grande réunion. Car si aucune mesure n’est prise, nul ne sait ce qui pourrait advenir des malheureux
+        Shadoks…<br><br>Note d’intention : Cette murder se veut légère, pas prise de tête, loufoque, absurde, voire
+        débile. Cependant, elle n’est probablement adaptée à tou⋅te⋅s. D&#x27;où le véritable WARNING : l’absurde, ça
+        n’est pas fait pour tout le monde. Il est probable que vous passiez une murder complète à ne pas trop comprendre
+        tout ce qu’il se passe (en particulier, vous ne parlerez pas français, vous parlerez Shadok, on verra ça en
+        atelier pré-jeu), et même après le débrief, il n’est pas dit que vous soyez plus avancé⋅e⋅s… La murder elle-même
+        ne possède pas énormément de structure, et l’essentiel du jeu devra venir des délires des joueur⋅se⋅s. Si vous
+        n’êtes donc pas adepte de l’absurde ou que vous êtes facilement frustré⋅e⋅s lorsque vous vous heurtez à un mur
+        d’incompréhension, vous risquez de vous ennuyer.<br><br>Point divulgâchis : cette murder est tirée de la fameuse
+        série de Jacques Rouxel, que vous n’avez probablement pas tou⋅te⋅s vue. À celleux pour qui cette question est
+        importante : les fiches contiendront du « spoil ». Spoil parce qu&#x27;on va divulguer des éléments de la série,
+        et des guillemets parce que… vous verrez vos fiches.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-20">Fantôme exquis</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>18h</dd>
+      <dt>Orga :</dt>
+      <dd>Armand Salagnon</dd>
+      <dt>Type :</dt>
+      <dd>Autre, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Vous connaissez les confs de l&#x27;xtrem ? Ou mieux, vous n&#x27;avez aucune idée de ce que
+        c&#x27;est ? Il s&#x27;agit d&#x27;une super activité du club Absurde de l&#x27;ENS de Lyon où un groupe de gens
+        se liguent pour réaliser une présentation sur un sujet très sérieux. Le twist : chaque personne ne peut regarder
+        que la diapo précédente pour réaliser la sienne.<br>Durant ces interludes, une version modifiée sera proposée,
+        le fantôme exquis. Vous aurez devant vous des feuilles de papier et de quoi dessiner pour faire votre meilleure
+        diapositive possible. Vous ne pourrez regarder que la diapositive précédente.<br>Le diaporama sera présenté à la
+        fin des interludes.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-36">Film d&#x27;animation japonais</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Damien Chevalier</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 10:30 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Venez regarder le film d&#x27;animation projeté par les clubs Anim[ENS] de Saclay et le club
+        animé de l&#x27;ENS Lyon ! (Précision à venir)</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-53">Finale du Tournois Smash</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h45</dd>
+      <dt>Orga :</dt>
+      <dd>Jules Timmerman (discord : snoopinou30)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu vidéo, tournoi</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 16:15 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Fin du tournois Smash à partir des quarts de finale</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-2">Gears of Rebellion</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h</dd>
+      <dt>Orga :</dt>
+      <dd>Rrrrufus</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>2 - 5 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 09:30 salle 03
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Thèmes : space opera, révolution, mécha, anti-fascisme<br><br>Depuis sa terraformation, Mars est
+        un trophée que se partagent les maisons nobles de l&#x27;Empire de Terra. Leurs Chevaliers et leurs grandes
+        Exo-armures maintiennent l&#x27;ordre et l&#x27;oppression par la force.<br><br>Vous êtes les membres d&#x27;une
+        force de guérilleros rebelles. Aujourd&#x27;hui c&#x27;est le grand jour. Avec vos propres exo-armures, vous
+        vous préparez à assaillir un spatio-port pour vous saisir de leurs vaisseaux.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-13">Geekorale x Nekorale</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Marwane &amp; Solveig</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 19:15 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Venez chanter des chansons issues de nos dessins animés, jeux vidéo, séries, et films préférés.
+        Nul besoin d&#x27;avoir des connaissances ou du talent, l&#x27;important c&#x27;est pas de chanter juste,
+        c&#x27;est juste de chanter !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-10">Gilgamesh</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Etienne Stransky (stersky)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 - 6 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:30 salle 01
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Vous êtes des explorateurs partis dans un système lointain, planète Gilgamesh. L’Humanité
+        commence l’exploration spatiale et vous avez été envoyés pour découvrir ce système qui présente des
+        particularités qui la rendent suspecte.<br><br>Que trouverez-vous ici ? Des richesses démesurées, un danger
+        insurmontable, des réponses ou juste davantage de questions ? Et face à un système aussi riche, pouvez-vous
+        vraiment avoir confiance en vos coéquipiers ?</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-8">Horizon Zero Dawn : the Board Game</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h30</dd>
+      <dt>Orga :</dt>
+      <dd>Axel Stengel (discord : dhyrey)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu coopératif, une partie</dd>
+      <dt>Places :</dt>
+      <dd>0 - 5 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 14:30 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Entrez dans le magnifique monde post-apocalyptique de Horizon Zero Dawn. Dans ces terres
+        peuplées de machines en tout genre, vous incarnez des apprentis chasseur avec un seul but : vous faire un nom au
+        sein du prestigieux Pavillon des Chasseurs.<br><br>Dans ce jeu de société semi-coopératif, travaillez aux côtés
+        de votre groupe de chasseurs pour traquer et vaincre vos proies. Récoltez et échangez des ressources pour
+        améliorer votre équipement. Et améliorez vos compétences pour vous préparer à la chasse finale !<br><br>Les
+        autres chasseurs sont vos alliés, mais aussi vos concurrents. Seuls les plus rusés et les plus habiles peuvent
+        gravir les échelons vers la gloire éternelle. Pour ceux qui échouent ? Seul l&#x27;oubli les attend.<br><br>Les
+        règles du jeu (en anglais) :
+        https://steamforged.com/cdn/shop/files/Horizon-Zero-Dawn-Board-Game-Rulebook-min.pdf</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-32">Initiation à la Révolte</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Armand Salagnon</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:30 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Vous détestez les échecs ? Ou alors ces derniers vous ennuient et vous cherchez de nouveaux
+        moyens de stimuler votre esprit ?<br>Alors essayez cette variante, appelée la Révolte (anciennement
+        &quot;l&#x27;échèque&quot;).<br>Dans ce jeu, vous devrez tenter de deviner les règles (sauf si vous ne savez pas
+        jouer aux échecs) et affronter les grands maîtres Jedi ou seigneur.es Sith.<br><br>Tout le monde est bienvenu,
+        Padawans comme maîtres Jedi !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-9">JDR - Le culte des songes</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h30</dd>
+      <dt>Orga :</dt>
+      <dd>Garance Malnoë (discord : garythecaptn)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>2 - 4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 23:30 salle 06,<br>
+
+        samedi 19:15 salle 01
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Je vous propose de vous retrouver autour d&#x27;un jeu de rôle mêlant fantastique et horreur :
+        Le culte des songes.<br><br>L&#x27;histoire se déroule dans les années 50 quelque part dans le centre Bretagne.
+        Vous jouerez l&#x27;un des quatre détectives appelés à mener l&#x27;enquête sur de drôles de disparitions dans
+        un village.<br><br>Petites précisions : Ce sera mon tout premier jeu de rôle en tant que MJ. Il est donc
+        probable que ce ne soit pas très immersif si jamais c&#x27;est cela que vous recherchez. Il n&#x27;y a pas de
+        problème pour vous accueillir autour de la table si c&#x27;est votre premier JDR :D</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-24">Jeu de figurines à gogo</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>6h45</dd>
+      <dt>Orga :</dt>
+      <dd>Rrrrufus</dd>
+      <dt>Type :</dt>
+      <dd>Autre, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>2 - 10</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 19:15 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Venez découvrir les différents jeux de figurines que nous proposons et faire briller votre
+        esprit stratégique. Décors et figurines fournies. N&#x27;hésitez pas à amener les vôtres.<br><br>Warhammer
+        Underworlds : Dans ce jeu compétitif et tactique, saurez vous atteindre vos objectifs ?<br><br>Grimdark Future
+        Firefight: Commandez votre escouade dans des escarmouches survoltées, avec des règles simples.<br><br>Song of
+        Blades and Heroes : Dans ce jeu aux règles minimalistes, récoltez le plus plus de trésors avec vos
+        aventuriers.<br><br>Warfleet : Dirigez votre flotte de vaisseaux pour dominer l&#x27;espace.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-51">Just Dance</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Jules Timmerman</dd>
+      <dt>Type :</dt>
+      <dd>Party game, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 21:00 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Venez vous dégourdir les jambes sur la piste de dance entre deux parties de jeu.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-52">Karaoké</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h30</dd>
+      <dt>Orga :</dt>
+      <dd>Hanna Jamal</dd>
+      <dt>Type :</dt>
+      <dd>Party game, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 21:30 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Rien de plus classique qu&#x27;un karaoké entre potes pour s&#x27;éclater (quoiqu&#x27;un peu
+        surprenant pour des Interludes).</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-14">La Soirée du Prince</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>Marwane (Shinipapi) &amp; Milo</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:30 salle 08 et salle 10
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Oyez, oyez, brave gens, bienvenue au bal. Le prince d’Altarba organise ce soir un Bal
+        spectaculaire ! Célébrant l’arrivée dans la région de la Baronne de Théassalie, la soirée s’annonce prometteuse
+        ! Les cuisiniers ont mis les petits plats dans les grands, ménestrels et saltimbanques se relaient pour
+        satisfaire l’assemblée.<br>On voit que le prince a fait des efforts pour que tous puissent profiter d’une soirée
+        mémorable !<br><br>Il s&#x27;agit d&#x27;une murder débutant-friendly. L&#x27;ambiance est habituellement ni
+        légère ni pesante.<br><br>TW : Religion, meurtre, enlèvement, troubles mentaux</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-43">Le Pokémon Magique</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h35</dd>
+      <dt>Orga :</dt>
+      <dd>petit gastéropode, Fred, Panadrame</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 11:15 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Pièce de théâtre immersive d&#x27;humour absurde, Le Pokémon Magique est l&#x27;activité
+        artistique élitiste des interludes. Comme l&#x27;année dernière, la troupe du Kontre S[ens] s&#x27;est dépassée
+        pour interpréter cette fanfiction de niche d&#x27;une façon à la fois sublime et singulière. Assurément, le
+        metteur en scène stagiaire va faire des merveilles. Venez découvrir ou redécouvrir ce classique des interludes,
+        dont l&#x27;interprétation a été entièrement repensée pour éclairer sous un jour nouveau les problématiques
+        soulevées par l&#x27;œuvre.<br><br>Bref, vous avez compris, c&#x27;est le même troll préparé à l&#x27;arrache
+        que l&#x27;année dernière, sauf que cette fois j&#x27;ai copié-collé-bricolé ce texte vu que je n&#x27;ai pas eu
+        le temps d&#x27;en écrire un nouveau.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-16">Ligne de vie</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h30</dd>
+      <dt>Orga :</dt>
+      <dd>Iwan Quémerais, Emilien Decaux</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 22:15 salle 08 et salle 10
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Pitch :<br><br>Vous vous réveillez dans un lieu que vous ne connaissez pas, relativement
+        apaisant. Avec vous, 7 autres personnes qui semblent toutes aussi déboussolées que vous.<br><br>Note d’intention
+        :<br><br>Ligne de vie est une murder pour 8 joueureuses d’une durée estimée de 2 heures (brief et débrief non
+        compris). Cette murder est centrée autour de la discussion et la négociation entre les personnages, notamment
+        concernant leurs expériences de vie. Ceux-ci sont au centre de l’intrigue donc le contenu des fiches est
+        important.<br><br>Cette murder n’est pas :<br>Une murder à émotions fortes<br>Une murder enquête<br><br>Cette
+        murder peut être jouée par des personnes peu expérimentées en murder, cependant il est mieux d’avoir déjà joué
+        une ou deux murders.<br><br>Trigger Warnings (TW) : Alzheimer, Perte de proches, Parentalité, Décès, Relations
+        familiales et amoureuses compliquées <br> &gt;Ces thèmes seront présents dans les fiches et potentiellement
+        discutés mais pas joués durant la murder.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-44">Lockdown en entreprise</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Théo Vignon, Dawn, Fulcyap</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:30 salle 05 et salle 06
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Synopsis :<br><br>Dans un futur proche, les développements technologiques actuels se sont
+        accélérés dans tous les domaines. Une grosse entreprise française essaye de rivaliser avec la concurrence. La
+        R&amp;D travaille dur, des chercheurs et des ingénieurs travaillent ensemble au quotidien, et les brevets
+        pleuvent.<br>Mais un soir de semaine comme les autres, alors que l’entreprise a fermé ses portes pour la
+        journée, l’alarme retentit et la procédure de quarantaine est mise en place, sans explication…<br><br>Note
+        d’intention :<br><br>Déjà, commençons par le plus important : cette murder est difficile, et n’a pas été prévue
+        pour être jouée par des débutants. Le RP y est très important, même primordial, il faut savoir réagir rapidement
+        à des situations inattendues (savoir manier l’impro), il n’y a pas forcement d’objectif clair pour tout le monde
+        (ni d’objectif tout cours), et la murder a été écrite en pensant à des joueurs expérimentés (i.e. au moins 3-4
+        murders jouées)<br>Ensuite, la murder peut mal se passer pour certains. Il est possible que des joueurs sortent
+        relativement rapidement de la murder.<br>Enfin, contrairement à la plupart des murders, il n&#x27;y a pas de
+        questionnaire à remplir . La raison pour l&#x27;absence de questionnaire est que les rôles de cette murder sont
+        attribués au hasard, d&#x27;une part pour éviter le casting &quot;à la tête&quot; à force de connaître les
+        joueurs et d&#x27;autre part pour permettre aux joueurs de se retrouver avec des rôles qu&#x27;ils n&#x27;ont
+        pas forcément l&#x27;habitude d&#x27;avoir, dans l&#x27;esprit de provoquer du RP intéressant. Il n&#x27;y a a
+        priori aucun TW particulier pour cette murder, mais les joueurs sont invités à se rapprocher des MJs s&#x27;il y
+        a la moindre hésitation.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-4">Mage: la Technocratie</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Kenan Scavennec</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>3 - 6 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:30 salle 03
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">C&#x27;est comme la réalité. Enfin, presque. Les tours sont plus hautes, les rues plus sombres
+        et étroites, et des créatures vous observent depuis l&#x27;obscurité. Heureusement, la Technocratie, bastion de
+        connaissance et de progrès, veille sur l&#x27;Humanité, et tente tant bien que mal de repousser les ténèbres.
+        Vous, vous êtes ses agent.es, chargés de vaincre les créatures de la nuit, de protéger la veuve et
+        l&#x27;orphelin, et, surtout, de cacher jusqu&#x27;à l&#x27;existence même de la menace aux
+        Masses.<br><br><br>Jeu de rôle sur table, nous jouons en version M20 adaptée aux one-shots.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-25">Magic the Gathering : Cubes des clubs magic des ENS de Lyon et Paris-Saclay</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h30</dd>
+      <dt>Orga :</dt>
+      <dd>Mathis (the_friendly_eldrazi), Eliot (Plouphe)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de cartes, une partie</dd>
+      <dt>Places :</dt>
+      <dd>2 - 14 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 14:30 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Les Clubs Magic des ENS de Lyon et de Paris-Saclay ont chacune un Cube.<br><br><br>C&#x27;est
+        quoi un Cube ? C&#x27;est une collection prédéfinie de cartes pour faire des drafts. L&#x27;objectif de ce draft
+        est donc de faire le meilleur deck possible et de se battre contre les decks que les autres joueur.euses autour
+        de la table auront drafté.<br>Débutant.es bienvenu.es, mais je préviens que le Cube contient beaucoup de cartes
+        avec plein de mécaniques différentes.<br><br>Comme il y a 2 cubes disponibles, on vous propose de choisir le
+        cube que vous voulez drafter, dans la limites des places disponibles :<br><br>ENS Paris-Saclay : 9
+        places<br><br>ENS Lyon : 5 places<br><br><br>Liste des cartes :<br><br>Lyon :
+        https://cubecobra.com/cube/list/2vdmu :<br><br>Paris-Saclay :
+        https://cubecobra.com/cube/overview/3c601293-4f44-4565-ad76-20d0675fd0cb</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-38">Oath</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h45</dd>
+      <dt>Orga :</dt>
+      <dd>François Kabiry (francokab)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>2 - 6</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 14:00 Couloir de jeu
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Jeux de société : &quot;Oath : Chronicles of Empire and Exile&quot;<br><br>Je propose de faire
+        des partie du jeux Oath : Chronicles of Empire and Exile<br><br>Oath : Chronicles of Empire and Exile est un jeu
+        de plateau de stratégie pour un à six joueurs, dans lequel les joueurs vont influencer le cours de
+        l&#x27;histoire dans un monde séculaire. Un jeu de plateau de stratégie pour un à six joueurs, dans lequel les
+        joueurs peuvent tenter de renforcer le pouvoir du chancelier ou de mener le royaume à sa perte.<br><br>Les
+        conséquences d&#x27;une partie se répercuteront sur celles qui suivront, modifiant les ressources et les actions
+        dont disposeront les futurs joueurs et altérant même la condition de victoire principale du jeu. Si un joueur
+        prend le contrôle en favorisant l&#x27;anarchie et la trahison, les autres joueurs devront faire face à un pays
+        envahi par les voleurs et les petits seigneurs de la guerre. Dans une partie ultérieure, un seigneur de guerre
+        pourrait tenter de fonder une dynastie, créant une lignée de souverains qui pourrait durer des générations ou
+        être écrasée par la montée d&#x27;un terrible culte des arcanes.<br><br>Une expérience unique dans chaque boîte
+        de jeu ! Dans Oath, il n&#x27;y a pas de techniques de création extravagantes, de mécaniques assistées par des
+        applications ou de gadgets. Le jeu peut être réinitialisé à tout moment et ne nécessite pas le même groupe de
+        joueurs d&#x27;une partie à l&#x27;autre. Un joueur peut utiliser le mode solo complet pour jouer plusieurs
+        générations pendant la semaine, puis utiliser la même copie du jeu pour la soirée du samedi avec des amis. Il
+        n&#x27;y a pas de récit scénarisé ou de fin prédéterminée. L&#x27;histoire contenue dans chaque exemplaire
+        d&#x27;Oath deviendra aussi unique que les joueurs qui ont contribué à sa création.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-28">Outer Wilds - Remnants of the Eye</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>Axel Palaude (discord : alexcadwish)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>5 - 6 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 21:00 salle 08 et salle 10,<br>
+
+        samedi 20:00 salle 05 et salle 06
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">ATTENTION : Si vous n&#x27;avez pas joué au jeu, certaines scènes seront difficiles à visualiser
+        et certains passages risquent d&#x27;être un peu confus. Bref, je recommande que vous jouiez au jeu
+        d&#x27;abord.<br><br>Carambolage dans l’espace. Deux vaisseaux bien différents, tant par la forme que par les
+        êtres qui y habitent, se sont accrochés à tel point qu’ils n’en forment désormais plus qu’un. Malgré une
+        communication extrêmement difficile, des représentants de chaque vaisseau ont réussi à s’accorder pour colmater
+        les brèches. Le calme est revenu à présent, tout du moins en apparence. En réalité, il semblerait que certains
+        dangers soient toujours présents. L’espace, en particulier, semble de plus en plus inhospitalier…<br><br>Cette
+        murder pour 6 personnes est basée sur le jeu-vidéo Outer Wilds développé par Mobius Digital. Elle est prévue
+        pour une durée de jeu de 2 à 3h avec 1 à 2h de brief/débrief en plus. Ce jeu s’adresse en premier lieu aux
+        personnes qui ont terminé le jeu Outer Wilds et son DLC Echoes of the Eye. Ce jeu-vidéo utilise la connaissance
+        comme moyen de progression, et ainsi jouer cette murder sans avoir joué au jeu vous empêchera définitivement de
+        profiter du jeu de manière classique. Ce jeu est une murder d’enquête et puzzle centrée autour de la
+        communication entre les différents personnages. Du jeu Outer Wilds, la murder reprend l’univers, la place des
+        personnages dans celui-ci, le passage du temps avec ce qu’il implique ainsi que le côté calme, relaxant et
+        parfois contemplatif. La murder ne reprend pas l’exploration de lieux inconnus ni le côté archéologie. Le jeu se
+        veut plutôt calme et les interactions entre personnages seront assez peu conflictuelles. <br>TW généraux
+        (ambiance, dangers etc.) : espace/vide spatial, mort/deuil/suicide, fin du monde <br>TW spécifiques (relatifs à
+        un ou deux personnages) : regrets/remords, crise écologique, pression sociale, anxiété.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-12">Partie de Baston</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>Maël Chantreau, Armand, François, Mathis, Lucas</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de cartes, une partie</dd>
+      <dt>Places :</dt>
+      <dd>2 - 4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 21:00 Couloir de jeu,<br>
+
+        samedi 09:00 Couloir de jeu,<br>
+
+        samedi 21:00 Couloir de jeu
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">La Baston, petit (ou pas) jeu made in ENS de Lyon, revient cette année encore aux Interludes !
+        Que ce soit votre première partie, votre deuxième ou votre centième, vous êtes toustes bienvenues. Petit résumé
+        du jeu :<br><br>La Baston est un jeu de cartes qui se déroule en deux phases : il s&#x27;agira d&#x27;abord dans
+        la première phase de constituer un deck rempli de cartes représentant divers héro·ïnes (au sens large) de pop
+        culture, qui se battront dans la joie et la bonne humeur au cours de la deuxième phase, avec comme objectif
+        d&#x27;être le ou la dernièr·e debout. Attendez vous à des situations loufoques*, des retournements de situation
+        en pagaille et bien sûr de la baston !<br>*comme Gandalf élu de la Force, Gus Glouton mangeant un Dofus ou
+        encore un Oignon de pikmins se faisant oblitérer par une comète.<br><br>Attention!<br>Bien que nous jouerons
+        avec les cartes et les règles les plus simples possibles, le jeu est généralement considéré comme complexe et
+        implique de lire pour chaque carte un effet spécial (quelques lignes) écrit dans un gros classeur (plus de 100
+        feuilles). Ce n&#x27;est donc pas un jeu pour tout le monde.<br>Cependant, la légende raconte que certaines
+        personnes l&#x27;ayant essayé sont devenues addictes. À vos risques et périls !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-21">Présentation du fantôme exquis</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h</dd>
+      <dt>Orga :</dt>
+      <dd>Armand Salagnon</dd>
+      <dt>Type :</dt>
+      <dd>Autre, une partie</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 12:15 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Cette activité est la conclusion du fantôme exquis des interludes ! Un.e ou plusieurs
+        présentateurices vous présenteront le diapo réalisé par tout le monde durant le weekend (et le découvriront en
+        même temps que vous !)<br>Ne manquez pas cette projection : fous rires garantis. Une séance de questions est
+        prévue à la fin de la présentation.<br><br>NB : pour candidater au poste de présentateurice, contactez les orgas
+        en amont ou pendant l&#x27;évènement (les interludes).</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-40">Questions pour un weeb ! Interludes édition</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Géraud Dupuy</dd>
+      <dt>Type :</dt>
+      <dd>Party game, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 - 8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 14:00 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Vous ne rêvez pas ! Il est l&#x27;heure pour les weebs de s&#x27;assumer comme tel. Il est venu
+        le temps d&#x27;étaler sa culture otaku devant la place publique: Manga, Anime, Jeux vidéo, Gastronomie,
+        Musique, etc ... Toute la pop-culture japonaise y passera. <br><br>Après avoir été testé sur les terres
+        Saklaysiennes, il faut réunir autour de ce challenge les plus gros weebs de toutes les ENNS afin de les
+        départager.<br><br>C&#x27;est un question pour un champion weeb édition qui vous est présenté ici. 9 points
+        gagnant, quatre à la suite et face à face, avec un peu (beaucoup !) de saveur nippone. La participation se fera
+        idéalement en équipe de deux.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-48">Raptor Echecs</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>petit gastéropode, Panadrame</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>1 - 8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 23:30 Couloir de jeu
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">&quot;Mon dino violet et rouge il est clairement plus venimeux que le tien tout gris
+        d&#x27;abord !&quot;, &quot;Fusion zombi mathématicien !!!!&quot;, &quot;Ayant collectivement établi il y a cinq
+        tours que les ornementations crâniennes c&#x27;est sexy, mon dino gagne évidemment ce concours de beauté.&quot;,
+        &quot;Darwin passe en mode immatériel !&quot;<br><br>Bref, une initiation à un petit jeu de société bon enfant,
+        absurde et simple, basé sur la recherche (parfaitement honnête) du consensus et sur la jurisprudence. Le jeu
+        sera disponible pour le restant des interludes pour faire d&#x27;autres parties.<br><br>P.-S. : Ça n&#x27;a de
+        lien avec les échecs que le plateau.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-39">Ravenberg</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>6h</dd>
+      <dt>Orga :</dt>
+      <dd>Sébastien Galas</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>0 - 4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 19:45 salle 03
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">« Quoi, vous voulez que je vous renseigne sur la forteresse de Ravenberg ? Cet endroit était
+        jadis occupé par la noble famille Wynrael, avant de tomber aux mains des nains pendant la grande guerre. Ils y
+        ont creusé une mine, avant de tous mystérieusement disparaitre, et on n’a plus jamais revu les gars de
+        l’expédition de sauvetage. Si vous voulez mon avis, ils ont déterré quelque chose qu’ils n’auraient pas dû. Ah,
+        mais vous êtes un(e) aventurier(e) ! Pourquoi ne pas aller voir de vous-mêmes ? D’autant plus que cet endroit
+        doit contenir de nombreuses richesses… »<br><br>Un JDR un peu particulier dans lequel il vous sera possible de
+        justifier l&#x27;existence d&#x27;objets en les dessinant. Les seules limites seront votre imagination, celle du
+        MJ et les dés.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-30">Requiem</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Canarchiste</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>7 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 16:30 Salle 1,<br>
+
+        dimanche 09:30 salle 05
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Pitch<br><br><br><br>Un concert splendide supposé regrouper toutes les générations autour de la
+        musique, des artistes grandioses de divers styles (vous). Qu’est-ce qui pouvait mal tourner ? Plus de choses
+        qu’on ne le pensait à vrai dire…<br><br><br><br>Le concert se déroulait pourtant à merveille, la foule
+        applaudissait à s’en rompre les mains à chaque performance, l’objectif était atteint. Puis est venue la
+        performance de la cheffe d’orchestre. Même si le doux son du Requiem de Mozart a conquis la foule, le terrible
+        cri émanant des loges a effrayé les artistes à la fin de la performance. Toustes se sont rué.e.s vers la source
+        du bruit pour découvrir le corps de lae rappeureuse, une baguette de chef.fe d’orchestre plantée dans le dos.
+        Pourtant la cheffe d’orchestre était sur scène au moment du meurtre. Qu’a-t-il bien pu se passer
+        ?<br><br><br><br>L’ensemble des musicien·enne·s pénètre dans la loge mal éclairée où règne une ambiance
+        inquiétante et où le corps gît toujours, mais une fois que tout le monde est entré, la porte se referme
+        brutalement derrière les musicien•ne•s, et malgré les efforts répétés de Gisèle, la cheffe d’Orchestre, ne
+        s’ouvre pas. La pièce semble avoir changé… Attendez ! Où est passé le corps ? À sa place se trouve une table sur
+        laquelle traînent un coffre scellé, des vieux livres sans grand intérêt et une enceinte visiblement solidaire de
+        la table, qui joue le Requiem de Mozart.<br><br><br><br>*Début de la murder*<br><br><br><br>Note d’intention
+        :<br><br><br><br>Requiem est une murder courte (comptez environ une heure de jeu) à atmosphère un peu
+        angoissante mais qui se veut aussi légère et détendue. Les personnages seront assez caricaturaux avec des
+        caractères bien trempés L’enquête et le RP en sont les composants essentiels de ce jeu. Il n’y a pas de
+        screamers ou autres. La murder est conçue pour être jouée par des débutant·e·s, et a déjà été jouée par
+        plusieurs personne dont c’était la première murder.<br><br>Note : 4h est une estimation peut-être un peu large
+        pour le jeu + les brief +le débrief<br><br>TW : Agressivité, mort, deuil, enfermement (pas physiquement pour les
+        joueureuses)</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-34">RoboRally modé</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>10h</dd>
+      <dt>Orga :</dt>
+      <dd>Sébastien Galas, Laurent Dalmas, Xander Kerstel</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, une partie</dd>
+      <dt>Places :</dt>
+      <dd>0 - 6</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 09:30 Couloir de jeu
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Une partie de RoboRally parfaitement ordinaire, au détail près que les maps sont faites maison
+        et avec amour par des gros détraqués. Si vous vous demandez ce que ça fait d&#x27;avoir la pile de spams dans
+        votre deck, ce jeu est fait pour vous. Possibilité de ne pas jouer la partie entière ou de reprendre le robot
+        d&#x27;un joueur peu téméraire en cours de partie.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-42">Rubik&#x27;s Cube</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h</dd>
+      <dt>Orga :</dt>
+      <dd>Emeric Depin, Janys Blin</dd>
+      <dt>Type :</dt>
+      <dd>Puzzle ou analogue, autre</dd>
+      <dt>Places :</dt>
+      <dd>0 - 20</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 09:30 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Petit tournoi de Rubik&#x27;s cube, pas de tryhard, juste du fun !<br>Au programme team
+        blindfolded (par deux, un qui bouge le cube les yeux bandés, l&#x27;autre qui lui donne ds instructions), et un
+        autre petit jeu mais on ne spoil pas.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-17">Samuel</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Paul drouvillé, Milo Horch</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 18:00 salle 08 et salle 10
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Dans un hôtel-bar-restaurant sur la côte d’Azur, un 02 aout, il est midi et demi. Tout le monde
+        est attablé aux tables du restaurant. Après une entrée et un plat rustiques mais copieux, la chef, Amandine,
+        présente son dessert aux clients. Le petit Simon trépigne d’impatience sur sa chaise depuis qu’il a entendu les
+        mots « charlotte aux fraises ». Arnaud tapote impatiemment ses ongles sur la table en regardant par la fenêtre.
+        Lara et Jean discutent de la gestion de l’hôtel dans un coin de la pièce tandis que Susan n’a d’attention que
+        pour Georges. Seule Camille semble prêter attention au discours d’Amandine. Soudain, cette dernière, gesticulant
+        d’enthousiasme, blesse malencontreusement Georges avec son couteau.<br><br>Note d’intention : <br>Cette murder a
+        l’objectif d’être assez déstabilisante, et les joueurs pourront être un peu perdus, dépassés par les évènements,
+        et sans comprendre exactement ce qui leur arrive. Elle est réservée aux murderistes assez confirmés, qui
+        sauront, par leur RP maintenir cette ambiance angoissante et créer du jeu. Il peut y avoir assez peu d’objectifs
+        personnels.<br>TW : Meurtre, troubles psychiatriques, drogue.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-47">Sous l&#x27;océan</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>bleizi, Kaj, Milo</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 13:45 salle 08 et salle 10
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Vous incarnez un membre de l&#x27;équipage du sous-marin français &quot;Le Redoutable&quot; en
+        patrouille pendant la guerre froide, quand soudain, une alarme retentit.<br><br>Une petite précision :<br>La
+        murder que vous allez jouer se déroule dans un univers proche du nôtre, mais qui présente de menues différences
+        nécessaires à notre expression artistique. Ainsi, bien que les premiers sous-marins nucléaires français ne
+        soient apparus que vers 1968, et que généralement l’équipage était plus nombreux, vous serez huit sur ce
+        sous-marin, en 1961. Par ailleurs, la visée de la murder est d’être plus légère que la moyenne, un peu loufoque,
+        pas trop prise de tête. Nous présentons la guerre froide d’un point de vue détendu, voir sympathique, et non pas
+        film noir. La réalité historique ne sera par ailleurs pas nécessairement l&#x27;objectif recherché... Soyez
+        prévenus et amusez vous !<br><br>TW : Présent dans les fiches et éventuellement en jeu : Racisme, Sexisme,
+        Harcèlement scolaire.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-6">Sporz</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>ara ara</dd>
+      <dt>Type :</dt>
+      <dd>Jeu à rôles secrets, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>8 - 20 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 23:30 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Bienvenue à bord d&#x27;un vaisseau spatial en proie à une étrange épidémie : une partie de
+        l&#x27;équipage, infectée par une mystérieuse spore, tente de la propager tandis que les autres astronautes
+        cherchent à l&#x27;éradiquer.<br>À bord du vaisseau, la confiance est une denrée rare, et chaque personne doit
+        naviguer entre informations et incertitudes, se demandant toujours qui est encore fiable et comment faire gagner
+        son équipe.<br><br>Sporz est un jeux à rôles secrets proche de Mafia
+        (https://fr.wikipedia.org/wiki/Mafia_(jeu)), ou des Loups-garous de Thiercelieux, mais qui améliore sensiblement
+        certains points : <br>- il y a moins de morts frustrantes en début de partie car on peut convertir au lieu de
+        tuer<br>- tout le monde a un rôle qui permet d&#x27;obtenir de l&#x27;information et les rôles sont mieux
+        équilibrés en termes d&#x27;impact sur le jeu<br>- il n&#x27;y a pas d’espionnage ou de bruit à entendre pendant
+        la phase de nuit, et donc aussi moins d&#x27;accusations injustes<br><br>On jouera ici à une légère variante du
+        jeux officiel (https://fr.wikipedia.org/wiki/Sporz_Original_Outbreak) pour accélérer les phases de nuit et
+        permettre à toustes d&#x27;avoir un rôle intéressant.<br>Il n&#x27;y a pas de prérequis de niveau ou de
+        connaissance de jeux similaires, on expliquera les règles, qui sont assez courtes, et on ne se prendra pas trop
+        la tête.<br><br>Durée : 20 minutes d&#x27;explication de règles puis 1 à 2 heures de jeu selon le nombre de
+        participant·es.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-54">Tournoi Mario Kart</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h30</dd>
+      <dt>Orga :</dt>
+      <dd>Jules Timmerman (discord : snoopinou30)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu vidéo, tournoi</dd>
+      <dt>Places :</dt>
+      <dd>Illimités (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 09:30 Amphi
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tournoi Mario Kart</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-55">Tournoi Smash</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Jules Timmerman</dd>
+      <dt>Type :</dt>
+      <dd>Jeu vidéo, tournoi</dd>
+      <dt>Places :</dt>
+      <dd>Illimités (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 12:00 salle 09
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tournoi Smash</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-18">Tournoi d&#x27;échecs</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Gaetan Regaud, Paul Adam</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, tournoi</dd>
+      <dt>Places :</dt>
+      <dd>Illimités (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 09:30 salle 06
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tournoi d&#x27;échecs en rondes suisses.<br>Aucun prérequis de niveau à part savoir bouger les
+        pièces ;).<br>Cadence : 5min + 5s.<br>Merci d&#x27;arriver 10 min en avance pour pointer.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-31">Tournoi de Krapules</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h30</dd>
+      <dt>Orga :</dt>
+      <dd>Elouan Oger, Florent Ferrari</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, tournoi</dd>
+      <dt>Places :</dt>
+      <dd>4 - 24 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 10:45 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tournoi de Krapules<br><br>Venez vous affronter par équipe de 2 ou 3 dans Krapules, dans le rôle
+        d&#x27;un gang d&#x27;animaux des rues luttant pour s&#x27;accaparer le maximum de déchets comestibles, et
+        refiler les déchets non-comestibles aux gangs adverses ! Entre stratégie et chaos, venez gagner votre peluche en
+        triomphant de vos adversaires !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-15">Trollball</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Milo Horch, Emmanuel Mera</dd>
+      <dt>Type :</dt>
+      <dd>Autre, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 14:30 Cour de l&#x27;ENS,<br>
+
+        dimanche 10:00 Cour de l&#x27;ENS
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tu veux te battre avec des épées ? Tu veux courir après une balle ? Viens faire du trollball
+        !<br><br>Avec ton épée en mousse, terrasse l&#x27;équipe adverse, saisis la balle marquez des buts dans ce sport
+        mi-escrime, mi-rugby ! Ou alors tu peux aussi défier des opposant•es dans un 1v1 au sommet !<br><br>Seront
+        prévues des parties diversifiées avec des objectifs variés.<br>Les équipes tourneront pour que tout le monde
+        puisse jouer.<br>Venez jouer pendant la durée qu&#x27;il vous sied.<br><br>Nous vous attendons nombreux•ses pour
+        venir vous amuser !<br>3, 2 , 1 , TROLLBAAAAAAALL !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-19">Une magie étrange...</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Simon Moine</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>3 - 4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 09:30 salle 10
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">&quot;Vous viviez une vie paisible et tout à fait ordinaire, jusqu&#x27;au jour où vous vous
+        réveillez dans une petite pièce sombre qui n&#x27;est pas votre chambre, entouré.e d&#x27;inconnu.e.s. Votre
+        seule source de lumière est un étrange cercle magique inscrit au sol...&quot;<br><br>Dans ce jdr (basé sur le
+        système de DnD, mais très simplifié), vous incarnerez un petit groupe d&#x27;aventuriers dont le but sera de
+        s&#x27;échapper de la cave dans laquelle vous débutez votre aventure. Ce jdr est plutôt conçu pour des
+        débutant.e.s, mais des joueureuses confirmé.e.es peuvent participer sans problème.<br>Trigger Warning : aucun.
+      </p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-7">Yu-Gi-Oh !</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h30</dd>
+      <dt>Orga :</dt>
+      <dd>Shinipapi (Marwane)</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de cartes, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 09:30 salle 24
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">C&#x27;est l&#x27;heure du Du-Du-Du-Duel !<br><br>Que vous souhaitiez découvrir ce jeu de cartes
+        ou que vous soyez joueur confirmé, vous serez les bienvenue.<br><br>Des decks seront mis à disposition mais vous
+        pouvez également ramener les vôtres.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+  </main>
+  <footer>
+    <div id="sponsors"><a class="external" href="https://www.ens-rennes.fr/"><img src="/static/imgs/2024/ens_rennes.png"
+          alt="Êcole Normale Supérieure Rennes" title="Êcole Normale Supérieure Rennes"></a><a class="external"
+        href="https://www.instagram.com/bdaensrennes/"><img src="/static/imgs/2024/bda_rennes.png" alt="Bureau des Arts"
+          title="Bureau des Arts"></a><a class="external" href="https://www.crous-rennes.fr/"><img
+          src="/static/imgs/2024/crous_bretagne.png" alt="Crous Bretagne" title="Crous Bretagne"></a><a class="external"
+        href="https://www.crans.org/"><img src="/static/imgs/2024/crans.svg" alt="Ecole Normale Superieure Rennes"
+          title="Crans"></a></div>
+    <p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">rf.senner-sne@adb</span></p>
+  </footer>
+</body>
+
+</html>
