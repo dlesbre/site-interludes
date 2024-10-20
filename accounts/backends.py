@@ -10,7 +10,6 @@ from django.http import HttpRequest
 from django.utils.timezone import now
 
 from accounts.models import ClipperAccount, EmailUser
-from site_settings.models import ENS
 
 
 def get_cas_client(request: HttpRequest) -> CASClient:
@@ -133,7 +132,6 @@ class ClipperCASBackend(BaseBackend):
                 return user
             except EmailUser.DoesNotExist:
                 return self.create_user(cas_login, homedir, email, name)
-        return None
 
     # Django boilerplate.
     def get_user(self, user_id) -> Optional[EmailUser]:
