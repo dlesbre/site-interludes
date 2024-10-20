@@ -19,13 +19,16 @@ class ActivityModelAdmin(ExportCsvMixin):
         "host_name",
         "display",
         "must_subscribe",
+        "year",
     )
     list_filter = (
+        "year",
         "display",
         "must_subscribe",
         "status",
     )
     ordering = (
+        "-year",
         "title",
         "host_name",
     )
@@ -37,6 +40,7 @@ class ActivityModelAdmin(ExportCsvMixin):
                 "fields": [
                     "title",
                     "display",
+                    "year",
                 ]
             },
         ),
@@ -103,6 +107,7 @@ class ActivityModelAdmin(ExportCsvMixin):
         "id",
         "display",
         "title",
+        "year",
         "act_type",
         "game_type",
         "description",
@@ -157,10 +162,11 @@ class SlotModelAdmin(ExportCsvMixin):
         "on_activity",
     )
     list_filter = (
+        "activity__year",
+        "activity__display",
         "subscribing_open",
         "on_planning",
         "on_activity",
-        "activity__display",
     )
     list_editable = (
         "subscribing_open",

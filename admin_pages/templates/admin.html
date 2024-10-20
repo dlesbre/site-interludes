@@ -167,7 +167,7 @@
 
 	<div class="flex wrap lines">
 		<div class="stat">
-			<div class="qty">Activités</div>
+			<div class="qty">Activités*</div>
 			<div class="nb_big">{{ metrics.activites }}</div>
 		</div>
 		<div class="stat">
@@ -175,7 +175,7 @@
 			<div class="nb_small">{{ metrics.displayed }}</div>
 		</div>
 		<div class="stat">
-			<div class="qty">Inscription*</div>
+			<div class="qty">Inscription**</div>
 			<div class="nb_small">{{ metrics.act_ins }}</div>
 		</div>
 		<div class="stat">
@@ -198,11 +198,11 @@
 
 	<div class="flex wrap lines">
 		<div class="stat">
-			<div class="qty">Planning</div>
+			<div class="qty">Planning*</div>
 			<div class="nb_big">{{ metrics.slots }}</div>
 		</div>
 		<div class="stat">
-			<div class="qty">Inscription*</div>
+			<div class="qty">Inscription**</div>
 			<div class="nb_small">{{ metrics.true_ins }}</div>
 		</div>
 		<div class="stat">
@@ -237,10 +237,11 @@
 			<div class="nb_small">{{ metrics.revenue_sleep }}</div>
 		</div>
 	</div>
-
-	<p>*Une activité peut avoir plusieurs créneaux sur le planning. Les inscriptions se font par créneaux donc le nombre
-		d'inscriptions de la catégorie "Activités" est seulement informatif .
+	<p>*Ces métriques ne compte que les activités/créneaux de l'année actuelle ({{ year }}).</p>
+	<p>**Une activité peut avoir plusieurs créneaux sur le planning. Les inscriptions se font par créneaux donc le nombre
+		d'inscriptions de la catégorie "Activités" est seulement informatif.
 	</p>
+
 
 	{% if metrics.malformed %}
 	<ul class="messagelist"><li class="error">

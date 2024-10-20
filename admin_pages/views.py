@@ -18,7 +18,7 @@ from home import models
 from home.views import get_planning_context
 from interludes import settings as site_settings
 from shared.views import CSVWriteView, SuperuserRequiredMixin
-from site_settings.models import ENS, Colors, SiteSettings
+from site_settings.models import ENS, Colors, SiteSettings, get_year
 
 # ==============================
 # Main Admin views
@@ -30,9 +30,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
 
     def get_metrics(self) -> Any:
         """Various metrics, return as a class"""
+        year = get_year()
         registered = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True)
-        acts = models.ActivityModel.objects.all()
-        slots_in = models.SlotModel.objects.all()
+        acts = models.ActivityModel.objects.filter(year=year)
+        slots_in = models.SlotModel.objects.filter(activity__year=year)
         wishes = models.ActivityChoicesModel.objects.filter(
             participant__is_registered=True, participant__user__is_active=True
         )
@@ -132,7 +133,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
     def check_activity_slots(self) -> str:
         """Vérification du planning et de la répartition des activités:
         verifie que toutes les activité demandant une liste de participant ont un créneaux"""
-        activities = models.ActivityModel.objects.filter(display=True, communicate_participants=True)
+        activities = models.ActivityModel.objects.filter(display=True, communicate_participants=True, year=get_year())
         errors = []
         for activity in activities:
             count = models.SlotModel.objects.filter(activity=activity).count()
@@ -148,13 +149,59 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
     def check_hidden_activities(self) -> str:
         """Vérification du planning et de la répartition des activités:
         Vérifie que des activités ne soient pas masquées"""
-        hidden_activites = models.ActivityModel.objects.filter(display=False)
+        hidden_activites = models.ActivityModel.objects.filter(display=False, year=get_year())
         errors = []
         for act in hidden_activites:
             errors.append(self.url_activity(act, "display"))
         if errors:
             return self.format_error("Certaines activités ne sont pas affichées", errors)
         return self.format_ok("Toutes les activités sont affichées")
+
+    def check_planning_past_activities(self) -> str:
+        """Vérifie que des activités des années passées ne sont pas affichés"""
+        hidden_activites = models.ActivityModel.objects.filter(display=True).exclude(year=get_year())
+        errors = []
+        for act in hidden_activites:
+            errors.append(self.url_activity(act, "display"))
+        if errors:
+            return self.format_error("Certaines activités des années passées sont affichées:", errors)
+        return self.format_ok("Aucune activité des années passées n'est affichée")
+
+    def check_planning_past_slots(self) -> str:
+        """Vérifie que des créneaux des années passées ne sont pas affichés"""
+        past_slots = models.SlotModel.objects.filter(on_planning=True).exclude(activity__year=get_year())
+        errors = []
+        for slot in past_slots:
+            errors.append(self.url_slot(slot, "on_planning"))
+        if errors:
+            return self.format_error("Certains créneaux des années passées apparaissent sur le planning:", errors)
+        return self.format_ok("Aucun créneaux des années passées n'apparait sur le planning")
+
+    def check_planning_slot_without_activities(self) -> str:
+        """Vérifie que chaque créneau affiché correspond a une activité qui est elle aussi affichée"""
+        slots = models.SlotModel.objects.filter(on_planning=True, activity__display=False)
+        errors = []
+        for slot in slots:
+            errors.append(
+                self.url_slot(slot, "on_planning") + " (activité " + self.url_activity(slot.activity, "display") + ")"
+            )
+        if errors:
+            return self.format_error(
+                "Certains créneaux apparaissent sur le planning alors que leur activité n'est pas affiché:", errors
+            )
+        return self.format_ok("Tous les créneaux du planning correspondent à des activités affichées")
+
+    def check_planning_slots_display(self) -> str:
+        """Vérifie que tout les créneaux pertinents sont affichés"""
+        activities = models.ActivityModel.objects.filter(display=True, year=get_year())
+        errors = []
+        for activity in activities:
+            for slot in activity.slots():
+                if not slot.on_planning:
+                    errors.append(self.url_slot(slot, "on_planning"))
+        if errors:
+            return self.format_error("Certains créneaux ne sont pas affichés sur le planning:", errors)
+        return self.format_ok("Tous les créneaux (des activités affichées de cette année) sont affichés")
 
     def check_repartition_participant_nb(self) -> str:
         """Vérification de la répartition des activités:
@@ -298,7 +345,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         Vérifie que toutes les activités ont le bon nombre de créneaux
         dans le planning"""
         errors = []
-        activities = models.ActivityModel.objects.filter(display=True)
+        activities = models.ActivityModel.objects.filter(display=True, year=get_year())
         for activity in activities:
             nb_wanted = activity.desired_slot_nb
             nb_got = activity.slots().count()
@@ -317,7 +364,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         Vérifie que les créneaux sur inscription correspondent aux activités
         sur inscription"""
         errors = []
-        activities = models.ActivityModel.objects.filter(display=True)
+        activities = models.ActivityModel.objects.filter(display=True, year=get_year())
         for activity in activities:
             for slot in activity.slots():
                 if slot.subscribing_open != activity.must_subscribe:
@@ -363,7 +410,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         if errors:
             return self.format_error("Certains organisteurs gèrent plusieurs créneaux simultanément&nbsp;:", errors)
         return self.format_ok(
-            "Aucun organisateur ne gèrent de créneaux simultanés.<br>(Ne compare que les orgas principaux, pas les éventuels additionels)"
+            "Aucun organisateur ne gère plusieurs créneaux simultanés.<br>(Ne compare que les orgas principaux, pas les éventuels additionels)"
         )
 
     def validate_activity_allocation(self) -> Dict[str, Any]:
@@ -406,7 +453,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         validations += "</ul>"
 
         user_email_nb = models.ParticipantModel.objects.filter(is_registered=True, user__is_active=True).count()
-        acts = models.ActivityModel.objects.filter(display=True)
+        acts = models.ActivityModel.objects.filter(display=True, year=get_year())
         orga_planning_email_nb = len(set(x.host_email for x in acts))
         orga_email_nb = len(set(x.host_email for x in acts.filter(communicate_participants=True)))
 
@@ -418,6 +465,10 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
                 "Le planning n'est pas affiché ({})".format(self.url_parameters("display_planning"))
             )
         planning_validations += hidden
+        planning_validations += self.check_planning_past_activities()
+        planning_validations += self.check_planning_past_slots()
+        planning_validations += self.check_planning_slot_without_activities()
+        planning_validations += self.check_planning_slots_display()
         planning_validations += self.check_planning_slots_nb()
         planning_validations += self.check_planning_registration_matches()
         planning_validations += self.check_planning_slot_conflicts(conflicts)
@@ -455,6 +506,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
         "id",
         "display",
         "title",
+        "year",
         "act_type",
         "game_type",
         "description",
@@ -491,7 +543,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
         "Titre",
         "Début",
         "Salle",
-        "Ouverte aux inscriptions",
+        "Ouvert aux inscriptions",
         "Affiché sur le planning",
         "Affiché sur l'activité",
         "Couleur",

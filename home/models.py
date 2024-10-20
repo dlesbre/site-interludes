@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import EmailUser
-from site_settings.models import ENS, Colors, MEALS, SiteSettings
+from site_settings.models import ENS, MEALS, Colors, SiteSettings, get_year
 
 
 def validate_nonzero(value):
@@ -89,6 +89,12 @@ class ActivityModel(models.Model):
         "afficher l'email de l'orga",
         default=True,
         help_text="Si l'affichage d'email global et cette case sont vrai, affiche l'email de l'orga",
+    )
+
+    year = models.IntegerField(
+        verbose_name="année",
+        default=get_year,
+        help_text="Année de l'édition des interludes (ex: 2025 pour 2024-2025)",
     )
 
     title = models.CharField("Titre", max_length=200)
@@ -437,7 +443,7 @@ class ParticipantModel(models.Model):
     def cost(self) -> Decimal:
         return self.cost_entry() + self.cost_meals() + self.cost_sleep()
 
-    cost.short_description = "tarif"
+    cost.short_description = "tarif"  # type: ignore
 
     class Meta:
         verbose_name = "participant"

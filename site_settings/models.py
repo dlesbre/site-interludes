@@ -9,6 +9,16 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 
+def get_year() -> int:
+    """Return current school year:
+    if between august and december, that is the current year + 1"""
+    date = now()
+    year = date.year
+    if date.month >= 8:
+        year += 1
+    return year
+
+
 class Colors(models.TextChoices):
     """Couleur d'affichage dans le planning
     Leur code HTML est hardcodé dans la template '_planning.html'."""
