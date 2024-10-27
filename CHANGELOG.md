@@ -2,7 +2,7 @@
 
 # Change Log
 
-## master
+## Version 3.0.0 - 2024-10-20 - Interludes 2025 Ulm
 
 - Add uploadable file for logo and favicon
 - Made the hosting school an enum with dynamic how-to-get-here and footer sponsor
@@ -24,7 +24,7 @@
 - Check for orga/orga conflict and orga/participant conflicts
 - Add connection with compte clipper for ENS Ulm
 
-## Version 3.0.0 - 2022-12-02 - Interludes 2023 Saclay
+## Version 2.3.0 - 2022-12-02 - Interludes 2023 Saclay
 
 - Merge saclay's fork
 - Add a salaried/unsalaried field to separate prices
