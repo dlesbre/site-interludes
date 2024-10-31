@@ -250,18 +250,13 @@ Le serveur a besoin d'être configuré pour HTTPS et d'être configuré pour liv
 
 1. Installer les dépendances `make install`
 
-2. S'assurer que `DEBUG = False` et que `ALLOWED_HOSTS` contient les adresses des hôtes dans [settings.py](./interludes/settings.py)
+2. Initialiser les variables d'environnement secrètes (tous les variables initialisées
+    par un `credentials` dans [settings.py](./interludes/settings.py)). Par exemple,
+    (les variables d'environnement doivent avoir un préfixe `INTERLUDE_`).
 
-3. Créer ou remplacer le fichier `interludes/secret.py` pour qu'il ait les mots de passe et un nouveau secret. Vous pouvez générer un secret Django avec
+3. Faire les migrations `make migrate`
 
-	```console
-	python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
-	```
-
-4. Faire les migrations `make migrate`
-- Rajouter des tests unitaires...
-
-5. Faire un `make preprod` pour générer les fichiers statiques et vérifier les réglages
+4. Faire un `make preprod` pour générer les fichiers statiques et vérifier les réglages
 
 ## Idées de développement
 
