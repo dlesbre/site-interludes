@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from typing import Any, List
+from typing import List, Optional, Tuple
+
+from loadcredential import Credentials
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,48 +22,45 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-try:
-    from . import secret
-except ImportError:
-    raise ImportError("The interludes/secret.py file is missing.\nRun 'make secret' to generate a secret.") from None
+credentials = Credentials(env_prefix="INTERLUDES_")
 
+FAKE_SECRET = "i*4$=*fa(644(*!9m2)0-*&sows2uz$b^brb(=)elfn3+y6#1n"
 
-def import_secret(name: str) -> Any:
-    """
-    Shorthand for importing a value from the secret module and raising an
-    informative exception if a secret is missing.
-    """
-    try:
-        return getattr(secret, name)
-    except AttributeError:
-        raise RuntimeError("Secret missing: {}".format(name)) from None
+# FIXME - change in production
+SECRET_KEY: str = credentials.get("SECRET_KEY", FAKE_SECRET)
 
+DB_NAME: str = credentials.get("DB_NAME", "db.sqlite3")
 
-SECRET_KEY = import_secret("SECRET_KEY")
+# FIXME - set to False in production
+ADMINS: List[Tuple[str, str]] = credentials.get_json(
+    "ADMINS",
+    [
+        ("superuser", "superuser@admin.fr"),
+    ],
+)
 
-DB_NAME = import_secret("DB_NAME")
-
-ADMINS = import_secret("ADMINS")
-
-SERVER_EMAIL = import_secret("SERVER_EMAIL")
-DEFAULT_FROM_EMAIL = import_secret("DEFAULT_FROM_EMAIL")
-EMAIL_HOST = import_secret("EMAIL_HOST")
-EMAIL_PORT = import_secret("EMAIL_PORT")
-EMAIL_HOST_USER = import_secret("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = import_secret("EMAIL_HOST_PASSWORD")
+SERVER_EMAIL: str = credentials.get("SERVER_EMAIL", "root@localhost")
+DEFAULT_FROM_EMAIL: str = credentials.get("DEFAULT_FROM_EMAIL", "webmaster@localhost")
+EMAIL_HOST: str = credentials.get("EMAIL_HOST", "localhost")
+EMAIL_PORT: int = credentials.get_json("EMAIL_PORT", 587)
+EMAIL_HOST_USER: Optional[str] = credentials.get("EMAIL_HOST_USER", None)
+EMAIL_HOST_PASSWORD: Optional[str] = credentials.get("EMAIL_HOST_PASSWORD", None)
 
 EMAIL_USE_SSL = True
 
 # FIXME - set to False in production
-DEBUG = True
+DEBUG = credentials.get_json("DEBUG", True)
 
 # FIXME - set hosts in production
-ALLOWED_HOSTS: List[str] = []
+ALLOWED_HOSTS: List[str] = credentials.get_json("ALLOWED_HOSTS", [])
 
 if DEBUG:
     # This will display emails in Console.
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
+    if SECRET_KEY == FAKE_SECRET:
+        raise ValueError("Secret was not changed")
+
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
     SECURE_SSL_REDIRECT = True
@@ -179,10 +178,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = credentials.get("STATIC_ROOT", os.path.join(BASE_DIR, "static"))
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = credentials.get("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "profile"
