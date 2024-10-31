@@ -12,7 +12,6 @@ PYTHON := python3 -Wa
 PIP := pip3
 MANAGER := manage.py
 DB := db.sqlite3
-SECRET := interludes/secret.py
 
 PRECOMMIT = pre-commit
 MYPY = mypy
@@ -65,26 +64,19 @@ help: ## Show this help
 	@echo -e "$(color_yellow)make:$(color_reset) list of useful targets:"
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(color_blue)%-$(HELP_PADDING)s$(color_reset) %s\n", $$1, $$2}'
 
-.PHONY: secret
-secret: ## Link the secret_example.py to secret.py (only in dev mode)
-
-secret $(SECRET):
-	$(call print,Creating interludes/secret.py from interludes/secret_example.py)
-	ln -s "$(PWD)/interludes/secret_example.py" interludes/secret.py
-
 .PHONY: migrate
-migrate: $(SECRET) ## Make and run migrations
+migrate: ## Make and run migrations
 	$(call print,Migrating database)
 	$(PYTHON) $(MANAGER) makemigrations
 	$(PYTHON) $(MANAGER) migrate
 
 .PHONY: serve
-serve: $(SECRET) ## Run the django server (blocking)
+serve: ## Run the django server (blocking)
 	$(call print,Running server (accessible from http://localhost:8000))
 	$(PYTHON) $(MANAGER) runserver
 
 .PHONY: host
-host: $(SECRET) ## Host locally to access from same network (make sure to add IP to ALLOWED_HOSTS)
+host: ## Host locally to access from same network (make sure to add IP to ALLOWED_HOSTS)
 	$(call print,Hosting server locally (accessible from http://localhost:8000))
 	$(PYTHON) $(MANAGER) runserver 0.0.0.0:8000
 
@@ -100,12 +92,12 @@ clean-all: clean ## Delete database and migration files
 	find . -path "*/migrations/*.pyc" -not -path "*/venv/*" -delete
 
 .PHONY: adduser
-adduser: $(SECRET) ## Create a new superuser
+adduser: ## Create a new superuser
 	$(call print,Creating a new superuser)
 	$(PYTHON) $(MANAGER) createsuperuser
 
 .PHONY: shell
-shell: $(SECRET) ## Run django's shell
+shell: ## Run django's shell
 	$(call print,Starting django's shell)
 	$(PYTHON) $(MANAGER) shell
 
@@ -124,12 +116,12 @@ precommit-all: ## run precommit on all files
 	$(PRECOMMIT) run --all-files
 
 .PHONY: static
-static: $(SECRET) compressed ## collect static files
+static: compressed ## collect static files
 	$(call print,Collecting static files)
 	$(PYTHON) $(MANAGER) collectstatic
 
 .PHONY: test
-test: $(SECRET) ## Tests all the apps with django's tests
+test: ## Tests all the apps with django's tests
 	$(call print,Running django tests)
 	$(PYTHON) -m coverage run --source='.' $(MANAGER) test --noinput
 	$(call print,Coverage report)
@@ -171,7 +163,7 @@ install:
 	$(PIP) install -r requirements.txt
 
 .PHONY: setup
-setup: install $(SECRET) migrate ## Install dependencies and make migrations
+setup: install migrate ## Install dependencies and make migrations
 
 .PHONY: start
 start: setup serve ## Install requirements, apply migrations, then start development server
