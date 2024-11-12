@@ -2,6 +2,10 @@
 
 # Change Log
 
+## Version 3.0.1 - 2024-11-12 - Hotfix
+
+- Fix change password login failure
+
 ## Version 3.0.0 - 2024-10-20 - Interludes 2025 Ulm
 
 - Add uploadable file for logo and favicon
