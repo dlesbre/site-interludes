@@ -230,7 +230,7 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
         assert isinstance(self.request.user, EmailUser)
         form.apply()
         messages.success(self.request, "Mot de passe mis à jour")
-        login(self.request, self.request.user)
+        login(self.request, self.request.user, backend="django.contrib.auth.backends.ModelBackend")
         return redirect("profile")
 
 
@@ -330,5 +330,5 @@ class ClipperLoginView(View):
         user = authenticate(request, ticket=ticket)
         if user is None:
             raise PermissionDenied("Connection échouée !")
-        login(request, user)
+        login(request, user, backend="")
         return redirect(self.get_next_url())
