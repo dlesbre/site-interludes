@@ -5,6 +5,7 @@
 ## Version 3.0.1 - 2024-11-12 - Hotfix
 
 - Fix change password login failure
+- Switch to loadcredential for secrets
 
 ## Version 3.0.0 - 2024-10-20 - Interludes 2025 Ulm
 
