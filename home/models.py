@@ -436,7 +436,7 @@ class ParticipantModel(models.Model):
             suffix = "_meal_paid"
         total = Decimal(0)
         for meal in MEALS:
-            if getattr(settings, "meal_" + meal):
+            if getattr(settings, "meal_" + meal) and getattr(self, "meal_" + meal):
                 total += getattr(settings, "price_" + meal + suffix)
         return total
 

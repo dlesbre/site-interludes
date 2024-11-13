@@ -32,13 +32,13 @@
 		{% if user.profile.nb_meals != 0 %}
 		<li>Inscrit à {{ user.profile.nb_meals }} repas :</li>
 			<ul>
-				{% if user.profile.meal_friday_evening == True %}<li>Vendredi soir</li>{% endif %}
-				{% if user.profile.meal_saturday_morning == True %}<li>Petit dej' du samedi</li>{% endif %}
-				{% if user.profile.meal_saturday_midday == True %}<li>Samedi midi</li>{% endif %}
-				{% if user.profile.meal_saturday_evening == True %}<li>Samedi soir</li>{% endif %}
-				{% if user.profile.meal_sunday_morning == True %}<li>Petit dej' du dimanche</li>{% endif %}
-				{% if user.profile.meal_sunday_midday == True %}<li>Dimanche midi</li>{% endif %}
-				{% if user.profile.meal_sunday_evening == True %}<li>Dimanche soir (à emporter)</li>{% endif %}
+				{% if settings.meal_friday_evening and user.profile.meal_friday_evening %}<li>Vendredi soir</li>{% endif %}
+				{% if settings.meal_saturday_morning and user.profile.meal_saturday_morning  %}<li>Petit dej' du samedi</li>{% endif %}
+				{% if settings.meal_saturday_midday and user.profile.meal_saturday_midday  %}<li>Samedi midi</li>{% endif %}
+				{% if settings.meal_saturday_evening and user.profile.meal_saturday_evening  %}<li>Samedi soir</li>{% endif %}
+				{% if settings.meal_sunday_morning and user.profile.meal_sunday_morning  %}<li>Petit dej' du dimanche</li>{% endif %}
+				{% if settings.meal_sunday_midday and user.profile.meal_sunday_midday  %}<li>Dimanche midi</li>{% endif %}
+				{% if settings.meal_sunday_evening and user.profile.meal_sunday_evening  %}<li>Dimanche soir (à emporter)</li>{% endif %}
 			</ul>
 		{% else %}
 		<li>Inscrit à aucun repas</li>
