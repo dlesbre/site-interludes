@@ -448,13 +448,14 @@ class ParticipantModel(models.Model):
 
     def cost_options(self) -> Decimal:
         settings = SiteSettings.load()
-        suffix = "_price_unpaid"
+        suffix = "_unpaid"
         if self.paid:
-            suffix = "_price_paid"
+            suffix = "_paid"
         total = Decimal(0)
         for option in OPTIONS:
             if getattr(settings, option + "_enable") and getattr(self, option):
-                total + getattr(settings, option + suffix)
+                total += getattr(settings, "price_" + option + suffix)
+        print(total)
         return total
 
     def cost(self) -> Decimal:

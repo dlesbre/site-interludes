@@ -43,6 +43,20 @@
 		{% else %}
 		<li>Inscrit à aucun repas</li>
 		{% endif %}
+		{% if settings.option1_enable or settings.option2_enable or settings.option3_enable or settings.option4_enable or settings.option5_enable %} 
+		{% if user.profile.option1 or user.profile.option2 or user.profile.option3 or user.profile.option4 or user.profile.option5 %} 
+		<li>
+			Options&nbsp;:
+			<ul>
+			{% if settings.option1_enable %}<li>{{ settings.option1_description }}</li>{% endif %}
+			{% if settings.option2_enable %}<li>{{ settings.option2_description }}</li>{% endif %}
+			{% if settings.option3_enable %}<li>{{ settings.option3_description }}</li>{% endif %}
+			{% if settings.option4_enable %}<li>{{ settings.option4_description }}</li>{% endif %}
+			{% if settings.option5_enable %}<li>{{ settings.option5_description }}</li>{% endif %}
+			</ul>
+		</li>
+		{% endif %}
+		{% endif %}
 		{% if settings.activities_allocated %}
 			{% if my_choices %}
 			<li>Inscrit&middot;e à {{ my_choices|length }} activités&nbsp;:

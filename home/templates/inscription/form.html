@@ -17,13 +17,13 @@
 
 		<p>Vous pouvez vous inscrire aux repas ci-dessous&nbsp;:</p>
 		<table>
-			{% if settings.meal_friday_evening %}<tr><td>Vendredi soir&nbsp;:</td><td>{{ form.meal_friday_evening }}</td></tr>{% endif %}
-			{% if settings.meal_saturday_morning %}<tr><td>Samedi matin&nbsp;:</td><td>{{ form.meal_saturday_morning }}</td></tr>{% endif %}
-			{% if settings.meal_saturday_midday %}<tr><td>Samedi midi&nbsp;:</td><td>{{ form.meal_saturday_midday }}</td></tr>{% endif %}
-			{% if settings.meal_saturday_evening %}<tr><td>Samedi soir&nbsp;:</td><td>{{ form.meal_saturday_evening }}</td></tr>{% endif %}
-			{% if settings.meal_sunday_morning %}<tr><td>Dimanche matin&nbsp;:</td><td>{{ form.meal_sunday_morning }}</td></tr>{% endif %}
-			{% if settings.meal_sunday_midday %}<tr><td>Dimanche midi&nbsp;:</td><td>{{ form.meal_sunday_midday }}</td></tr>{% endif %}
-			{% if settings.meal_sunday_evening %}<tr><td>Dimanche soir&nbsp;:</td><td>{{ form.meal_sunday_evening }}</td></tr>{% endif %}
+			{% if settings.meal_friday_evening %}<tr><td>Vendredi soir&nbsp;:</td><td>{{ form.meal_friday_evening }}</td><td>{{ settings.price_friday_evening_meal }}</td></tr>{% endif %}
+			{% if settings.meal_saturday_morning %}<tr><td>Samedi matin&nbsp;:</td><td>{{ form.meal_saturday_morning }}</td><td>{{ settings.price_saturday_morning_meal }}</td></tr>{% endif %}
+			{% if settings.meal_saturday_midday %}<tr><td>Samedi midi&nbsp;:</td><td>{{ form.meal_saturday_midday }}</td><td>{{ settings.price_saturday_midday_meal }}</td></tr>{% endif %}
+			{% if settings.meal_saturday_evening %}<tr><td>Samedi soir&nbsp;:</td><td>{{ form.meal_saturday_evening }}</td><td>{{ settings.price_saturday_evening_meal }}</td></tr>{% endif %}
+			{% if settings.meal_sunday_morning %}<tr><td>Dimanche matin&nbsp;:</td><td>{{ form.meal_sunday_morning }}</td><td>{{ settings.price_sunday_morning_meal }}</td></tr>{% endif %}
+			{% if settings.meal_sunday_midday %}<tr><td>Dimanche midi&nbsp;:</td><td>{{ form.meal_sunday_midday }}</td><td>{{ settings.price_sunday_midday_meal }}</td></tr>{% endif %}
+			{% if settings.meal_sunday_evening %}<tr><td>Dimanche soir&nbsp;:</td><td>{{ form.meal_sunday_evening }}</td><td>{{ settings.price_sunday_evening_meal }}</td></tr>{% endif %}
 		</table>
 
 		<p>Les menus sont disponibles sur la <a href="{% url 'home' %}#menus">page d'accueil</a>
@@ -32,7 +32,7 @@
 
 		<p>
 			Les conditions d'hébergements sont détaillés sur la 
-			<a href="{% url 'home' %}#hebergement">page d'accueil</a>
+			<a href="{% url 'home' %}#hebergement">page d'accueil</a>.
 		</p>
 		<p>
 			Si vous souhaitez un hébergement, cochez la case
@@ -56,9 +56,30 @@
 
 		<h3>Tarif</h3>
 		<p>Le tarif est différent selon si vous percevez un salaire ou non.</p>
-		<p>Êtes-vous salarié⋅e : {{ form.paid }}</p>
+		<p>Êtes-vous salarié⋅e&nbsp;: {{ form.paid }}</p>
 
 		<p>Les tarifs sont disponibles sur la <a href="{% url 'home' %}#tarifs">page d'accueil</a>
+
+		{% if settings.option1_enable or settings.option2_enable or settings.option3_enable or settings.option4_enable or settings.option5_enable %} 
+		<table>
+			{% if settings.option1_enable %}
+			<tr><td>{{ settings.option1_description }}&nbsp;:</td><td>{{ form.option1 }}</td><td>{{ settings.price_option1 }}</td></tr>
+			{% endif %}
+			{% if settings.option2_enable %}
+			<tr><td>{{ settings.option2_description }}&nbsp;:</td><td>{{ form.option2 }}</td><td>{{ settings.price_option2 }}</td></tr>
+			{% endif %}
+			{% if settings.option3_enable %}
+			<tr><td>{{ settings.option3_description }}&nbsp;:</td><td>{{ form.option3 }}</td><td>{{ settings.price_option3 }}</td></tr>
+			{% endif %}
+			{% if settings.option4_enable %}
+			<tr><td>{{ settings.option4_description }}&nbsp;:</td><td>{{ form.option4 }}</td><td>{{ settings.price_option4 }}</td></tr>
+			{% endif %}
+			{% if settings.option5_enable %}
+			<tr><td>{{ settings.option5_description }}&nbsp;:</td><td>{{ form.option5 }}</td><td>{{ settings.price_option5 }}</td></tr>
+			{% endif %}
+		</table>
+		{% endif %}
+
 
 	<h2>Inscription aux activités</h2>
 		

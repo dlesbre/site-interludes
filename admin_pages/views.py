@@ -59,6 +59,12 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             meal7 = registered.filter(meal_sunday_evening=True).count() if settings.meal_sunday_evening else 0
             meals = meal1 + meal2 + meal3 + meal4 + meal5 + meal6 + meal7
 
+            option1 = registered.filter(option1=True).count() if settings.option1_enable else 0
+            option2 = registered.filter(option2=True).count() if settings.option2_enable else 0
+            option3 = registered.filter(option3=True).count() if settings.option3_enable else 0
+            option4 = registered.filter(option4=True).count() if settings.option4_enable else 0
+            option5 = registered.filter(option5=True).count() if settings.option5_enable else 0
+
             activites = acts.count()
             displayed = acts.filter(display=True).count()
             act_ins = acts.filter(display=True, must_subscribe=True).count()
@@ -77,6 +83,7 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
             revenue_meal = sum(x.cost_meals() for x in registered)
             revenue_sleep = sum(x.cost_sleep() for x in registered)
             revenue_entry = sum(x.cost_entry() for x in registered)
+            revenue_options = sum(x.cost_options() for x in registered)
 
         return metrics
 

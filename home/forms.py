@@ -23,6 +23,11 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
             "extra_contact",
             "murder_comment",
             "comment",
+            "option1",
+            "option2",
+            "option3",
+            "option4",
+            "option5",
         )
 
     field_groups = [
@@ -36,6 +41,13 @@ class InscriptionForm(FormRenderMixin, forms.ModelForm):
             "meal_sunday_morning",
             "meal_sunday_midday",
             "meal_sunday_evening",
+        ],
+        [
+            "option1",
+            "option2",
+            "option3",
+            "option4",
+            "option5",
         ],
         ["paid"],
         ["nb_murder", "extra_contact", "murder_comment"],

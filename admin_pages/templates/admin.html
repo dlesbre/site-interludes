@@ -236,7 +236,47 @@
 			<div class="qty">Dormir</div>
 			<div class="nb_small">{{ metrics.revenue_sleep }}</div>
 		</div>
+		<div class="stat">
+			<div class="qty">Options</div>
+			<div class="nb_small">{{ metrics.revenue_options }}</div>
+		</div>
 	</div>
+
+	{% if settings.option1_enable or settings.option2_enable or settings.option3_enable or settings.option4_enable or settings.option5_enable %} 
+	<div class="flex wrap lines">
+		{% if settings.option1_enable %}
+		<div class="stat">
+			<div class="qty">{{ settings.option1_description }}</div>
+			<div class="nb_small">{{ metrics.option1 }}</div>
+		</div>
+		{% endif %}
+		{% if settings.option2_enable %}
+		<div class="stat">
+			<div class="qty">{{ settings.option2_description }}</div>
+			<div class="nb_small">{{ metrics.option2 }}</div>
+		</div>
+		{% endif %}
+		{% if settings.option3_enable %}
+		<div class="stat">
+			<div class="qty">{{ settings.option3_description }}</div>
+			<div class="nb_small">{{ metrics.option3 }}</div>
+		</div>
+		{% endif %}
+		{% if settings.option4_enable %}
+		<div class="stat">
+			<div class="qty">{{ settings.option4_description }}</div>
+			<div class="nb_small">{{ metrics.option4 }}</div>
+		</div>
+		{% endif %}
+		{% if settings.option5_enable %}
+		<div class="stat">
+			<div class="qty">{{ settings.option5_description }}</div>
+			<div class="nb_small">{{ metrics.option5 }}</div>
+		</div>
+		{% endif %}
+	</div>
+	{% endif %}
+
 	<p>*Ces métriques ne compte que les activités/créneaux de l'année actuelle ({{ year }}).</p>
 	<p>**Une activité peut avoir plusieurs créneaux sur le planning. Les inscriptions se font par créneaux donc le nombre
 		d'inscriptions de la catégorie "Activités" est seulement informatif.
