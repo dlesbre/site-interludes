@@ -2,6 +2,11 @@
 
 # Change Log
 
+## Version ??? - Unreleased
+
+- Fix price computation not counting meals properly
+- Add a sponsor table to DB to customize sponsors
+
 ## Version 3.0.1 - 2024-11-12 - Hotfix
 
 - Fix change password login failure
