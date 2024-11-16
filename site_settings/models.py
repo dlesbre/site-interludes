@@ -553,3 +553,30 @@ class SiteSettings(SingletonModel):
 
     def hosting_school_adjective_plural(self) -> str:
         return ENS(self.hosting_school).adjective_plural()
+
+
+class SponsorModel(models.Model):
+    """Model for footer sponser logos"""
+
+    name = models.CharField(
+        "nom",
+        max_length=100,
+        help_text="L'affichage des sponsors se fait par order alphabétique",
+    )
+    display = models.BooleanField(
+        "Affiché",
+        default=False,
+    )
+    image = models.FileField("logo")
+    url = models.URLField("lien")
+    alt_text = models.CharField(
+        "alt-text",
+        max_length=100,
+        help_text="S'affiche si l'image ne peut pas être chargée",
+    )
+
+    class Meta:
+        # couples uniques
+        ordering = ("name",)
+        verbose_name = "sponsor"
+        verbose_name_plural = "sponsors"

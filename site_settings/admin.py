@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from site_settings.models import SiteSettings
+from site_settings.models import SiteSettings, SponsorModel
 
 
 class SingletonModelAdmin(admin.ModelAdmin):
@@ -132,3 +132,10 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             },
         ),
     ]
+
+
+@admin.register(SponsorModel)
+class SponsorModelAdmin(admin.ModelAdmin):
+    list_display = ["name", "display"]
+    list_editable = ["display"]
+    ordering = ["name"]
