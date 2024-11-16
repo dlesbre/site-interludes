@@ -2,10 +2,11 @@
 
 # Change Log
 
-## Version ??? - Unreleased
+## Version 3.0.2 - 2024-11-16 - Add missing stuff
 
 - Fix price computation not counting meals properly
-- Add a sponsor table to DB to customize sponsors
+- Add a sponsor table to DB to customize sponsors in footer
+- Add options to customize price further
 
 ## Version 3.0.1 - 2024-11-12 - Hotfix
 
