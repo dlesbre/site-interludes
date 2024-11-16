@@ -455,7 +455,6 @@ class ParticipantModel(models.Model):
         for option in OPTIONS:
             if getattr(settings, option + "_enable") and getattr(self, option):
                 total += getattr(settings, "price_" + option + suffix)
-        print(total)
         return total
 
     def cost(self) -> Decimal:
