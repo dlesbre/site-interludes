@@ -458,7 +458,7 @@ class SiteSettings(SingletonModel):
         if all(x[1] == all_meals[0][1] for x in all_meals):
             # All meals have the same price
             return "<li><strong>Repas&nbsp;:</strong> {} par repas</li>".format(all_meals[0][1])
-        elif len(all_meals) >= 5 and all(x[1] == all_meals[0][1] for x in all_meals[:-1]):
+        elif len(all_meals) >= 3 and all(x[1] == all_meals[0][1] for x in all_meals[:-1]):
             # All meals but the last one have the same price
             return "<li><strong>Repas (du {} au {})&nbsp;:</strong> {} par repas</li>\n\
                 <li><strong>Repas du {}&nbsp;:</strong> {}</li>".format(
