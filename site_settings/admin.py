@@ -61,6 +61,26 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             },
         ),
         (
+            "Options",
+            {
+                "fields": [
+                    ("option1_enable", "option1_description"),
+                    ("price_option1_unpaid", "price_option1_paid"),
+                    ("option2_enable", "option2_description"),
+                    ("price_option2_unpaid", "price_option2_paid"),
+                    ("option3_enable", "option3_description"),
+                    ("price_option3_unpaid", "price_option3_paid"),
+                    ("option4_enable", "option4_description"),
+                    ("price_option4_unpaid", "price_option4_paid"),
+                    ("option5_enable", "option5_description"),
+                    ("price_option5_unpaid", "price_option5_paid"),
+                ],
+                "description": "Les options permettent de modifier le tarif pour, "
+                "par example, offrir une réduction aux adhérents BdE (tarifs négatifs), ou faire payer un peu "
+                "plus pour commander des goodies.",
+            },
+        ),
+        (
             "Activités",
             {
                 "fields": [

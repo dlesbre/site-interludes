@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import EmailUser
-from site_settings.models import ENS, MEALS, Colors, SiteSettings, get_year
+from site_settings.models import ENS, MEALS, OPTIONS, Colors, SiteSettings, get_year
 
 
 def validate_nonzero(value):
@@ -398,6 +398,12 @@ class ParticipantModel(models.Model):
 
     amount_paid = models.PositiveIntegerField("Montant payé", default=0)
 
+    option1 = models.BooleanField("option 1", default=False)
+    option2 = models.BooleanField("option 2", default=False)
+    option3 = models.BooleanField("option 3", default=False)
+    option4 = models.BooleanField("option 4", default=False)
+    option5 = models.BooleanField("option 5", default=False)
+
     def __str__(self) -> str:
         school = ENS(self.school).label.replace("ENS ", "") if self.school else ""
         return "{} {} ({})".format(self.user.first_name, self.user.last_name, school)
@@ -440,8 +446,19 @@ class ParticipantModel(models.Model):
                 total += getattr(settings, "price_" + meal + suffix)
         return total
 
+    def cost_options(self) -> Decimal:
+        settings = SiteSettings.load()
+        suffix = "_price_unpaid"
+        if self.paid:
+            suffix = "_price_paid"
+        total = Decimal(0)
+        for option in OPTIONS:
+            if getattr(settings, option + "_enable") and getattr(self, option):
+                total + getattr(settings, option + suffix)
+        return total
+
     def cost(self) -> Decimal:
-        return self.cost_entry() + self.cost_meals() + self.cost_sleep()
+        return self.cost_entry() + self.cost_meals() + self.cost_sleep() + self.cost_options()
 
     cost.short_description = "tarif"  # type: ignore
 

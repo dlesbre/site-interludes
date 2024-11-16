@@ -136,6 +136,14 @@ MEALS_FR = [
     "dimanche soir",
 ]
 
+OPTIONS = [
+    "option1",
+    "option2",
+    "option3",
+    "option4",
+    "option5",
+]
+
 
 class SiteSettings(SingletonModel):
     """Réglages globaux du site
@@ -259,6 +267,122 @@ class SiteSettings(SingletonModel):
         default=0,
     )
 
+    option1_enable = models.BooleanField(
+        "Option 1",
+        default=False,
+    )
+    option1_description = models.CharField(
+        "Description Option 1",
+        blank=True,
+        null=True,
+        help_text="ex: 'Adhérent du COF', 'Commande un Mug'...",
+        max_length=200,
+    )
+    price_option1_paid = models.DecimalField(
+        "prix option 1 (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_option1_unpaid = models.DecimalField(
+        "prix option 1 (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    option2_enable = models.BooleanField(
+        "Option 2",
+        default=False,
+    )
+    option2_description = models.CharField(
+        "Description Option 2",
+        blank=True,
+        null=True,
+        max_length=200,
+    )
+    price_option2_paid = models.DecimalField(
+        "prix option 2 (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_option2_unpaid = models.DecimalField(
+        "prix option 2 (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    option3_enable = models.BooleanField(
+        "Option 3",
+        default=False,
+    )
+    option3_description = models.CharField(
+        "Description Option 3",
+        blank=True,
+        null=True,
+        max_length=200,
+    )
+    price_option3_paid = models.DecimalField(
+        "prix option 3 (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_option3_unpaid = models.DecimalField(
+        "prix option 3 (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    option4_enable = models.BooleanField(
+        "Option 4",
+        default=False,
+    )
+    option4_description = models.CharField(
+        "Description Option 4",
+        blank=True,
+        null=True,
+        max_length=200,
+    )
+    price_option4_paid = models.DecimalField(
+        "prix option 4 (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_option4_unpaid = models.DecimalField(
+        "prix option 4 (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
+    option5_enable = models.BooleanField(
+        "Option 5",
+        default=False,
+    )
+    option5_description = models.CharField(
+        "Description Option 5",
+        blank=True,
+        null=True,
+        max_length=200,
+    )
+    price_option5_paid = models.DecimalField(
+        "prix option 5 (salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    price_option5_unpaid = models.DecimalField(
+        "prix option 5 (non-salarié)",
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+
     @staticmethod
     def pretty_price(name: str) -> Callable[["SiteSettings"], str]:
         def pp(self):
@@ -279,6 +403,11 @@ class SiteSettings(SingletonModel):
     price_sunday_morning_meal = pretty_price("sunday_morning_meal")
     price_sunday_midday_meal = pretty_price("sunday_midday_meal")
     price_sunday_evening_meal = pretty_price("sunday_evening_meal")
+    price_option1 = pretty_price("option1")
+    price_option2 = pretty_price("option2")
+    price_option3 = pretty_price("option3")
+    price_option4 = pretty_price("option4")
+    price_option5 = pretty_price("option5")
 
     meal_friday_evening = models.BooleanField("Repas vendredi soir", default=True)
     meal_saturday_morning = models.BooleanField("Repas samedi matin", default=True)
@@ -329,7 +458,7 @@ class SiteSettings(SingletonModel):
         if all(x[1] == all_meals[0][1] for x in all_meals):
             # All meals have the same price
             return "<li><strong>Repas&nbsp;:</strong> {} par repas</li>".format(all_meals[0][1])
-        elif len(all_meals) >= 3 and all(x[1] == all_meals[0][1] for x in all_meals[:-1]):
+        elif len(all_meals) >= 5 and all(x[1] == all_meals[0][1] for x in all_meals[:-1]):
             # All meals but the last one have the same price
             return "<li><strong>Repas (du {} au {})&nbsp;:</strong> {} par repas</li>\n\
                 <li><strong>Repas du {}&nbsp;:</strong> {}</li>".format(

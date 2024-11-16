@@ -209,6 +209,13 @@ class ParticipantModelAdmin(ExportCsvMixin):
                         "meal_sunday_midday",
                         "meal_sunday_evening",
                     ),
+                    (
+                        "option1",
+                        "option2",
+                        "option3",
+                        "option4",
+                        "option5",
+                    ),
                     "sleeps",
                     "paid",
                     "amount_paid",
