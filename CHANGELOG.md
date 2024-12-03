@@ -2,6 +2,10 @@
 
 # Change Log
 
+## Version 3.0.3 - 2024-12-04
+
+- Set session to last 48 hours
+
 ## Version 3.0.2 - 2024-11-16 - Add missing stuff
 
 - Fix price computation not counting meals properly
