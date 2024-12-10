@@ -144,7 +144,7 @@ class ActivityModel(models.Model):
     min_participants = models.PositiveIntegerField("Nombre minimum de participants", default=0)
 
     # Information fournies par le respo
-    duration = models.DurationField("Durée", help_text="format hh:mm:ss")
+    duration = models.DurationField("Durée", help_text="format hh:mm:ss (ou j hh:mm:ss)")
     desired_slot_nb = models.PositiveIntegerField(
         "Nombre de créneaux souhaités", default=1, validators=[validate_nonzero]
     )
@@ -223,7 +223,7 @@ class ActivityModel(models.Model):
         return ret
 
     def pretty_duration(self) -> str:
-        hours, rem = divmod(self.duration.seconds, 3600)
+        hours, rem = divmod(int(self.duration.total_seconds()), 3600)
         minutes = "{:02}".format(rem // 60) if rem // 60 else ""
         return "{}h{}".format(hours, minutes)
 
@@ -269,7 +269,7 @@ class SlotModel(models.Model):
         "durée",
         blank=True,
         null=True,
-        help_text="Format 00:00:00. Laisser vide pour prendre la durée de l'activité correspondante",
+        help_text="Format hh:mm:ss (ou j hh:mm:ss). Laisser vide pour prendre la durée de l'activité correspondante",
     )
     room = models.CharField("salle", max_length=100, null=True, blank=True)
     on_planning = models.BooleanField(
