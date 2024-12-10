@@ -2,6 +2,12 @@
 
 # Change Log
 
+## Version 3.0.4 - 2024-12-10
+
+- Fix planning display of activites lasting 3 days
+- Fix pretty duration of activities lasting more than 24 hours
+- Change help text of duration fields to specify number of days
+
 ## Version 3.0.3 - 2024-12-04
 
 - Set session to last 48 hours
