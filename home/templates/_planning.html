@@ -16,38 +16,22 @@ I.E we set all dates to the first day (Friday) and set groups allowing vertical 
 
 	// Items in the timeline
 	const items = new vis.DataSet([
-	{% for slot in planning %}
-		{% if slot.start_day == slot.end_day %}
+	{% comment %}
+		// The planning displays all slots in a single day, using the timeline 'group' feature
+		// to display days one under the other. Thus we need one slot per day for mutli day
+		// activities.
+	{% endcomment %}
+	{% for slot in planning %}{% for day in slot.days %}
 			{
 				content: '<div style="background-color: yellow;"><a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a></div>',
 				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
-				start: '{{ slot.planning_start|date:"Y-m-d H:i:s"}}',
+				start: '{% if forloop.first %}{{ slot.planning_start|date:"Y-m-d H:i:s"}}{% else %}{{ settings.date_start|date:"Y-m-d"}} 04:00:00{% endif %}',
 				align: 'left',
-				group: {{ slot.start_day }},
-				end:'{{ slot.planning_end|date:"Y-m-d H:i:s"}}',
+				group: {{ day }},
+				end:'{% if forloop.last %}{{ slot.planning_end|date:"Y-m-d H:i:s"}}{% else %}{{ settings.date_2|date:"Y-m-d"}} 04:00:00{% endif %}',
 				className: "color-{{ slot.color }}",
 			},
-		{% else %} // activity spans multiple days
-			{
-				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
-				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
-				start: '{{ slot.planning_start|date:"Y-m-d H:i:s"}}',
-				align: 'left',
-				group: {{ slot.start_day }},
-				end:'{{ settings.date_2|date:"Y-m-d"}} 04:00:00',
-				className: "color-{{ slot.color }}",
-			},
-			{
-				content: '<a class="hidden" href="#{{ slot.activity.slug }}"><div><strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}</div></a>',
-				title: '<strong>{{ slot }}</strong><br>{{ slot.room|default:"" }}',
-				start: '{{ settings.date_start|date:"Y-m-d"}} 04:00:00',
-				align: 'left',
-				group: {{ slot.end_day }},
-				end:'{{ slot.planning_end|date:"Y-m-d H:i:s"}}',
-				className: "color-{{ slot.color }}",
-			},
-		{% endif %}
-	{% endfor %}
+	{% endfor %}{% endfor %}
 	]);
 
 	// Configuration for the Timeline

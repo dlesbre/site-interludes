@@ -1,6 +1,6 @@
 from datetime import datetime, time, timedelta
 from decimal import Decimal
-from typing import Optional
+from typing import List, Optional
 
 from django.db import models
 from django.forms import ValidationError
@@ -347,6 +347,10 @@ class SlotModel(models.Model):
     def end_day(self) -> int:
         """returns a day (0-2)"""
         return self.relative_day(self.end())
+
+    def days(self) -> List[int]:
+        """List of all days (0-2) of this slot"""
+        return list(range(self.start_day(), self.end_day() + 1))
 
     def planning_start(self) -> Optional[datetime]:
         return self.fake_date(self.start)
