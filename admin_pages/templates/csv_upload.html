@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "content" %}
+
+<h2>Importer le choix d'activité au format CSV</h2>
+
+<p>
+  Vous pouvez initialiser les
+  <a href='{% url "admin:home_activitychoicesmodel_changelist"%}'>choix d'activités</a>
+  en téléversant un fichier au format CSV (exportable depuis n'importe quel tableur type Excel/Libreoffice Calc).
+  Ce fichier doit au moins contenir deux colonnes <strong>id_participant</strong> et
+  <strong>id_créneau</strong>.
+</p>
+
+<p>Plus spécifiquement, plusieurs formats sont acceptés&nbsp;:
+<ul>
+  <li>Un fichier CSV avec deux colonnes de numéros, sans entêtes, dans l'ordre participant, créneau;</li>
+  <li>Un fichier CSV avec entêtes&nbsp;: la première ligne contenant <strong>id_participant</strong> et
+    <strong>id_créneau</strong> dans les colonnes idoines.
+  </li>
+</ul>
+Le fichier sera rejeté s'il contient des identifiants invalides, ou désigne des couples
+participant/créneau qui ne sont pas déjà présent dans la table
+<a href='{% url "admin:home_activitychoicesmodel_changelist"%}'>choix d'activités</a>.
+</p>
+
+<form method="post" action="{% url 'admin_pages:csv_upload' %}">
+  {% csrf_token %}
+
+  <div>{{ form.file }}</div>
+
+  <br>
+
+  <div class="flex">
+    <input type="submit" value="Envoyer">
+    <a class="button" href="{% url 'admin_pages:index' %}">Annuler</a>
+  </div>
+</form>
+{% endblock %}

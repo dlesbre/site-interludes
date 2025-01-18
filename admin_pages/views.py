@@ -13,7 +13,7 @@ from django.utils.timezone import now
 from django.views.generic import FormView, RedirectView, TemplateView
 
 from accounts.models import EmailUser
-from admin_pages.forms import Recipients, SendEmailForm
+from admin_pages.forms import FileUploadForm, Recipients, SendEmailForm
 from home import models
 from home.views import get_planning_context
 from interludes import settings as site_settings
@@ -499,6 +499,13 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         return context
 
 
+class CSV_UploadView(SuperuserRequiredMixin, FormView):
+    """Importer les choix d'activités au format CSV"""
+
+    form_class = FileUploadForm
+    template_name = "csv_upload.html"
+
+
 # ==============================
 # DB Export Views
 # ==============================
@@ -945,11 +952,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
             mail_admins(
                 "Email envoyé",
-                "Un email a été envoyé à {}.\n"
-                "Nombre total de mail envoyés: {}\n\n"
-                "Sujet : {}\n\n"
-                "{}\n\n"
-                "{}".format(
+                "Un email a été envoyé à {}.\nNombre total de mail envoyés: {}\n\nSujet : {}\n\n{}\n\n{}".format(
                     Recipients(dest).label,
                     nb_sent,
                     subject,

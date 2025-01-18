@@ -31,3 +31,12 @@ class SendEmailForm(forms.Form):
         strip=True,
     )
     text = forms.CharField(label="Contenu", strip=True, widget=forms.Textarea)
+
+
+class FileUploadForm(forms.Form):
+    """Formulaire pour uploader un simple fichier CSV"""
+
+    file = forms.FileField(
+        required=True,
+        label="Fichier",
+    )

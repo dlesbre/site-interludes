@@ -8,6 +8,7 @@ urlpatterns = [
     path("info", views.SiteInfo.as_view(), name="info"),
     path("export/activities/", views.ExportActivities.as_view(), name="activities.csv"),
     path("export/slots/", views.ExportSlots.as_view(), name="slots.csv"),
+    path("import/activity_choices/", views.CSV_UploadView.as_view(), name="csv_upload"),
     path(
         "export/participants/",
         views.ExportParticipants.as_view(),
