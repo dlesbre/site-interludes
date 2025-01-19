@@ -23,14 +23,14 @@
     vous pouvez téléverser directement la table exporter pour rétablir une sauvegarde).
   </li>
 </ul>
-Le fichier sera rejeté s'il contient des identifiants invalides, ou désigne des couples
+Le fichier sera rejeté s'il contient des identifiants invalides, ou s'il désigne des couples
 participant/créneau qui ne sont pas déjà présent dans la table
 <a href='{% url "admin:home_activitychoicesmodel_changelist"%}'>choix d'activités</a>.
 </p>
 
 <ul class="messagelist">
   <li class="warning">
-    Téléverser un fichier décochera toutes les cases "obtenu" de la table
+    Téléverser un fichier changera toutes les cases "obtenu" de la table
     choix d'activité (mais ne changera rien d'autre). En particulier,
     un fichier vide décochera toutes les cases.
     Si vous avez commencé à les remplir à la main, je recommande de l'exporter

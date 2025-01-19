@@ -523,12 +523,11 @@ class CSV_UploadView(SuperuserRequiredMixin, FormView):
             messages.error(self.request, "Erreur de lecture du fichier: " + str(err))
             return super().form_invalid(form)
         # 2 - Get relevant columns
-        print(csv)
         if len(csv) == 0:
             data: List[List[str]] = []
         elif ID_PARTICIPANT in csv[0] and ID_CRENEAU in csv[0]:
             index_participant = csv[0].index(ID_PARTICIPANT)
-            index_creneau = csv[0].index(ID_PARTICIPANT)
+            index_creneau = csv[0].index(ID_CRENEAU)
             if OBTENU in csv[0]:
                 index_obtenu = csv[0].index(OBTENU)
                 data = [[row[index_participant], row[index_creneau]] for row in csv[1:] if row[index_obtenu] == "True"]
@@ -540,37 +539,39 @@ class CSV_UploadView(SuperuserRequiredMixin, FormView):
         else:
             data = csv
         # 3 - Check that the data is sensible (valid ids)
-        invalid_id_p = []
-        invalid_id_c = []
-        invalid_pair = []
+        invalid_id_p = set()
+        invalid_id_c = set()
+        invalid_pair = set()
         for id_p, id_c in data:
             try:
                 participant = models.ParticipantModel.objects.get(id=int(id_p))
             except (ValueError, models.ParticipantModel.DoesNotExist):
-                invalid_id_p.append(id_p)
+                invalid_id_p.add(id_p)
                 participant = None
             try:
                 slot = models.SlotModel.objects.get(id=int(id_c))
             except (ValueError, models.SlotModel.DoesNotExist):
-                invalid_id_c.append(id_c)
+                invalid_id_c.add(id_c)
                 slot = None
             if participant is not None and slot is not None:
                 try:
                     _ = models.ActivityChoicesModel.objects.get(participant=participant, slot=slot)
                 except models.ActivityChoicesModel.DoesNotExist:
-                    invalid_pair.append((id_p, id_c))
+                    invalid_pair.add((id_p, id_c))
         if invalid_id_p or invalid_id_c or invalid_pair:
-            message = "Le fichier contient des erreurs:"
+            messages.error(self.request, "Le fichier contient des erreurs:")
             if invalid_id_p:
-                message += "<br> &bullet;&ensp; Ids de participants invalides: " + ", ".join(invalid_id_p)
+                messages.error(self.request, "Ids de participants invalides: " + ", ".join(invalid_id_p))
             if invalid_id_c:
-                message += "<br> &bullet;&ensp; Ids de créneaux invalides: " + ", ".join(invalid_id_c)
+                messages.error(self.request, "Ids de créneaux invalides: " + ", ".join(invalid_id_c))
             if invalid_pair:
-                message += (
-                    "<br> &bullet;&ensp; Pair participant/créneau ne correspondant à aucun choix d'activité: "
-                    + ", ".join("({}, {})".format(p, c) for p, c in invalid_pair)
+                messages.error(
+                    self.request,
+                    (
+                        "Pair participant/créneau ne correspondant à aucun choix d'activité: "
+                        + ", ".join("({}, {})".format(p, c) for p, c in invalid_pair)
+                    ),
                 )
-            messages.error(self.request, message)
             return super().form_invalid(form)
         # 4- Update the table accordingly
         total_changes = 0
