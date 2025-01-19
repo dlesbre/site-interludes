@@ -1,3 +1,4 @@
+from csv import reader
 from typing import Any, Dict, List, Optional, Tuple
 
 from django import VERSION
@@ -499,8 +500,6 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         return context
 
 
-from csv import reader
-
 ID_PARTICIPANT = "id_participant"
 ID_CRENEAU = "id_créneau"
 OBTENU = "obtenu"
@@ -569,7 +568,7 @@ class CSV_UploadView(SuperuserRequiredMixin, FormView):
             if invalid_pair:
                 message += (
                     "<br> &bullet;&ensp; Pair participant/créneau ne correspondant à aucun choix d'activité: "
-                    + ", ".join(invalid_pair)
+                    + ", ".join("({}, {})".format(p, c) for p, c in invalid_pair)
                 )
             messages.error(self.request, message)
             return super().form_invalid(form)
