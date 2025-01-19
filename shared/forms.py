@@ -60,7 +60,7 @@ class FormRenderMixin:
                     return '<div class="fieldgroup">\n{}</div>'.format(gen_html(subtree))
                 else:  # Simple field
                     inline_helptext_html = (
-                        ('    <span class="helptext inline_helptext">' "{inline_helptext}</span>\n").format(
+                        ('    <span class="helptext inline_helptext">{inline_helptext}</span>\n').format(
                             inline_helptext=subtree["field"].help_text
                         )
                         if subtree["field"].help_text and not subtree["tooltip"]

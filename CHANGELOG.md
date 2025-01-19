@@ -2,6 +2,11 @@
 
 # Change Log
 
+## Version 3.0.5 - 2025-01-19
+
+- Add CSV import for activity choices in admin pages
+- Add slot ids in their CSV export
+
 ## Version 3.0.4 - 2024-12-10
 
 - Fix planning display of activites lasting 3 days

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "content" %}
+
+<h2>Importer le choix d'activité au format CSV</h2>
+
+<p>
+  Vous pouvez initialiser les
+  <a href='{% url "admin:home_activitychoicesmodel_changelist"%}'>choix d'activités</a>
+  en téléversant un fichier au format CSV (exportable depuis n'importe quel tableur type Excel/Libreoffice Calc).
+  Ce fichier doit au moins contenir deux colonnes <strong>id_participant</strong> et
+  <strong>id_créneau</strong>.
+</p>
+
+<p>Plus spécifiquement, plusieurs formats sont acceptés&nbsp;:
+<ul>
+  <li>Un fichier CSV avec deux colonnes de numéros, sans entêtes, dans l'ordre participant, créneau;</li>
+  <li>Un fichier CSV avec entêtes&nbsp;: la première ligne contenant <strong>id_participant</strong> et
+    <strong>id_créneau</strong> dans les colonnes idoines.
+    Si, de plus, le fichier contient une colonne <strong>obtenu</strong>, seule
+    les lignes dont la colonne obtenue est "True" seront considérées (ainsi,
+    vous pouvez téléverser directement la table exporter pour rétablir une sauvegarde).
+  </li>
+</ul>
+Le fichier sera rejeté s'il contient des identifiants invalides, ou s'il désigne des couples
+participant/créneau qui ne sont pas déjà présent dans la table
+<a href='{% url "admin:home_activitychoicesmodel_changelist"%}'>choix d'activités</a>.
+</p>
+
+<ul class="messagelist">
+  <li class="warning">
+    Téléverser un fichier changera toutes les cases "obtenu" de la table
+    choix d'activité (mais ne changera rien d'autre). En particulier,
+    un fichier vide décochera toutes les cases.
+    Si vous avez commencé à les remplir à la main, je recommande de l'exporter
+    pour avoir un backup.
+  </li>
+</ul>
+
+<form method="post" action="{% url 'admin_pages:csv_upload' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div>{{ form.file }}</div>
+
+  <br>
+
+  <div class="flex">
+    <input type="submit" value="Envoyer">
+    <a class="button" href="{% url 'admin_pages:index' %}">Annuler</a>
+  </div>
+</form>
+{% endblock %}

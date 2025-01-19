@@ -146,7 +146,7 @@ class ActivateAccountView(RedirectView):
         except (TypeError, ValueError, OverflowError, EmailUser.DoesNotExist):
             messages.error(
                 self.request,
-                "Le lien de confirmation d'adresse mail ne correspond à aucun·e " "utilisateur·ice inscrit·e",
+                "Le lien de confirmation d'adresse mail ne correspond à aucun·e utilisateur·ice inscrit·e",
             )
             return reverse(self.failure_pattern_name)
 

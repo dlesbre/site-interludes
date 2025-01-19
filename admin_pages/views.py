@@ -1,3 +1,4 @@
+from csv import reader
 from typing import Any, Dict, List, Optional, Tuple
 
 from django import VERSION
@@ -13,7 +14,7 @@ from django.utils.timezone import now
 from django.views.generic import FormView, RedirectView, TemplateView
 
 from accounts.models import EmailUser
-from admin_pages.forms import Recipients, SendEmailForm
+from admin_pages.forms import FileUploadForm, Recipients, SendEmailForm
 from home import models
 from home.views import get_planning_context
 from interludes import settings as site_settings
@@ -499,6 +500,97 @@ class AdminView(SuperuserRequiredMixin, TemplateView):
         return context
 
 
+ID_PARTICIPANT = "id_participant"
+ID_CRENEAU = "id_créneau"
+OBTENU = "obtenu"
+
+
+class CSV_UploadView(SuperuserRequiredMixin, FormView):
+    """Importer les choix d'activités au format CSV"""
+
+    form_class = FileUploadForm
+    template_name = "csv_upload.html"
+    success_url = reverse_lazy("admin_pages:index")
+
+    def post(self, request: HttpRequest) -> HttpResponse:
+        return super().post(request)
+
+    def form_valid(self, form: FileUploadForm) -> HttpResponse:
+        # 1 - Read CSV contents
+        try:
+            csv = list(reader(x.decode() for x in self.request.FILES["file"]))
+        except Exception as err:
+            messages.error(self.request, "Erreur de lecture du fichier: " + str(err))
+            return super().form_invalid(form)
+        # 2 - Get relevant columns
+        if len(csv) == 0:
+            data: List[List[str]] = []
+        elif ID_PARTICIPANT in csv[0] and ID_CRENEAU in csv[0]:
+            index_participant = csv[0].index(ID_PARTICIPANT)
+            index_creneau = csv[0].index(ID_CRENEAU)
+            if OBTENU in csv[0]:
+                index_obtenu = csv[0].index(OBTENU)
+                data = [[row[index_participant], row[index_creneau]] for row in csv[1:] if row[index_obtenu] == "True"]
+            else:
+                data = [[row[index_participant], row[index_creneau]] for row in csv[1:]]
+        elif len(csv[0]) != 2:
+            messages.error(self.request, "Format invalide.")
+            return super().form_invalid(form)
+        else:
+            data = csv
+        # 3 - Check that the data is sensible (valid ids)
+        invalid_id_p = set()
+        invalid_id_c = set()
+        invalid_pair = set()
+        for id_p, id_c in data:
+            try:
+                participant = models.ParticipantModel.objects.get(id=int(id_p))
+            except (ValueError, models.ParticipantModel.DoesNotExist):
+                invalid_id_p.add(id_p)
+                participant = None
+            try:
+                slot = models.SlotModel.objects.get(id=int(id_c))
+            except (ValueError, models.SlotModel.DoesNotExist):
+                invalid_id_c.add(id_c)
+                slot = None
+            if participant is not None and slot is not None:
+                try:
+                    _ = models.ActivityChoicesModel.objects.get(participant=participant, slot=slot)
+                except models.ActivityChoicesModel.DoesNotExist:
+                    invalid_pair.add((id_p, id_c))
+        if invalid_id_p or invalid_id_c or invalid_pair:
+            messages.error(self.request, "Le fichier contient des erreurs:")
+            if invalid_id_p:
+                messages.error(self.request, "Ids de participants invalides: " + ", ".join(invalid_id_p))
+            if invalid_id_c:
+                messages.error(self.request, "Ids de créneaux invalides: " + ", ".join(invalid_id_c))
+            if invalid_pair:
+                messages.error(
+                    self.request,
+                    (
+                        "Pair participant/créneau ne correspondant à aucun choix d'activité: "
+                        + ", ".join("({}, {})".format(p, c) for p, c in invalid_pair)
+                    ),
+                )
+            return super().form_invalid(form)
+        # 4- Update the table accordingly
+        total_changes = 0
+        for choice in models.ActivityChoicesModel.objects.all():
+            accepted = [str(choice.participant.id), str(choice.slot.id)] in data
+            if accepted != choice.accepted:
+                choice.accepted = accepted
+                total_changes += 1
+                choice.save()
+        messages.success(
+            self.request, "Répartition importée avec succès: {} valeurs ont été changés".format(total_changes)
+        )
+        return super().form_valid(form)
+
+    def form_invalid(self, form: FileUploadForm) -> HttpResponse:
+        messages.error(self.request, "Aucun fichier reçu.")
+        return super().form_invalid(form)
+
+
 # ==============================
 # DB Export Views
 # ==============================
@@ -547,6 +639,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
     filename = "créneaux_interludes"
     headers = [
+        "id",
         "Titre",
         "Début",
         "Salle",
@@ -564,6 +657,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
         for slot in slots:
             rows.append(
                 [
+                    slot.id,
                     str(slot),
                     slot.start,
                     slot.room,
@@ -662,13 +756,13 @@ class ExportActivityChoices(SuperuserRequiredMixin, CSVWriteView):
     filename = "choix_activite_interludes"
     model = models.ActivityChoicesModel
     headers = [
-        "id_participant",
+        ID_PARTICIPANT,
         "nom_participant",
         "mail_participant",
         "priorité",
-        "obtenu",
+        OBTENU,
         "nom_créneau",
-        "id_créneau",
+        ID_CRENEAU,
     ]
 
     def get_rows(self):
@@ -945,11 +1039,7 @@ class NewEmail(SuperuserRequiredMixin, FormView):
             nb_sent = send_mass_mail(emails, fail_silently=False)  # type: ignore
             mail_admins(
                 "Email envoyé",
-                "Un email a été envoyé à {}.\n"
-                "Nombre total de mail envoyés: {}\n\n"
-                "Sujet : {}\n\n"
-                "{}\n\n"
-                "{}".format(
+                "Un email a été envoyé à {}.\nNombre total de mail envoyés: {}\n\nSujet : {}\n\n{}\n\n{}".format(
                     Recipients(dest).label,
                     nb_sent,
                     subject,

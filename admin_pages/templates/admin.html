@@ -364,6 +364,10 @@
 
 	<p>Une fois la répartition effectuée, vérifiez qu'elle passe les tests avant d'envoyer les mails</p>
 
+	<p><a class="button" href="{% url 'admin_pages:csv_upload' %}">
+		<i class="fa fa-upload"></i> Importer une répartition
+	</a></p>
+
 	{{ validations|safe }}
 
 	<script type="text/javascript">
