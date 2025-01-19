@@ -554,6 +554,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
     filename = "créneaux_interludes"
     headers = [
+        "id",
         "Titre",
         "Début",
         "Salle",
@@ -571,6 +572,7 @@ class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
         for slot in slots:
             rows.append(
                 [
+                    slot.id,
                     str(slot),
                     slot.start,
                     slot.room,
