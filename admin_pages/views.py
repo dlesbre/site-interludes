@@ -639,7 +639,7 @@ class ExportActivities(SuperuserRequiredMixin, CSVWriteView):
 class ExportSlots(SuperuserRequiredMixin, CSVWriteView):
     filename = "créneaux_interludes"
     headers = [
-        "id",
+        ID_CRENEAU,
         "Titre",
         "Début",
         "Salle",
@@ -676,7 +676,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
     school: Optional[ENS] = None
     filename = "participants_interludes"
     headers = [
-        "id",
+        ID_PARTICIPANT,
         "mail",
         "prénom",
         "nom",
@@ -718,7 +718,7 @@ class ExportParticipants(SuperuserRequiredMixin, CSVWriteView):
         for profile in profiles:
             rows.append(
                 [
-                    profile.user.id,
+                    profile.id,
                     profile.user.email,
                     profile.user.first_name,
                     profile.user.last_name,
