@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+
+<head><!-- WEBSITE VERSION 2.0.0-beta - 2021-10-05 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interludes 2022</title>
+  <meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2022">
+  <meta name="keywords" content="Interludes ENS 2022 InterENS">
+  <link rel="icon" type="image/png" href="/static/imgs/2022/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=1.0">
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome-all.min.css">
+</head>
+
+<body>
+  <header>
+    <div id="header_logo" class="easter_egg">
+      <h1><a href="/static/archive/2022/index.html"><img id="circle" src="/static/imgs/2022/logo.png">&nbsp;Interludes
+          2022&nbsp;</a></h1>
+    </div>
+    <div id="head_main_infos">
+      <div id="location">ENS de Lyon</div>
+      <div id="date">
+
+        1-3 avril 2022
+
+      </div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    function toggle_menu() {
+      var nav = document.getElementById("nav");
+      if (nav.className === "") {
+        nav.className += "responsive";
+      } else {
+        nav.className = "";
+      }
+    }
+  </script>
+  <nav id="nav"><a href="/static/archive/2022/index.html" rel="text/html" class="">
+      Accueil
+    </a><a href="/static/archive/2022/activites.html" rel="text/html" class="">
+      Activités
+    </a><a href="/static/archive/2022/faq.html" rel="text/html" class="current">
+      FAQ
+    </a>><a href="javascript:void(0);" class="icon" onclick="toggle_menu()"><i class="fa fa-bars"></i></a></nav>
+  <main>
+    <h2>Quelle différence entre l'inscription sur HelloAsso et sur le site&nbsp;?</h2>
+    <p>L'inscription HelloAsso vous inscrit à l'événement, au logement et aux repas (selon l'option que vous prenez).
+      Sur le site internet, vous pouvez créer un compte pour vous inscrire aux différentes activités qui seront
+      proposées lors de l'événement. </p>
+    <h2>Quelles seront les mesures de protection sanitaire&nbsp;?</h2>
+    <p>Les mesures définitives vous seront communiquées à l'arrivée à l'événement. Elles incluront probablement&nbsp;:
+    </p>
+    <ul>
+      <li>Contrôle des passes sanitaires chaque jour</li>
+      <li>Port du masque obligatoire en permanence</li>
+      <li>Lavage de main entre chaque jeu/activité conseillé</li>
+      <li>Des QR Codes à scanner sur chaque table (pour garder trace des cas contacts si une personne est déclarée
+        positive)</li>
+      <li>Salles aérées en permanence et joueur&middot;ses invité&middot;es à se rendre dehors si le taux de CO2 devient
+        trop élevé</li>
+    </ul>
+    <h2>Comment proposer une activité&nbsp;?</h2>
+    <p>Il vous faudra être connecté et renseigner, le titre, une description, le nombre de places, la durée, les
+      horaires possibles/idéaux, et tout autre besoin particulier...</p>
+    <h2>Quelles seront les conditions pour dormir/manger&nbsp;?</h2>
+    <p> Nous proposerons un logement en tente, pour celleux qui le souhaitent</p>
+    <p> Les repas seront préparés et servis sur place.</p>
+    <p> Si vous dormez dans les tentes, pensez à prendre un tapis de sol et duvet.</p>
+    <h2>Comment se rendre à l'événement&nbsp;?</h2>
+    <div>
+      <p class="centered"><i class="fas fa-map-marker-alt"></i></p><iframe id="interactive-map" width="750" height="400"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=4.82691%2C45.73663%2C4.84084%2C45.72936&amp;layer=hot&amp;marker=45.73298%2C4.83397"></iframe>
+    </div>
+    <div id="public-transport-info">
+      <div id="transport-tcl-metro"><img src="/static/imgs/tcl/B.svg" alt="Métro B"></div>
+      <div id="transport-tcl-tram-1"><img src="/static/imgs/tcl/T1.svg" alt="Tram T1"></div>
+      <div id="transport-tcl-tram-2"><img src="/static/imgs/tcl/T6.svg" alt="Tram T6"></div>
+      <div id="transport-tcl-bus-1"><img src="/static/imgs/tcl/34.svg" alt="Bus 34"></div>
+      <div id="transport-tcl-bus-2"><img src="/static/imgs/tcl/60.svg" alt="Bus 60"></div>
+      <div id="transport-tcl-bus-3"><img src="/static/imgs/tcl/64.svg" alt="Bus 64"></div><span
+        id="transport-tcl-stop">Arrêt : Debourg</span>
+    </div>
+    <h2>Comment sont réparties les activités&nbsp;?</h2>
+    <p>
+      La répartition est faite par un algorithme puis vérifiée à la main.
+      Dans la mesure du possible, l'algorithme essaie d'attribue au moins une activité par personne. Par conséquent, si
+      vous ne mettez qu'une seule activité, vous avez plus de chance de l'avoir.
+    </p>
+    <p>
+      Les activités qui n'ont pas de limite de place (et toutes les activités avec moins de demande que de places) ne
+      comptent pas pour ce système, donc vous pouvez les mettre et vous ne serez pas pénalisés.
+    </p>
+    <p>
+      Vous ne pourrez pas avoir deux activités qui se déroulent en même temps. Si l'une vous est attribué l'autre
+      souhait sera ignoré.
+    </p>
+    <p>On n'a pas trouvé le code des années précédentes, mais je suspecte fortement que ce soit un algo similaire en
+      départageant les égalités aléatoirement plutôt qu'au shotgun.</p>
+    <p>Plus précisément : l'algorithme se base sur le problème hôpital-résident&nbsp;:</p>
+    <ol>
+      <li>Il commence par essayer d'attribuer une activité à chaque participant.es au mieux possible, en utilisant la
+        librairie matching de python. Les égalités sont départagées aléatoirement. Plus un choix est haut dans votre
+        liste de souhait, plus vous avez de chance de vous le voir attribuer. Si vous n'avez qu'un seul choix, vous avez
+        plus de chance de vous le voir attribué. (les participant.es avec un seul choix sont automatique placé.es avant
+        ceux qui en ont plusieurs)</li>
+      <li>Toutes les activités attribuées sont supprimées, ainsi que les voeux résolus des joueurs.</li>
+      <li>Tant qu'il reste des place dans des activités et des participant.es qui veulent y participer, on recommence à
+        l'étape 1.</li>
+    </ol>
+    <p>Le code est sur <a href="https://github.com/Imakoala/InterludesMatchings">github</a>, il ne marche pas encore
+      parfaitement, et on risque de devoir bidouiller à la main en plus pour résoudre tous les cas particuliers
+      (conflits d'horaires, activité présente plusieurs fois...).
+
+    <h2>J'ai encore une question, je fais quoi ?</h2>
+    <p> Hésite pas à nous passer un mail à <span class="antispam">rf.noyl-sne@lub</span> pour nous poser tes questions !
+    </p>
+  </main>
+  <footer>
+    <div id="sponsors"><a class="external" href="https://www.ens-lyon.fr/"><img src="/static/imgs/2022/ens_lyon.svg"
+          alt="École Normale Supérieure de Lyon" title="École Normale Supérieure de Lyon" /></a><a class="external"
+        href="https://discord.gg/27QWSDUNgM"><img src="/static/imgs/2022/bul.png" alt="Bureau Ludique de l'ENS de Lyon"
+          title="Bureau Ludique de l'ENS de Lyon" /></a><a class="external" href="https://www.trollune.fr/"><img
+          src="/static/imgs/2022/trollune.png" alt="Trollune" title="Trollune" /></a><a class="external"
+        href="https://www.3ptitspois.fr/"><img src="/static/imgs/2022/trois_ptits_pois.png" alt="Trois Ptits Pois"
+          title="Trois Ptits Pois" /></a></div>
+    <p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">rf.noyl-sne@lub</span></p>
+  </footer>
+</body>
+
+</html>

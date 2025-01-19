@@ -1,0 +1,1990 @@
+<!doctype html>
+<html lang="fr">
+
+<head><!-- WEBSITE VERSION 2.0.0-beta - 2021-10-05 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interludes 2022</title>
+  <meta name="description" content="Inscriptions et infos sur les interENS ludiques, édition 2022">
+  <meta name="keywords" content="Interludes ENS 2022 InterENS">
+  <link rel="icon" type="image/png" href="/static/imgs/2022/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=1.0">
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome-all.min.css">
+  <script src="/static/js/vis-timeline.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div id="header_logo" class="easter_egg">
+      <h1><a href="/static/archive/2022/index.html"><img id="circle" src="/static/imgs/2022/logo.png">&nbsp;Interludes
+          2022&nbsp;</a></h1>
+    </div>
+    <div id="head_main_infos">
+      <div id="location">ENS de Lyon</div>
+      <div id="date">
+
+        1-3 avril 2022
+
+      </div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    function toggle_menu() {
+      var nav = document.getElementById("nav");
+      if (nav.className === "") {
+        nav.className += "responsive";
+      } else {
+        nav.className = "";
+      }
+    }
+  </script>
+  <nav id="nav"><a href="/static/archive/2022/index.html" rel="text/html" class="">
+      Accueil
+    </a><a href="/static/archive/2022/activites.html" rel="text/html" class="current">
+      Activités
+    </a><a href="/static/archive/2022/faq.html" rel="text/html" class="">
+      FAQ
+    </a><a href="javascript:void(0);" class="icon" onclick="toggle_menu()"><i class="fa fa-bars"></i></a></nav>
+  <main>
+    <h2>Planning</h2>
+    <div id="planning" style="margin-left: calc(-49vw + 50%); width: 97vw; background-color: white; padding: 10px;">
+    </div><!--
+In order to limit the planning's width, we cheat using the timeline's groups
+I.E we set all dates to the first day (Friday) and set groups allowing vertical display:
+-->
+    <script type="text/javascript">
+      // https://visjs.org/
+      // DOM element where the Timeline will be attached
+      const container = document.getElementById('planning');
+
+      const groups = new vis.DataSet([
+        { id: 0, content: "Ven.", order: 0 },
+        { id: 1, content: "Sam.", order: 1 },
+        { id: 2, content: "Dim.", order: 2 },
+      ]);
+
+      // Items in the timeline
+      const items = new vis.DataSet([
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-5"><div><strong>[JdR] [d100 béta] Les larmes de Melvumia</strong><br>D2 108</div></a></div>',
+          title: '<strong>[JdR] [d100 béta] Les larmes de Melvumia</strong><br>D2 108',
+          start: '2022-04-01 22:00:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 01:30:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-12"><div><strong>[GN] Abyme Secret</strong><br>D2 020</div></a></div>',
+          title: '<strong>[GN] Abyme Secret</strong><br>D2 020',
+          start: '2022-04-01 22:30:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 03:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-24"><div><strong>[Autre] Le Pokémon Magique au théâtre</strong><br>Amphi Descartes</div></a></div>',
+          title: '<strong>[Autre] Le Pokémon Magique au théâtre</strong><br>Amphi Descartes',
+          start: '2022-04-01 23:00:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-01 23:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-25"><div><strong>[GN] Le Dilemme de Chronos</strong><br>D2 017</div></a></div>',
+          title: '<strong>[GN] Le Dilemme de Chronos</strong><br>D2 017',
+          start: '2022-04-01 23:30:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 02:30:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-18"><div><strong>[GN] Black Pram</strong><br>Monod 115-116</div></a></div>',
+          title: '<strong>[GN] Black Pram</strong><br>Monod 115-116',
+          start: '2022-04-01 22:30:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 03:30:00',
+          className: "color-d",
+        },
+
+
+        // activity spans multiple days
+        {
+          content: '<a class="hidden" href="#act-27"><div><strong>[Jeux] Tracker&#x27;s League</strong><br>D2 002</div></a>',
+          title: '<strong>[Jeux] Tracker&#x27;s League</strong><br>D2 002',
+          start: '2022-04-02 00:00:01',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 04:00:00',
+          className: "color-e",
+        },
+        {
+          content: '<a class="hidden" href="#act-27"><div><strong>[Jeux] Tracker&#x27;s League</strong><br>D2 002</div></a>',
+          title: '<strong>[Jeux] Tracker&#x27;s League</strong><br>D2 002',
+          start: '2022-04-01 04:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 06:00:01',
+          className: "color-e",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-15"><div><strong>[GN] L&#x27;Ecosysteme</strong><br>D2 020</div></a></div>',
+          title: '<strong>[GN] L&#x27;Ecosysteme</strong><br>D2 020',
+          start: '2022-04-01 19:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 21:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-14"><div><strong>[GN] Sous l&#x27;océan</strong><br>D2 020</div></a></div>',
+          title: '<strong>[GN] Sous l&#x27;océan</strong><br>D2 020',
+          start: '2022-04-01 22:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-02 02:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-16"><div><strong>[GN] Lockdown en entreprise</strong><br>D2 020</div></a></div>',
+          title: '<strong>[GN] Lockdown en entreprise</strong><br>D2 020',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 12:30:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-7"><div><strong>[Autre] Trollball</strong><br>Gymnase</div></a></div>',
+          title: '<strong>[Autre] Trollball</strong><br>Gymnase',
+          start: '2022-04-01 16:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 17:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-8"><div><strong>[GN] Zero Escape : Radical Outcome</strong><br>Monod 4e étage</div></a></div>',
+          title: '<strong>[GN] Zero Escape : Radical Outcome</strong><br>Monod 4e étage',
+          start: '2022-04-01 19:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-02 02:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-4"><div><strong>[JdR] [Pokemon Beta] Le cristal poni</strong><br></div></a></div>',
+          title: '<strong>[JdR] [Pokemon Beta] Le cristal poni</strong><br>',
+          start: '2022-04-01 15:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 18:30:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-13"><div><strong>[GN] Le Choix de Préséphone</strong><br>D2 103-104-108</div></a></div>',
+          title: '<strong>[GN] Le Choix de Préséphone</strong><br>D2 103-104-108',
+          start: '2022-04-01 12:30:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 18:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-9"><div><strong>[JdR] Larmes &amp; Poussières</strong><br>D2 111</div></a></div>',
+          title: '<strong>[JdR] Larmes &amp; Poussières</strong><br>D2 111',
+          start: '2022-04-01 19:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 23:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-17"><div><strong>[Jeux] Chaîne Alimentaire</strong><br>D2 104</div></a></div>',
+          title: '<strong>[Jeux] Chaîne Alimentaire</strong><br>D2 104',
+          start: '2022-04-01 10:00:01',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 11:30:01',
+          className: "color-e",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-23"><div><strong>[GN] Chaos Grown-ups</strong><br>D2 114-115</div></a></div>',
+          title: '<strong>[GN] Chaos Grown-ups</strong><br>D2 114-115',
+          start: '2022-04-01 11:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 16:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-6"><div><strong>[GN] Documents Secrets</strong><br>D2 103-104</div></a></div>',
+          title: '<strong>[GN] Documents Secrets</strong><br>D2 103-104',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 11:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-10"><div><strong>[JdR] Préservez la Flamme</strong><br>D2 111</div></a></div>',
+          title: '<strong>[JdR] Préservez la Flamme</strong><br>D2 111',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 13:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-20"><div><strong>[GN] Professeur Layton et le mystère de l&#x27;île de Soay</strong><br>Monod 115-116</div></a></div>',
+          title: '<strong>[GN] Professeur Layton et le mystère de l&#x27;île de Soay</strong><br>Monod 115-116',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 14:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-19"><div><strong>[Autre] Club Anime</strong><br>Amphi Descartes</div></a></div>',
+          title: '<strong>[Autre] Club Anime</strong><br>Amphi Descartes',
+          start: '2022-04-01 08:30:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 10:30:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-31"><div><strong>[JdR] Pour une poignée d&#x27;astro-dollars</strong><br>D2 103</div></a></div>',
+          title: '<strong>[JdR] Pour une poignée d&#x27;astro-dollars</strong><br>D2 103',
+          start: '2022-04-02 00:00:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 02:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-30"><div><strong>[GN] La première loi</strong><br>Monod 115-116</div></a></div>',
+          title: '<strong>[GN] La première loi</strong><br>Monod 115-116',
+          start: '2022-04-01 10:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 17:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-28"><div><strong>[GN] L&#x27;engrenage infernal</strong><br>Monod 4e étage</div></a></div>',
+          title: '<strong>[GN] L&#x27;engrenage infernal</strong><br>Monod 4e étage',
+          start: '2022-04-01 10:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 16:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-32"><div><strong>[Autre] Tombola</strong><br>Amphi Descartes</div></a></div>',
+          title: '<strong>[Autre] Tombola</strong><br>Amphi Descartes',
+          start: '2022-04-01 13:30:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 14:30:00',
+          className: "color-b",
+        },
+
+
+        // activity spans multiple days
+        {
+          content: '<a class="hidden" href="#act-11"><div><strong>[Freeplay] BDThêk</strong><br>D2 018</div></a>',
+          title: '<strong>[Freeplay] BDThêk</strong><br>D2 018',
+          start: '2022-04-01 20:00:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 04:00:00',
+          className: "color-c",
+        },
+        {
+          content: '<a class="hidden" href="#act-11"><div><strong>[Freeplay] BDThêk</strong><br>D2 018</div></a>',
+          title: '<strong>[Freeplay] BDThêk</strong><br>D2 018',
+          start: '2022-04-01 04:00:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 12:00:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-22"><div><strong>[Freeplay] Echecs</strong><br></div></a></div>',
+          title: '<strong>[Freeplay] Echecs</strong><br>',
+          start: '2022-04-01 18:30:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 20:30:00',
+          className: "color-c",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-33"><div><strong>[Autre] Geekorale</strong><br>Amphi Descartes</div></a></div>',
+          title: '<strong>[Autre] Geekorale</strong><br>Amphi Descartes',
+          start: '2022-04-01 12:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 15:00:00',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-35"><div><strong>[JV] Abyss Crew</strong><br>D2 110</div></a></div>',
+          title: '<strong>[JV] Abyss Crew</strong><br>D2 110',
+          start: '2022-04-01 13:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 15:00:00',
+          className: "color-f",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-36"><div><strong>[JV] Scientific Game Jam</strong><br>Amphi Descartes</div></a></div>',
+          title: '<strong>[JV] Scientific Game Jam</strong><br>Amphi Descartes',
+          start: '2022-04-01 16:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 18:30:00',
+          className: "color-f",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-34"><div><strong>[JdR] Macadabre, les brigades de la Malemort</strong><br>D2 113</div></a></div>',
+          title: '<strong>[JdR] Macadabre, les brigades de la Malemort</strong><br>D2 113',
+          start: '2022-04-01 21:00:00',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 04:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-34"><div><strong>[JdR] Macadabre, les brigades de la Malemort</strong><br>D2 113</div></a></div>',
+          title: '<strong>[JdR] Macadabre, les brigades de la Malemort</strong><br>D2 113',
+          start: '2022-04-01 21:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-02 04:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-38"><div><strong>[JdR] Gilgamesh</strong><br>D2 111</div></a></div>',
+          title: '<strong>[JdR] Gilgamesh</strong><br>D2 111',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 12:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-39"><div><strong>[JdR] La loi de la jungle</strong><br>D2 112</div></a></div>',
+          title: '<strong>[JdR] La loi de la jungle</strong><br>D2 112',
+          start: '2022-04-01 17:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 19:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-37"><div><strong>[Autre] Démonstration de Sabre laser</strong><br>Jardins</div></a></div>',
+          title: '<strong>[Autre] Démonstration de Sabre laser</strong><br>Jardins',
+          start: '2022-04-01 22:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 22:15:00',
+          className: "color-b",
+        },
+
+
+        // activity spans multiple days
+        {
+          content: '<a class="hidden" href="#act-40"><div><strong>[Freeplay] Jeux Vidéos</strong><br>D2 110</div></a>',
+          title: '<strong>[Freeplay] Jeux Vidéos</strong><br>D2 110',
+          start: '2022-04-01 15:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-02 04:00:00',
+          className: "color-f",
+        },
+        {
+          content: '<a class="hidden" href="#act-40"><div><strong>[Freeplay] Jeux Vidéos</strong><br>D2 110</div></a>',
+          title: '<strong>[Freeplay] Jeux Vidéos</strong><br>D2 110',
+          start: '2022-04-01 04:00:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 13:00:00',
+          className: "color-f",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-41"><div><strong>[GN]  Mystères à Poudlard</strong><br>Monod 115-116</div></a></div>',
+          title: '<strong>[GN]  Mystères à Poudlard</strong><br>Monod 115-116',
+          start: '2022-04-01 17:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 22:00:00',
+          className: "color-d",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-2"><div><strong>[JdR] Demi-Dieu - Dimanche</strong><br>D2 112</div></a></div>',
+          title: '<strong>[JdR] Demi-Dieu - Dimanche</strong><br>D2 112',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 12:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-21"><div><strong>[Jeux] Fresque du Climat - Dimanche Matin</strong><br>D2 115</div></a></div>',
+          title: '<strong>[Jeux] Fresque du Climat - Dimanche Matin</strong><br>D2 115',
+          start: '2022-04-01 10:00:00',
+          align: 'left',
+          group: 2,
+          end: '2022-04-01 12:00:00',
+          className: "color-e",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-26"><div><strong>[Autre] Le trophée des interludes - Lancement</strong><br>Amphi Descartes</div></a></div>',
+          title: '<strong>[Autre] Le trophée des interludes - Lancement</strong><br>Amphi Descartes',
+          start: '2022-04-02 00:00:01',
+          align: 'left',
+          group: 0,
+          end: '2022-04-02 00:30:01',
+          className: "color-b",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-2"><div><strong>[JdR] Demi-Dieu - Samedi</strong><br>D2 112</div></a></div>',
+          title: '<strong>[JdR] Demi-Dieu - Samedi</strong><br>D2 112',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 12:00:00',
+          className: "color-a",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-21"><div><strong>[Jeux] Fresque du Climat - Samedi Aprem</strong><br>D2 113</div></a></div>',
+          title: '<strong>[Jeux] Fresque du Climat - Samedi Aprem</strong><br>D2 113',
+          start: '2022-04-01 13:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 15:00:00',
+          className: "color-e",
+        },
+
+
+
+        {
+          content: '<div style="background-color: yellow;"><a class="hidden" href="#act-21"><div><strong>[Jeux] Fresque du Climat - Samedi Matin</strong><br>D2 115</div></a></div>',
+          title: '<strong>[Jeux] Fresque du Climat - Samedi Matin</strong><br>D2 115',
+          start: '2022-04-01 08:00:00',
+          align: 'left',
+          group: 1,
+          end: '2022-04-01 10:00:00',
+          className: "color-e",
+        },
+
+
+      ]);
+
+      // Configuration for the Timeline
+      const start = '2022-04-01 08:00:00';
+      const end = '2022-04-2 04:00:00';
+      const options = {
+        showMajorLabels: false,
+        showCurrentTime: false,
+        locale: "fr",
+        groupOrder: "order",
+        start: start,
+        min: start,
+        end: end,
+        max: end,
+        selectable: false,
+        zoomable: false,
+      };
+
+      // Create a Timeline
+      const timeline = new vis.Timeline(container, items, options);
+      timeline.setGroups(groups);
+      // timeline.on('select', function (properties) {
+      // 	alert('selected items: ' + properties.items);
+      // });
+    </script>
+    <style>
+      .vis-item {
+        background-color: var(--color_bg_1);
+        color: white;
+      }
+
+      .vis-item-content {
+        width: 100%;
+      }
+
+      .vis-item a,
+      .vis-item a:link,
+      .vis-item a:visited {
+        text-decoration: none;
+        color: white;
+        width: 100%;
+      }
+
+      .vis-item a div {
+        width: 100%;
+      }
+
+      .vis-item:hover {
+        background-color: var(--color_bg_2);
+      }
+
+      .vis-time-axis .grid.vis-odd {
+        background: #444;
+      }
+
+      /* Color specific things */
+      :root {
+        /* red */
+        --color_1: #e84855;
+        --color_1_hover: #da1b2b;
+        --color_1_fg: white;
+
+        /* orange */
+        --color_2: #dd7230;
+        --color_2_hover: #c15d1f;
+        --color_2_fg: white;
+
+        /* yellow */
+        --color_3: #f9dc5c;
+        --color_3_hover: #f7d126;
+        --color_3_fg: black;
+
+        /* green */
+        --color_4: #7cae7a;
+        --color_4_hover: #5f8b55;
+        --color_4_fg: white;
+
+        /* blue */
+        --color_5: #3185fc;
+        --color_5_hover: #0467f1;
+        --color_5_fg: white;
+
+        /* dark blue */
+        --color_6: #4c4c7c;
+        --color_6_hover: #26263c;
+        --color_6_fg: white;
+
+        /* black */
+        --color_7: #483D3F;
+        --color_7_hover: #2c2627;
+        --color_7_fg: white;
+
+      }
+
+      .vis-item.color-a {
+        background-color: var(--color_1);
+      }
+
+      .vis-item.color-a a,
+      .vis-item.color-a a:link,
+      .vis-item.color-a a:visited {
+        color: var(--color_1_fg);
+      }
+
+      .vis-item.color-a:hover {
+        background-color: var(--color_1_hover)
+      }
+
+      .vis-item.color-b {
+        background-color: var(--color_2);
+      }
+
+      .vis-item.color-b a,
+      .vis-item.color-b a:link,
+      .vis-item.color-b a:visited {
+        color: var(--color_2_fg);
+      }
+
+      .vis-item.color-b:hover {
+        background-color: var(--color_2_hover)
+      }
+
+      .vis-item.color-c {
+        background-color: var(--color_2);
+      }
+
+      .vis-item.color-c a,
+      .vis-item.color-c a:link,
+      .vis-item.color-c a:visited {
+        color: var(--color_2_fg);
+      }
+
+      .vis-item.color-c:hover {
+        background-color: var(--color_2_hover)
+      }
+
+      .vis-item.color-c {
+        background-color: var(--color_3);
+      }
+
+      .vis-item.color-c a,
+      .vis-item.color-c a:link,
+      .vis-item.color-c a:visited {
+        color: var(--color_3_fg);
+      }
+
+      .vis-item.color-c:hover {
+        background-color: var(--color_3_hover)
+      }
+
+      .vis-item.color-d {
+        background-color: var(--color_4);
+      }
+
+      .vis-item.color-d a,
+      .vis-item.color-d a:link,
+      .vis-item.color-d a:visited {
+        color: var(--color_4_fg);
+      }
+
+      .vis-item.color-d:hover {
+        background-color: var(--color_4_hover)
+      }
+
+      .vis-item.color-e {
+        background-color: var(--color_5);
+      }
+
+      .vis-item.color-e a,
+      .vis-item.color-e a:link,
+      .vis-item.color-e a:visited {
+        color: var(--color_5_fg);
+      }
+
+      .vis-item.color-e:hover {
+        background-color: var(--color_5_hover)
+      }
+
+      .vis-item.color-f {
+        background-color: var(--color_6);
+      }
+
+      .vis-item.color-f a,
+      .vis-item.color-f a:link,
+      .vis-item.color-f a:visited {
+        color: var(--color_6_fg);
+      }
+
+      .vis-item.color-f:hover {
+        background-color: var(--color_6_hover)
+      }
+
+      .vis-item.color-g {
+        background-color: var(--color_7);
+      }
+
+      .vis-item.color-g a,
+      .vis-item.color-g a:link,
+      .vis-item.color-g a:visited {
+        color: var(--color_7_fg);
+      }
+
+      .vis-item.color-g:hover {
+        background-color: var(--color_7_hover)
+      }
+    </style>
+    <div class="caption">
+      <p><strong>Légende :</strong></p>
+      <ul style="list-style-type: none; margin-left:-20px">
+        <li><span style="background-color: var(--color_1);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle sur
+          table</li>
+        <li><span style="background-color: var(--color_2);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Autre</li>
+        <li><span style="background-color: var(--color_3);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Activités libres
+        </li>
+        <li><span style="background-color: var(--color_4);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux de rôle
+          grandeur nature</li>
+        <li><span style="background-color: var(--color_5);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux</li>
+        <li><span style="background-color: var(--color_6);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Jeux vidéos</li>
+      </ul>
+    </div>
+    <div>
+      <p><a class="button" href="/media/PlanningInterludes.pdf"><i class="fa fa-download"></i> Télécharger le
+          planning</a></p>
+    </div>
+    <h2>Activités</h2>
+    <p>Durant tout l'événement, des jeux seront en libre-service et des tables disponibles pour jouer.
+      Certaines activités ne pourront se faire qu'avec inscription au vue d'une préparation en amont ou d'un nombre de
+      places limité.
+    </p>
+    <p id="act-list"><strong>Liste des activités&nbsp;:</strong></p>
+    <ul>
+      <li><a href="#act-19">[Autre] Club Anime</a></li>
+      <li><a href="#act-37">[Autre] Démonstration de Sabre laser</a></li>
+      <li><a href="#act-33">[Autre] Geekorale</a></li>
+      <li><a href="#act-24">[Autre] Le Pokémon Magique au théâtre</a></li>
+      <li><a href="#act-26">[Autre] Le trophée des interludes</a></li>
+      <li><a href="#act-32">[Autre] Tombola</a></li>
+      <li><a href="#act-7">[Autre] Trollball</a></li>
+      <li><a href="#act-11">[Freeplay] BDThêk</a></li>
+      <li><a href="#act-22">[Freeplay] Echecs</a></li>
+      <li><a href="#act-40">[Freeplay] Jeux Vidéos</a></li>
+      <li><a href="#act-12">[GN] Abyme Secret</a></li>
+      <li><a href="#act-18">[GN] Black Pram</a></li>
+      <li><a href="#act-23">[GN] Chaos Grown-ups</a></li>
+      <li><a href="#act-6">[GN] Documents Secrets</a></li>
+      <li><a href="#act-15">[GN] L&#x27;Ecosysteme</a></li>
+      <li><a href="#act-28">[GN] L&#x27;engrenage infernal</a></li>
+      <li><a href="#act-30">[GN] La première loi</a></li>
+      <li><a href="#act-13">[GN] Le Choix de Préséphone</a></li>
+      <li><a href="#act-25">[GN] Le Dilemme de Chronos</a></li>
+      <li><a href="#act-16">[GN] Lockdown en entreprise</a></li>
+      <li><a href="#act-20">[GN] Professeur Layton et le mystère de l&#x27;île de Soay</a></li>
+      <li><a href="#act-14">[GN] Sous l&#x27;océan</a></li>
+      <li><a href="#act-8">[GN] Zero Escape : Radical Outcome</a></li>
+      <li><a href="#act-35">[JV] Abyss Crew</a></li>
+      <li><a href="#act-36">[JV] Scientific Game Jam</a></li>
+      <li><a href="#act-2">[JdR] Demi-Dieu</a></li>
+      <li><a href="#act-38">[JdR] Gilgamesh</a></li>
+      <li><a href="#act-39">[JdR] La loi de la jungle</a></li>
+      <li><a href="#act-9">[JdR] Larmes &amp; Poussières</a></li>
+      <li><a href="#act-34">[JdR] Macadabre, les brigades de la Malemort</a></li>
+      <li><a href="#act-31">[JdR] Pour une poignée d&#x27;astro-dollars</a></li>
+      <li><a href="#act-10">[JdR] Préservez la Flamme</a></li>
+      <li><a href="#act-4">[JdR] [Pokemon Beta] Le cristal poni</a></li>
+      <li><a href="#act-5">[JdR] [d100 béta] Les larmes de Melvumia</a></li>
+      <li><a href="#act-17">[Jeux] Chaîne Alimentaire</a></li>
+      <li><a href="#act-21">[Jeux] Fresque du Climat</a></li>
+      <li><a href="#act-29">[Jeux] Tournoi de Belote</a></li>
+      <li><a href="#act-27">[Jeux] Tracker&#x27;s League</a></li>
+    </ul>
+    <h3 id="act-19">[Autre] Club Anime</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Youssef Trifa</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 08:30 Amphi Descartes
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Le club anime vous propose un réveil dans la joie et la bonne humeur, avec des animes
+        humoristiques (Gintama, Saiki Kusuo no Psi Nan...)<br>Venez (re)découvrir ces animes pour vous aider à vous
+        réveiller le dimanche matin !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-37">[Autre] Démonstration de Sabre laser</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h05</dd>
+      <dt>Orga :</dt>
+      <dd>Julie Malassigné</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 22:00 Jardins
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Le club de sabre laser vous présente une démonstration de chorégraphie au sabre laser, suivie
+        pour celleux qui le souhaitent d&#x27;une initiation</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-33">[Autre] Geekorale</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h</dd>
+      <dt>Orga :</dt>
+      <dd>Olivier Idir</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 12:00 Amphi Descartes
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Une séance de geekorale en continu, sous la supervision de celleux qui voudront, et la
+        possibilité de se greffer / partir quand l&#x27;on veut.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-24">[Autre] Le Pokémon Magique au théâtre</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h30</dd>
+      <dt>Orga :</dt>
+      <dd>petit gastéropode</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 23:00 Amphi Descartes
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Adaptation théâtrale minimaliste (éclatée au sol) de la fanfiction &quot;Le Pokémon
+        Magique&quot; (https://www.pokebip.com/index.php?phppage=membres/blogs/affichage-article&amp;art=292722).</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-26">[Autre] Le trophée des interludes</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h</dd>
+      <dt>Orga :</dt>
+      <dd>Lucien Jezequel</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 00:00 Amphi Descartes
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Pour les interludes on s&#x27;était dit que ça serait pas mal de faire comme les interENS et
+        d&#x27;avoir un trophée qui désigne une ENS vainqueur à la fin des interludes. <br><br>Le problème c&#x27;est
+        qu&#x27;on a pas réussit à se mettre d&#x27;accord sur les critères pour désigner ladite ENS vainqueur. Du coup
+        on vous propose de voter durant les interludes pour choisir les critères qui vous paraissent vraiment important.
+        Le but c&#x27;est qu&#x27;à la fin des interludes, l&#x27;ENS qui sera désignée vainqueur et remportera le
+        trophée sera celle désignée par les critères totalement objectifs que vous aurez mis en place lors des votes
+        durant le week-end.<br><br>Alors bien sûr on va mettre en place tout un tas de règles pour organiser les votes
+        et s&#x27;assurer que ceux-ci soient véritablement démocratiques et représentent la volonté légitime de la
+        majorité des participants. Mais en même temps on sait qu&#x27;on est pas infaible donc on vous laissera la
+        possibilité de voter pour changer ces règles si besoin. Comme ça si il y a un problème, vous pourrez vous-même
+        le corriger et s&#x27;assurer que les votes se déroule de la meilleure des manières. Franchement n&#x27;est-ce
+        pas là le meilleur système possible ? Est-ce que vous imaginez vraiment que ça puisse mal tourner ?<br><br>En
+        tout cas ce qui est sûr c&#x27;est qu&#x27;à la fin du week-end, on aura une manière fiable pour désigner le
+        gagnant du trophée des interludes et ça au fond c&#x27;est le principal...<br><br>HRP: Ce jeu est un fil rouge
+        qui aura lieu durant tout le week-end des interludes. Son fonctionnement est inspiré du jeu Nomic (voir lien
+        plus bas). Dans ce jeu on se donne un système de règles pour organiser des votes tout en permettant aux votes
+        ultérieur de modifier lesdites règles d&#x27;organisation. On ne va pas se le cacher le but du jeu est de
+        chercher ou créer (via les votes) des failles dans le système pour en abuser afin d&#x27;être capable de
+        désigner à la fin son ENS vainqueur. Bref tout les coups et abus sont permis et on verra bien ce que ça donnera
+        à la fin. :-)<br><br>https://en.wikipedia.org/wiki/Nomic</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-32">[Autre] Tombola</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h</dd>
+      <dt>Orga :</dt>
+      <dd>Lucien Jezequel</dd>
+      <dt>Type :</dt>
+      <dd>Autre, autre</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 13:30 Amphi Descartes
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tirage au sort et remise des prix de la tombola</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-7">[Autre] Trollball</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h30</dd>
+      <dt>Orga :</dt>
+      <dd>Youssef Trifa</dd>
+      <dt>Type :</dt>
+      <dd>Autre, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 16:00 Gymnase
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Venez découvrir le Trollball, activité sportive qui consiste à amener une tête de Troll (ou tout
+        autre objet sphérique) dans le cerceau adverse ! Pour cela, vous pouvez vous défendre et attaquez vos ennemis à
+        l&#x27;aide d&#x27;épées (en mousse).<br>Des règles plus détaillées seront données le jour même :) Et pensez à
+        prendre des baskets !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-11">[Freeplay] BDThêk</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h</dd>
+      <dt>Orga :</dt>
+      <dd>gael gallot</dd>
+      <dt>Type :</dt>
+      <dd>Autre, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 20:00 D2 018
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Découvre un tout autre univers et détends toi au milieu de BDs et de mangas.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-22">[Freeplay] Echecs</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h20</dd>
+      <dt>Orga :</dt>
+      <dd>Séhane Belhouari</dd>
+      <dt>Type :</dt>
+      <dd>Autre, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 18:30
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Venez défier les joueurs du club d&#x27;échecs de l&#x27;ENS de Lyon qui contient au moins un
+        grand maitre (et moi pour compenser), afin de gagner des prix, ou défiez simplement vos voisins sans vous mettre
+        la pression.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-40">[Freeplay] Jeux Vidéos</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h</dd>
+      <dt>Type :</dt>
+      <dd>Jeu vidéo, freeplay</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 15:00 D2 110
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Une salle pleine de jeux vidéos et de consoles. Venez jouer et découvrir !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-12">[GN] Abyme Secret</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h30</dd>
+      <dt>Orga :</dt>
+      <dd>Théo Vignon</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>6 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 22:30 D2 020
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Pitch :<br>Le pendule résonne dans la maison. Il est 20h. La famille Guizot vient de finir le
+        repas du soir et est allée finir la journée dans le petit salon du premier étage. Robert, Louis et Michel
+        discutent d&#x27;une commande pour un gros client, Louis semble inquiet ; si elle est mal gérée cette commande
+        pourrait causer énormément de torts à l&#x27;entreprise familiale. Robert, comme à son habitude le rassure et
+        cherche une solution, seul Michel ne semble pas très attentif à la conversation. De leur côté, Amélie et
+        Marguerite, bien trop habituées à ce genre de discussions qui ne les incluent pas, boivent leur thé dans le
+        calme relatif qui permet le dialogue des hommes. Alors que Louis s’apprête à sermonner son fils sur son attitude
+        peu compatible avec ses responsabilités, celui-ci se fige net. Robert, sur le point d&#x27;entamer une
+        explication complexe, décèle le trouble qui règne chez M. Guizot. Il suit son regard et à son tour, sombre dans
+        le mutisme, son visage crispé dans une expression d&#x27;effroi. Les femmes averties par une absence de bruit
+        sortent de leur torpeur. Elles suivent les regards de Louis et Robert jusqu&#x27;au visage de Michel. Marguerite
+        laisse échapper un petit cri étouffé, ce qui attire l&#x27;attention de Michel, plongé jusqu&#x27;alors dans la
+        contemplation de Nicolas, le majordome de la maison. Il remarque qu&#x27;Amélie sanglote en le regardant.
+        Intimidé et incrédule, il baisse les yeux, laissant son regard croiser ses mains. Il constate alors qu&#x27;une
+        tache d&#x27;un noir profond est apparu sur son poignet gauche et remonte le long de son avant bras sous la
+        manche de sa chemise.<br><br>Note d&#x27;intention :<br>Ce jeu se veut assez déstabilisant dans le sens où des
+        évènements arrivent et vous ne pouvez rien y faire, juste y réagir. Il n&#x27;y a cependant pas de triggers
+        warnings particuliers.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-18">[GN] Black Pram</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>Joël Felderhoff</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 22:30 Monod 115-116
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Cette murder a été écrite par Alex Uth, au Stockholm Scenario Festival 2015. C&#x27;est un jeu
+        dans la veine des &quot;jeux nordiques&quot; (fiches courtes, exploration des joueureuses à travers les
+        personnages).<br><br>https://scenariofestival.se/archive/scenarios-2015/the-black-pram/<br><br><br><br>Content
+        Warning<br><br>Parentalité (dans ses aspects les moins agréables), disparition/mort de nourrisson (PnJ),
+        trahison, pleurs d&#x27;enfant (PnJ), fantastique, incompréhension de l&#x27;entourage.<br><br>Présence possible
+        de violence sur bébé (PnJ) mais on peut mettre un véto la dessus avant/pendant le jeu.<br><br>Typiquement si
+        vous voulez des enfants dans un futur proche ou que vous venez d&#x27;en avoir, ça n&#x27;est pas forcément une
+        bonne idée de jouer ce jeu.<br><br><br><br>Les violences sexistes et sexuelles ne sont PAS des thèmes abordés
+        par le jeu.<br><br><br><br>Un accent tout particulier sera porté sur la sécurité émotionnelle avant, pendant et
+        après le jeu.<br><br><br><br>Pitch:<br><br>------<br><br>Nous somme en Suburbia, en été, de nos jours. Un jeune
+        couple devient parent pour la première fois.<br><br>Soudain, on découvre l&#x27;amour, si fragile et si violent.
+        On découvre l&#x27;odeur du bébé, la sensation de ses fins cheveux dans le noir, ses gazouillements pendant la
+        nuit.<br><br><br><br>Et puis le siège commence. Les bruits. Le froid. La peur.<br><br><br><br>Lars et Helene se
+        battent pour protéger la vie de leur enfant. Toutes les nuits une créature encapuchonnée attends devant leur
+        maison. Elle attend qu&#x27;iels sortent finalement, et lui donnent ce qu&#x27;elle veut. Elle attend,
+        qu&#x27;enfin, iels laissent tomber.<br><br><br><br>Note d&#x27;intention:<br><br>C&#x27;est un jeu pour 2
+        joueureuses et 2 semi-joueureuses.<br><br><br><br>Les joueureuses jouent Lars et Helene (les genres des persos
+        sont changeables, le seul impératif est que Helene ait-été enseint·e). L&#x27;objectif du jeu est de leur faire
+        vivre une expérience effrayante et stressante. Les mots clés de jeu pour elleux sont : creepy, intense, premier
+        degrés, perte de contrôle.<br><br><br><br>Les semi-joueureuses jouent un couple d&#x27;ami de la famille ayant
+        emménagé avec Lars et Helene (personnages totalement gender-bendables), le jeu sera moins intense en terme de
+        peur pour elleux, mais iels devrons travailler l&#x27;ambiance avec le MJ (mwa). Ce sont des rôles de support,
+        avec plus de contrôle sur le jeu.<br><br><br><br>Les inspirations esthétiques sont les films: 6eme sens, The
+        Village, Le Labyrinthe de Pan.<br><br>Ça n&#x27;est pas un jeu avec de la confrontation avec un monstre, mais
+        sur le fait d&#x27;avoir peur du noir, ou plutôt de ce qui se cache dedans. On explore la capacité à tenir bon
+        et les limites des nerfs des personnages et des joueureuses.<br><br><br><br>La fin du jeu est scriptée, même si
+        la manière dont elle arrive peut varier. Sur demande des joueureuses avant/pendant le jeu, elle peut être
+        révélée. Ce jeu NE TERMINE PAS BIEN.<br><br><br><br>Setup<br><br>-----<br><br>Le jeu est prévu pour durer 4h,
+        brief compris. Pour être certain de ne pas avoir besoin de rush le brief et le debrief, je vais partir sur
+        plutôt 6h, donc de 18h30 à 00h30, brief et debrief compris. Il n&#x27;y a pas besoin de beaucoup de place, mais
+        avoir un appart avec de grandes fenêtres serait un plus (je peux potentiellement proposer le miens).<br><br>Le
+        jeu alternera des phases de scénes de vie et des phases de nuit en &quot;jeu de role&quot;. Il risque d&#x27;y
+        avoir quelques cris et des pleurs de bébés.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-23">[GN] Chaos Grown-ups</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>Florine Dubourg</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>6 - 7 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 11:00 D2 114-115
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Jeu de rôle grandeur nature librement inspiré de la série &quot;The Umbrella Academy&quot; (mais
+        sans la spoiler, et pas besoin de l&#x27;avoir vue pour jouer), d&#x27;une durée d&#x27;environ 3h + 2h de
+        brief/débrief/prolongations éventuelles. <br>Ce jeu se concentre sur des relations compliquées entre
+        personnages. Il est donc conseillé pour les joueureuses un minimum expérimenté.es et/ou partant.es pour
+        s&#x27;impliquer émotionnellement dans leur personnage. <br><br>Pitch :<br>Du temps a passé depuis l&#x27;époque
+        où nous étions les Chaos Kids, ce groupe de super-héros en costume qui sauvait le monde. Chacun a suivi son
+        chemin, et on ne se voit plus qu&#x27;aux mariages et aux enterrements. Et ça tombe bien, Delphe va se marier !
+        Sa fiancée vient du Canada, et ils vont se marier là-bas, l&#x27;avion part demain. Alors il a organisé une
+        petite soirée tous ensemble, histoire de vous dire au revoir. Tout le monde va se retrouver comme au bon vieux
+        temps !<br>Enfin, presque tout le monde.<br>Bénedict ne viendra pas, il est mort.<br>D&#x27;ailleurs, Valence
+        est en prison haute sécurité depuis que... non, ça on va pas en parler. Valence ne pourra pas venir.<br>Lexie,
+        les médecins ont dit que ce n&#x27;était pas bon pour sa santé de sortir. Non pas que Lexie soit en état de vous
+        reconnaître, de toutes façons.<br>Bon, à part ça toute la bande est réunie ! Ça va être
+        sympa.<br><br><br><br>Warnings et note d&#x27;intention :<br>Ça va pas être sympa. Relations dysfonctionnelles,
+        folie, deuil, haine de soi, culpabilité forte, déni, etc. Présence de super-pouvoirs plus ou moins puissants,
+        mais c&#x27;est juste pour introduire plus de drama. Vous avez peut-être le potentiel pour sauver le monde, mais
+        vous êtes surtout là pour discuter comme des adultes. À quel point ça peut être dur ?<br><br>Le jeu est axé sur
+        le roleplay et les émotions. Il n&#x27;y aura pas forcément d&#x27;action ou de trucs du genre, ça sera
+        principalement du drama, avec beaucoup de liberté sur comment vous choisissez de le gérer. Les fiches font entre
+        15 et 20 pages et seront fournies à l&#x27;avance. Tous les persos peuvent être joués à n&#x27;importe quel
+        genre sans aucun problème. Pas d&#x27;effort particulier de costume à fournir.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-6">[GN] Documents Secrets</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h</dd>
+      <dt>Orga :</dt>
+      <dd>Valentin Richard</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>7 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 08:00 D2 103-104
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Le 5 novembre 2017, un énième scandale d&#x27;investigation enflamme l&#x27;opinion publique :
+        les Paradise Papers. Des centaines de multinationales sont visées par des accusations d&#x27;optimisation
+        fiscale par le biais de sociétés écrans. Une conjoncture inquiétante, mais bien loin du quotidien de la
+        population. <br><br>Un matin de mars 2018, bouche pâteuse, la tête lourde. Je me réveille dans une salle
+        glaciale inconnue. D&#x27;autres gens que je ne connais pas. Qu&#x27;est-ce que je fais là ?</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-15">[GN] L&#x27;Ecosysteme</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Théo Vignon</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>15 - 20 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 19:00 D2 020
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">« Depuis que l’Écosystème a été mis en place, le monde est plus juste et respectueux.
+        Chaque<br>Individualité est responsable de son impact sur la société et l’environnement, et reçoit
+        autant<br>qu’elle donne à la communauté. Ces progrès permettent enfin à tou·te·s de vivre en harmonie.<br>Mais
+        finalement, en êtes vous si sûr·e ? 15h13. Dans le train à pleine vitesse. Freinage violent.<br>Tout le monde
+        s’affole. On entend des coups de feu. Que se passe-t-il ? »</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-28">[GN] L&#x27;engrenage infernal</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>6h</dd>
+      <dt>Orga :</dt>
+      <dd>Pierre le Mouel</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>40 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 10:00 Monod 4e étage
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">GN géant dans la lignée de Plata o Platanos, Katanga Business Class ou Lagrange Point,
+        L&#x27;Engrenage Infernale est une situation de crise qui place les joueureuses dans le rôle de députés de
+        l&#x27;Assemblée Nationale ou du Reichstag à l&#x27;été 1914. Avec une vingtaine de joueureuses dans chaque
+        parlement, les forces en présence devront débattre et voter sur des projets et des motions jusqu&#x27;à
+        peut-être voter la déclaration de guerre, ou éviter d&#x27;en arriver là.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-30">[GN] La première loi</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>7h</dd>
+      <dt>Orga :</dt>
+      <dd>Davydov Michel</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>12 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 10:00 Monod 115-116
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Murder pour 12 personnes prévue pour durer environ 6-7h briefs et debriefs inclus. Elle se
+        déroule dans un univers médiéval-fantastique basé sur la série de livres éponyme de Joe Abercrombie (qui spoile
+        la murder attention !)<br><br>Pitch : <br><br>Dans le royaume de l&#x27;Union, le roi est mort récemment et le
+        prince héritier assassiné dans la foulée. Selon les statuts de l&#x27;Union, ce sont les nobles du Bas Conseil
+        qui sont alors censés élire le nouveau souverain. Au même moment, le légendaire co-fondateur de l&#x27;Union, le
+        Premier Mage Bayaz, est revenu pour la première fois depuis mille ans à la capitale, alors que l&#x27;empire
+        Ghurkhul au sud présente des velléités belliqueuses et qu&#x27;une révolte paysanne gronde, menée par un
+        mystérieux révolutionnaire nommé le Tanneur.<br><br>Note d&#x27;intention : <br><br>Murder relativement sérieuse
+        plutôt axée diplomatie/complots pour 12 personnes (même s&#x27;il y a aussi des personnages plus axés
+        enquête/introspection, il y a de tout en fait^^). La plupart des personnages sont conçus pour des interprètes
+        ayant déjà un peu d’expérience en murder, principalement parce que les fiches sont relativement courtes mais
+        assez denses.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-13">[GN] Le Choix de Préséphone</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h30</dd>
+      <dt>Orga :</dt>
+      <dd>Théo Vignon</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>13 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 12:30 D2 103-104-108
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Voilà le pitch :<br><br>Il y a des millénaires, à l&#x27;aube de l&#x27;ère atomique,
+        l&#x27;humanité a<br>développé le robot Positronique. Avec l&#x27;aide de ces serviteurs<br>bienveillants, elle
+        a établi cinquante mondes dit &quot;Spacers&quot;. Les mondes<br>Spacers étaient des paradis, libres de toute
+        guerre, exempts de<br>maladies, tous les besoins de leurs citoyens étant pris en charge par<br>une armée de
+        serviteurs robotiques. La Terre est de son côté devenue une<br>ruche surpeuplée, où les hommes sont entassés
+        dans des mégalopoles<br>souterraines, rejetant les robots et le niveau de vie plus élevé
+        qu&#x27;ils<br>pouvaient fournir.<br><br>Mais il y a un siècle après mille ans de stagnation, la Terre a
+        établi<br>de nouvelles colonies - cette fois ci sans utiliser de robots. Ces<br>nouveaux mondes appelés Settlers
+        ont rapidement déclenché un boom<br>technologique, démographique et économique, et défient déjà la
+        puissance<br>des Spacers. La guerre pourrait suivre.<br><br>Il y a cependant une chance pour la paix.
+        L&#x27;effondrement de<br>l&#x27;environnement sur le monde Spacer de Perséphone va forcer sa<br>population à se
+        délocaliser dans les prochaines décennies. Une crise<br>économique sur le monde Settler d&#x27;Echo fait que ce
+        dernier a besoin de<br>plus de main-d&#x27;oeuvre pour que son projet de terraformation réussisse.<br>Une
+        réunion diplomatique entre Spacers et Setllers a été organisée afin<br>de faire le point sur la situation et de
+        voir si un accord de<br>coopération mutuel pourrait permettre de sauver les deux mondes. Après<br>des siècles de
+        séparation,Les Spacers et les Settlers arriveront-ils à<br>se comprendre et à surmonter leurs différences et
+        trouver un moyen de<br>travailler ensemble ? Ou les deux mondes devront-ils être abandonnés ?<br><br>La note
+        d&#x27;intention :<br><br>Le choix de Perséphone est un GN rétro-SF pour 13 joueurs dans l&#x27;univers<br>des
+        célèbres histoires robotiques d&#x27;Isaac Asimov. Les joueurs joueront<br>des diplomates, des scientifiques et
+        des robots qui débattront durant la<br>conférence de l&#x27;avenir de Perséphone et de l&#x27;humanité. Le GN
+        permet de<br>jouer la confrontation entre deux camps ayant tous les deux l&#x27;intérêt et<br>l&#x27;envie
+        d&#x27;aboutir à un accord mais qui sont séparés par un fossé<br>culturel immense, obstacle presque
+        infranchissable mais qu&#x27;il faudra<br>essayer de surmonter pour obtenir un accord.<br><br>Pendant le GN
+        attendez vous à avoir de longues discussions<br>philosophiques et politiques. Celles-ci peuvent se faire en
+        grand comité<br>(tous les participants à la conférence), à plus faible effectif (3-4<br>personnes) ou même tout
+        seul lorsque les personnages sont aux prises<br>avec des dilemmes intérieurs. Dans tous les cas, elles en
+        demeurent le<br>cœur et l’intérêt principal du GN. Celles-ci tourneront inévitablement<br>sur le rôle que
+        doivent jouer les robots dans la société humaine et<br>toutes les conséquences que cela peut
+        engendrer.<br>Attendez vous aussi à avoir à faire de la diplomatie, l&#x27;intensité de<br>celle-ci peut
+        dépendre des rôles mais du fait du contexte du GN c&#x27;est<br>une composante présente pour la plupart des
+        personnages.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-25">[GN] Le Dilemme de Chronos</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h</dd>
+      <dt>Orga :</dt>
+      <dd>Michael De San Féliciano</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 23:30 D2 017
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Murder axée psychologie/réflexion pour 4 personnes d&#x27;une durée d&#x27;environ deux heures
+        (trois heures avec brief et debrief compris).<br><br>Note d&#x27;intention:<br>-Le gameplay repose entièrement
+        sur la réflexion des joueurs autour d&#x27;une &quot;question&quot;. Si vous creuser et vous prendre la tête
+        pendant deux heures ne vous intéresse pas, passez votre chemin<br>-La murder n&#x27;a à priori pas pour vocation
+        d&#x27;être émotionnellement intense, mais je n&#x27;exclue pas la possibilité qu&#x27;elle puisse l&#x27;être
+        selon la direction que les joueurs lui donne<br>-Le jeu est ouvert à tout le monde, débutant comme confirmé.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-16">[GN] Lockdown en entreprise</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h30</dd>
+      <dt>Orga :</dt>
+      <dd>Théo Vignon</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:00 D2 020
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Synopsis :<br><br><br>Dans un futur proche, les développements technologiques actuels se sont
+        accélérés dans tous les domaines. Une grosse entreprise française essaye de rivaliser avec la concurrence. La
+        R&amp;D travaille dur, des chercheurs et des ingénieurs travaillent ensemble au quotidien, et les brevets
+        pleuvent.<br><br>Mais un soir de semaine comme les autres, alors que l’entreprise a fermé ses portes pour la
+        journée, l’alarme retentit et la procédure de quarantaine est mise en place, sans explication…<br><br><br>Note
+        d’intention :<br><br><br>Déjà, commençons par le plus important : cette murder est difficile, et n’a pas été
+        prévue pour être jouer par des débutants. Le RP y est très important, même primordial, il faut savoir réagir
+        rapidement à des situations inattendues (savoir manier l’impro), il n’y a pas forcement d’objectif clair pour
+        tout le monde (ni d’objectif tout cours), et la murder a été écrite en pensant à des joueurs expérimentés.
+        <br><br>Ensuite, la murder peut mal se passer pour certains. Il est possible que des joueurs sortent
+        relativement rapidement de la murder.
+      </p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-20">[GN] Professeur Layton et le mystère de l&#x27;île de Soay</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>6h</dd>
+      <dt>Orga :</dt>
+      <dd>Juliette Suc</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>10 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 08:00 Monod 115-116
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Pitch :<br>Hershel Layton est un célèbre professeur d&#x27;archéologie, connu pour avoir résolu
+        de nombreuses énigmes et mis au jour plusieurs vestiges de grande valeur. Accompagné par son jeune apprenti
+        Luke, il parcourt le monde, démasque des criminels et perce des mystères insondables. Lorsque le Duc de
+        l&#x27;île de Soay l&#x27;invite dans son château, rien ne le prépare aux aventures qu&#x27;il va
+        vivre.<br><br>Note d’intention :<br>Cette murder pour dix joueurs est inspirée de l&#x27;univers de Professeur
+        Layton, une série de jeux vidéo d&#x27;énigmes sur Nintendo DS et 3DS. Toutes les connaissances nécessaires sont
+        présentes dans la fiche de contexte et dans les fiches personnages. Il n&#x27;y a donc pas besoin d&#x27;avoir
+        joué aux jeux pour participer à la murder. Une précision cependant : quelques spoils des jeux sont présents en
+        filigrane dans la murder. Nous faisons de notre mieux pour qu&#x27;un minimum d&#x27;entre eux transparaissent,
+        mais si vous souhaitez vraiment découvrir la série l&#x27;esprit vierge, ne vous inscrivez pas !<br><br>La
+        murder est tout à fait adaptée aux débutants. C&#x27;est un jeu à l’ambiance (globalement) légère ; comprendre
+        par là que l&#x27;immersion varie selon les personnages, et que les rôles couvrent un large spectre entre
+        l&#x27;enquête et le rôle-play. Il y aura donc de quoi contenter tout le monde ! A l&#x27;instar des jeux vidéo,
+        la murder laisse la part belle à des énigmes et des jeux de logique, qui servent de principal mécanisme
+        d&#x27;enquête.<br><br>La murder est d&#x27;une durée estimée de 6h, avec 1h de briefing, 4h de murder et 1h de
+        débriefing.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-14">[GN] Sous l&#x27;océan</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Théo Vignon</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 22:00 D2 020
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Une petite précision sur le thème de la murder :<br><br>La murder que vous allez jouer se
+        déroule dans un univers proche du<br>nôtre, mais qui présente de menues différences nécessaires à
+        notre<br>expression artistique. Ainsi, bien que les premiers sous-marins<br>nucléaires français ne soient
+        apparus que vers 1968, et que<br>généralement l’équipage était plus nombreux, vous serez huit sur
+        ce<br>sous-marin, en 1961. Par ailleurs, la visée de la murder est d’être plus<br>légère que la moyenne, un peu
+        loufoque, pas trop prise de tête. Nous<br>présentons la guerre froide d’un point de vue détendu, voir
+        sympatique,<br>et non pas film noir. Soyez prévenus et amusez vous !<br><br><br>Et maintenant le pitch de la
+        murder :<br><br>Nous sommes en 1961, la guerre froide bat son plein. Le bloc socialiste<br>séduit de plus en
+        plus, de par la liberté totale des pays le composant,<br>leur égalité, l’amélioration indéniable du niveau de
+        vie de ses<br>habitants et le bonheur généralisé s’étant instauré. C’est du moins ce<br>qui est dit dans leurs
+        journaux officiels, seules informations<br>disponibles en provenance de ces pays.<br><br>Le bloc ouest lui
+        continue de s’organiser autours des Etats Unis et de<br>leur finesse, à la fois culturelle et politique. Mais
+        restant taquin, il<br>y a à peine un mois le président américain a déclaré que de toute façon<br>”l’ensemble du
+        peuple russe en ayant une toute petite, nous ne sommes<br>pas inquiétés”, phrase ayant largement accru les
+        tensions entre les<br>deux blocs. Un certain nombre de pays, tel l’Inde, le Pakistan, une<br>large partie de
+        l’Afrique, l’Amérique centrale et la totalité l’Asie du<br>sud, après cette délicate saillie d’humour ont décidé
+        de ne pas se<br>positionner et de se regrouper dans un collectif de pays les ”non<br>alignés”. Cette décision a
+        été médiocrement saluée par chacun des deux<br>blocs, le bloc soviétique ayant déclaré que ce n’était que
+        des<br>”camarades n’ayant pas encore compris leur intérêt” et les Etats unis<br>ayant parlé de ”pays inconnus
+        ayant un manque de couilles incroyable”.<br><br>Mais derrière cette guerre de communication se tient une guerre
+        de<br>l’ombre... Au fond des océans des hommes s’agitent : les sous marins ne<br>cessent de remplir des missions
+        secrètes. De nombreuses opérations<br>restent de sources inconnues et nul ne sait à qui attribuer
+        les<br>différentes manipulations, attaques ou sabotages qui fleurissent ces<br>dernieres années. Et chaque
+        mission de ces sous marins est un secret<br>jalousement gardé.<br><br>Après un court retour au port le sous
+        marin français ”le Redoutable” est<br>de nouveau reparti en mer depuis quelques jours. La presse français
+        a<br>rapporté de nombreuses rumeurs sur les raisons d’un retour au port plus<br>rapide que prévu du sous marin
+        ...</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-8">[GN] Zero Escape : Radical Outcome</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>7h</dd>
+      <dt>Orga :</dt>
+      <dd>Youssef Trifa</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle grandeur nature, une partie</dd>
+      <dt>Places :</dt>
+      <dd>9 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 19:00 Monod 4e étage
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Note d&#x27;intention :<br><br>Cette murder repose essentiellement sur les notions
+        d&#x27;alliance et de trahison entre des personnages soumis à une expérience répétée du dilemme du prisonnier.
+        Le jeu ne contient pas de fouilles et est a visée rôle-play, immersive et psychologiquement dure. L&#x27;accent
+        est mis sur le développement de relations de confiance ou de suspicion entre des personnages qui chercheront a
+        survivre a un &quot;jeu&quot; mortel, ensemble ou seuls.<br><br>Cette murder est inspirée de l&#x27;univers de
+        la série de jeux vidéo Zero Escape. Nous avons pris un certain nombre de libertés avec la trame originale des
+        jeux, et si certains personnages sont dans l&#x27;esprit d&#x27;autres personnages présents dans les jeux, ils
+        en demeurent des entités indépendantes. Quelques spoils sont tout de même présents en filigrane, et si vous
+        jouez aux jeux en recoupant les similitudes avec la murder, il vous est possible de vous spoiler certains
+        éléments d&#x27;intrigue des jeux. Cependant les retournements scénaristiques majeurs ne seront pas abordes : ne
+        tentez donc pas d&#x27;inférer des éléments des jeux par le biais de la murder, ou le contraire. Nous veillerons
+        par ailleurs a ce qu&#x27;aucune mention des jeux ne soit effectuée afin que vous ne puissiez deviner ce que
+        nous avons repris et ce qui est de notre cru. En décidant de vous inscrire a cette murder, vous acceptez les
+        présentes conditions sur les risques de spoil.<br><br>Cette murder se veut relativement complexe
+        scénaristiquement parlant. De plus, elle laisse vraisemblablement peu d&#x27;espoir de fin heureuse à une grande
+        majorité des personnages.<br><br>Enfin, cette murder abordera a priori les thèmes traditionnellement jugés durs
+        suivants : PANDÉMIE MONDIALE, enlèvement, massacre de masse, chantage, secte, perte d&#x27;un être cher, perte
+        d&#x27;identité.<br><br>Pitch :<br><br>Je me réveille difficilement. Je n&#x27;ai aucune idée d&#x27;où je suis,
+        mais je remarque immédiatement que j&#x27;ai un bracelet attaché à mon poignet, sur lequel figure le chiffre 3.
+        J&#x27;ai aussi une marque de piqûre au niveau de l&#x27;avant bras gauche.<br><br>Je n&#x27;ai pas le temps de
+        me poser plus de questions qu&#x27;une voix résonne dans un haut parleur : Bienvenue au Nonary Game, Ambidex
+        Game Edition. Je serai votre guide pour vos futures épreuves. J&#x27;espère que nous allons bien nous amuser
+        tous ensemble, et que nous pourrons échapper a un ennui mortel ! Je vous prie de rejoindre la salle principale,
+        ou je vais vous expliquer les règles de l&#x27;Ambidex Game.<br><br>À peine le discours terminé, des lumières
+        s&#x27;allument au sol. Elles forment un chemin lumineux, qui mène jusqu&#x27;à un ascenseur. Les premiers
+        instants de panique passés, je décide de suivre le chemin jusqu&#x27;à la salle principale. Là, je trouve huit
+        autres personnes qui semblent avoir subi le même sort que moi. Comment ai-je atterri la ? Que va-t-il
+        m&#x27;arriver ? Qui est derrière tout ça ? Pourquoi m&#x27;avoir choisi moi ? Et surtout, vais-je m&#x27;en
+        sortir ?</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-35">[JV] Abyss Crew</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h</dd>
+      <dt>Orga :</dt>
+      <dd>Pol Grasland-Mongrain</dd>
+      <dt>Type :</dt>
+      <dd>Jeu vidéo, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 - 12 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 13:00 D2 110
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Embarquez avec vos camarades dans un sous-marin steampunk, pour explorer des fonds marins à la
+        recherche de minéraux précieux. Mais attention ! Des menaces tentaculaires rôdent...<br>A mi-chemin entre le jeu
+        vidéo et le jeu de rôle, Abyss Crew permet à un groupe de 4 joueurs d&#x27;incarner l&#x27;équipage du
+        sous-marin : pilote, torpilleur, sonar, ingénieur. La coopération sera nécessaire entre les différents membre de
+        l&#x27;équipage pour avoir une chance de survivre dans les abysses.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-36">[JV] Scientific Game Jam</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Pol Grasland-Mongrain</dd>
+      <dt>Type :</dt>
+      <dd>Jeu vidéo, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>Illimités</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 16:00 Amphi Descartes
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Peut-on jouer avec la science ?<br>L&#x27;activité est séparée en deux parties
+        indépendantes.<br>D&#x27;abord, une conférence : comment relier la science et le jeu vidéo ? Peut-on faire de la
+        recherche avec le jeu vidéo ? Qu&#x27;est ce que les &quot;game studies&quot; ? Petit tour
+        d&#x27;horizon.<br>Ensuite, des tests de jeux vidéo scientifiques. Au cours des 4 premières éditions de la
+        Scientific Game Jam, des doctorant.e.s ont créé, avec des équipes de développeur.se.s, des jeux vidéo autour de
+        leur thématique de recherche.<br>Incarnez un algorithme de machine learning avec Neurobot. Faites adopter la
+        déesse Cybèle par la société romaine avec Romanizer. Partez à Chypre traverser la ligne verte, avec Une soirée à
+        Nicosie. Soignez des cellules cancéreuses avec des ultrasons avec Sonobulle. Créez des jeux de plateau originaux
+        selon le profil de vos clients avec L&#x27;Europe sur un Plateau. Transformez un chat par épigénétique dans
+        Epimatch. Et 30 autres jeux à découvrir, dont certains réalisés par des étudiant.e.s de l&#x27;ENS de Lyon !</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-2">[JdR] Demi-Dieu</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Axel Palaude</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>3 - 5 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:00 D2 112,<br>
+
+        dimanche 08:00 D2 112
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">&quot;Vous voilà Demi-dieu, créature éthérée parcourant les univers, à la recherche de divinités
+        dans le besoin afin de tromper votre ennui.<br>Pour les aider, vous vous incarnez dans des personnages vivant
+        dans cet univers, vous oubliant le temps d&#x27;une aventure.<br>Cependant, malgré l&#x27;apparente tranquillité
+        du méta-monde, des manigances se trament. Des êtres comme vous ont décidé de chambouler cette façon de vivre, au
+        péril de l&#x27;existence d&#x27;univers entiers...&quot;<br><br>Demi-dieu est un méta-univers, permettant de
+        relier des OneShots indépendants dans des univers différents par une trame globale, s&#x27;étalant à travers les
+        conventions et autres évènements rôlistiques. <br>Deux parties se rejoignent : <br>-D&#x27;un côté, nous
+        jouerons un OneShot dans un univers décidé par toutes les personnes présentes, dans la limite des capacités du
+        MJ. Horreur, Steampunk, Med-fan, Sci-Fi, humoristique, grandiose... tout ou presque est possible.<br>-D&#x27;un
+        autre côté, le méta-univers apporte une petite couche de liant entre mes OneShot. Il permet de laisser une trace
+        en tant que personnage dans le méta-monde, et d&#x27;avoir une &quot;petite&quot; évolution si vous revenez
+        jouer à ma table un jour (n&#x27;hésitez pas à me dire si vous avez déjà un personnage!)<br><br>Cela peut
+        sembler lourd, mais d&#x27;expérience le jeu est bien adapté même pour les personnes novices en JdR. Dans tous
+        les cas, nous communiquerons un minimum en amont pour faire une séance plaisante!<br><br>Au plaisir de vous voir
+        rejoindre le monde de Demi-Dieu!</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-38">[JdR] Gilgamesh</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>Etienne Stransky</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 - 5</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:00 D2 111
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">2157. Après des décennies d&#x27;études, la présence de formes de vie nombreuses a été confirmée
+        sur la planète Enkidu-4, en particulier grâce aux relevés de rayonnement et d&#x27;absorption atmosphériques. De
+        plus, les rares images semblent montrer de petits objets en orbite, soupçonnés d&#x27;être des satellites.
+        <br><br>La FUT - la Fédération de l&#x27;Union Terrienne, est ravie de lancer une expédition. Le vaisseau,
+        baptisé Gilgamesh, voyagera vingt-sept ans en vitesse supraluminique, l&#x27;équipage en cryostase.<br><br>2158.
+        Ordre de mission. Gilgamesh part. A son bord, un contingent de scientifiques - toutes femmes - emporte la fine
+        fleur de l&#x27;humanité, de nombreux outils, satellites... et, pour parer à tout inconnu, quelques
+        armes.<br><br>2185. Approche finale. Entrée dans le système Enkidu. L&#x27;humanité découvre les secrets
+        d&#x27;une civilisation extraterrestre. <br><br>Au risque de découvrir des choses qu&#x27;elle ne devait jamais
+        apprendre...<br><br>----<br>Un scénario de science-fiction &quot;dure&quot;, mettant l&#x27;accent sur
+        l&#x27;exploration et la découverte d&#x27;une civilisation non-humaine. Vous incarnez une équipe de
+        scientifiques d&#x27;élite qui cherchent à percer les secrets d&#x27;un autre monde, au risque de causer la
+        chute de l&#x27;Humanité.<br><br>Jeu pour 4-5 joueurs, en semi-coopératif.
+      </p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-39">[JdR] La loi de la jungle</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>0h45</dd>
+      <dt>Orga :</dt>
+      <dd>ENvertS</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, une partie</dd>
+      <dt>Places :</dt>
+      <dd>8</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 17:00 D2 112
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Jeu de plateau/role pour compre les interactions entre especes dans la foret Amazonnienne et
+        l&#x27;impact de l&#x27;homme sur cet ecosysteme.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-9">[JdR] Larmes &amp; Poussières</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>4h</dd>
+      <dt>Orga :</dt>
+      <dd>François Stransky</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 19:00 D2 111
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Quatre âmes perdues entrent dans les ruines de la demeure ancestrale des Luctia. <br><br>Elles
+        cherchent... quelque chose. Quoi ? Elles-mêmes ne le savent pas avec certitude. <br><br>Le Destin, le devoir, la
+        peur, la contrainte... quelque chose vous pousse à descendre dans ces ruines maudites des dieux, poussiéreuses
+        et sinistres, d&#x27;où nul aventurier n&#x27;est jamais ressorti. <br><br>A la recherche de quelque chose, qui
+        n&#x27;y est peut-être pas. <br><br>Mais quelques chose y est, s&#x27;y terre depuis des éons...<br><br>Et vous
+        attend. <br><br>Gameplay : exploration de donjon avec combat en temps réel. Purement coopératif.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-34">[JdR] Macadabre, les brigades de la Malemort</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>10h07</dd>
+      <dt>Orga :</dt>
+      <dd>Adrien Berthelot</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>3 - 7</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 21:00 D2 113,<br>
+
+        samedi 21:00 D2 113
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">En l’an 1366, en plein obscurantisme moyenâgeux, la province de Saint-Voile est ravagée par une
+        étrange pestilence transformant sa population en créatures dégénérées, déviantes et bestiales.<br><br>Si la
+        province, pauvre et bien trop éloignée de la capitale, n’intéresse pas la Couronne ; la fuite de la population
+        face à une épidémie en pleine propagation, les rumeurs d’une nouvelle religion se développant dans la région,
+        l’anathème de l’Église sur la cité fortifiée dirigée par la sulfureuse Comtesse et l’absence de communications
+        avec cette dernière contraignent le roi à mandater un collège de médecins de peste.<br><br>Le but de cette
+        brigade méprisée : éradiquer la source de cette malemort ou mourir en essayant.<br><br>---<br><br>Pendant les
+        deux nuits des interludes, par groupe de 3 à 7 vous pourrez venir participer aux combats contre la Comtesse. Ce
+        jeu d&#x27;exploration à l&#x27;ambiance horrifique sera particulièrement mortel pour vos personnages et il
+        faudra sûrement de nombreux sacrifices pour espérer vaincre. Pendant ces deux nuits, chaque groupe de joueurs
+        prendra le relais de celui précédemment anéanti par le sang, la maladie ou la folie. Chaque groupe léguant ainsi
+        aux suivants de précieuses informations sur la région, la Comtesse et ses sbires dans l&#x27;espoir de triompher
+        un jour.<br><br>Les règles seront simples, les personnages pré-tirés et des mécaniques de sécurité émotionnel
+        appliqué afin que chacun puisse profiter de l&#x27;expérience.<br><br>Venez nombreux (vous en aurez besoin) !
+      </p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-31">[JdR] Pour une poignée d&#x27;astro-dollars</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>Crépinge Raphaël</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 00:00 D2 103
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">La planète Terminus porte bien son nom : tout ce qui y viens n&#x27;en repart
+        jamais.<br>C&#x27;est un lieu habité par les malfrats de tout poils et tout les rebuts de la galaxie.<br>Vous ?
+        Vous êtes une bande de bons à rien qui essayent de joindre les deux bouts. <br>Votre vaisseau tombe en miettes,
+        vos dettes s&#x27;accumulent et vous avez pas mal de gens pas très cool à dos.<br>Mais ce qu&#x27;il y a de bien
+        à Terminus, c&#x27;est qu&#x27;une opportunité de se faire du fric fini toujours par arriver...</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-10">[JdR] Préservez la Flamme</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>5h</dd>
+      <dt>Orga :</dt>
+      <dd>François Stransky</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>4 - 5 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        dimanche 08:00 D2 111
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">La Fin du Second âge est arrivée.<br><br>A la tête d&#x27;une centaine de réfugiés chacun, cela
+        fait des jours que vous courez, fuyant la Catastrophe, le Hurlement, et les Ténèbres.<br><br>Mais vous avez
+        enfin trouvé un refuge. Un ancien monastère du premier âge, une lumière contre l&#x27;obscurité rampante, et la
+        fin imminente. Un espoir dans la nuit, votre seul espoir.<br><br>Rassurez votre peuple. Survivez, rassemblez,
+        fédérez. Apprenez ce qu&#x27;il se passe, explorez. Dressez-vous contre la nuit.<br><br>Préservez la
+        Flamme.<br><br>Gameplay : mélange jeu de plateau de développement économique et jeu de rôles, purement
+        coopératif.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-4">[JdR] [Pokemon Beta] Le cristal poni</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h30</dd>
+      <dt>Orga :</dt>
+      <dd>Aude Gounelle</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>3 - 5 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 15:00
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Benjamin et moi travaillons depuis quelques temps sur la création d&#x27;un jdr pokémon. Nous
+        voici donc avec un prototype bien avancé pour vous proposer de venir tester tout ça lors d&#x27;un one shot. Ce
+        seras l&#x27;un des premiers test en conditions réel donc il y aura peut être des soucis avec le
+        système.<br><br>&quot;L&#x27;ile de Poni est un endroit paisible, dans l&#x27;archipel tropical d&#x27;Alola,
+        encore libre de tout tourisme en ces temps reculés. Comme tout les 5 ans, les rares jeunes du village de Poni à
+        posséder des pokémons se rassemblent pour partir en quête d&#x27;un des mystiques cristaux Poni, dans le grand
+        canyon, pour préparer la cérémonie en l&#x27;honneur du pokémon protecteur Tokopisco.&quot;</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-5">[JdR] [d100 béta] Les larmes de Melvumia</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h30</dd>
+      <dt>Orga :</dt>
+      <dd>Aude Gounelle</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de rôle sur table, une partie</dd>
+      <dt>Places :</dt>
+      <dd>2 - 4 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        vendredi 22:00 D2 108
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Melvumia fut un monde riant autrefois. Enfin, c’est ce que racontent les légendes. Nul ne sait
+        depuis quand le monde est ce qu’il est, pas même le plus vieux des anges millénaires. La surface a été envahie
+        d’une brume macabre, mortelle pour les humains, pendant des millénaires. Celle ci se mélangeait parfois avec
+        l’atmosphère provoquant des phénomènes météorologiques aussi impressionnants que dangereux. Les humains était
+        donc confinés aux zones protégés, nommées abris, et destinés à une extinctions presque certaines. A l’opposé, au
+        dessus de la brume, vivaient les anges, les nouveaux maîtres de ce monde, n’hésitant pas à se lancer dans des
+        conflits courtois mais fratricides. <br><br>Mais la brume à soudainement disparut, se réduisant à quelques
+        orages et tornades et permettant aux humains de reprendre leur développement. Quasiment simultanément certains
+        anges ont commencé à perdre leur puissance, à redevenir mortels. Le séraphin, dieu immortel des anges, est mort,
+        laissant le trône vide et depuis de nombreux séraphins apostat se sont dressé les uns contre les autres, tandis
+        que la famille royale cherche un nouveau candidat. Les anges s’allient désormais aux humains pour un peu de
+        puissance supplémentaire. Melvumia est au bord du bouleversement et des secrets millénaires, enfouit jusqu’à là
+        par la brume, pourrait bien changer les rapports de puissance de ce monde dévasté.<br><br>Dans l&#x27;abri du
+        Delta, un groupe d&#x27;humain se prépare à aller à le rencontre des anges, cherchant à obtenir la protection
+        des esprits de la nature. <br><br>Il s&#x27;agit d&#x27;une bêta, dans un système basé sur celui de Call of
+        Cthulu mais (en théorie) moins mortel pour les PJs. Vous incarnerez les membres d&#x27;une petite expédition
+        hors des murs de l&#x27;abri, en quête des anges, des êtres immortels dont vous ne savez presque rien. Le jeu se
+        déroulera en trois partie, légèrement décalée dans le temps. Après c&#x27;est une béta, donc on verra ce
+        qu&#x27;il se passe ne pratique. De même, les plus grand mystère de ce monde ne seront pas résolus en 4h.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-17">[Jeux] Chaîne Alimentaire</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>1h30</dd>
+      <dt>Orga :</dt>
+      <dd>Lyr</dd>
+      <dt>Type :</dt>
+      <dd>Jeu à rôles secrets, une partie</dd>
+      <dt>Places :</dt>
+      <dd>13 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 10:00 D2 104
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Oyé oyé ! Vous avez toujours rêvé d&#x27;être un animal, que ce soit un majestueux lion, un
+        dangereux crocodile ou une loutre trop choupi ? Et bien la chaîne alimentaire est faite pour vous !<br><br>Dans
+        ce jeu, chaque joueur incarne un animal parmi 13 différents, situé sur un de cinq rangs de la chaine
+        alimentaire. Chaque animal a son habitat naturel, un pouvoir spécial ainsi qu’une condition de victoire qui lui
+        est propre.<br><br>Afin de vous aider, vous serez informé en début de partie de l&#x27;identité d&#x27;un autre
+        joueur de votre choix, puis aurez 30 minutes pour glâner des informations et établir une stratégie en discutant
+        auprès des autres animaux. Ensuite, il y aura quatre tours de jeu, durant lesquels vous devrez vous déplacer
+        d&#x27;habitats en habitats pour accomplir vos objectifs avec les autres animaux. Gare à ne pas vous retrouver
+        seul face à un lion affamé ! Alors n&#x27;attendez plus et inscrivez-vous ;-)</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-21">[Jeux] Fresque du Climat</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>2h</dd>
+      <dt>Orga :</dt>
+      <dd>ENvertS</dd>
+      <dt>Type :</dt>
+      <dd>Jeu coopératif, une partie</dd>
+      <dt>Places :</dt>
+      <dd>3 - 16 (sur inscription)</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 08:00 D2 115,<br>
+
+        samedi 13:00 D2 113,<br>
+
+        dimanche 10:00 D2 115
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Comprendre de manière ludique le réchauffement climatique, ses mécanismes et ses impacts. Puis,
+        débattre sur de possibles solutions et partager son ressenti.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-29">[Jeux] Tournoi de Belote</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>3h</dd>
+      <dt>Orga :</dt>
+      <dd>Samuel Laporte</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de cartes, tournoi</dd>
+      <dt>Places :</dt>
+      <dd>Illimités (sur inscription)</dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Une cinquantaine de table, chaque équipe de deux amène son paquet de cartes. Les équipes à
+        l&#x27;inscription reçoivent un coupon (type tombola) avec leur numéro d&#x27;équipe. Tout le monde joue 3 fois,
+        et on va jouer pour la gloire de la belote.</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+    <h3 id="act-27">[Jeux] Tracker&#x27;s League</h3>
+    <dl>
+      <dt>Durée :</dt>
+      <dd>6h</dd>
+      <dt>Orga :</dt>
+      <dd>Colin Pagani</dd>
+      <dt>Type :</dt>
+      <dd>Jeu de société, quelques parties</dd>
+      <dt>Places :</dt>
+      <dd>0 - 4</dd>
+      <dt>Heure/Lieu :</dt>
+      <dd>
+        samedi 00:00 D2 002
+
+      </dd>
+      <dt>Description :</dt>
+    </dl>
+    <div class="desc">
+      <p class="indent">Tracker’s League est un jeu de stratégie hautement asymétrique, motorisé par Scythe, pour 2 à 4
+        joueuses. Les joueuses incarneront des chasseurs de primes, chacun avec leurs propres règles, cartes, plateaux
+        et unités, qui s&#x27;affrontent en plein coeur de la cité de Minosis.<br><br>Ce jeu, en cours de développement,
+        vous est proposé par un game designer de renom (vous ne vous souvenez juste pas encore de lui), et des parties
+        d&#x27;initiation seront organisées sur l&#x27;après-midi/soirée pour les intéressés.<br><br>Warning : Jeu assez
+        long (4h).</p>
+    </div><a style="text-decoration: none;" href="#act-list"><i class="fa fa-arrow-up"></i> Retour à la liste</a>
+  </main>
+  <footer>
+    <div id="sponsors"><a class="external" href="https://www.ens-lyon.fr/"><img src="/static/imgs/2022/ens_lyon.svg"
+          alt="École Normale Supérieure de Lyon" title="École Normale Supérieure de Lyon" /></a><a class="external"
+        href="https://discord.gg/27QWSDUNgM"><img src="/static/imgs/2022/bul.png" alt="Bureau Ludique de l'ENS de Lyon"
+          title="Bureau Ludique de l'ENS de Lyon" /></a><a class="external" href="https://www.trollune.fr/"><img
+          src="/static/imgs/2022/trollune.png" alt="Trollune" title="Trollune" /></a><a class="external"
+        href="https://www.3ptitspois.fr/"><img src="/static/imgs/2022/trois_ptits_pois.png" alt="Trois Ptits Pois"
+          title="Trois Ptits Pois" /></a></div>
+    <p>Pour tout problème, contacter&nbsp;:<br><span class="antispam">rf.noyl-sne@lub</span></p>
+  </footer>
+</body>
+
+</html>
