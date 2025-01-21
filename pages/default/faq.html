@@ -57,28 +57,30 @@
 <h2>Quels sont les tarifs d'entrée&nbsp;?</h2>
 <p>
 	Les tarifs sont différenciés entre salarié·es 
-	(ou exté·es remunéré·es au moins autant qu'un normalien salarié)
+	(ou exté·es remunéré·es au moins autant qu'un·e normalien·ne salarié·e)
 	et non-salarié·es.
 	<ul>
-		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}</li>
+		<li><strong>Participation à l'événement :</strong> {{ settings.price_entry }}. Gratuit pour les adhérent·es COF</li>
 		{{ settings.pretty_meal_prices|safe }}
-		<li><strong>Logement en tente :</strong> {{ settings.price_sleep }}</li>
+		<!--<li><strong>Logement en tente :</strong> {{ settings.price_sleep }}</li>-->
 	</ul>
-	Cela ne comprend pas le cout des transports.
+	Cela ne comprend pas le coût des transports.
 </p>
 
 <h2>Quelles seront les conditions pour dormir&nbsp;?</h2>
 
 <p>
 	L'idée est de proposer aux {{ settings.hosting_school_adjective_plural }} de 
-	loger les normaliens des autres écoles. Si vous le pouvez, prenez un sac de couchage
+	loger les normalien·nes des autres écoles. Nous sommes en discussion avec
+	l’administration pour voir selon quelles modalités ce sera fait.
+<!--Si vous le pouvez, prenez un sac de couchage
 	et tapis de sol. Il n'y aura pas forcément suffisamment de matelas
 	pour tout le monde...
 	{% if settings.sleeper_link %}
 	Il y aura un formulaire spécial à compléter sur la page inscription si vous 
 	souhaitez avoir un hébergement.
 	{% endif %}
-	Nous vous contacterons une fois que nous aurons fait la répartition.
+	Nous vous contacterons une fois que nous aurons fait la répartition.-->
 </p>
 
 {% if settings.sleep_host_link %}
@@ -109,19 +111,22 @@
 
 {% if settings.hosting_school == "U" %}
 <p>
-	Si le menu ne vous convient pas, il y a pas mal de commerce, restaurants et 
+	Si le menu ne vous convient pas, il y a pas mal de commerces, restaurants et 
 	fast-food dans le quartier. Nous recommandons particulièrement la 
 	<a href="https://www.openstreetmap.org/#map=17/48.842252/2.349787">rue Mouffetard</a> 
 	à 3 minutes à pied. N'hésitez pas à demander aux ulmites les bonnes adresses&nbsp;!
 </p>
 {% endif %}
 
-<p>	Si vous dormez dans les tentes, pensez à prendre un tapis de sol et duvet.</p>
+<!--<p>	Si vous dormez dans les tentes, pensez à prendre un tapis de sol et duvet.</p>-->
 
 <h2>Comment payer ?</h2>
 <p>
-	De préférence par l'association qui gère les Interludes dans votre ENS
-	(Bureau des Loisirs, Bul...). Sinon par espèce, chèque, carte sur place.
+	<!--Nous vous donnerons, en temps voulu, un lien vers un HelloAsso pour le paiement en ligne. Si payer en ligne n’est pas une option pour vous, prenez contact avec nous.-->
+Le paiement en ligne s'effectue sur <a href="https://www.helloasso.com/associations/aeens/evenements/interludes-2025">HelloAsso</a>. Notez que votre inscription sur ce site fait foi, et non celle sur HelloAsso : s'il vous plaît, choisissez les mêmes options sur HelloAsso que celles que vous avez choisies sur ce site. De même, mettez la même adresse mail pour que l'on puisse faire le lien entre les deux inscriptions.
+Si vous ne pouvez vraiment pas payer en ligne, il y aura une option pour payer sur place, mais cela ralentira le check-in. Vous pouvez aussi prendre contact avec nous.
+<!--De préférence par l'association qui gère les Interludes dans votre ENS
+	(Bureau des Loisirs, Bul...). Sinon par espèce, chèque, carte sur place.-->
 </p>
 
 <h2>Comment se rendre à l'événement&nbsp;?</h2>

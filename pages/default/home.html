@@ -40,8 +40,18 @@
 
 	<p>
 		L'inscription à l'événement, aux repas, à l'hébergement et aux activités se fait dans 
-		<a href="{% url 'inscription'%}">l'onglet inscription</a>.
+		<a href="{% url 'inscription' %}">l'onglet inscription</a>. Le paiement se fait sur 
+		<a href="https://www.helloasso.com/associations/aeens/evenements/interludes-2025">HelloAsso</a> 
+		(voir <a href="{% url 'html_page' slug='faq' %}">l'onglet FAQ</a> pour plus de détails).
 	</p>
+<p>
+Les dates limites d'inscriptions sont les suivantes&nbsp;:
+<ul>
+<li>inscription aux Interludes avec des repas et/ou des goodies&nbsp;: <strong>8 décembre</strong>;</li>
+<li>inscription aux Interludes sans repas ni goodies&nbsp;: <strong>pas de limite</strong>;</li>
+<li>inscription aux activités à places limitées&nbsp;: <strong>16 janvier</strong>.</li>
+</ul>
+</p>
 	</p>
 	{% if settings.inscriptions_start and settings.inscriptions_end %}
 		<p>Les inscriptions aux activités seront ouvertes
@@ -92,13 +102,30 @@
 <p>
 	Cette année, le menu sera entièrement végétarien, avec options végan et/ou sans gluten possibles.
 	<ul>
-		{% if settings.menu_friday_evening %}<li><strong>Vendredi soir :</strong> {{ settings.menu_friday_evening }}</li>{% endif %}
-		{% if settings.menu_saturday_morning %}<li><strong>Samedi matin :</strong> {{ settings.menu_saturday_morning }}</li>{% endif %}
-		{% if settings.menu_saturday_midday %}<li><strong>Samedi midi :</strong> {{ settings.menu_saturday_midday }}</li>{% endif %}
-		{% if settings.menu_saturday_evening %}<li><strong>Samedi soir :</strong> {{ settings.menu_saturday_evening }}</li>{% endif %}
-		{% if settings.menu_sunday_morning %}<li><strong>Dimanche matin :</strong> {{ settings.menu_sunday_morning }}</li>{% endif %}
-		{% if settings.menu_sunday_midday %}<li><strong>Dimanche midi :</strong> {{ settings.menu_sunday_midday }}</li>{% endif %}
-		{% if settings.menu_sunday_evening %}<li><strong>Dimanche soir :</strong> {{ settings.menu_sunday_evening }}</li>{% endif %}
+    <il style="display: grid; grid-template-columns: 3em 1fr">
+        <div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Vegan_friendly_icon.svg" width="30em" style="float:left">
+        <div style="float: left;"><strong style="font-size:20">*</strong></div></div>
+    <details><summary>Damper bread</summary>
+<p>Pain au gouda, parmesan, sauge et graines de pavot.</p>
+<p>Allergènes: LAIT, GLUTEN</p>
+<p>Option végane: <s>LAIT</s>, SOJA</p></details>
+        </il>
+        <il style="display: grid; grid-template-columns: 3em 1fr">
+    <div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Vegan_friendly_icon.svg" width="30em" style="float:left">
+    <div style="float: left;"><strong style="font-size:20">*</strong></div>
+    </div>
+    <details>
+    
+        <summary>Barre aux noix de coco et macadamia</summary><p>Barre aux céréales avec base de shortbread, noix de coco et noix de macadamia.</p>
+        
+        <p>Allergènes: LAIT, NOIX DE MACADAMIA</p>
+        <p>Option végane: <s>LAIT</s>, SOJA</p>
+    </details>
+        </il>
+    </ul></li>{% endif %}
+		{% if settings.menu_sunday_evening %}<li><strong>Dimanche soir :</strong> {{ settings.menu_sunday_evening|safe }}</li>{% endif %}
 	</ul>
 </p>
 {% else %}
@@ -118,6 +145,7 @@
 	</li>
 	<li>Archives de ce site web: 
 		<a href="{% static 'archive/2021/index.html' %}">Ulm 2021</a> | 
+		<a href="{% static 'archive/2022/index.html' %}">Lyon 2022</a> | 
 		<a href="{% static 'archive/2024/index.html' %}">Rennes 2024</a>
 	</li>
 </ul>
