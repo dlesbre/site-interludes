@@ -2,6 +2,12 @@
 
 # Change Log
 
+## Version 3.0.6 - 2025-01-21
+
+- Add option to disable meal registration
+- Fix wrong id being exported in participants.csv
+- Add Lyon 2022 archive
+
 ## Version 3.0.5 - 2025-01-19
 
 - Add CSV import for activity choices in admin pages
