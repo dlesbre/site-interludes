@@ -125,6 +125,7 @@ class SiteSettingsAdmin(SingletonModelAdmin):
             "Repas",
             {
                 "fields": [
+                    "meal_inscriptions_open",
                     "meal_friday_evening",
                     ("meal_saturday_morning", "meal_saturday_midday", "meal_saturday_evening"),
                     ("meal_sunday_morning", "meal_sunday_midday", "meal_sunday_evening"),

@@ -15,6 +15,7 @@
 
 		<h3>Repas</h3>
 
+		{% if settings.meal_inscriptions_open %}
 		<p>Vous pouvez vous inscrire aux repas ci-dessous&nbsp;:</p>
 		<table>
 			{% if settings.meal_friday_evening %}<tr><td>Vendredi soir&nbsp;:</td><td>{{ form.meal_friday_evening }}</td><td>{{ settings.price_friday_evening_meal }}</td></tr>{% endif %}
@@ -26,7 +27,33 @@
 			{% if settings.meal_sunday_evening %}<tr><td>Dimanche soir&nbsp;:</td><td>{{ form.meal_sunday_evening }}</td><td>{{ settings.price_sunday_evening_meal }}</td></tr>{% endif %}
 		</table>
 
-		<p>Les menus sont disponibles sur la <a href="{% url 'home' %}#menus">page d'accueil</a>
+		<p>Les menus sont disponibles sur la <a href="{% url 'home' %}#menus">page d'accueil</a>.
+		{% else %}
+			<p>Il est trop tard pour changez les inscriptions aux repas.</p>
+
+			{% if user.profile.nb_meals != 0 %}
+			<p>Vous êtes inscrit à {{ user.profile.nb_meals }} repas :
+				<ul>
+					{% if settings.meal_friday_evening and user.profile.meal_friday_evening %}<li>Vendredi soir</li>{% endif %}
+					{% if settings.meal_saturday_morning and user.profile.meal_saturday_morning  %}<li>Petit dej' du samedi</li>{% endif %}
+					{% if settings.meal_saturday_midday and user.profile.meal_saturday_midday  %}<li>Samedi midi</li>{% endif %}
+					{% if settings.meal_saturday_evening and user.profile.meal_saturday_evening  %}<li>Samedi soir</li>{% endif %}
+					{% if settings.meal_sunday_morning and user.profile.meal_sunday_morning  %}<li>Petit dej' du dimanche</li>{% endif %}
+					{% if settings.meal_sunday_midday and user.profile.meal_sunday_midday  %}<li>Dimanche midi</li>{% endif %}
+					{% if settings.meal_sunday_evening and user.profile.meal_sunday_evening  %}<li>Dimanche soir (à emporter)</li>{% endif %}
+				</ul>
+				</p>
+			{% else %}
+			<p>Vous n'êtes inscrit à aucun repas.
+				{% if settings.hosting_school == "U" %}
+					Au besoin, il y a pas mal de commerce, restaurants et 
+					fast-food dans le quartier. Nous recommandons particulièrement la 
+					<a href="https://www.openstreetmap.org/#map=17/48.842252/2.349787">rue Mouffetard</a> 
+					à 3 minutes à pied. N'hésitez pas à demander aux ulmites les bonnes adresses&nbsp;!
+				{% endif	 %}
+			</p>
+			{% endif %}
+		{% endif %}
 
 		<h3>Hébergement</h3>
 

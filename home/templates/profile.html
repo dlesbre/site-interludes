@@ -30,7 +30,7 @@
 		<li>{% if user.profile.sleeps %}Inscrit pour dormir sur place{% else %}Non inscrit pour dormir sur place{% endif %}</li>
 		{% comment "pas de tasse" %}<li>{% if user.profile.mug %}Commandse une tasse{% else %}Ne commande pas de tasse{% endif %}</li>{% endcomment%}
 		{% if user.profile.nb_meals != 0 %}
-		<li>Inscrit à {{ user.profile.nb_meals }} repas :</li>
+		<li>Inscrit à {{ user.profile.nb_meals }} repas&nbsp;:</li>
 			<ul>
 				{% if settings.meal_friday_evening and user.profile.meal_friday_evening %}<li>Vendredi soir</li>{% endif %}
 				{% if settings.meal_saturday_morning and user.profile.meal_saturday_morning  %}<li>Petit dej' du samedi</li>{% endif %}
@@ -41,7 +41,7 @@
 				{% if settings.meal_sunday_evening and user.profile.meal_sunday_evening  %}<li>Dimanche soir (à emporter)</li>{% endif %}
 			</ul>
 		{% else %}
-		<li>Inscrit à aucun repas</li>
+		<li>Inscrit à aucun repas.</li>
 		{% endif %}
 		{% if settings.option1_enable or settings.option2_enable or settings.option3_enable or settings.option4_enable or settings.option5_enable %} 
 		{% if user.profile.option1 or user.profile.option2 or user.profile.option3 or user.profile.option4 or user.profile.option5 %} 
