@@ -4,6 +4,7 @@
 
 ## Version 3.0.6 - 2025-01-21
 
+- Fix mail sending not possible because of double-variable definition
 - Add option to disable meal registration
 - Add option to disable sleep registration
 - Fix wrong id being exported in participants.csv
