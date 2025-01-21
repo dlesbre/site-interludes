@@ -484,6 +484,11 @@ class SiteSettings(SingletonModel):
         default=True,
         help_text="Permet de s'inscrire aux repas sur le formulaire d'inscription.",
     )
+    sleep_inscriptions_open = models.BooleanField(
+        "Ouvrir l'inscription à l'hébergement",
+        default=True,
+        help_text="Permet de s'inscrire à l'hébergement sur le formulaire d'inscription.",
+    )
     activity_submission_open = models.BooleanField(
         "Ouvrir l'ajout d'activité",
         default=False,

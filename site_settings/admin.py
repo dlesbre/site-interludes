@@ -99,6 +99,14 @@ class SiteSettingsAdmin(SingletonModelAdmin):
                     "inscriptions_open",
                     "activity_inscriptions_open",
                     ("inscriptions_start", "inscriptions_end"),
+                ],
+            },
+        ),
+        (
+            "Hébergement",
+            {
+                "fields": [
+                    "sleep_inscriptions_open",
                     "sleeper_link",
                     "sleep_host_link",
                 ]

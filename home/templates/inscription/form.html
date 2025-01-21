@@ -29,7 +29,7 @@
 
 		<p>Les menus sont disponibles sur la <a href="{% url 'home' %}#menus">page d'accueil</a>.
 		{% else %}
-			<p>Il est trop tard pour changez les inscriptions aux repas.</p>
+			<p>Il est trop tard pour changer les inscriptions aux repas.</p>
 
 			{% if user.profile.nb_meals != 0 %}
 			<p>Vous êtes inscrit à {{ user.profile.nb_meals }} repas :
@@ -57,6 +57,7 @@
 
 		<h3>Hébergement</h3>
 
+		{% if settings.sleep_inscriptions_open %}
 		<p>
 			Les conditions d'hébergements sont détaillés sur la 
 			<a href="{% url 'home' %}#hebergement">page d'accueil</a>.
@@ -79,6 +80,14 @@
 			héberger quelqu'un, vous pouvez également remplir 
 			<a href="{{ settings.sleeper_link }}">ce formulaire</a>. Un grand merci à vous&nbsp;!
 		</p>
+		{% endif %}
+		{% else %}
+		<p>
+			Il n'est plus possible de s'inscrire pour l'hébergement.
+			{% if user.profile.sleeps %}Vous êtes inscrit pour dormir sur place.
+			{% else %}Vous n'êtes pas inscrit pour dormir sur place.
+			{% endif %}
+		</p>	
 		{% endif %}
 
 		<h3>Tarif</h3>
