@@ -234,7 +234,7 @@ class ParticipantModelAdmin(ExportCsvMixin):
             },
         ),
     ]
-    list_display = ("user", "school", "is_registered", "comment", "cost")
+    list_display = ("user", "get_first_name", "get_last_name", "school", "is_registered", "comment", "cost")
     list_filter = (
         "school",
         "is_registered",
@@ -251,6 +251,16 @@ class ParticipantModelAdmin(ExportCsvMixin):
     )
     ordering = ("user",)
     list_per_page = 200
+
+    def get_first_name(self, obj: models.ParticipantModel) -> str:
+        return obj.user.first_name
+
+    get_first_name.short_description = "Prénom"  # type: ignore
+
+    def get_last_name(self, obj: models.ParticipantModel) -> str:
+        return obj.user.last_name
+
+    get_last_name.short_description = "Nom"  # type: ignore
 
 
 @admin.register(models.ActivityChoicesModel)
