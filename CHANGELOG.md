@@ -2,6 +2,10 @@
 
 # Change Log
 
+## Version 3.0.7 - 2025-02-03
+
+- Add first/last name to django admin participant list
+
 ## Version 3.0.6 - 2025-01-21
 
 - Fix mail sending not possible because of double-variable definition
