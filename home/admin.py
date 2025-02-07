@@ -246,7 +246,6 @@ class ParticipantModelAdmin(ExportCsvMixin):
         "meal_sunday_morning",
         "meal_sunday_midday",
         "meal_sunday_evening",
-        "nb_murder",
         "paid",
     )
     ordering = ("user",)
