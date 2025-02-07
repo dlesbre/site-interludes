@@ -2,6 +2,11 @@
 
 # Change Log
 
+## Version 3.0.8 - 2025-02-07
+
+- Fix clipper login disabled on registration close
+- remove filter on nb_murder from admin view
+
 ## Version 3.0.7 - 2025-02-03
 
 - Add first/last name to django admin participant list
