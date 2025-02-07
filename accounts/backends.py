@@ -10,6 +10,7 @@ from django.http import HttpRequest
 from django.utils.timezone import now
 
 from accounts.models import ClipperAccount, EmailUser
+from site_settings.models import SiteSettings
 
 
 def get_cas_client(request: HttpRequest) -> CASClient:
@@ -131,7 +132,14 @@ class ClipperCASBackend(BaseBackend):
                     return None
                 return user
             except EmailUser.DoesNotExist:
-                return self.create_user(cas_login, homedir, email, name)
+                settings = SiteSettings.load()
+                if settings.registrations_open:
+                    return self.create_user(cas_login, homedir, email, name)
+                messages.error(
+                    request,
+                    "La création de compte est désactivée. Impossible de se connecter avec un nouveau compte clipper.",
+                )
+                return None
 
     # Django boilerplate.
     def get_user(self, user_id) -> Optional[EmailUser]:
