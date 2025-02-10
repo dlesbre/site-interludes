@@ -3,7 +3,8 @@
 [![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2F)](https://interludes.ens.fr)
 [![forks](https://img.shields.io/badge/forks-5-blue)](#forks)
 
-Ce répo contient le code source du site des interludes. La version 2021 est en ligne à
+Ce répo contient le code source du site des interludes. Codé initialement pour les interludes 2021,
+il a été mis-à-jour et adapté pour les éditions suivantes. La dernière en date, 2025 est en ligne à
 [https://interludes.ens.fr](https://interludes.ens.fr). Il est disponible sur le
 [git interne de l'ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) et
 sur [github](https://github.com/dlesbre/site-interludes). Il est diffusé sous
