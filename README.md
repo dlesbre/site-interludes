@@ -52,7 +52,8 @@ Ce serveur a été repris pour plusieurs événements similaires :
 
 | Site Web                                                      | Code source                                                                                                                  | Notes                                                              | État                                                                                                                                           |
 | :------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Interludes 2021 Ulm](https://interludes.ens.fr/)             | [github](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | Version initiale, tag v1.2.8                                       | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)        |
+| [Interludes 2025 Ulm](https://interludes.ens.fr/)             | [github](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | tag v3.0.8                                       | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)        |
+| [Interludes 2021 Ulm](https://interludes.ens.fr/static/archive/2021/index.html)             | [github](https://github.com/dlesbre/site-interludes/) ou [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/site-interludes) | Version initiale, tag v1.2.8                                       | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.ens.fr%2Fstatic%2Farchive%2F2021%2Findex.html&down_message=hors%20ligne&label&up_message=en%20ligne)        |
 | [48h des jeux](https://48hdesjeux.cof.ens.fr/)                | [gitlab ENS Ulm](https://git.eleves.ens.fr/dlesbre/48h-des-jeux)                                                             | Rentrée ludique d'Ulm 2021 (48h-v2.3.1), 2022 et 2023 (48h-v3.0.1) | ![website](https://img.shields.io/website?url=https%3A%2F%2F48hdesjeux.cof.ens.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne)    |
 | [Interludes 2022 Lyon](https://interludes.assos-ensl.fr/)     | [github](https://github.com/Pantoofle/site-interludes)                                                                       | Branche Lyon-2022, tag v2.1.0                                      | ![website](https://img.shields.io/website?url=https%3A%2F%2Finterludes.assos-ensl.fr%2F&down_message=hors%20ligne&label&up_message=en%20ligne) |
 | [KWEI](https://kwei.crans.org/)                               | [gitlab Paris Saclay](https://gitlab.crans.org/aeltheos/site-kwei)                                                           | Rentrée ludique Paris-Saclay 2022 et 2023                          | ![website](https://img.shields.io/website?url=https%3A%2F%2Fkwei.crans.org%2F&down_message=hors%20ligne&label&up_message=en%20ligne)           |
@@ -270,13 +271,13 @@ A.K.A. la liste des trucs utiles que je n'ai pas eu le temps d'ajouter :
   chaque petit changement)~~ fait
 - Réutiliser les comptes élèves pour éviter aux gens de devoir créer des
   comptes. À Ulm, nous avons un système de compte clipper fourni par l'admin
-  qu'on réutilise dans quasi tous les sites étudiants. Je peux facilement le
-  rajouter à ce site, mais je ne sais pas comment faire pour les autres écoles.
+  qu'on réutilise dans quasi tous les sites étudiants. Je ~~peux facilement le
+  rajouter à ce site~~ fait, mais je ne sais pas comment faire pour les autres écoles.
 - Rajouter des tests unitaires...
 
 ## Liens divers
 
-- [Le site des interludes 2021](https://interludes.ens.fr)
+- [Le site des interludes 2021 et 2025](https://interludes.ens.fr) (contient aussi en archive les vielles version du site)
 - [Le site des interludes 2022](https://interludes.assos-ensl.fr/)
 - [le site des interludes 2023](https://interludes.crans.org/)
 - [Le github de l'algorithme de répartition](https://github.com/Imakoala/InterludesMatchings)
